@@ -1,0 +1,33 @@
+<%= form_for @daily, :remote => true do |f| %>
+  <% if @daily.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@daily.errors.count, "error") %> prohibited this daily from being saved:</h2>
+
+      <ul>
+      <% @daily.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.hidden_field :d, :value => Date.today %>
+  </div>
+  <div class="field">
+    <%= f.check_box :kettlebell %> <%= f.label :kettlebell %><br />
+  </div>
+  <div class="field">
+    <%= f.check_box :abs %> <%= f.label :abs %><br />
+  </div>
+  <div class="field">
+    <%= f.check_box :psoas %> <%= f.label :psoas %><br />  
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes, :rows => 3 %>
+  </div>
+  <div class="actions">
+    <%= f.submit :value => "Save" %>
+  </div>
+<% end %>

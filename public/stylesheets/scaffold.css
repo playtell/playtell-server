@@ -1,0 +1,247 @@
+
+/* DEFAULT
+-------------------------------------------------------------------------  */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, p,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent;
+}
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+:focus {
+    outline: 0;
+}
+
+ins {
+    text-decoration: none;
+}
+del {
+    text-decoration: line-through;
+}
+
+form, fieldset, label, input, .checkbox, textarea, select, option, form div {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* LAYOUT
+-------------------------------------------------------------------------  */
+body {
+    font: 10px Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    background-color: #FFF;
+    color: #333;
+}
+
+a, a:visited {
+    color: #539AB7;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #539AB7;
+}
+
+.mainContainer {
+    width: 650px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#nav {
+    overflow: hidden;
+    margin: 10px 0;
+    padding-top: 50px;
+    height: 60px;
+    text-align: right;
+    font-size: 1.4em;
+}
+
+#nav .pageLogo { margin-top: -12px; }
+#nav .pageTab,
+#nav .pageTabSelected {
+    margin-left: 20px;
+}
+
+#nav .pageTabSelected a {
+    border-bottom: 5px solid #539AB7;
+    text-decoration: none;
+    padding-bottom: 7px;
+    color: #539AB7;
+}
+
+#nav .pageTab a {
+    border-bottom: 5px solid transparent;
+    text-decoration: none;
+    padding-bottom: 7px;
+    color: #777;
+}
+
+#nav .pageTab a:hover {
+    border-bottom: 5px solid #777;
+    color: #777;
+}
+
+#mainContent {
+    text-align: left;
+    padding: 5px 10px;
+    font-size: 1.3em;
+    font-weight: normal;
+    color: #555;
+}
+
+p { line-height: 1.4em; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 3.5em;
+    color: #539AB7;
+}
+
+h1.smaller {
+    margin: 20px 0 15px 0;
+    font-size: 2.5em;
+    color: #AAA;
+}
+
+h2 {
+    margin: 0;
+    padding: 20px 0 0 0;
+    border-top: 3px solid #CCC;
+    font-size: 22px;
+    color: #AAA;
+}
+
+h2.name { border-top: 0; }
+
+h3 {
+    margin: 15px 0 0 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: normal;
+    color: #539AB7;
+}
+
+h3.team-position:hover {
+    cursor: pointer;
+}
+
+h4 {
+    padding: 5px 0;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+ul { 
+    display: block;
+    margin-bottom: 15px;
+}
+
+ul li {
+    list-style-type: disc;
+    margin: 5px 5px 5px 15px;
+}
+
+li { line-height: 1.5em; }
+
+.section {
+    margin: 0px 0px 15px 0px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.mini {
+    font-size: 15px;
+}
+
+#labsImage {
+	margin-left: 20px;
+}
+
+/* MISC
+-------------------------------------------------------------------*/
+.emphasis { 
+    font-weight: bold;
+    color: #539AB7;
+}
+
+.smallcaps { 
+    font-variant: small-caps;
+    font-weight: bold;
+}
+
+.bold { font-weight: bold; }
+.fl { float: left; }
+.fr { float: right; }
+.first { color: #539AB7; }
+.last { color: #777; }
+.role { font-size: 14px; }
+
+
+/* SCAFFOLD 
+-------------------------------------------------------------------------  */
+
+#notice {
+  color: green;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+

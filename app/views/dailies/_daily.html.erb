@@ -1,0 +1,9 @@
+<%= div_for daily do %>
+    <div>Kettleball swings: <%= daily.kettlebell %></div>
+    <div>Ab workout: <%= daily.abs %></div>
+    <div>Psoas stretches: <%= daily.psoas %></div>
+    <% unless daily.notes.empty? %>
+		<div>Notes: <%= daily.notes %></div>
+	<% end %>
+    <div><%= link_to 'Edit', edit_daily_path(daily) %> <%= link_to 'Destroy', daily, :method => :delete, :remote => true %></div>
+<% end %>

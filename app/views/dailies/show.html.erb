@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>D:</b>
+  <%= @daily.d %>
+</p>
+
+<p>
+  <b>Kettlebell:</b>
+  <%= @daily.kettlebell %>
+</p>
+
+<p>
+  <b>Abs:</b>
+  <%= @daily.abs %>
+</p>
+
+<p>
+  <b>Psoas:</b>
+  <%= @daily.psoas %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @daily.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_daily_path(@daily) %> |
+<%= link_to 'Back', dailies_path %>
