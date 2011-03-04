@@ -1,4 +1,6 @@
 Semiralabs::Application.routes.draw do
+  resources :dailies
+  match 'games' => 'games#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
