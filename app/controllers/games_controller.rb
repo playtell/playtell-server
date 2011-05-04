@@ -3,7 +3,7 @@ class GamesController < ApplicationController
   @@opentok = nil
     
   def index
-    primo = User.find(1)
+    primo = User.first
     if primo.tokbox_session_id.blank?
       session = @@opentok.create_session '127.0.0.1'  
       @tok_session_id = session.session_id
@@ -15,7 +15,7 @@ class GamesController < ApplicationController
   end
   
   def primoRagatzo
-    primo = User.find(1)
+    primo = User.first
     @tok_session_id = primo.tokbox_session_id
     @tok_token = @@opentok.generate_token :session_id => @tok_session_id
     
