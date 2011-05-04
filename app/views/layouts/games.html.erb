@@ -3,27 +3,30 @@
 <head>
   <title>Semiralabs</title>
   <%= stylesheet_link_tag :all %>
+  <script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script>  
   <%= javascript_include_tag :defaults %>
-  <script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script>
-
-  <script type="text/javascript" charset="utf-8"> 
-      var apiKey = 335312; 
+  <script type="text/javascript">
       var sessionId = "<%= @tok_session_id %>"; 
       var token = "<%= @tok_token %>"; 
+	  var apiKey = "<%= @api_key %>";
 			var session;
 			var publisher;
+
+			var PUBLISHER_WIDTH = 440;
+			var PUBLISHER_HEIGHT = 330;
+
 			var subscribers = {};
 
 			// Un-comment either of the following to set automatic logging and exception handling.
 			// See the exceptionHandler() method below.
 			// TB.setLogLevel(TB.DEBUG);
 			// TB.addEventListener("exception", exceptionHandler);
-			
+
 			if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
 				alert('Minimum System Requirements not met!');
 			} else {
 				session = TB.initSession(sessionId);	// Initialize session
-		
+
 				// Add event listeners to the session
 				session.addEventListener('sessionConnected', sessionConnectedHandler);
 				session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
@@ -45,7 +48,7 @@
 			function connect() {
 				session.connect(apiKey, token);
 			}
-			
+
 			function disconnect() {
 				session.disconnect();
 				hide('disconnectLink');
@@ -59,7 +62,8 @@
 					var div = document.createElement('div');			// Create a replacement div for the publisher
 					div.setAttribute('id', 'opentok_publisher');
 					parentDiv.appendChild(div);
-					publisher = session.publish('opentok_publisher'); 	// Pass the replacement div id to the publish method
+					var publisherProps = {width: PUBLISHER_WIDTH, height: PUBLISHER_HEIGHT, microphoneEnabled: true};
+					publisher = session.publish('opentok_publisher', publisherProps); 	// Pass the replacement div id to the publish method
 					show('unpublishLink');
 					hide('publishLink');
 				}
@@ -74,7 +78,7 @@
 				show('publishLink');
 				hide('unpublishLink');
 			}
-			
+
 			//--------------------------------------
 			//  OPENTOK EVENT HANDLERS
 			//--------------------------------------
@@ -105,7 +109,7 @@
 				// This signals that the user was disconnected from the Session. Any subscribers and publishers
 				// will automatically be removed. This default behaviour can be prevented using event.preventDefault()
 				publisher = null;
-				
+
 				show('connectLink');
 				hide('disconnectLink');
 				hide('publishLink');
@@ -119,7 +123,7 @@
 			function connectionCreatedHandler(event) {
 				// This signals new connections have been created.
 			}
-			
+
 			/* 
 			If you un-comment the call to TB.setEventLister(), above, OpenTok 
 			calls the exceptionHandler() method when exception events occur. 
@@ -130,7 +134,7 @@
 			function exceptionHandler(event) {
 				alert("Exception: " + event.code + "::" + event.message);
 			}
-			
+
 			//--------------------------------------
 			//  HELPER METHODS
 			//--------------------------------------
@@ -141,23 +145,26 @@
 				if (stream.connection.connectionId == session.connection.connectionId) {
 					return;
 				}
+
+				var parentDiv = document.getElementById("famCamera");
+
 				var div = document.createElement('div');	// Create a replacement div for the subscriber
 				var divId = stream.streamId;	// Give the replacement div the id of the stream as its id
 				div.setAttribute('id', divId);			
-				document.body.appendChild(div);
+				parentDiv.appendChild(div);
+//				document.body.appendChild(div);
 				subscribers[stream.streamId] = session.subscribe(stream, divId);
 			}
 
 			function show(id) {
-				document.getElementById(id).style.display = 'block';
+				document.getElementById(id).style.display = 'inline';
 			}
 
 			function hide(id) {
 				document.getElementById(id).style.display = 'none';
 			}
+  </script>
 
-		</script>
-  
   <%= csrf_meta_tag %>
 
 </head>
