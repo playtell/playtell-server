@@ -12,8 +12,11 @@
 			var session;
 			var publisher;
 
-			var PUBLISHER_WIDTH = 425;
-			var PUBLISHER_HEIGHT = 330;
+			var PUBLISHER_WIDTH = 490;
+			var PUBLISHER_HEIGHT = 450;
+			
+			var SUBSCRIBER_WIDTH = 490;
+			var SUBSCRIBER_HEIGHT = 220;
 
 			var subscribers = {};
 
@@ -34,6 +37,8 @@
 				session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
 				session.addEventListener('streamCreated', streamCreatedHandler);
 				session.addEventListener('streamDestroyed', streamDestroyedHandler);
+				
+				session.connect(apiKey, token);
 			}
 
 			//--------------------------------------
@@ -152,8 +157,8 @@
 				var divId = stream.streamId;	// Give the replacement div the id of the stream as its id
 				div.setAttribute('id', divId);			
 				parentDiv.appendChild(div);
-//				document.body.appendChild(div);
-				subscribers[stream.streamId] = session.subscribe(stream, divId);
+				var subscriberProps = {width: SUBSCRIBER_HEIGHT, height: SUBSCRIBER_HEIGHT, microphoneEnabled: true};
+				subscribers[stream.streamId] = session.subscribe(stream, divId, subscriberProps);
 			}
 
 			function show(id) {
