@@ -24,12 +24,6 @@ class GamesController < ApplicationController
 #      format.js
     end
   end
-  
-  def altroRagatzo
-    primo = User.find(1)
-    @tok_session_id = primo.tokbox_session_id
-    @tok_token = @@opentok.generate_token :session_id => @tok_session_id
-  end
 
 protected
   def initOpenTok

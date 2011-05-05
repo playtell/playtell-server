@@ -12,7 +12,7 @@
 			var session;
 			var publisher;
 
-			var PUBLISHER_WIDTH = 440;
+			var PUBLISHER_WIDTH = 425;
 			var PUBLISHER_HEIGHT = 330;
 
 			var subscribers = {};
@@ -170,6 +170,10 @@
 </head>
 <body>
 <div class="mainContainer">
+	<div id="header">
+		<h1 id="topHeader">Ragatzi Labs</h1>
+		<%= image_tag "mad_scientist.gif", :id => "scientistImage" %>
+	</div>
 	<%= yield %>
 </div>
 </body>

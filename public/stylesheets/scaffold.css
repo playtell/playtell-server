@@ -49,31 +49,46 @@ form, fieldset, label, input, .checkbox, textarea, select, option, form div {
     padding: 0;
 }
 
-
-/* LAYOUT
+/* SCAFFOLD 
 -------------------------------------------------------------------------  */
-body {
-    font: 10px Arial, Helvetica, sans-serif;
-    font-weight: normal;
-    background-color: #FFF;
-    color: #333;
+
+#notice {
+  color: green;
 }
 
-a, a:visited {
-    color: #539AB7;
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
 }
 
-a:hover {
-    text-decoration: underline;
-    color: #539AB7;
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
 }
 
-.mainContainer {
-    width: 800px;
-    margin: 0 auto;
-    padding: 0;
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
 }
 
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+/* NAV
+-------------------------------------------------------------------------  */
 #nav {
     overflow: hidden;
     margin: 10px 0;
@@ -108,12 +123,28 @@ a:hover {
     color: #777;
 }
 
-#mainContent {
-    text-align: left;
-    padding: 5px 10px;
-    font-size: 1.3em;
+/* LAYOUT
+-------------------------------------------------------------------------  */
+body {
+    font: 10px Arial, Helvetica, sans-serif;
     font-weight: normal;
-    color: #555;
+    background-color: #FFF;
+    color: #333;
+}
+
+a, a:visited {
+    color: #539AB7;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #539AB7;
+}
+
+.mainContainer {
+    width: 900px;
+    margin: 0 auto;
+    padding: 0;
 }
 
 p { line-height: 1.4em; }
@@ -123,8 +154,9 @@ a:hover { text-decoration: underline; }
 h1 {
     margin: 0;
     padding: 0;
-    font-size: 3.5em;
-    color: #539AB7;
+    color: blue;
+	font: 3.5em Courier;
+	font-weight: bold;
 }
 
 h1.smaller {
@@ -206,42 +238,52 @@ li { line-height: 1.5em; }
 .last { color: #777; }
 .role { font-size: 14px; }
 
+clear { clear: both; }
 
-/* SCAFFOLD 
--------------------------------------------------------------------------  */
-
-#notice {
-  color: green;
+/* RAGATZI --------------------------------------------------------- */
+h1#topHeader {
+	display: inline;
 }
 
-.field_with_errors {
-  padding: 2px;
-  background-color: red;
-  display: table;
+img#scientistImage {
+	width: 50px;
+	margin-bottom: -5px;
 }
 
-#error_explanation {
-  width: 450px;
-  border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 0;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+#connectLink {
+	display: none;
+}
+#disconnectLink {
+	display: none;
+}
+#publishLink {
+	display: none;
+}
+#unpublishLink {
+	display: none;
 }
 
-#error_explanation h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: -7px;
-  margin-bottom: 0px;
-  background-color: #c00;
-  color: #fff;
+#mainContent {
+    padding: 5px 10px;
+	text-align: left;
+    font-size: 1.3em;
+    font-weight: normal;
+    color: #555;
+	overflow: hidden;
+}
+	
+#vidContent {
+	width: 425px;	
+	border: 2px solid black;
+	float: left;
 }
 
-#error_explanation ul li {
-  font-size: 12px;
-  list-style: square;
+#activityContent {
+	width: 425px;	
+	border: 2px solid green;
+	float: left;
 }
+#bookImage {}
+#bookText {}
+#bookNav {}
 

@@ -1,0 +1,20 @@
+
+#connectLink {
+	display: hidden;
+}
+#disconnectLink {
+	display: hidden;
+}
+#publishLink {
+	display: hidden;
+}
+#unpublishLink {
+	display: hidden;
+}
+	
+#mainContent {}
+#vidContent {}
+#activityContent {}
+#bookImage {}
+#bookText {}
+#bookNav {}
