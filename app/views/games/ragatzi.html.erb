@@ -6,21 +6,15 @@
 		<a href="#" onclick="javascript:publish()" id="publishLink">Publish</a>
 		<a href="#" onclick="javascript:unpublish()" id="unpublishLink">Unpublish</a>
 	</div>
-	<div class="clear"></div>
-	<div id="vidContent">
-		<div id="activityContent">
-			semira
+	<div id="videos">
+		<div class="activity-content">
 			<%= render :partial => "book" %>
 		</div>
-		
-		<div id="myCamera" class="publisherContainer">
-		</div>
-		<div id="famCamera">
+		<div class="video-content">
+			<div id="famCamera"></div>
+			<div id="myCamera" class="publisherContainer"></div>
 		</div>
 	</div>
 </div>
-<script>
-	show('connectLink');
-</script>
 
 

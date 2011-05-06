@@ -252,7 +252,7 @@ img#scientistImage {
 }
 
 #mainContent {
-    padding: 5px 10px;
+    padding: 5px auto;
 	text-align: left;
     font-size: 1.3em;
     font-weight: normal;
@@ -260,20 +260,26 @@ img#scientistImage {
 	overflow: hidden;
 }
 	
-#vidContent {
+#videos {
 	position: relative;
 	width: 1000px;	
-	background: red;
 }
 
-#activityContent {
+.video-content {
+	width: 500px;
+}
+
+.activity-content {
 	position: absolute;
 	left: 500px;
 	top: 0px;
 	bottom: 0px;
 	width: 500px;	
-	padding-left: 10px;
-	background: blue;
+}
+
+#myCamera {
+	margin: 0 auto;
+	width: 170px;
 }
 
 #connectLink {
@@ -289,7 +295,22 @@ img#scientistImage {
 	display: none;
 }
 
-#bookImage {}
-#bookText {}
-#bookNav {}
+.activity-content .book-image {
+	text-align: center;
+}
+.activity-content .book-text {
+	padding: auto 12px;
+	text-align: justify;
+	font-size: 2em;
+}
+.activity-content .book-nav {
+	padding: 5px 10px 5px 10px;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.book-image img {
+	height: 300px;
+}
+
 
