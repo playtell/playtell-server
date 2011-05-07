@@ -19,6 +19,8 @@ class GamesController < ApplicationController
     @tok_session_id = primo.tokbox_session_id
     @tok_token = @@opentok.generate_token :session_id => @tok_session_id
     
+    getBook
+    
     respond_to do |format|
       format.html { render("ragatzi.html") }
 #      format.js
@@ -32,6 +34,10 @@ protected
       @@opentok.api_url = 'https://staging.tokbox.com/hl'
     end
     @api_key = "4f5e85254a3c12ae46a8fe32ba01ff8c8008e55d"
+  end
+  
+  def getBook
+    @book = Book.where(:title => "Little Red Riding Hood").first
   end
 
 end

@@ -1,9 +1,44 @@
-<div class="book-image">
-	<%= image_tag "mad_scientist.gif" %>
+<% @book.pages.each do |page| %>
+<div id= "<%= "page_"+page.page_num.to_s %>" class="hidden">
+	<div class="book-image">
+		<%= image_tag getPageImageFilePath(@book.title, page.page_num.to_s) %>
+	</div>
+	<div class="book-text">
+		<%= page.page_text %> 
+	</div>
 </div>
-<div class="book-text">
-	There once was a mad scientist named Max. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget lacus elit. Integer ac ligula eu dui ullamcorper consequat. Etiam bibendum, quam a blandit pharetra, sapien mauris laoreet libero, id venenatis metus nulla id erat. 
-</div>
+<% end %>
+
 <div class="book-nav">
-	<%= link_to "Previous", "#" %>  |  Page 1  |  <%= link_to "Next", "#" %>
+	<%= link_to  "Previous", "#", :id => "prev-page" %>  |  
+	Page <span id="page-num"><%= @book.pages.first.page_num %></span>  |  
+	<%= link_to "Next", "#", :id => "next-page" %>
 </div>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		show("page_1");
+
+		$("#next-page").click(function() {
+			var currentPage = getCurrentPage();
+			var nextPage = currentPage+1
+			hide("page_"+currentPage);
+			show("page_"+nextPage);
+			$("#page-num").html(nextPage); 
+		});
+
+		$("#prev-page").click(function() {
+			var currentPage = getCurrentPage();
+			var prevPage = currentPage-1
+			hide("page_"+currentPage);
+			show("page_"+prevPage);
+			$("#page-num").html(prevPage); 
+		});
+
+	});	
+	
+	function getCurrentPage () {
+		return parseInt($("#page-num").html(), 10)
+	}
+
+</script>

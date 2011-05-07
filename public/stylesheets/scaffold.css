@@ -257,7 +257,6 @@ img#scientistImage {
     font-size: 1.3em;
     font-weight: normal;
     color: #555;
-	overflow: hidden;
 }
 	
 #videos {
@@ -275,6 +274,10 @@ img#scientistImage {
 	top: 0px;
 	bottom: 0px;
 	width: 500px;	
+}
+
+#no-fam img {
+	width: 400px;
 }
 
 #myCamera {
@@ -301,7 +304,7 @@ img#scientistImage {
 .activity-content .book-text {
 	padding: auto 12px;
 	text-align: justify;
-	font-size: 2em;
+	font-size: 1.8em;
 }
 .activity-content .book-nav {
 	padding: 5px 10px 5px 10px;
@@ -311,6 +314,10 @@ img#scientistImage {
 
 .book-image img {
 	height: 300px;
+}
+
+.hidden {
+	display: none;
 }
 
 
