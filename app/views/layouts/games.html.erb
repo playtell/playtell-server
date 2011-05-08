@@ -39,6 +39,7 @@
 				session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
 				session.addEventListener('streamCreated', streamCreatedHandler);
 				session.addEventListener('streamDestroyed', streamDestroyedHandler);
+				session.addEventListener('signalReceived', signalReceivedHandler);
 				
 				session.connect(apiKey, token);
 			}
@@ -141,6 +142,10 @@
 			function exceptionHandler(event) {
 				alert("Exception: " + event.code + "::" + event.message);
 			}
+			
+			function signalReceivedHandler (event) {
+				//alert ("Signal received, biyatch! Event target: "+event.target.toString())
+			}
 
 			//--------------------------------------
 			//  HELPER METHODS
@@ -169,6 +174,37 @@
 
 			function hide(id) {
 				document.getElementById(id).style.display = 'none';
+			}
+			
+			//--------------------------------------
+			//  BOOK METHODS
+			//--------------------------------------
+			
+			$(document).ready(function() {
+				show("page_1");
+
+				$("#next-page").click(function() {
+					var currentPage = getCurrentPage();
+					var nextPage = currentPage+1
+					hide("page_"+currentPage);
+					show("page_"+nextPage);
+					$("#page-num").html(nextPage); 
+					
+					session.signal()
+				});
+
+				$("#prev-page").click(function() {
+					var currentPage = getCurrentPage();
+					var prevPage = currentPage-1
+					hide("page_"+currentPage);
+					show("page_"+prevPage);
+					$("#page-num").html(prevPage); 
+				});
+
+			});	
+
+			function getCurrentPage () {
+				return parseInt($("#page-num").html(), 10)
 			}
 
   </script>

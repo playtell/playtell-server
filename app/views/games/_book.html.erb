@@ -14,31 +14,3 @@
 	Page <span id="page-num"><%= @book.pages.first.page_num %></span>  |  
 	<%= link_to "Next", "#", :id => "next-page" %>
 </div>
-<script type="text/javascript">
-
-	$(document).ready(function() {
-		show("page_1");
-
-		$("#next-page").click(function() {
-			var currentPage = getCurrentPage();
-			var nextPage = currentPage+1
-			hide("page_"+currentPage);
-			show("page_"+nextPage);
-			$("#page-num").html(nextPage); 
-		});
-
-		$("#prev-page").click(function() {
-			var currentPage = getCurrentPage();
-			var prevPage = currentPage-1
-			hide("page_"+currentPage);
-			show("page_"+prevPage);
-			$("#page-num").html(prevPage); 
-		});
-
-	});	
-	
-	function getCurrentPage () {
-		return parseInt($("#page-num").html(), 10)
-	}
-
-</script>
