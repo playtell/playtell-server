@@ -96,6 +96,7 @@
 				for (var i = 0; i < event.streams.length; i++) {
 					addStream(event.streams[i]);
 				}
+				show('connection-status');
 				show('disconnectLink');
 				show('publishLink');
 				hide('connectLink');
@@ -119,6 +120,7 @@
 				publisher = null;
 
 				show('connectLink');
+				hide('connection-status')
 				hide('disconnectLink');
 				hide('publishLink');
 				hide('unpublishLink');
@@ -182,11 +184,11 @@
 			}
 			
 			function showButton(id) {
-				$("#"+id).toggleClass('hidden', false)	
+				$("#"+id).removeAttr('disabled')	
 			}
 			
 			function hideButton(id) {
-				
+				$("#"+id).attr('disabled', 'disabled')
 			}
 			
 			//--------------------------------------
@@ -232,10 +234,10 @@
 			
 			function updateBookNavLinks(currentPage) {
 				if (currentPage == 1) {
-					hide("prev-page")
+					hideButton("prev-page")
 				}
 				else if (currentPage == 2) {
-					show("prev-page")
+					showButton("prev-page")
 				}
 				// TODO: hide 'next' link when currentPage==lastPage
 			}
