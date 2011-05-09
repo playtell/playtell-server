@@ -222,7 +222,6 @@ li { line-height: 1.5em; }
 
 .smallcaps { 
     font-variant: small-caps;
-    font-weight: bold;
 }
 
 .bold { font-weight: bold; }
@@ -285,6 +284,7 @@ img#scientistImage {
 	width: 170px;
 }
 
+/*
 #connectLink {
 	display: none;
 }
@@ -297,6 +297,7 @@ img#scientistImage {
 #unpublishLink {
 	display: none;
 }
+*/
 
 .activity-content .book-image {
 	text-align: center;
@@ -312,12 +313,20 @@ img#scientistImage {
 	font-size: 1.5em;
 }
 
+.page-num-text {
+	font-size: 14px;
+}
+
 .book-image img {
 	height: 300px;
 }
 
 .hidden {
 	display: none;
+}
+
+.inline {
+	display: inline;
 }
 
 

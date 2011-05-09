@@ -10,7 +10,7 @@
 <% end %>
 
 <div class="book-nav">
-	<%= link_to  "Previous", "#", :id => "prev-page" %>  |  
-	Page <span id="page-num"><%= @book.pages.first.page_num %></span>  |  
-	<%= link_to "Next", "#", :id => "next-page" %>
+	<button class="default" id="prev-page">Previous</button> 
+	<span class="page-num-text">Page <span id="page-num"><%= @book.pages.first.page_num %></span></span>  
+	<button class="default" id="next-page">Next</button>
 </div>

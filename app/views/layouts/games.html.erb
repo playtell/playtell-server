@@ -144,7 +144,11 @@
 			}
 			
 			function signalReceivedHandler (event) {
-				//alert ("Signal received, biyatch! Event target: "+event.target.toString())
+				if (event.fromConnection.connectionId != session.connection.connectionId) {
+					//alert ("Signal received from altro ragatzo! Event target: "+event.target.toString())
+					updatePage("next")
+					// TODO: update this to conditionally call updatePage("prev") when appropriate
+				}
 			}
 
 			//--------------------------------------
@@ -169,11 +173,20 @@
 			}
 
 			function show(id) {
-				document.getElementById(id).style.display = 'inline';
+				$("#"+id).toggleClass('hidden', false)
 			}
 
 			function hide(id) {
-				document.getElementById(id).style.display = 'none';
+				$("#"+id).toggleClass('hidden', true)
+				
+			}
+			
+			function showButton(id) {
+				$("#"+id).toggleClass('hidden', false)	
+			}
+			
+			function hideButton(id) {
+				
 			}
 			
 			//--------------------------------------
@@ -181,24 +194,18 @@
 			//--------------------------------------
 			
 			$(document).ready(function() {
-				show("page_1");
+				var currentPage = 1; //TODO: update this once currentPage is in a cookie
+				show("page_"+currentPage);
+				updateBookNavLinks(currentPage);
 
 				$("#next-page").click(function() {
-					var currentPage = getCurrentPage();
-					var nextPage = currentPage+1
-					hide("page_"+currentPage);
-					show("page_"+nextPage);
-					$("#page-num").html(nextPage); 
-					
+					updatePage("next")
 					session.signal()
 				});
 
 				$("#prev-page").click(function() {
-					var currentPage = getCurrentPage();
-					var prevPage = currentPage-1
-					hide("page_"+currentPage);
-					show("page_"+prevPage);
-					$("#page-num").html(prevPage); 
+					updatePage("previous")
+					session.signal()
 				});
 
 			});	
@@ -206,6 +213,33 @@
 			function getCurrentPage () {
 				return parseInt($("#page-num").html(), 10)
 			}
+			
+			function updatePage (direction) {
+				var currentPage = getCurrentPage();
+				var newPage;
+				
+				if (direction == "next") {
+					newPage = currentPage+1
+				}
+				else if (direction == "previous") {
+					newPage = currentPage-1
+				}
+				hide("page_"+currentPage);
+				show("page_"+newPage);
+				$("#page-num").html(newPage);
+				updateBookNavLinks(newPage)
+			}
+			
+			function updateBookNavLinks(currentPage) {
+				if (currentPage == 1) {
+					hide("prev-page")
+				}
+				else if (currentPage == 2) {
+					show("prev-page")
+				}
+				// TODO: hide 'next' link when currentPage==lastPage
+			}
+			
 
   </script>
 
