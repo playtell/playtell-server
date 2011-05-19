@@ -46,7 +46,7 @@ protected
   
   # sets up a new playdate session with a new opentok video session and a book to be read in the playdate. gets an opentok token for the user. currently hard-coded to use the 'semira' user and 'little red riding hood' book.   
   def createPlaydate
-    player = User.where('username LIKE "semira"').first
+    player = User.where("'username LIKE semira'").first
     getBook("Little Red Riding Hood")
 
     # set up the opentok video session and get a token for this user
@@ -62,7 +62,7 @@ protected
 
   # adds the user to the existing session (right now assumes only one session ever exists). currently hard-coded to use the 'aydin' user. gets an opentok token for the newly-added user.
   def joinPlaydate
-    player = User.where('username LIKE "aydin"').first
+    player = User.where("username LIKE 'aydin'").first
     @playdate = session[:playdate]
     @playdate.join(player.id)
     getBook(@playdate.title)
