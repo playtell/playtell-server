@@ -6,17 +6,16 @@ http://trac.webkit.org/browser/trunk/LayoutTests//fast/css
 
 html, body {
   height: 100%;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
+  /*overflow: hidden;*/
   -webkit-user-select: none;
 }
 
 body {
   font-family: Apex,"Helvetica Neue","HelveticaNeue","Lucida Grande", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 10px;
+  font-weight: normal;
   -webkit-font-smoothing: antialiased;
+  line-height: 1;
 }
 
 a {
@@ -101,7 +100,7 @@ select:active {
 }
 
 
-button {
+button, input[type="submit"] {
   margin: 5px;
   -khtml-appearance: none;
   -moz-appearance: none;
@@ -132,13 +131,15 @@ button {
   cursor: pointer;
 }
 button:hover,
-button:focus {
+button:focus,
+input[type="submit"].hover
+input[type="submit"].focus {
   box-shadow: 0 0 7px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5);
   -webkit-box-shadow: 0 0 7px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5);
   -moz-box-shadow: 0 0 7px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5);
 }
 
-button.default, button.blue {
+button.default, button.blue, input[type="submit"].default, input[type="submit"].blue {
   border-color: #7EA1B7 #5D7C8F #4C6B7E #5D7C8F;
   color: #1C4257;
   background: #B2D9F0;
@@ -153,6 +154,10 @@ button.default:focus, button.blue:focus {
   -webkit-box-shadow: 0 0 7px #53a6d5, inset 0 1px 0 rgba(255,255,255,0.5);
   -moz-box-shadow: 0 0 7px #53a6d5, inset 0 1px 0 rgba(255,255,255,0.5);
   -o-box-shadow: 0 0 7px #53a6d5, inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+button.big-button, input[type="submit"].big-button {
+	font-size: 1.5em;
 }
 
 button.red {
@@ -226,7 +231,7 @@ button.green:active:not(:disabled) {
   -moz-box-shadow: inset 0px -1px 1px #CDE2B2;
 }
 
-button:disabled, button:hover:disabled {
+button:disabled, button:hover:disabled, input[type="submit"]:disabled, input[type="submit"]:hover:disabled {
   opacity: 0.5;
   box-shadow: none;
   -webkit-box-shadow: none;

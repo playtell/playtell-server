@@ -1,3 +1,205 @@
+<% content_for :head do %>
+<%= javascript_include_tag 'playdate' %>
+<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script> 
+<script type="text/javascript">
+    var sessionId = "<%= @playdate.video_session_id %>"; 
+    var token = "<%= @tok_token %>"; 
+	var apiKey = "<%= @api_key %>";
+	var session;
+	var publisher;
+
+	var PUBLISHER_WIDTH = 142;
+	var PUBLISHER_HEIGHT = 119;
+			
+	var SUBSCRIBER_WIDTH = 450;
+	var SUBSCRIBER_HEIGHT = 390;
+
+	var subscribers = {};
+			
+			//--------------------------------------
+			//  LINK CLICK HANDLERS
+			//--------------------------------------
+
+			/* 
+			If testing the app from the desktop, be sure to check the Flash Player Global Security setting
+			to allow the page from communicating with SWF content loaded from the web. For more information,
+			see http://www.tokbox.com/opentok/build/tutorials/basictutorial.html#localTest
+			*/
+			function connect() {
+				session.connect(apiKey, token);
+			}
+
+			function disconnect() {
+				session.disconnect();
+				hide('disconnectLink');
+				hide('publishLink');
+				hide('unpublishLink');
+			}
+
+			function publish() {
+				if (!publisher) {
+					var parentDiv = document.getElementById("my-camera");
+					var div = document.createElement('div');			// Create a replacement div for the publisher
+					div.setAttribute('id', 'opentok_publisher');
+					parentDiv.appendChild(div);
+					var publisherProps = {width: PUBLISHER_WIDTH, height: PUBLISHER_HEIGHT, microphoneEnabled: true};
+					publisher = session.publish('opentok_publisher', publisherProps); 	// Pass the replacement div id to the publish method
+					show('unpublishLink');
+					hide('publishLink');
+				}
+			}
+
+			function unpublish() {
+				if (publisher) {
+					session.unpublish(publisher);
+				}
+				publisher = null;
+
+				show('publishLink');
+				hide('unpublishLink');
+			}
+
+			//--------------------------------------
+			//  OPENTOK EVENT HANDLERS
+			//--------------------------------------
+
+			function sessionConnectedHandler(event) {
+				// Subscribe to all streams currently in the Session
+				for (var i = 0; i < event.streams.length; i++) {
+					addStream(event.streams[i]);
+				}
+				
+				show('connection-status');
+				show('disconnectLink');
+				hide('connectLink');
+				publish();				
+			}
+
+			function streamCreatedHandler(event) {
+				// Subscribe to these newly created streams
+				for (var i = 0; i < event.streams.length; i++) {
+					addStream(event.streams[i]);
+				}
+			}
+
+			function streamDestroyedHandler(event) {
+				// This signals that a stream was destroyed. Any Subscribers will automatically be removed. 
+				// This default behaviour can be prevented using event.preventDefault()
+			}
+
+			function sessionDisconnectedHandler(event) {
+				// This signals that the user was disconnected from the Session. Any subscribers and publishers
+				// will automatically be removed. This default behaviour can be prevented using event.preventDefault()
+				publisher = null;
+
+				show('connectLink');
+				hide('connection-status')
+				hide('disconnectLink');
+				hide('publishLink');
+				hide('unpublishLink');
+			}
+
+			function connectionDestroyedHandler(event) {
+				// This signals that connections were destroyed
+			}
+
+			function connectionCreatedHandler(event) {
+				// This signals new connections have been created.
+			}
+
+			/* 
+			If you un-comment the call to TB.setEventLister(), above, OpenTok 
+			calls the exceptionHandler() method when exception events occur. 
+			You can modify this method to further process exception events.
+			If you un-comment the call to TB.setLogLevel(), above, OpenTok 
+			automatically displays exception event messages. 
+			*/
+			function exceptionHandler(event) {
+				alert("Exception: " + event.code + "::" + event.message);
+			}
+			
+			function signalReceivedHandler (event) {
+				if (event.fromConnection.connectionId != session.connection.connectionId) {
+					$.get("<%= update_playdate_path %>");
+				}
+			}
+
+			//--------------------------------------
+			//  HELPER METHODS
+			//--------------------------------------
+
+			function addStream(stream) {
+				// Check if this is the stream that I am publishing. If not
+				// we choose to subscribe to the stream.
+				if (stream.connection.connectionId == session.connection.connectionId) {
+					return;
+				}
+
+				var parentDiv = document.getElementById("fam-camera-holder");
+
+				var div = document.createElement('div');	// Create a replacement div for the subscriber
+				var divId = stream.streamId;	// Give the replacement div the id of the stream as its id
+				div.setAttribute('id', divId);			
+				parentDiv.appendChild(div);
+				var subscriberProps = {width: SUBSCRIBER_WIDTH, height: SUBSCRIBER_HEIGHT, microphoneEnabled: true};
+				subscribers[stream.streamId] = session.subscribe(stream, divId, subscriberProps);
+			}
+			
+			$(document).ready(function() {
+				var currentPage = "<%= @playdate.page_num %>"; 
+				show("page_"+currentPage);
+				updateBookNavLinks(currentPage);
+
+				$('#turn-page')
+					.bind('ajax:beforeSend', function() {
+						updatePage($('#page-direction').val());
+					})
+					.bind('ajax:success', function() {
+						//if (subscribers.length > 0) {
+							session.signal();
+						//}
+					});					
+
+					$('#next-page').click(function() {
+						$('#page-direction').val("next");
+						$('#new-page').val(getNewPage("next").toString());
+					});
+
+					$("#prev-page").click(function() {
+						$('#page-direction').val("previous");
+						$('#new-page').val(getNewPage("previous").toString());
+					});
+					
+					// Un-comment either of the following to set automatic logging and exception handling.
+					// See the exceptionHandler() method below.
+					// TB.setLogLevel(TB.DEBUG);
+					// TB.addEventListener("exception", exceptionHandler);
+
+					if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
+						alert('You do not have the minimum system requirements to use this service :(');
+					} else {
+						session = TB.initSession(sessionId);	// Initialize session
+
+						// Add event listeners to the session
+						session.addEventListener('sessionConnected', sessionConnectedHandler);
+						session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
+						session.addEventListener('connectionCreated', connectionCreatedHandler);
+						session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
+						session.addEventListener('streamCreated', streamCreatedHandler);
+						session.addEventListener('streamDestroyed', streamDestroyedHandler);
+						session.addEventListener('signalReceived', signalReceivedHandler);
+
+						connect();
+					}
+			});
+			
+</script>
+<% end %>
+
+<div id="header">
+	<h1 id="topHeader"><%= link_to "Ragatzi Labs", games_path %></h1>
+	<%= image_tag "mad_scientist.gif", :id => "scientistImage" %>
+</div>
 <div id="mainContent">
 	<div id="opentok_console"></div>
 	<div id="links">
@@ -12,11 +214,14 @@
 			<%= render :partial => "book" %>
 		</div>
 		<div class="video-content">
-			<div id="famCamera">
-				<div class="no-person">
+			<div id="fam-camera-wrapper">
+				<div id="fam-camera-holder"></div>
+			</div>
+			<div id="my-camera-wrapper">
+				<div id="my-camera-holder">
+					<div id="my-camera"></div>
 				</div>
 			</div>
-			<div id="myCamera" class="publisherContainer"></div>
 		</div>
 	</div>
 </div>

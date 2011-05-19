@@ -1,7 +1,9 @@
 Semiralabs::Application.routes.draw do
   resources :dailies
   match 'games' => 'games#index'
-  match 'ragatzi' => 'games#primoRagatzo'
+  match 'update_page' => 'games#updatePage'
+  match 'playdate' => 'games#playdate'
+  match 'update_playdate' => 'games#updatePlaydate'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

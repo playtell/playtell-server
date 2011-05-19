@@ -17,16 +17,15 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     vertical-align: baseline;
     background: transparent;
 }
-body {
-    line-height: 1;
-}
 
 ol, ul {
     list-style: none;
 }
+
 blockquote, q {
     quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
     content: '';
@@ -123,17 +122,11 @@ form, fieldset, label, input, .checkbox, textarea, select, option, form div {
     color: #777;
 }
 
-/* LAYOUT
+/* BASICS
 -------------------------------------------------------------------------  */
-body {
-    font: 10px Arial, Helvetica, sans-serif;
-    font-weight: normal;
-    background-color: #FFF;
-    color: #333;
-}
-
 a, a:visited {
     color: #539AB7;
+	text-decoration: none;
 }
 
 a:hover {
@@ -142,13 +135,11 @@ a:hover {
 }
 
 p { line-height: 1.4em; }
-a { text-decoration: none; }
-a:hover { text-decoration: underline; }
 
 h1 {
     margin: 0;
     padding: 0;
-    color: blue;
+    color: #b76f53; 
 	font-size: 3.5em;
 	font-weight: bold;
 }
@@ -167,18 +158,12 @@ h2 {
     color: #AAA;
 }
 
-h2.name { border-top: 0; }
-
 h3 {
     margin: 15px 0 0 0;
     padding: 0;
     font-size: 18px;
     font-weight: normal;
     color: #539AB7;
-}
-
-h3.team-position:hover {
-    cursor: pointer;
 }
 
 h4 {
@@ -205,14 +190,6 @@ li { line-height: 1.5em; }
     overflow: hidden;
 }
 
-.mini {
-    font-size: 15px;
-}
-
-#labsImage {
-	margin-left: 20px;
-}
-
 /* MISC
 -------------------------------------------------------------------*/
 .emphasis { 
@@ -227,18 +204,18 @@ li { line-height: 1.5em; }
 .bold { font-weight: bold; }
 .fl { float: left; }
 .fr { float: right; }
-.first { color: #539AB7; }
-.last { color: #777; }
-.role { font-size: 14px; }
+.hidden { display: none; }
+.inline { display: inline; }
+.clear { clear: both; }
 
-clear { clear: both; }
+.brown-color { color: #b76f53;}
 
 /* RAGATZI --------------------------------------------------------- */
 
 .mainContainer {
     width: 1000px;
     margin: 0 auto;
-    padding: 0;
+    padding: 0 auto;
 }
 
 h1#topHeader {
@@ -275,29 +252,34 @@ img#scientistImage {
 	width: 500px;	
 }
 
-#no-fam img {
-	width: 400px;
+#fam-camera-wrapper {
+	background: url("/images/vid_background.png") no-repeat bottom right;
+	margin: 10px 0px 0px 8px;
+	position: absolute;
+	width: 470px;
+	height: 410px;
 }
 
-#myCamera {
-	margin: 0 auto;
-	width: 170px;
+#fam-camera-holder {
+	margin: 5px 5px;
 }
 
-/*
-#connectLink {
-	display: none;
+#my-camera-wrapper {
+	text-align: center;
+	position: relative;
+	top: 400px;
 }
-#disconnectLink {
-	display: none;
+
+#my-camera-holder {
+	/*background: url("/images/blue_box_frame.png") no-repeat;*/
+	width: 225px;
+	height: 185px;
+	margin: 0px auto;
 }
-#publishLink {
-	display: none;
+
+#my-camera {
+	padding: 5px 5px;
 }
-#unpublishLink {
-	display: none;
-}
-*/
 
 .activity-content .book-image {
 	text-align: center;
@@ -305,7 +287,7 @@ img#scientistImage {
 .activity-content .book-text {
 	padding: auto 12px;
 	text-align: justify;
-	font-size: 1.8em;
+	font-size: 18px;
 }
 .activity-content .book-nav {
 	padding: 5px 10px 5px 10px;
@@ -321,12 +303,5 @@ img#scientistImage {
 	height: 300px;
 }
 
-.hidden {
-	display: none;
-}
-
-.inline {
-	display: inline;
-}
 
 
