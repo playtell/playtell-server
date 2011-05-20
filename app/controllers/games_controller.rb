@@ -34,6 +34,15 @@ class GamesController < ApplicationController
       format.js { render 'update_page' }
     end
   end
+  
+  def clearSession
+    if session[:playdate]
+      session[:playdate] = nil 
+    end
+    respond_to do |format|
+      format.js { render :nothing => true }
+    end
+  end
 
 protected
   def initOpenTok

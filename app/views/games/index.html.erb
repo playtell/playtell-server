@@ -8,4 +8,5 @@
 		<%= submit_tag 'Start a Video Playdate', :class => "default big-button", :id => "create-playdate" %>
 		<%= submit_tag 'Join a Video Playdate', :class => "default big-button", :id => "join-playdate" %>
 	<% end %>
+	<%= button_to 'Clear Session', clear_session_path, :remote => true %>
 </div>
