@@ -67,7 +67,7 @@ protected
     @playdate = Playdate.create(
       :player1_id => player1.id, 
       :player2_id => player2.id, 
-      :book_id => 5, 
+      :book_id => @book.id, 
       :page_num => 1, 
       :video_session_id => tok_session_id)
     session[:playdate] = @playdate.id
