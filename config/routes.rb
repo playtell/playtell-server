@@ -4,7 +4,7 @@ Semiralabs::Application.routes.draw do
   match 'update_page' => 'games#updatePage'
   match 'playdate' => 'games#playdate'
   match 'update_playdate' => 'games#updatePlaydate'
-  match 'clear_session' => 'games#clearSession'
+  match 'clear_playdate' => 'games#clearPlaydate'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

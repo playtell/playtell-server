@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517192322) do
+ActiveRecord::Schema.define(:version => 20110520234740) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(:version => 20110517192322) do
     t.integer  "book_id"
     t.integer  "page_num"
     t.text     "page_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "playdates", :force => true do |t|
+    t.integer  "player1_id"
+    t.integer  "player2_id"
+    t.integer  "book_id"
+    t.integer  "page_num"
+    t.string   "video_session_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
