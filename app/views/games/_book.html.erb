@@ -14,6 +14,7 @@
 		<%= hidden_field_tag 'title', @book.title %>
 		<%= hidden_field_tag 'newPage', 0, :id => "new-page" %>
 		<%= hidden_field_tag 'direction', 'next', :id => "page-direction" %>
+		
 		<%= submit_tag 'Previous', :class => "blue", :id => 'prev-page' %>
 		<span class="page-num-text brown-color">Page <span id="page-num"><%= @playdate.page_num %></span></span> 
 		<span class="hidden" id="total-pages"><%= @book.pages.count %></span>

@@ -15,7 +15,7 @@
 	var SUBSCRIBER_HEIGHT = 390;
 
 	var subscribers = {};
-			
+				
 			//--------------------------------------
 			//  LINK CLICK HANDLERS
 			//--------------------------------------
@@ -31,9 +31,9 @@
 
 			function disconnect() {
 				session.disconnect();
-				hide('disconnectLink');
-				hide('publishLink');
-				hide('unpublishLink');
+				hide('disconnect-link');
+				//hide('publish-link');
+				//hide('unpublish-link');
 			}
 
 			function publish() {
@@ -44,8 +44,8 @@
 					parentDiv.appendChild(div);
 					var publisherProps = {width: PUBLISHER_WIDTH, height: PUBLISHER_HEIGHT, microphoneEnabled: true};
 					publisher = session.publish('opentok_publisher', publisherProps); 	// Pass the replacement div id to the publish method
-					show('unpublishLink');
-					hide('publishLink');
+					//show('unpublish-link');
+					//hide('publish-link');
 				}
 			}
 
@@ -55,8 +55,8 @@
 				}
 				publisher = null;
 
-				show('publishLink');
-				hide('unpublishLink');
+				//show('publish-link');
+				//hide('unpublish-link');
 			}
 
 			//--------------------------------------
@@ -69,10 +69,9 @@
 					addStream(event.streams[i]);
 				}
 				
-				show('connection-status');
-				show('disconnectLink');
-				hide('connectLink');
-				publish();				
+				show('disconnect-link');
+				hide('connect-link');
+				publish();	
 			}
 
 			function streamCreatedHandler(event) {
@@ -92,11 +91,10 @@
 				// will automatically be removed. This default behaviour can be prevented using event.preventDefault()
 				publisher = null;
 
-				show('connectLink');
-				hide('connection-status')
-				hide('disconnectLink');
-				hide('publishLink');
-				hide('unpublishLink');
+				show('connect-link');
+				hide('disconnect-link');
+				//hide('publish-link');
+				//hide('unpublish-link');
 			}
 
 			function connectionDestroyedHandler(event) {
@@ -146,10 +144,8 @@
 			}
 			
 			$(document).ready(function() {
-				var currentPage = "<%= @playdate.page_num %>"; 
-				show("page_"+currentPage);
-				updateBookNavLinks(currentPage);
-
+				// writes out the page direction so it can be used later.
+				// upon success, signals the other player in the playdate to ping the server for the latest view of the book	
 				$('#turn-page')
 					.bind('ajax:beforeSend', function() {
 						updatePage($('#page-direction').val());
@@ -160,6 +156,7 @@
 						//}
 					});					
 
+					//writes out the page direction and new page number to be used later
 					$('#next-page').click(function() {
 						$('#page-direction').val("next");
 						$('#new-page').val(getNewPage("next").toString());
@@ -169,6 +166,33 @@
 						$('#page-direction').val("previous");
 						$('#new-page').val(getNewPage("previous").toString());
 					});
+					
+					$('#connect-link').click(function() {
+						connect();
+					});
+					
+					$('#disconnect-link')
+						.bind('ajax:beforeSend', function() {
+							disconnect();
+						})
+						.bind('ajax:success', function() {
+							session.signal();
+						});
+					
+					$('#publish-link').click(function() {
+						publish();
+					});
+					
+					$('#unpublish-link').click(function() {
+						unpublish();
+					});
+					
+					// book setup and display	
+					var currentPage = "<%= @playdate.page_num %>"; 
+					show("page_"+currentPage);
+					updateBookNavLinks(currentPage);
+					
+					// opentok video session setup and display
 					
 					// Un-comment either of the following to set automatic logging and exception handling.
 					// See the exceptionHandler() method below.
@@ -203,11 +227,16 @@
 <div id="mainContent">
 	<div id="opentok_console"></div>
 	<div id="links">
-		<span id="connection-status" class="hidden">Connected!</span>
-		<a href="#" onclick="javascript:connect();" id="connectLink" class="hidden">Connect</a> 
-		<a href="#" onclick="javascript:disconnect();" id="disconnectLink" class="hidden">Leave</a>
-		<a href="#" onclick="javascript:publish()" id="publishLink" class="hidden">Publish</a>
-		<a href="#" onclick="javascript:unpublish()" id="unpublishLink" class="hidden">Unpublish</a>
+		<%= link_to '#' do %>
+			<button id="connect-link" class="blue hidden">Connect</button>
+		<% end %>
+		<%= link_to delete_playdate_path do %>
+			<button id="disconnect-link" class="red hidden">End Playdate</button>
+		<% end %>
+		<%= link_to '#' do %>
+			<button id="publish-link" class="blue hidden">Publish</button>
+			<button id="unpublish-link" class="blue hidden">Unpublish</button>
+		<% end %>
 	</div>
 	<div id="videos">
 		<div class="activity-content">

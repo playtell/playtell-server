@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110520234740) do
+ActiveRecord::Schema.define(:version => 20110524010242) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(:version => 20110520234740) do
     t.string   "tokbox_session_id", :default => ""
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "page_num"
   end
 
 end

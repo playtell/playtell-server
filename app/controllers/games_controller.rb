@@ -42,6 +42,13 @@ class GamesController < ApplicationController
       format.js { render :nothing => true }
     end
   end
+  
+  def deletePlaydate
+    Playdate.delete(session[:playdate])
+    respond_to do |format|
+      format.html { redirect_to :root }
+    end
+  end
 
 protected
   def initOpenTok
@@ -63,7 +70,7 @@ protected
     tok_session_id = video_session.session_id
     @tok_token = @@opentok.generate_token :session_id => tok_session_id    
 
-    # put the playdate in the session
+    # put the playdate in the db and its id in the session
     @playdate = Playdate.create(
       :player1_id => player1.id, 
       :player2_id => player2.id, 
