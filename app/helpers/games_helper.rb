@@ -6,5 +6,6 @@ module GamesHelper
   def playdateExists()
     return Playdate.first
   end
+  
 end
 

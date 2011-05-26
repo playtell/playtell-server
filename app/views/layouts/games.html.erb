@@ -14,7 +14,29 @@
 </head>
 <body>
 <div class="mainContainer">
-	<%= yield %>
+	<% flash.each do |name, msg| %>
+  		<%= content_tag :div, msg, :id => "flash_#{name}" %>
+  	<% end %>
+	
+	<div class="inline fl">
+		<%= image_tag "mad_scientist.gif", :id => "scientistImage" %>
+	</div>
+	<div class="inline">
+		<h1>Ragatzi Labs</h1>
+		<%= yield %>
+	</div>
+		
+		<div id="login-area">
+		<% if current_user %>
+			Logged in as <%= current_user.username %>
+			<%= link_to "Logout", logout_path %>
+		<% else %>
+			<%= link_to "Sign up", sign_up_path %>
+			<%= link_to "Login", login_path %>
+		<% end %>
+	</div>
+	
+	
 </div>
 </body>
 </html>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110524010242) do
+ActiveRecord::Schema.define(:version => 20110525213028) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20110524010242) do
     t.string   "tokbox_session_id", :default => ""
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "password_salt"
+    t.string   "password_hash"
   end
 
 end

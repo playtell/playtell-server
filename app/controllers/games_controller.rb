@@ -1,5 +1,7 @@
 class GamesController < ApplicationController
   before_filter :initOpenTok, :only => [:playdate]
+  before_filter :authorize
+  
   @@opentok = nil
     
   def index  
@@ -36,6 +38,7 @@ class GamesController < ApplicationController
     end
   end
   
+  # clears all playdate sessions in the db
   def clearPlaydate
     Playdate.delete_all 
     respond_to do |format|
@@ -43,6 +46,7 @@ class GamesController < ApplicationController
     end
   end
   
+  # deletes the current playdate session
   def deletePlaydate
     Playdate.delete(session[:playdate])
     respond_to do |format|
@@ -59,9 +63,16 @@ protected
     end
   end
   
+  def authorize
+    unless current_user
+      flash.now.alert = "Please log in"
+      redirect_to login_path
+    end
+  end
+  
   # sets up a new playdate session with a new opentok video session and a book to be read in the playdate. gets an opentok token for the user. currently hard-coded to use the 'semira' user and 'little red riding hood' book.   
   def createPlaydate
-    player1 = User.find_by_username("semira")
+    player1 = User.find(session[:user_id])
     player2 = User.find_by_username("aydin")
     getBook(Book.find_by_title("Little Red Riding Hood"))
 
@@ -82,7 +93,7 @@ protected
 
   # adds the user to the existing session (right now assumes only one session ever exists). currently hard-coded to use the 'aydin' user. gets an opentok token for the newly-added user.
   def joinPlaydate
-    @playdate = Playdate.find_by_player1_id(User.find_by_username("semira"))
+    @playdate = Playdate.find_by_player1_id(User.find_by_username("shirin"))
     session[:playdate] = @playdate.id
     getBook(@playdate.book_id)
 

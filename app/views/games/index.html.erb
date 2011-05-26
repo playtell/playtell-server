@@ -1,15 +1,10 @@
-<div class="inline">
-	<%= image_tag "mad_scientist.gif", :id => "scientistImage" %>
-</div>
-<div class="inline">
-	<h1>Ragatzi Labs</h1>
 	<%= form_tag playdate_path do %>
 		<%= hidden_field_tag 'connection_type', 'create', :id => "connection-type" %>
 		<%= submit_tag 'Start a Video Playdate', :class => "default big-button", :id => "create-playdate" %>
 		<%= submit_tag 'Join a Video Playdate', :class => "default big-button", :id => "join-playdate", :disabled => true %>
 	<% end %>
 	<%= button_to 'End All Playdates', clear_playdate_path, :remote => true, :id => 'end-playdate' %>
-</div>
+	
 
 <script type="text/javascript">
 $(document).ready(function() {

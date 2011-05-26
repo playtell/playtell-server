@@ -55,13 +55,13 @@ form, fieldset, label, input, .checkbox, textarea, select, option, form div {
   color: green;
 }
 
-.field_with_errors {
+.field-with-errors {
   padding: 2px;
   background-color: red;
   display: table;
 }
 
-#error_explanation {
+#error-explanation {
   width: 450px;
   border: 2px solid red;
   padding: 7px;
@@ -70,7 +70,7 @@ form, fieldset, label, input, .checkbox, textarea, select, option, form div {
   background-color: #f0f0f0;
 }
 
-#error_explanation h2 {
+#error-explanation h2 {
   text-align: left;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
@@ -81,7 +81,7 @@ form, fieldset, label, input, .checkbox, textarea, select, option, form div {
   color: #fff;
 }
 
-#error_explanation ul li {
+#error-explanation ul li {
   font-size: 12px;
   list-style: square;
 }
