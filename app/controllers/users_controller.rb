@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   layout 'games'
+  before_filter :authorize
   
   def new
     @user = User.new
@@ -12,6 +13,11 @@ class UsersController < ApplicationController
     else
       render "new"
     end
+  end
+  
+  def show
+    @user = User.find(params[:id])
+    @players = User.all
   end
 
 end

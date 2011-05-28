@@ -7,5 +7,9 @@ module GamesHelper
     return Playdate.first
   end
   
+  def fellowPlayers()
+    return User.all
+  end
+  
 end
 

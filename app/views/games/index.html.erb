@@ -1,7 +1,12 @@
 	<%= form_tag playdate_path do %>
 		<%= hidden_field_tag 'connection_type', 'create', :id => "connection-type" %>
-		<%= submit_tag 'Start a Video Playdate', :class => "default big-button", :id => "create-playdate" %>
-		<%= submit_tag 'Join a Video Playdate', :class => "default big-button", :id => "join-playdate", :disabled => true %>
+		<div class="inline fl">
+			<%= submit_tag 'Start a Video Playdate', :class => "default jumbo-button", :id => "create-playdate" %>
+		</div> 
+		<div class="inline">
+			<p> or <%= select_tag 'fellowPlayer', options_from_collection_for_select(fellowPlayers, 'id', 'username')%></p>
+			<p><%= submit_tag 'Join a Video Playdate', :class => "default big-button", :id => "join-playdate", :disabled => true %></p>
+		</div>
 	<% end %>
 	<%= button_to 'End All Playdates', clear_playdate_path, :remote => true, :id => 'end-playdate' %>
 	

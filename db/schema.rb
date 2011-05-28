@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110525213028) do
+ActiveRecord::Schema.define(:version => 20110528010730) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(:version => 20110525213028) do
     t.boolean  "abs"
     t.boolean  "psoas"
     t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friendships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

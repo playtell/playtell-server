@@ -1,0 +1,18 @@
+<h2>My Profile</h2>
+<h3>Friends</h3>
+<ul>
+	<% for friendship in @user.friendships %>
+		<li>
+			<%=h friendship.friend.username %> <%= link_to "Start Playdate", playdate_path(:friend_id => friendship.friend, :connection_type => "create") %>
+		</li>
+	<% end %>
+</ul>
+
+<h3>Add Friends</h3>
+<ul>
+	<% for player in @players %>
+		<li>
+			<%=h player.username %> <%= link_to "Add as friend", friendships_path(:friend_id => player), :method => :post %>
+		</li>
+	<% end %>
+</ul>

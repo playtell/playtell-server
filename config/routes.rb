@@ -1,8 +1,4 @@
 Semiralabs::Application.routes.draw do
-  get "sessions/new"
-
-  get "users/new"
-
   resources :dailies
   match 'games' => 'games#index'
   match 'update_page' => 'games#updatePage'
@@ -16,6 +12,7 @@ Semiralabs::Application.routes.draw do
   get 'logout' => 'sessions#destroy', :as => 'logout'
   resources :users
   resources :sessions
+  resources :friendships
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

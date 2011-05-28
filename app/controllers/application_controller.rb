@@ -8,5 +8,10 @@ protected
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
   
-  
+  def authorize
+    unless current_user
+      flash.now.alert = "Please log in"
+      redirect_to login_path
+    end
+  end
 end
