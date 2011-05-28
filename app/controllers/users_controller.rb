@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   layout 'games'
-  before_filter :authorize
+  before_filter :authorize, :only => [:show]
   
   def new
     @user = User.new
