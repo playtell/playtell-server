@@ -1,10 +1,18 @@
 <h2>My Profile</h2>
+<% if @playdate %>
+	<%= render :partial => "playdateRequest" %>
+<% else %>
 <h3>Friends</h3>
 <ul>
-	<% for friendship in @user.friendships %>
-		<li>
-			<%=h friendship.friend.username %> <%= link_to "Start Playdate", playdate_path(:friend_id => friendship.friend, :connection_type => "create") %>
-		</li>
+	<% for friend in @user.allFriends %>
+	<li>
+		<%=h friend.username %> 
+		<%= form_tag playdate_path do %>
+			<%= hidden_field_tag 'connection_type', 'create', :id => "connection-type" %>
+			<%= hidden_field_tag 'friend_id', friend.id, :id => 'friend_id' %>
+			<%= submit_tag 'Start Video Playdate', :class => "default", :id => "create-playdate" %>
+		<% end %>
+	</li>
 	<% end %>
 </ul>
 
@@ -16,3 +24,15 @@
 		</li>
 	<% end %>
 </ul>
+<% end %>
+
+<script>
+	$(document).ready(function() {
+		setTimeout(requestPlaydate, 5000);
+	});
+	
+	function requestPlaydate() {
+		$.getScript("/playdate_request.js")
+		setTimeout(requestPlaydate, 5000);
+	}
+</script>

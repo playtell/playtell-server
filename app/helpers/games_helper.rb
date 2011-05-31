@@ -3,10 +3,6 @@ module GamesHelper
     File.join(title.parameterize, "page"+pageNum+".png")
   end
   
-  def playdateExists()
-    return Playdate.first
-  end
-  
   def fellowPlayers()
     return User.all
   end

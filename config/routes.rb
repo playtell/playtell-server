@@ -6,6 +6,7 @@ Semiralabs::Application.routes.draw do
   match 'update_playdate' => 'games#updatePlaydate'
   match 'clear_playdate' => 'games#clearPlaydate'
   match 'delete_playdate' => 'games#deletePlaydate'
+  match 'playdate_request' => 'games#playdateRequest'
   
   get 'signup' => 'users#new', :as => 'sign_up'
   get 'login' => 'sessions#new', :as => 'login'

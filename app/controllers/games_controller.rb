@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   before_filter :initOpenTok, :only => [:playdate]
   before_filter :authorize
-  
+      
   @@opentok = nil
     
   def index  
@@ -18,6 +18,10 @@ class GamesController < ApplicationController
     respond_to do |format|
       format.html { render("ragatzi.html")}
     end
+  end
+  
+  def playdateRequest
+    @playdate = playdateExists
   end
     
   # changes the currently displayed book page stored in the playdate session
@@ -50,11 +54,11 @@ class GamesController < ApplicationController
   def deletePlaydate
     Playdate.delete(session[:playdate])
     respond_to do |format|
-      format.html { redirect_to :root }
+      format.html { redirect_to user_path current_user }
     end
   end
 
-protected
+private
   def initOpenTok
     @api_key = "4f5e85254a3c12ae46a8fe32ba01ff8c8008e55d"
     if @@opentok.nil?
@@ -65,7 +69,6 @@ protected
   
   # sets up a new playdate session with a new opentok video session and a book to be read in the playdate. gets an opentok token for the user. currently hard-coded to use the 'little red riding hood' book.   
   def createPlaydate
-    player1 = User.find(session[:user_id])
     getBook(Book.find_by_title("Little Red Riding Hood"))
 
     # set up the opentok video session and get a token for this user
@@ -75,7 +78,8 @@ protected
 
     # put the playdate in the db and its id in the session
     @playdate = Playdate.create(
-      :player1_id => player1.id, 
+      :player1_id => session[:user_id], 
+      :player2_id => params[:friend_id],
       :book_id => @book.id, 
       :page_num => 1, 
       :video_session_id => tok_session_id)
@@ -84,7 +88,7 @@ protected
 
   # adds the user to the existing session (right now assumes only one session ever exists). currently hard-coded to use the 'aydin' user. gets an opentok token for the newly-added user.
   def joinPlaydate
-    @playdate = Playdate.find_by_player1_id(User.find(params[:fellowPlayer]))
+    @playdate = Playdate.find(params[:playdate_id])
     session[:playdate] = @playdate.id
     getBook(@playdate.book_id)
 

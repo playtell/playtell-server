@@ -32,4 +32,19 @@ class User < ActiveRecord::Base
     end
   end
   
+  def allFriends
+    self.friends + self.inverse_friends
+  end
+  
+  def allFriendships
+    all_ids = []
+    for f in self.friendships 
+      all_ids << f.friend_id
+    end
+    for i in self.inverse_friendships
+      all_ids << i.user_id
+    end
+    return all_ids
+  end
+  
 end

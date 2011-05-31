@@ -1,0 +1,3 @@
+<% unless @playdate.blank? %>
+	$('#mainContent').html("<%=raw escape_javascript(render(:partial => "playdateRequest")) %>");
+<% end %>

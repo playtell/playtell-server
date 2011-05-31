@@ -1,0 +1,6 @@
+<%= @playdate.getOtherPlayerName(current_user) %> wants to play!
+<%= form_tag playdate_path do %>
+	<%= hidden_field_tag 'connection_type', 'join', :id => "connection-type" %>
+	<%= hidden_field_tag 'playdate_id', @playdate.id, :id => 'playdate_id' %>
+	<%= submit_tag 'Join Video Playdate', :class => "default", :id => "join-playdate" %>
+<% end %>
