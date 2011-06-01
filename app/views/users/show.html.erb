@@ -1,6 +1,6 @@
 <h2>My Profile</h2>
 <% if @playdate %>
-	<%= render :partial => "playdateRequest" %>
+	<%= render :partial => "games/playdateRequest" %>
 <% else %>
 <h3>Friends</h3>
 <ul>
@@ -27,12 +27,14 @@
 <% end %>
 
 <script>
+	var t;
+	
 	$(document).ready(function() {
-		setTimeout(requestPlaydate, 5000);
+		t = setTimeout(requestPlaydate, 5000);
 	});
 	
 	function requestPlaydate() {
 		$.getScript("/playdate_request.js")
-		setTimeout(requestPlaydate, 5000);
+		t = setTimeout(requestPlaydate, 5000);
 	}
 </script>
