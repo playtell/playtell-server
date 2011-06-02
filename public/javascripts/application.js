@@ -10,6 +10,7 @@ function hide(id) {
 	
 }
 
+//these actually disable and enable even though they're called "show"
 function showButton(id) {
 	$("#"+id).removeAttr('disabled')	
 }

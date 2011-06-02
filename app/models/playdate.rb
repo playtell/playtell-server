@@ -1,10 +1,15 @@
 class Playdate < ActiveRecord::Base
   belongs_to :book
   belongs_to :user
+  
+  DISCONNECTED=0
+  CONNECTING=1
+  CONNECTED=2
 
-# returns the playdate object if one exists for the given user
-  def self.findPlaydate(user)
-    Playdate.find_by_player1_id(user.id) || Playdate.find_by_player2_id(user.id)
+# returns the playdate object if a non-disconnected playdate exists for the given user
+  def self.findActivePlaydate(user)
+    p = Playdate.where("player1_id = ? AND status != 0 OR player2_id = ? AND status != 0", user.id, user.id)
+    return p.first unless p.nil?
   end
   
 # returns the other player in the playdate of the given user
@@ -13,6 +18,34 @@ class Playdate < ActiveRecord::Base
       return User.find(player2_id).username
     end
     User.find(player1_id).username
+  end
+
+#getter/setter methods for playdate status  
+  def disconnect
+    self.status = DISCONNECTED
+    save
+  end
+  
+  def disconnected?
+    return self.status == DISCONNECTED
+  end
+  
+  def connected
+    self.status = CONNECTED
+    save
+  end
+  
+  def connected?
+    return self.status == CONNECTED
+  end
+  
+  def connecting
+    self.status = CONNECTING
+    save
+  end
+  
+  def connecting?
+    return self.status == CONNECTING
   end
 
 end

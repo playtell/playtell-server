@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110528010730) do
+ActiveRecord::Schema.define(:version => 20110601192952) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20110528010730) do
     t.string   "video_session_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",           :default => 1
   end
 
   create_table "sessions", :force => true do |t|

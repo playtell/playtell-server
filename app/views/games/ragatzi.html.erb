@@ -225,8 +225,8 @@
 		<%= link_to '#' do %>
 			<button id="connect-link" class="blue hidden">Connect</button>
 		<% end %>
-		<%= link_to delete_playdate_path do %>
-			<button id="disconnect-link" class="red hidden">End Playdate</button>
+		<%= link_to delete_playdate_path, :remote => true do %>
+			<button id="disconnect-link" class="red">End Playdate</button>
 		<% end %>
 		<%= link_to '#' do %>
 			<button id="publish-link" class="blue hidden">Publish</button>

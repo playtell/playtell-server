@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user, :playdateExists
+  helper_method :current_user
   
 private  
   
@@ -15,8 +15,13 @@ private
     end
   end
   
-  # returns the playdate if there is a playdate session for the current user in the db
-  def playdateExists
-    Playdate.findPlaydate(current_user)
+  # returns the playdate if there is a playdate request for the current user. should be used only when checking for a playdate request (not to get the current playdate session)
+  def requesting_playdate
+    @playdate ||= Playdate.findActivePlaydate(current_user) 
+  end
+  
+  # returns the playdate currently in the session
+  def current_playdate
+    @playdate ||= Playdate.find(session[:playdate])
   end
 end

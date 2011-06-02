@@ -16,15 +16,23 @@ class GamesController < ApplicationController
     end
     
     respond_to do |format|
-      format.html { render("ragatzi.html")}
+      format.html { render "ragatzi.html" }
     end
   end
   
-  def playdateRequest
-    @playdate = playdateExists
+  # checks to see if there is a playdate request for the current user, and if so, changes the current user's view to show a playdate request
+  def playdateRequested
+    if requesting_playdate
+      session[:playdate] = @playdate.id
+    end
+  end
+  
+  # checks to see if the playdate has ended, and if so, changes the current user's view accordingly
+  def playdateDisconnected
+    @playdate = current_playdate
   end
     
-  # changes the currently displayed book page stored in the playdate session
+  # equivalent of "turn page" - changes the currently displayed book page stored in the playdate session
   def updatePage
     @playdate = Playdate.find(session[:playdate])
     @playdate.page_num = params[:newPage]
@@ -34,15 +42,15 @@ class GamesController < ApplicationController
     end
   end
   
-  # loads the updated playdate from the session. called via ajax from one of the players in the playdate b/c they got a tokbox signal from another player.
+  # refreshes the playdate with the latest play state e.g. turned page in a book. called via ajax from one of the players in the playdate b/c they got a tokbox signal from another player.
   def updatePlaydate
-    @playdate = Playdate.find(session[:playdate])
+    @playdate = current_playdate
     respond_to do |format|
       format.js { render 'update_page' }
     end
   end
   
-  # clears all playdate sessions in the db
+  # deletes all playdate sessions from the db
   def clearPlaydate
     Playdate.delete_all 
     respond_to do |format|
@@ -50,11 +58,12 @@ class GamesController < ApplicationController
     end
   end
   
-  # deletes the current playdate session
+  # ends the current playdate session (i.e. disconnects)
   def deletePlaydate
-    Playdate.delete(session[:playdate])
+  current_playdate.disconnect
+  session[:playdate] = nil
     respond_to do |format|
-      format.html { redirect_to user_path current_user }
+      format.html { redirect_to current_user }
     end
   end
 
@@ -77,19 +86,20 @@ private
     @tok_token = @@opentok.generate_token :session_id => tok_session_id    
 
     # put the playdate in the db and its id in the session
-    @playdate = Playdate.create(
+    @playdate = Playdate.find_or_create_by_player1_id_and_player2_id_and_video_session_id(
       :player1_id => session[:user_id], 
       :player2_id => params[:friend_id],
-      :book_id => @book.id, 
-      :page_num => 1, 
       :video_session_id => tok_session_id)
+    @playdate.book_id = @book.id
+    @playdate.page_num = 1
+    @playdate.save
     session[:playdate] = @playdate.id
   end
 
-  # adds the user to the existing session (right now assumes only one session ever exists). currently hard-coded to use the 'aydin' user. gets an opentok token for the newly-added user.
+  # adds the user to the requested playdate. gets a fresh opentok token for this user.
   def joinPlaydate
     @playdate = Playdate.find(params[:playdate_id])
-    session[:playdate] = @playdate.id
+    @playdate.connected
     getBook(@playdate.book_id)
 
     @tok_token = @@opentok.generate_token :session_id => @playdate.video_session_id 

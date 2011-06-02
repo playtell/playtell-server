@@ -1,4 +1,5 @@
 <% unless @playdate.blank? %>
 	$('#mainContent').html("<%=raw escape_javascript(render(:partial => "playdateRequest")) %>");
 	clearTimeout(t);
+	var t = setTimeout(checkForDisconnect, 1000);
 <% end %>

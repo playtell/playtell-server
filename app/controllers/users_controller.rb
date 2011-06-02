@@ -18,7 +18,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @players = User.all
-    @playdate = playdateExists
   end
 
 end

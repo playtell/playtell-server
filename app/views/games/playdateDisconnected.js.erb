@@ -1,0 +1,5 @@
+<% if @playdate.disconnected? %>
+	$('#mainContent').html("semira");
+	clearTimeout(t);
+	var t = setTimeout(checkForRequest, 5000);
+<% end %>
