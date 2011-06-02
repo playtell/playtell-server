@@ -1,5 +1,3 @@
-<% if @playdate.disconnected? %>
-	$('#mainContent').html("semira");
-	clearTimeout(t);
-	var t = setTimeout(checkForRequest, 5000);
-<% end %>
+$('#mainContent').html("<%=raw escape_javascript(render(:partial => "users/friends")) %>");
+clearTimeout(t);
+t = setTimeout(checkForPlaydateRequest, 5000);

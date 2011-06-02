@@ -30,8 +30,9 @@
 			}
 
 			function disconnect() {
+				session.signal();
 				session.disconnect();
-				hide('disconnect-link');
+				//hide('disconnect-link');
 				//hide('publish-link');
 				//hide('unpublish-link');
 			}
@@ -91,8 +92,8 @@
 				// will automatically be removed. This default behaviour can be prevented using event.preventDefault()
 				publisher = null;
 
-				show('connect-link');
-				hide('disconnect-link');
+				//show('connect-link');
+				//hide('disconnect-link');
 				//hide('publish-link');
 				//hide('unpublish-link');
 			}
@@ -171,13 +172,9 @@
 						connect();
 					});
 					
-					$('#disconnect-link')
-						.bind('ajax:beforeSend', function() {
-							disconnect();
-						})
-						.bind('ajax:success', function() {
-							session.signal();
-						});
+					$('#disconnect-link').click(function() {
+						disconnect();
+					});
 					
 					$('#publish-link').click(function() {
 						publish();
@@ -225,9 +222,8 @@
 		<%= link_to '#' do %>
 			<button id="connect-link" class="blue hidden">Connect</button>
 		<% end %>
-		<%= link_to delete_playdate_path, :remote => true do %>
-			<button id="disconnect-link" class="red">End Playdate</button>
-		<% end %>
+		<%= button_to "End Playdate", disconnect_playdate_path, :class=>"red", :id=>"disconnect-link" %>
+
 		<%= link_to '#' do %>
 			<button id="publish-link" class="blue hidden">Publish</button>
 			<button id="unpublish-link" class="blue hidden">Unpublish</button>

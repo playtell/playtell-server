@@ -29,7 +29,11 @@ class GamesController < ApplicationController
   
   # checks to see if the playdate has ended, and if so, changes the current user's view accordingly
   def playdateDisconnected
-    @playdate = current_playdate
+    if current_playdate.disconnected?
+      disconnectPlaydate
+    else
+      render :nothing => true
+    end
   end
     
   # equivalent of "turn page" - changes the currently displayed book page stored in the playdate session
@@ -59,11 +63,13 @@ class GamesController < ApplicationController
   end
   
   # ends the current playdate session (i.e. disconnects)
-  def deletePlaydate
-  current_playdate.disconnect
-  session[:playdate] = nil
+  def disconnectPlaydate
+    current_playdate.disconnect if !current_playdate.disconnected?
+    session[:playdate] = nil
+    puts "in disconnectPlaydate"
     respond_to do |format|
-      format.html { redirect_to current_user }
+      format.html { redirect_to @current_user }
+      format.js
     end
   end
 

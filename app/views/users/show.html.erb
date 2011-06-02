@@ -1,17 +1,5 @@
-<h2>My Profile</h2>
-<h3>Friends</h3>
-<ul>
-	<% for friend in @user.allFriends %>
-	<li>
-		<%=h friend.username %> 
-		<%= form_tag playdate_path do %>
-			<%= hidden_field_tag 'connection_type', 'create', :id => "connection-type" %>
-			<%= hidden_field_tag 'friend_id', friend.id, :id => 'friend_id' %>
-			<%= submit_tag 'Start Video Playdate', :class => "default", :id => "create-playdate" %>
-		<% end %>
-	</li>
-	<% end %>
-</ul>
+
+	<%= render :partial => "friends" %>
 
 <h3>Add Friends</h3>
 <ul>
@@ -26,6 +14,7 @@
 	var t;
 	
 	$(document).ready(function() {
+		clearTimeout(t);
 		checkForPlaydateRequest();
 	});
 	
