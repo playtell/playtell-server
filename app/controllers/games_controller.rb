@@ -14,10 +14,6 @@ class GamesController < ApplicationController
     elsif (params[:connection_type] == "join")
       joinPlaydate
     end
-    
-    respond_to do |format|
-      format.html { render "ragatzi.html" }
-    end
   end
   
   # checks to see if there is a playdate request for the current user, and if so, changes the current user's view to show a playdate request
