@@ -164,6 +164,10 @@ button.jumbo-button, input[type="submit"].jumbo-button {
 	font-size: 2em;
 }
 
+button.mini-button, input[type="submit"].mini-button {
+	font-size: .5em;
+}
+
 button.red {
   color: #4F0F0E;
   background: #E56856;

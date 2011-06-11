@@ -168,6 +168,11 @@
 						$('#new-page').val(getNewPage("previous").toString());
 					});
 					
+					$("#first-page").click(function() {
+						$('#page-direction').val("beginning");
+						$('#new-page').val("1");
+					});
+					
 					$('#connect-link').click(function() {
 						connect();
 					});

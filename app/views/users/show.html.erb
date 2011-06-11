@@ -1,14 +1,19 @@
-
+<% content_for :head do %>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+	<script type="text/javascript">
+		swfobject.registerObject("authorizer", "10.0.0");
+	</script>
+<% end %>
 	<%= render :partial => "friends" %>
 
+<% if @new_friends.count > 0 %>
 <h3>Add Friends</h3>
 <ul>
-	<% for player in @players %>
-		<li>
-			<%=h player.username %> <%= link_to "Add as friend", friendships_path(:friend_id => player), :method => :post %>
-		</li>
+	<% for user in @new_friends %>
+		<li><%=h user.username %> <%= link_to "Add as friend", friendships_path(:friend_id => user), :method => :post %></li>
 	<% end %>
 </ul>
+<% end %>
 
 <script>
 	var t;

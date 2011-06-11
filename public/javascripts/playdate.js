@@ -12,7 +12,10 @@ function getNewPage (direction) {
 }
 
 function updatePage (direction) {
-	goToPage(getNewPage(direction));
+	if (direction == "beginning")
+		goToPage(1);
+	else
+		goToPage(getNewPage(direction));
 }
 
 function goToPage (new_page_num) {

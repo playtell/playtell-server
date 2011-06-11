@@ -47,4 +47,8 @@ class User < ActiveRecord::Base
     return all_ids
   end
   
+  def isFriend? (user)
+    return allFriends.index(user)
+  end
+  
 end

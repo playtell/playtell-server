@@ -16,7 +16,8 @@ class UsersController < ApplicationController
   end
   
   def show
-    @players = User.all
+    u = current_user
+    @new_friends = User.all.select { |friend| friend.id != u.id && u.isFriend?(friend).nil? }
   end
 
 end
