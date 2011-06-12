@@ -3,7 +3,7 @@
 	<div class="book-image">
 		<%= image_tag getPageImageFilePath(@book.title, page.page_num.to_s) %>
 	</div>
-	<div class="book-text brown-color">
+	<div class="book-text">
 		<%= simple_format (page.page_text) %> 
 	</div>
 </div>
@@ -16,7 +16,7 @@
 		<%= hidden_field_tag 'direction', 'next', :id => "page-direction" %>
 		
 		<%= submit_tag 'Previous', :class => "blue", :id => 'prev-page' %>
-		<span class="page-num-text brown-color">Page <span id="page-num"><%= @playdate.page_num %></span></span> 
+		<span class="page-num-text">Page <span id="page-num"><%= @playdate.page_num %></span></span> 
 		<span class="hidden" id="total-pages"><%= @book.pages.count %></span>
 		<%= submit_tag 'Next', :class => "blue", :id => "next-page" %>
 		<p><%= submit_tag 'Back to Beginning', :class => "blue mini-button", :id => 'first-page' %></p>

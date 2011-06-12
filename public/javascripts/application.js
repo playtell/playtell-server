@@ -18,3 +18,7 @@ function showButton(id) {
 function hideButton(id) {
 	$("#"+id).attr('disabled', 'disabled')
 }
+
+function maxWindow() {
+    window.open('http://localhost:3000/playdate', 'title' , 'type=fullWindow, fullscreen, scrollbars=yes');
+}

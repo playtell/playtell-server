@@ -189,6 +189,10 @@
 						unpublish();
 					});
 					
+					$('#fullscreen').click(function() {
+						maxWindow();
+					});
+					
 					// book setup and display	
 					var currentPage = "<%= @playdate.page_num %>"; 
 					show("page_"+currentPage);
@@ -222,32 +226,26 @@
 </script>
 <% end %>
 
-	<div id="opentok_console"></div>
 	<div id="links">
 		<%= link_to '#' do %>
 			<button id="connect-link" class="blue hidden">Connect</button>
 		<% end %>
 		<%= button_to "End Playdate", disconnect_playdate_path, :class=>"red", :id=>"disconnect-link" %>
-
-		<%= link_to '#' do %>
-			<button id="publish-link" class="blue hidden">Publish</button>
-			<button id="unpublish-link" class="blue hidden">Unpublish</button>
-		<% end %>
 	</div>
 	<div id="videos">
 		<div class="activity-content">
 			<%= render :partial => "book" %>
+			<div class="clear"></div>
 		</div>
 		<div class="video-content">
-			<div id="fam-camera-wrapper">
-				<div id="fam-camera-holder"></div>
+			<div id="fam-camera-holder"></div>
+			<div id="my-camera-holder">
+				<div id="my-camera"></div>
 			</div>
-			<div id="my-camera-wrapper">
-				<div id="my-camera-holder">
-					<div id="my-camera"></div>
-				</div>
-			</div>
+			<div class="clear"></div>
 		</div>
+		<div class="clear"></div>
+		
 	</div>
 
 
