@@ -210,6 +210,8 @@ img#scientistImage {
 	
 #videos {
 	position: relative;
+	float: left;
+	width: 1000px;
 }
 
 .video-content {
