@@ -1,10 +1,4 @@
-<% content_for :head do %>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-	<script type="text/javascript">
-		swfobject.registerObject("authorizer", "10.0.0");
-	</script>
-<% end %>
-	<%= render :partial => "friends" %>
+<%= render :partial => "friends" %>
 
 <% if @new_friends.count > 0 %>
 <h3>Add Friends</h3>
@@ -15,7 +9,9 @@
 </ul>
 <% end %>
 
-<script>
+<%= button_to "Camera Settings", camera_settings_path %>
+
+<script type="text/javascript">
 	var t;
 	
 	$(document).ready(function() {

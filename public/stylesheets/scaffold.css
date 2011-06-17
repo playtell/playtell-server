@@ -207,6 +207,16 @@ img#scientistImage {
     font-weight: normal;
 	background: white;
 }
+
+#setup {
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	width: 50%;
+	text-align: center;
+	border: 1px black solid;
+	background: white;
+}
 	
 #videos {
 	position: relative;

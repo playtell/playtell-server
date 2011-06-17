@@ -15,6 +15,9 @@
 	var SUBSCRIBER_HEIGHT = 390;
 
 	var subscribers = {};
+	var deviceManager;
+	
+	var inSetup = true;
 				
 			//--------------------------------------
 			//  LINK CLICK HANDLERS
@@ -30,16 +33,18 @@
 			}
 
 			function disconnect() {
-				session.signal();
+				if (!inSetup) {
+					session.signal();
+				}
 				session.disconnect();
 				//hide('disconnect-link');
 				//hide('publish-link');
 				//hide('unpublish-link');
 			}
 
-			function publish() {
+			function publish(location) {
 				if (!publisher) {
-					var parentDiv = document.getElementById("my-camera");
+					var parentDiv = document.getElementById(location);
 					var div = document.createElement('div');			// Create a replacement div for the publisher
 					div.setAttribute('id', 'opentok_publisher');
 					parentDiv.appendChild(div);
@@ -59,12 +64,8 @@
 				//show('publish-link');
 				//hide('unpublish-link');
 			}
-
-			//--------------------------------------
-			//  OPENTOK EVENT HANDLERS
-			//--------------------------------------
-
-			function sessionConnectedHandler(event) {
+			
+			function subscribeAndPublish() {
 				// Subscribe to all streams currently in the Session
 				for (var i = 0; i < event.streams.length; i++) {
 					addStream(event.streams[i]);
@@ -72,7 +73,48 @@
 				
 				show('disconnect-link');
 				hide('connect-link');
-				publish();	
+				publish("my-camera");				
+			}
+
+			//--------------------------------------
+			//  OPENTOK EVENT HANDLERS
+			//--------------------------------------
+
+			function sessionConnectedHandler(event) {
+				for (var i = 0; i < event.streams.length; i++) {
+					addStream(event.streams[i]);
+				}
+				publish("my-camera");
+				//listen for device status event
+				//deviceManager = TB.initDeviceManager(apiKey);
+				//deviceManager.addEventListener("devicesDetected", devicesDetectedHandler);
+				//deviceManager.detectDevices();
+			}
+			
+			function devicesDetectedHandler(event) {
+				if (inSetup) {
+					if (event.selectedCamera) {
+						if (event.selectedCamera.status	== "unknown") {
+							inSetup = true;
+							$("#setup").removeClass("hidden");
+							deviceManager.removeEventListener("devicesDetected", function(){});
+							publish("setup");
+							publisher.addEventListener("accessAllowed", accessAllowedHandler);
+						}
+						//else {
+							//inSetup = false;
+						//	publish("my-camera");
+						//}				
+					}
+				}
+			}
+			
+			function accessAllowedHandler(event) {
+				publisher.removeEventListener("accessAllowed", function(){});
+				$("#setup").html("success!");
+				$("#setup").addClass("hidden");
+				unpublish();
+				publish("my-camera");
 			}
 
 			function streamCreatedHandler(event) {
@@ -103,7 +145,7 @@
 			}
 
 			function connectionCreatedHandler(event) {
-				// This signals new connections have been created.
+				// This signals new connections have been created (ie another person has joined the session)
 			}
 
 			/* 
@@ -122,6 +164,7 @@
 					$.get("<%= update_playdate_path %>");
 				}
 			}
+			
 
 			//--------------------------------------
 			//  HELPER METHODS
@@ -131,9 +174,18 @@
 				// Check if this is the stream that I am publishing. If not
 				// we choose to subscribe to the stream.
 				if (stream.connection.connectionId == session.connection.connectionId) {
+//					if (inSetup) {
+//						$("#setup").html("success!");
+//						$("#setup").addClass("hidden");
+//						unpublish();
+//						publish("my-camera");
+//						return;
+//					}
+//					else {
+//						return;
+//					}
 					return;
 				}
-
 				var parentDiv = document.getElementById("fam-camera-holder");
 
 				var div = document.createElement('div');	// Create a replacement div for the subscriber
@@ -157,70 +209,69 @@
 						//}
 					});					
 
-					//writes out the page direction and new page number to be used later
-					$('#next-page').click(function() {
-						$('#page-direction').val("next");
-						$('#new-page').val(getNewPage("next").toString());
-					});
+				//writes out the page direction and new page number to be used later
+				$('#next-page').click(function() {
+					$('#page-direction').val("next");
+					$('#new-page').val(getNewPage(getCurrentPage(), "next"));
+				});
 
-					$("#prev-page").click(function() {
-						$('#page-direction').val("previous");
-						$('#new-page').val(getNewPage("previous").toString());
-					});
+				$("#prev-page").click(function() {
+					$('#page-direction').val("previous");
+					$('#new-page').val(getNewPage(getCurrentPage(), "previous"));
+				});
+				
+				$("#first-page").click(function() {
+					$('#page-direction').val("beginning");
+					$('#new-page').val(1);
+				});
+				
+				$('#connect-link').click(function() {
+					connect();
+				});
+				
+				$('#disconnect-link').click(function() {
+					disconnect();
+				});
+				
+				$('#publish-link').click(function() {
+					publish();
+				});
+				
+				$('#unpublish-link').click(function() {
+					unpublish();
+				});
+				
+				$('#fullscreen').click(function() {
+					maxWindow();
+				});
 					
-					$("#first-page").click(function() {
-						$('#page-direction').val("beginning");
-						$('#new-page').val("1");
-					});
-					
-					$('#connect-link').click(function() {
-						connect();
-					});
-					
-					$('#disconnect-link').click(function() {
-						disconnect();
-					});
-					
-					$('#publish-link').click(function() {
-						publish();
-					});
-					
-					$('#unpublish-link').click(function() {
-						unpublish();
-					});
-					
-					$('#fullscreen').click(function() {
-						maxWindow();
-					});
-					
-					// book setup and display	
-					var currentPage = "<%= @playdate.page_num %>"; 
-					show("page_"+currentPage);
-					updateBookNavLinks(currentPage);
-					
-					// opentok video session setup and display
-					
-					// Un-comment either of the following to set automatic logging and exception handling.
-					// See the exceptionHandler() method below.
-					// TB.setLogLevel(TB.DEBUG);
-					// TB.addEventListener("exception", exceptionHandler);
+				// book setup and display	
+				var currentPage = "<%= @playdate.page_num %>"; 
+				show("page_"+currentPage);
+				updateBookNavLinks(currentPage);
+				
+				// opentok video session setup and display
+				
+				// Un-comment either of the following to set automatic logging and exception handling.
+				// See the exceptionHandler() method below.
+				// TB.setLogLevel(TB.DEBUG);
+				// TB.addEventListener("exception", exceptionHandler);
 
-					if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
-						alert('You do not have the minimum system requirements to use this service :(');
-					} else {
-						session = TB.initSession(sessionId);	// Initialize session
+				if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
+					alert('You do not have the minimum system requirements to use this service :(');
+				} else {
+					session = TB.initSession(sessionId);	// Initialize session
+					// Add event listeners to the session
+					session.addEventListener('sessionConnected', sessionConnectedHandler);
+					session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
+					session.addEventListener('connectionCreated', connectionCreatedHandler);
+					session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
+					session.addEventListener('streamCreated', streamCreatedHandler);
+					session.addEventListener('streamDestroyed', streamDestroyedHandler);
+					session.addEventListener('signalReceived', signalReceivedHandler);
 
-						// Add event listeners to the session
-						session.addEventListener('sessionConnected', sessionConnectedHandler);
-						session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
-						session.addEventListener('connectionCreated', connectionCreatedHandler);
-						session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
-						session.addEventListener('streamCreated', streamCreatedHandler);
-						session.addEventListener('streamDestroyed', streamDestroyedHandler);
-						session.addEventListener('signalReceived', signalReceivedHandler);
-
-						connect();
-					}
+					connect();
+				}
 			});
 			
 </script>
@@ -244,8 +295,8 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		<div class="clear"></div>
-		
+		<div class="clear"></div>	
 	</div>
+	<div id="setup" class="hidden"></div>
 
 

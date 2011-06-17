@@ -19,5 +19,8 @@ class UsersController < ApplicationController
     u = current_user
     @new_friends = User.all.select { |friend| friend.id != u.id && u.isFriend?(friend).nil? }
   end
+  
+  def cameraSettings
+  end
 
 end
