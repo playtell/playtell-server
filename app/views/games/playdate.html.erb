@@ -233,21 +233,21 @@
 					disconnect();
 				});
 				
-				$('#publish-link').click(function() {
-					publish();
-				});
-				
-				$('#unpublish-link').click(function() {
-					unpublish();
-				});
-				
 				$('#fullscreen').click(function() {
 					maxWindow();
 				});
+				
+				$('#setup-lightbox').lightbox_me({
+				    centered: true, 
+				});
 					
 				// book setup and display	
-				var currentPage = "<%= @playdate.page_num %>"; 
-				show("page_"+currentPage);
+				var currentPage = 1;
+				// TODO: change currentPage to "<%= @playdate.page_num %>"; 
+				$('#page_'+currentPage).animate({
+					left: 0
+				});
+				//show("page_"+currentPage);
 				updateBookNavLinks(currentPage);
 				
 				// opentok video session setup and display
@@ -277,12 +277,6 @@
 </script>
 <% end %>
 
-	<div id="links">
-		<%= link_to '#' do %>
-			<button id="connect-link" class="blue hidden">Connect</button>
-		<% end %>
-		<%= button_to "End Playdate", disconnect_playdate_path, :class=>"red", :id=>"disconnect-link" %>
-	</div>
 	<div id="videos">
 		<div class="activity-content">
 			<%= render :partial => "book" %>
@@ -293,10 +287,26 @@
 			<div id="my-camera-holder">
 				<div id="my-camera"></div>
 			</div>
+			<div id="links">
+				<button id="setup-button" class="blue">Setup</button>				
+				<%= link_to '#' do %>
+					<button id="connect-link" class="blue hidden">Connect</button>
+				<% end %>
+				<%= button_to "End Playdate", disconnect_playdate_path, :class=>"red", :id=>"disconnect-link" %>
+			</div>
 			<div class="clear"></div>
 		</div>
 		<div class="clear"></div>	
 	</div>
-	<div id="setup" class="hidden"></div>
+	
+	<div id="setup-lightbox" class="lightbox hidden">
+			<h1>One quick tip </h1>
+		<div>
+			<h4>If you see this box, click "Allow." This gives Ragatzi permission to use your camera.</h4>
+			<%= image_tag "flashbox.png" %>
+			<p>In the future, you'll be able to say "don't show me this again." But not yet, sorry!</p>
+		</div>
+		<button class="close blue">X</button>
+	</div>
 
 

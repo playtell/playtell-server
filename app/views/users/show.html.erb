@@ -1,15 +1,15 @@
-<%= render :partial => "friends" %>
+<div class="content">
+	<%= render :partial => "friends" %>
 
-<% if @new_friends.count > 0 %>
-<h3>Add Friends</h3>
-<ul>
-	<% for user in @new_friends %>
-		<li><%=h user.username %> <%= link_to "Add as friend", friendships_path(:friend_id => user), :method => :post %></li>
+	<% if @new_friends.count > 0 %>
+	<h3>Add Playmates</h3>
+	<ul>
+		<% for user in @new_friends %>
+			<li><%=h user.username %> <%= link_to "Add as friend", friendships_path(:friend_id => user), :method => :post %></li>
+		<% end %>
+	</ul>
 	<% end %>
-</ul>
-<% end %>
-
-<%= button_to "Camera Settings", camera_settings_path %>
+</div>
 
 <script type="text/javascript">
 	var t;

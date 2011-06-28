@@ -16,6 +16,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     outline: 0;
     vertical-align: baseline;
     background: transparent;
+	color: #536376;
 }
 
 ol, ul {
@@ -105,11 +106,10 @@ a:hover {
 p { line-height: 1.4em; }
 
 h1 {
-    margin: 0;
-    padding: 0;
-    color: #b76f53; 
-	font-size: 3.5em;
+    color: #539AB7; 
+	font-size: 32px;
 	font-weight: bold;
+	line-height: 40px;
 }
 
 h1.smaller {
@@ -121,6 +121,7 @@ h1.smaller {
 h2 {
     margin: 0;
     font-size: 22px;
+	line-height: 32px;
     color: #539AB7;
 }
 
@@ -156,6 +157,56 @@ li { line-height: 1.5em; }
     overflow: hidden;
 }
 
+input.text, 
+input[type="search"], 
+input[type="text"], 
+input[type="email"], 
+input[type="password"] {
+	width: 300px;
+	padding: 6px 4px;
+	margin-bottom: 10px;
+}
+
+label {
+	font-size: 14px;
+	display: block;
+}
+
+/* LIGHTBOX
+-------------------------------------------------------------------*/
+
+.lightbox {
+        -moz-border-radius: 6px;
+        background: #eef2f7;
+        -webkit-border-radius: 6px;
+        border: 1px solid #536376;
+        -webkit-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;
+        -moz-box-shadow:  rgba(0,0,0,.6) 0px 2px 12px;;
+        padding: 14px 22px;
+        width: 400px;
+		min-height: 50px;
+        position: relative;
+    }
+
+.close {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+#setup-lightbox div {
+	width: 375px;
+	padding: 8px 10px;
+}
+
+#setup-lightbox div img {
+	padding-top: 5px;
+}
+
+#setup-lightbox h4 {
+	line-height: 1.2em;
+}
+
 /* MISC
 -------------------------------------------------------------------*/
 .emphasis { 
@@ -166,6 +217,9 @@ li { line-height: 1.5em; }
 .smallcaps { 
     font-variant: small-caps;
 }
+
+.smalltext { font-size: 10px; }
+.mediumtext { font-size: 12px; }
 
 .bold { font-weight: bold; }
 .fl { float: left; }
@@ -206,6 +260,13 @@ img#scientistImage {
     font-size: 1.3em;
     font-weight: normal;
 	background: white;
+	min-height: 300px;
+	position: relative;
+}
+
+.content {
+	padding: 20px 60px 60px;
+	position: relative;
 }
 
 #setup {
@@ -226,14 +287,7 @@ img#scientistImage {
 
 .video-content {
 	width: 500px;
-}
-
-.activity-content {
-	position: absolute;
-	left: 490px;
-	top: 0px;
-	bottom: 0px;
-	width: 500px;	
+	text-align: center;
 }
 
 #fam-camera-wrapper {
@@ -258,7 +312,7 @@ img#scientistImage {
 #my-camera-holder {
 	/*background: url("/images/blue_box_frame.png") no-repeat;*/
 	width: 225px;
-	height: 185px;
+	height: 155px;
 	margin: 0px auto;
 	text-align: center;
 }
@@ -267,26 +321,66 @@ img#scientistImage {
 	padding: 5px 5px;
 }
 
-.activity-content .book-image {
+#links {
+
+}
+
+.activity-content {
+	position: absolute;
+	left: 490px;
+	top: 0px;
+	bottom: 0px;
+	width: 500px;
+	overflow: hidden;
+	text-align: center;	
+}
+
+.book-image {
 	text-align: center;
 }
-.activity-content .book-text {
+
+.book-image img {
+	height: 280px;
+}
+
+.book-text {
 	text-align: justify;
 	font-size: 18px;
 }
-.activity-content .book-nav {
+
+.book-nav {
 	padding: 5px 10px 5px 10px;
 	text-align: center;
 	font-size: 1.5em;
+	position: absolute;
+	bottom: 0px;
+	left: 25%;
+}
+
+.book-nav p {
+	line-height: 1em;
+}
+
+.page {
+	position: absolute;
+	width: 500px;
 }
 
 .page-num-text {
 	font-size: 14px;
 }
 
-.book-image img {
-	height: 300px;
+#first-page {
+	font-size: 12px;
+	background: none;
+	text-decoration: none;
+	border: none;
+	color: #539AB7;
+	cursor: pointer;
+	font-weight: normal;
+	margin: 0px;
 }
 
-
-
+#first-page:hover {
+	text-decoration: underline;
+}

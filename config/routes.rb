@@ -8,7 +8,6 @@ Semiralabs::Application.routes.draw do
   match 'disconnect_playdate' => 'games#disconnectPlaydate'
   match 'playdate_requested' => 'games#playdateRequested'
   match 'playdate_disconnected' => 'games#playdateDisconnected'
-  match 'camera_settings' => 'users#cameraSettings'
   
   get 'signup' => 'users#new', :as => 'sign_up'
   get 'login' => 'sessions#new', :as => 'login'

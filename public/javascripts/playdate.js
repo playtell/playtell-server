@@ -21,14 +21,26 @@ function goToPage (new_page_num) {
 	var current_page_div = "page_" + current_page_num;
 	var new_page_div = "page_" + new_page_num;
 	
-	if (current_page_num < new_page_num) { //next page
-		$('#'+current_page_div).slideUp('slow');
-		$('#'+new_page_div).slideDown('slow');
-	}
-	else { //prev page or beginning
-		$('#'+new_page_div).slideDown('slow');
-		$('#'+current_page_div).slideUp('slow');
-	}
+	//debugger;
+	var new_left_position = (current_page_num < new_page_num) ? 
+		-$('#'+current_page_div).outerWidth() : $('#'+current_page_div).outerWidth();
+	
+	$('#'+current_page_div).animate({
+		left: new_left_position
+	});
+	$('#'+new_page_div).animate({
+		left: 0
+	});
+	//if beginning, then set all lefts to outerwidth
+//	if (current_page_num < new_page_num) { //next page
+		//$('#'+current_page_div).slideUp('slow');
+		//$('#'+new_page_div).slideDown('slow');
+//		turnPage(current_page_div);
+//	}
+//	else { //prev page or beginning
+//		$('#'+new_page_div).slideDown('slow');
+//		$('#'+current_page_div).slideUp('slow');
+//	}
 	$("#page-num").html(new_page_num);
 	updateBookNavLinks(new_page_num);				
 }
@@ -48,4 +60,12 @@ function updateBookNavLinks(currentPage) {
 			showButton("next-page");
 		}
 	}
+} 
+
+function turnPage (pageDiv) {
+	$('#'+pageDiv).animate({
+		left: parseInt($('#'+pageDiv).css('left'), 10) == 0 ?
+			-$('#'+pageDiv).outerWidth() :
+			0
+	});
 }

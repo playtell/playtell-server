@@ -1,26 +1,28 @@
-<h1>Sign Up</h1>
-<%= form_for @user do |f| %>
-	<% if @user.errors.any? %>
-		<div class="error-messages">
-			<h2>Wait! There's a problem</h2>
-			<ul>
-				<% for message in @user.errors.full_messsages do %>
-					<li><%= message %></li>
-				<% end %>
-			</ul>	
-		</div>
+<div class="content">
+	<h1>Sign Up</h1>
+	<%= form_for @user do |f| %>
+		<% if @user.errors.any? %>
+			<div class="error-messages">
+				<h2>Wait! There's a problem</h2>
+				<ul>
+					<% for message in @user.errors.full_messsages do %>
+						<li><%= message %></li>
+					<% end %>
+				</ul>	
+			</div>
+		<% end %>
+		<p>
+		<%= f.label :username %>
+		<%= f.text_field :username %>
+		</p>
+		<p>
+		<%= f.label :password %>
+		<%= f.password_field :password %>
+		</p>	
+		<p>
+		<%= f.label :password_confirmation %>
+		<%= f.password_field :password_confirmation %>
+		</p>
+		<%= submit_tag "Sign Up", :class => "blue" %>
 	<% end %>
-	<p>
-	<%= f.label :username %>
-	<%= f.text_field :username %>
-	</p>
-	<p>
-	<%= f.label :password %>
-	<%= f.password_field :password %>
-	</p>	
-	<p>
-	<%= f.label :password_confirmation %>
-	<%= f.password_field :password_confirmation %>
-	</p>
-	<%= f.submit :class => "blue" %>
-<% end %>
+</div>
