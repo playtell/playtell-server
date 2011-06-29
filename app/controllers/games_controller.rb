@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   before_filter :initOpenTok, :only => [:playdate]
-  before_filter :authorize
+  before_filter :authorize, :except => :index
+  layout :chooseLayout
       
   @@opentok = nil
     
@@ -110,5 +111,15 @@ private
   # loads a book for a playdate.   
   def getBook(id)
     @book = Book.find(id)
+  end
+  
+  # uses the application layout for homepage and games layout for all other pages
+  def chooseLayout 
+    case action_name
+    when 'index'
+      'application'
+    else
+      'games'
+    end
   end
 end

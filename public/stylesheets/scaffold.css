@@ -89,8 +89,9 @@ form, fieldset, label, input, .checkbox, textarea, select, option, form div {
 
 /* BASICS
 -------------------------------------------------------------------------  */
+
 html {
-	background: #C5CBCB url("/images/background.png");
+	background: url("/images/bg_line.png") no-repeat;
 }
 
 a, a:visited {
@@ -230,7 +231,39 @@ label {
 
 .brown-color { color: #b76f53;}
 
-/* RAGATZI --------------------------------------------------------- */
+/* HOMEPAGE --------------------------------------------------------- */
+
+.homepage-content {
+	margin: auto;
+	margin-top: 200px;
+	text-align: center;
+	background: white;
+	padding: 20px;
+	width: 400px;
+}
+
+.homepage-content img {
+	width: 300px
+}
+
+.homepage-content h1 {
+	font-size: 44px;
+	margin-bottom: 3px;
+	color: #536376;
+}
+
+.homepage-content h2 {
+	font-size: 32px;
+	font-weight: normal;
+	margin-bottom: 15px;
+	color: #536376;
+}
+
+.homepage-content a {
+	font-size: 14px;
+}
+
+/* LAYOUT --------------------------------------------------------- */
 
 .mainContainer {
     width: 1000px;
@@ -269,15 +302,7 @@ img#scientistImage {
 	position: relative;
 }
 
-#setup {
-	position: absolute;
-	top: 25%;
-	left: 25%;
-	width: 50%;
-	text-align: center;
-	border: 1px black solid;
-	background: white;
-}
+/* VIDEO --------------------------------------------------------- */
 	
 #videos {
 	position: relative;
@@ -321,9 +346,7 @@ img#scientistImage {
 	padding: 5px 5px;
 }
 
-#links {
-
-}
+/* BOOKS --------------------------------------------------------- */
 
 .activity-content {
 	position: absolute;
