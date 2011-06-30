@@ -1,11 +1,12 @@
 class GamesController < ApplicationController
   before_filter :initOpenTok, :only => [:playdate]
-  before_filter :authorize, :except => :index
+  before_filter :authorize
   layout :chooseLayout
       
   @@opentok = nil
-    
-  def index  
+  
+  def earlyAccess
+    File.open("early_access.txt", 'a+') { |f| f.write(params[:email]) }
   end
 
   # main method to connect users with playdates. creates a new playdate, or adds user to existing playdate.

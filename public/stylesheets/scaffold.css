@@ -123,7 +123,7 @@ h2 {
     margin: 0;
     font-size: 22px;
 	line-height: 32px;
-    color: #539AB7;
+	color: #536376;
 }
 
 h3 {
@@ -171,6 +171,13 @@ input[type="password"] {
 label {
 	font-size: 14px;
 	display: block;
+}
+
+.loader {
+	background: url('/images/ajax-loader.gif') no-repeat center center;
+	width: 20px;
+	height: 20px;
+	padding: 5px;
 }
 
 /* LIGHTBOX
@@ -227,6 +234,7 @@ label {
 .fr { float: right; }
 .hidden { display: none; }
 .inline { display: inline; }
+.block { display: block; }
 .clear { clear: both; }
 
 .brown-color { color: #b76f53;}
@@ -256,11 +264,42 @@ label {
 	font-size: 32px;
 	font-weight: normal;
 	margin-bottom: 15px;
-	color: #536376;
 }
 
 .homepage-content a {
 	font-size: 14px;
+	padding: 0px 10px;
+}
+
+#early-access-lightbox {
+	width: 440px;
+}
+
+#early-access-lightbox img {
+	width: 100px;
+	padding-right: 8px;
+}
+
+#early-access-lightbox h2 {
+	padding-top: 5px;
+}
+
+#early-access-lightbox p {
+	line-height: 18px;
+	padding-top: 5px;
+	width: 390px;
+}
+
+#early-access-lightbox form {
+	padding-top: 20px;
+}
+
+#early-access-lightbox input[type="email"] {
+	width: 200px;
+}
+
+#early-access-lightbox input[type="submit"] {
+	font-size: 12px;;
 }
 
 /* LAYOUT --------------------------------------------------------- */

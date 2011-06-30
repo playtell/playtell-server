@@ -8,6 +8,7 @@ Semiralabs::Application.routes.draw do
   match 'disconnect_playdate' => 'games#disconnectPlaydate'
   match 'playdate_requested' => 'games#playdateRequested'
   match 'playdate_disconnected' => 'games#playdateDisconnected'
+  match 'early_access' => 'application#earlyAccess'
   
   get 'signup' => 'users#new', :as => 'sign_up'
   get 'login' => 'sessions#new', :as => 'login'
@@ -16,7 +17,7 @@ Semiralabs::Application.routes.draw do
   resources :sessions
   resources :friendships
   
-  root :to => 'games#index'
+  root :to => 'application#index'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

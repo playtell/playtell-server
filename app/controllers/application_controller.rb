@@ -2,6 +2,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user
   
+  def index 
+     @earlyUser = EarlyUser.new
+  end
+  
+  def earlyAccess
+    @earlyUser = EarlyUser.new(params[:early_user])
+    @earlyUser.save
+    respond_to do |format|
+      format.js
+    end
+  end
+    
 private  
   
   def current_user

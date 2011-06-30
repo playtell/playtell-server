@@ -22,3 +22,11 @@ function hideButton(id) {
 function maxWindow() {
     window.open('http://localhost:3000/playdate', 'title' , 'type=fullWindow, fullscreen, scrollbars=yes');
 }
+
+$(function() {
+	$('#early-access').click(function() {
+		$('#early-access-lightbox').lightbox_me({
+		    centered: true, 
+		});
+	});
+});
