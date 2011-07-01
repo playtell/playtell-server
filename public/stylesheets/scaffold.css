@@ -173,10 +173,7 @@ label {
 	display: block;
 }
 
-.loader {
-}
-
-DIV#loader.loading {
+.loading {
 	background: url('/images/ajax-loader.gif') no-repeat center center;
 	width: 20px;
 	height: 20px;
@@ -208,6 +205,12 @@ DIV#loader.loading {
 #setup-lightbox div {
 	width: 375px;
 	padding: 8px 10px;
+}
+
+#setup-lightbox div#loader {
+	margin: auto;
+	min-height: 175px;
+	padding: 0px;
 }
 
 #setup-lightbox div img {
@@ -379,13 +382,14 @@ img#scientistImage {
 #my-camera-holder {
 	/*background: url("/images/blue_box_frame.png") no-repeat;*/
 	width: 225px;
-	height: 155px;
+	height: 140px;
 	margin: 0px auto;
 	text-align: center;
 }
 
 #my-camera {
-	padding: 5px 5px;
+	min-width: 215px;
+	padding: 0px;
 }
 
 /* BOOKS --------------------------------------------------------- */

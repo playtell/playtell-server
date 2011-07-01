@@ -8,8 +8,8 @@
 	var session;
 	var publisher;
 
-	var PUBLISHER_WIDTH = 142;
-	var PUBLISHER_HEIGHT = 119;
+	var PUBLISHER_WIDTH = 215;
+	var PUBLISHER_HEIGHT = 138;
 			
 	var SUBSCRIBER_WIDTH = 450;
 	var SUBSCRIBER_HEIGHT = 390;
@@ -48,6 +48,7 @@
 					var div = document.createElement('div');			// Create a replacement div for the publisher
 					div.setAttribute('id', 'opentok_publisher');
 					parentDiv.appendChild(div);
+					$('#'+location).removeClass('loading');
 					var publisherProps = {width: PUBLISHER_WIDTH, height: PUBLISHER_HEIGHT, microphoneEnabled: true};
 					publisher = session.publish('opentok_publisher', publisherProps); 	// Pass the replacement div id to the publish method
 					//show('unpublish-link');
@@ -272,6 +273,28 @@
 
 					connect();
 				}
+				
+				//load image for setup lightbox
+				$(function () {
+				  var img = new Image();
+				  $(img)
+				    .load(function () {
+				      $(this).hide();
+
+				      $('#loader')
+				        .removeClass('loading')
+				        .append(this);
+
+				      $(this).fadeIn();
+				    })
+
+				    .error(function () {
+				      // notify the user that the image could not be loaded
+				    })
+
+				    .attr('src', '/images/flashbox.png')
+				    .attr('alt', 'Click Allow if you see the Flash settings box.');
+				});
 			});
 			
 </script>
@@ -285,7 +308,7 @@
 		<div class="video-content">
 			<div id="fam-camera-holder"></div>
 			<div id="my-camera-holder">
-				<div id="my-camera"></div>
+				<div id="my-camera" class="loading"></div>
 			</div>
 			<div id="links">
 				<%= link_to '#' do %>
@@ -302,8 +325,7 @@
 			<h1>One quick thing - </h1>
 		<div>
 			<h4>If you see this box, click "Allow." This gives Ragatzi permission to use your camera.</h4>
-			<div id="loader"></div>
-			<%= image_tag "flashbox.png" %>
+			<div id="loader" class="loading"></div>
 			<p>In the future, you'll be able to say "don't show me this again." But not yet, sorry!</p>
 		</div>
 		<button class="close blue">X</button>
