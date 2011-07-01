@@ -174,10 +174,13 @@ label {
 }
 
 .loader {
+}
+
+DIV#loader.loading {
 	background: url('/images/ajax-loader.gif') no-repeat center center;
 	width: 20px;
 	height: 20px;
-	padding: 5px;
+	padding: 15px;
 }
 
 /* LIGHTBOX

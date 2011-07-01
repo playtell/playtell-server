@@ -28,8 +28,8 @@
 			<%= form_for @earlyUser, :url => early_access_path, :remote => true do |f| %>
 				<%= f.email_field :email %>
 				<%= submit_tag "Sign me up!", :class => "blue", :id => "early-access-submit" %>
+				<div id="loader" class="hidden loading"></div>
 			<% end %>
-			<div id="loader" class="hidden"></div>
 	</div>
 	
 	<button class="close blue">X</button>
@@ -40,6 +40,7 @@
 		$('#early-access-submit')
 			.click(function() {
 				hide('early-access-submit');
+				$('#loader').addClass('inline');
 				show('loader');
 			});
 	});
