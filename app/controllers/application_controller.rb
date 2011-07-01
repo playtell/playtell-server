@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   def earlyAccess
     @earlyUser = EarlyUser.new(params[:early_user])
     @earlyUser.save
-    File.open("early_access_list", 'a+') {|f| f.write(@earlyUser.email+"\n") }
     respond_to do |format|
       format.js
     end
