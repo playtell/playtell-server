@@ -11,7 +11,6 @@
 	<div id="access-lightbox-content">
 		<%= image_tag "mad_scientist.gif", :class => "fl" %>
 		
-		<div id="loader" class="hidden"></div>
 		<div id="thank-you" class="hidden">
 			<h2>Thanks! You're on the list.</h2> 
 			<p class="mediumtext">We'll be in touch soon.</p> 
@@ -30,6 +29,7 @@
 				<%= f.email_field :email %>
 				<%= submit_tag "Sign me up!", :class => "blue", :id => "early-access-submit" %>
 			<% end %>
+			<div id="loader" class="hidden"></div>
 	</div>
 	
 	<button class="close blue">X</button>
@@ -39,7 +39,7 @@
 	$(document).ready(function() {
 		$('#early-access-submit')
 			.click(function() {
-				hide('new_early_user');
+				hide('early-access-submit');
 				show('loader');
 			});
 	});
