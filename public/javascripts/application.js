@@ -27,6 +27,20 @@ $(function() {
 	$('#early-access').click(function() {
 		$('#early-access-lightbox').lightbox_me({
 		    centered: true, 
+			onClose: function () {
+				hide('access-lightbox-text');
+				hide('thank-you');
+			} 
 		});
+		show('access-lightbox-text');
+	});
+	$('.login-link').click(function() {
+		$('#early-access-lightbox').lightbox_me({
+		    centered: true, 
+			onClose: function () {
+				hide('login-lightbox-text');
+			} 
+		});
+		show('login-lightbox-text');
 	});
 });

@@ -210,6 +210,8 @@ label {
 
 .brown-color { color: #b76f53;}
 
+.button-bottom { margin-left: 0px !important; }
+
 /* LIGHTBOX
 -------------------------------------------------------------------*/
 
@@ -241,6 +243,14 @@ label {
 	padding-right: 8px;
 }
 
+.lightbox-content {
+	padding-left: 110px;
+}
+
+.lightbox-content input[type="submit"] {
+	font-size: 12px;;
+}
+
 #setup-lightbox div {
 	width: 365px;
 	padding: 8px 10px;
@@ -268,8 +278,8 @@ label {
 	padding-bottom: 50px;
 }
 
-#feedback-lightbox div {
-	width: 420px;
+#feedback-lightbox .lightbox-content div {
+	width: 350px;
 	padding: 8px 10px;
 }
 
@@ -330,19 +340,14 @@ label {
 #early-access-lightbox p {
 	line-height: 18px;
 	padding-top: 5px;
-	width: 390px;
 }
 
-#early-access-lightbox form {
+#access-lightbox-text form {
 	padding-top: 20px;
 }
 
-#early-access-lightbox input[type="email"] {
+#access-lightbox-text input[type="email"] {
 	width: 200px;
-}
-
-#early-access-lightbox input[type="submit"] {
-	font-size: 12px;;
 }
 
 /* LAYOUT --------------------------------------------------------- */

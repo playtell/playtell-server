@@ -337,21 +337,23 @@
 			<h4>If you see this box, click "Allow." This gives Ragatzi permission to use your camera.</h4>
 			<div id="loader" class="loading"></div>
 			<p>In the future, you'll be able to say "don't show me this again." But not yet, sorry!</p>
+			<button class="button-bottom blue close">Close Window</button>
 		</div>
-		<button class="blue close">Close Window</button>
 		<button class="close close-x blue">X</button>
 	</div>
 	
 	<div id="feedback-lightbox" class="lightbox hidden">
 		<%= image_tag "mad_scientist.gif", :class => "fl lightbox-scientist-img" %>
-		<div id="thank-you" class="hidden">
-			<h2>You're the best!!</h2>
-			<h3>Thanks for helping us make Ragatzi better for you.</h3>
-			<div class="loading"></div>
-		</div>
-		<div id="feedback-lightbox-text">
-			<h2>Did you enjoy your playdate?</h2>	
-			<%= render :partial => "feedback/form", :locals => {:feedback => @feedback} %>
+		<div class="lightbox-content">
+			<div id="thank-you" class="hidden">
+				<h2>You're the best!!</h2>
+				<h3>Thanks for helping us make Ragatzi better for you.</h3>
+				<div class="loading"></div>
+			</div>
+			<div id="feedback-lightbox-text">
+				<h2>Did you enjoy your playdate?</h2>	
+				<%= render :partial => "feedback/form", :locals => {:feedback => @feedback} %>
+			</div>
 		</div>
 		<button class="close close-x blue">X</button>
 	</div>
