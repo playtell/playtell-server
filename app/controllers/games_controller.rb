@@ -28,9 +28,7 @@ class GamesController < ApplicationController
   
   # checks to see if the playdate has ended, and if so, changes the current user's view accordingly
   def playdateDisconnected
-    if current_playdate.disconnected?
-      disconnectPlaydate
-    else
+    if !Playdate.find(params[:playdate]).disconnected? #current_playdate.disconnected?
       render :nothing => true
     end
   end

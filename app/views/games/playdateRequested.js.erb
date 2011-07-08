@@ -5,5 +5,6 @@
 		destroyOnClose: true,
 	});
 	clearTimeout(t);
-	var t = setTimeout(checkForDisconnect, 1000);
+	p = $('#playdate_id').val();
+	var t = setTimeout("checkForDisconnect(p)", 1000);
 <% end %>

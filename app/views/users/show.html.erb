@@ -28,11 +28,11 @@
 	
 	function checkForPlaydateRequest() {
 		$.getScript("/playdate_requested.js");
-		t = setTimeout(checkForPlaydateRequest, 5000);
+		t = setTimeout("checkForPlaydateRequest()", 5000);
 	}
 	
-	function checkForDisconnect() {
-		$.getScript("/playdate_disconnected.js");
-		t = setTimeout(checkForDisconnect, 1000)
+	function checkForDisconnect(p) {
+		$.getScript("/playdate_disconnected.js?playdate="+p);
+		t = setTimeout("checkForDisconnect(p)", 1000)
 	}
 </script>
