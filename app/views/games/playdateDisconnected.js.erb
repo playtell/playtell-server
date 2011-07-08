@@ -1,4 +1,5 @@
 // go back to My Profile mode where waiting for a playdate request
-$('#mainContent').html("<%=raw escape_javascript(render(:partial => "users/friends")) %>");
+//$('#mainContent').html("<%=raw escape_javascript(render(:partial => "users/friends")) %>");
+$('#join-lightbox').trigger('close');
 clearTimeout(t);
 t = setTimeout(checkForPlaydateRequest, 5000);

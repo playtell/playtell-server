@@ -65,10 +65,11 @@ class GamesController < ApplicationController
   def disconnectPlaydate
     current_playdate.disconnect if !current_playdate.disconnected?
     session[:playdate] = nil
-    respond_to do |format|
-      format.html { redirect_to @current_user }
-      format.js
-    end
+    render :nothing => true
+#    respond_to do |format|
+#      format.html { redirect_to @current_user }
+#      format.js
+#    end
   end
 
 private

@@ -11,12 +11,19 @@
 	<% end %>
 </div>
 
+<div class="lightbox hidden" id="join-lightbox">
+</div>
+
 <script type="text/javascript">
 	var t;
 	
 	$(document).ready(function() {
 		clearTimeout(t);
 		checkForPlaydateRequest();
+		
+		$('#join-playdate').click(function(){
+			clearTimeout(t);
+		});
 	});
 	
 	function checkForPlaydateRequest() {

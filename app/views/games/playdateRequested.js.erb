@@ -1,5 +1,9 @@
 <% unless @playdate.blank? %>
-	$('#mainContent').html("<%=raw escape_javascript(render(:partial => "playdateRequest")) %>");
+	$('#join-lightbox').append("<%=raw escape_javascript(render(:partial => "playdateRequest")) %>");
+	$('#join-lightbox').lightbox_me({
+	    centered: true, 
+		destroyOnClose: true,
+	});
 	clearTimeout(t);
 	var t = setTimeout(checkForDisconnect, 1000);
 <% end %>

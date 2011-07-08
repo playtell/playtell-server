@@ -231,8 +231,8 @@
 				});
 				
 				$('#disconnect-link').click(function() {
-					disconnect();
-					// show feedback lightbox
+					disconnect(); //tokbox
+					$.get("<%= disconnect_playdate_path %>"); // ragatzi playdate
 					// every 3rd playdate, prompt for feedback:
 					$('#feedback-lightbox').lightbox_me({
 					    centered: true, 
@@ -240,7 +240,6 @@
 							document.location.href='<%= user_path @current_user %>';
 						}
 					});
-					//else document.location.href='<%= user_path @current_user %>';
 				});
 				
 				$('#fullscreen').click(function() {
@@ -348,7 +347,9 @@
 			<div id="thank-you" class="hidden">
 				<h2>You're the best!!</h2>
 				<h3>Thanks for helping us make Ragatzi better for you.</h3>
-				<div class="loading"></div>
+				<p>
+					<span class="loading"></span> Ending Playdate...
+				</p>
 			</div>
 			<div id="feedback-lightbox-text">
 				<h2>Did you enjoy your playdate?</h2>	

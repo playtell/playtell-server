@@ -27,20 +27,26 @@ $(function() {
 	$('#early-access').click(function() {
 		$('#early-access-lightbox').lightbox_me({
 		    centered: true, 
+			onLoad: function() { 
+			    show('access-lightbox-text');
+				$('#access-lightbox-text').find('input[type=email]:first').focus();
+			},
 			onClose: function () {
 				hide('access-lightbox-text');
 				hide('thank-you');
 			} 
 		});
-		show('access-lightbox-text');
 	});
 	$('.login-link').click(function() {
 		$('#early-access-lightbox').lightbox_me({
 		    centered: true, 
+			onLoad: function() { 
+			    show('login-lightbox-text');
+				$('#login-lightbox-text').find('input[type=text]:first').focus();
+			},
 			onClose: function () {
 				hide('login-lightbox-text');
 			} 
 		});
-		show('login-lightbox-text');
 	});
 });

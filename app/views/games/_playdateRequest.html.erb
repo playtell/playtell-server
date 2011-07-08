@@ -1,4 +1,5 @@
-<%= @playdate.getOtherPlayerName(current_user) %> wants to play!
+<h1><%= @playdate.getOtherPlayerName(current_user) %></h1>
+<h2>wants to play!</h2>
 <%= form_tag playdate_path do %>
 	<%= hidden_field_tag 'connection_type', 'join', :id => "connection-type" %>
 	<%= hidden_field_tag 'playdate_id', @playdate.id, :id => 'playdate_id' %>

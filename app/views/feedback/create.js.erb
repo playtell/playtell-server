@@ -1,4 +1,4 @@
 hide('feedback-lightbox-text');
 $('#thank-you').fadeIn("fast");
 
-setTimeout("document.location.href='<%= disconnect_playdate_path %>'", 2000);
+setTimeout("$('#feedback-lightbox').trigger('close')", 2000);

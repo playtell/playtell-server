@@ -131,7 +131,6 @@ h3 {
     padding: 0;
     font-size: 18px;
     font-weight: normal;
-    color: #539AB7;
 }
 
 h4 {
@@ -279,7 +278,7 @@ label {
 }
 
 #feedback-lightbox .lightbox-content div {
-	width: 350px;
+	width: 300px;
 	padding: 8px 10px;
 }
 
@@ -295,6 +294,19 @@ label {
 
 #feedback-lightbox .radio-label {
 	padding: 15px 0px;
+}
+
+#feedback-lightbox .lightbox-content #thank-you h3 {
+	line-height: 1.2em;
+}
+
+#feedback-lightbox .lightbox-content #thank-you p {
+	padding-top: 10px;
+	color: #539AB7;
+}
+
+#join-lightbox {
+	text-align: center;
 }
 
 /* HOMEPAGE --------------------------------------------------------- */

@@ -4,12 +4,12 @@ class FeedbackController < ApplicationController
   end
 
   def create
-    @feedback = Feedback.new(params[:feedback])
-    if @feedback.save
-      respond_to do |format|
-        format.js 
-        format.html { redirect_to disconnect_playdate_path }
-      end
+    unless params[:feedback][:rating].blank? and params[:feedback][:comment].blank?
+      @feedback = Feedback.new(params[:feedback])
+      @feedback.save
+    end
+    respond_to do |format|
+      format.js 
     end
   end
 
