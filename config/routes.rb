@@ -1,4 +1,5 @@
 Semiralabs::Application.routes.draw do
+
   resources :dailies
   match 'games' => 'games#index'
   match 'update_page' => 'games#updatePage'
@@ -9,6 +10,8 @@ Semiralabs::Application.routes.draw do
   match 'playdate_requested' => 'games#playdateRequested'
   match 'playdate_disconnected' => 'games#playdateDisconnected'
   match 'early_access' => 'application#earlyAccess'
+  
+  match 'feedbacks' => 'feedback#create'
   
   get 'signup' => 'users#new', :as => 'sign_up'
   get 'login' => 'sessions#new', :as => 'login'

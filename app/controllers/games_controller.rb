@@ -16,6 +16,7 @@ class GamesController < ApplicationController
     elsif (params[:connection_type] == "join")
       joinPlaydate
     end
+    @feedback = Feedback.new
   end
   
   # checks to see if there is a playdate request for the current user, and if so, changes the current user's view to show a playdate request
@@ -64,7 +65,6 @@ class GamesController < ApplicationController
   def disconnectPlaydate
     current_playdate.disconnect if !current_playdate.disconnected?
     session[:playdate] = nil
-    puts "in disconnectPlaydate"
     respond_to do |format|
       format.html { redirect_to @current_user }
       format.js

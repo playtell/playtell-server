@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  playdate_id: 1
+  rating: 1
+  comment: MyString
+
+two:
+  user_id: 1
+  playdate_id: 1
+  rating: 1
+  comment: MyString

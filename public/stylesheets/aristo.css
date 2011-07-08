@@ -37,6 +37,7 @@ input[type="radio"] {
   background: url(../images/radio-bezel.png) no-repeat;
   width: 17px;
   height: 17px;
+  vertical-align: middle;
 }
 
 input[type="radio"]:checked {

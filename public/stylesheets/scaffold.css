@@ -168,9 +168,15 @@ input[type="password"] {
 	margin-bottom: 10px;
 }
 
+textarea {
+	margin-bottom: 10px;
+	padding: 6px 4px;
+}
+
 label {
 	font-size: 14px;
 	display: block;
+	padding-bottom: 2px;
 }
 
 .loading {
@@ -178,47 +184,6 @@ label {
 	width: 20px;
 	height: 20px;
 	padding: 15px;
-}
-
-/* LIGHTBOX
--------------------------------------------------------------------*/
-
-.lightbox {
-        -moz-border-radius: 6px;
-        background: #eef2f7;
-        -webkit-border-radius: 6px;
-        border: 1px solid #536376;
-        -webkit-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;
-        -moz-box-shadow:  rgba(0,0,0,.6) 0px 2px 12px;;
-        padding: 14px 22px;
-        width: 400px;
-		min-height: 50px;
-        position: relative;
-    }
-
-.close {
-	position: absolute;
-	top: 5px;
-	right: 5px;
-}
-
-#setup-lightbox div {
-	width: 375px;
-	padding: 8px 10px;
-}
-
-#setup-lightbox div#loader {
-	margin: auto;
-	min-height: 175px;
-	padding: 0px;
-}
-
-#setup-lightbox div img {
-	padding-top: 5px;
-}
-
-#setup-lightbox h4 {
-	line-height: 1.2em;
 }
 
 /* MISC
@@ -244,6 +209,83 @@ label {
 .clear { clear: both; }
 
 .brown-color { color: #b76f53;}
+
+/* LIGHTBOX
+-------------------------------------------------------------------*/
+
+.lightbox {
+        -moz-border-radius: 6px;
+        background: #eef2f7;
+        -webkit-border-radius: 6px;
+        border: 1px solid #536376;
+        -webkit-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;
+        -moz-box-shadow:  rgba(0,0,0,.6) 0px 2px 12px;;
+        padding: 14px 22px;
+        width: 400px;
+		min-height: 50px;
+        position: relative;
+		font-size: 1.3em;
+    }
+
+.close {
+}
+
+.close-x {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+.lightbox-scientist-img {
+	width: 100px;
+	padding-right: 8px;
+}
+
+#setup-lightbox div {
+	width: 365px;
+	padding: 8px 10px;
+}
+
+#setup-lightbox div#loader {
+	margin: auto;
+	min-height: 175px;
+	padding: 0px;
+}
+
+#setup-lightbox div img {
+	padding-top: 5px;
+}
+
+#setup-lightbox h4 {
+	line-height: 1.2em;
+}
+
+#feedback-lightbox {
+	width: 475px;
+}
+
+#feedback-lightbox img {
+	padding-bottom: 50px;
+}
+
+#feedback-lightbox div {
+	width: 420px;
+	padding: 8px 10px;
+}
+
+#feedback-lightbox label {
+	display: inline;
+	padding-right: 15px;
+}
+
+#feedback-lightbox input[type="radio"] {
+	margin-right: 5px;
+	margin-top: -3px;
+}
+
+#feedback-lightbox .radio-label {
+	padding: 15px 0px;
+}
 
 /* HOMEPAGE --------------------------------------------------------- */
 
@@ -279,11 +321,6 @@ label {
 
 #early-access-lightbox {
 	width: 440px;
-}
-
-#early-access-lightbox img {
-	width: 100px;
-	padding-right: 8px;
 }
 
 #early-access-lightbox h2 {
@@ -409,7 +446,8 @@ img#scientistImage {
 }
 
 .book-image img {
-	height: 280px;
+	max-height: 280px;
+	max-width: 500px;
 }
 
 .book-text {
