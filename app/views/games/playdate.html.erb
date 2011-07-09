@@ -317,13 +317,13 @@
 		<div class="video-content">
 			<div id="fam-camera-holder"></div>
 			<div id="my-camera-holder">
+				<div id="links">
+					<%= link_to '#' do %>
+						<button id="connect-link" class="blue hidden">Connect</button>
+					<% end %>
+					<button class="red" id="disconnect-link">End Playdate</button>
+				</div>
 				<div id="my-camera" class="loading"></div>
-			</div>
-			<div id="links">
-				<%= link_to '#' do %>
-					<button id="connect-link" class="blue hidden">Connect</button>
-				<% end %>
-				<button class="red" id="disconnect-link">End Playdate</button>
 			</div>
 			<div class="clear"></div>
 		</div>

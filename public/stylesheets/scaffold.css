@@ -429,21 +429,24 @@ img#scientistImage {
 	margin: 5px 5px;
 }
 
-#my-camera-wrapper {
-	text-align: center;
-}
-
 #my-camera-holder {
-	/*background: url("/images/blue_box_frame.png") no-repeat;*/
+	background: black;
+	margin: 5px;
 	width: 225px;
 	height: 140px;
-	margin: 0px auto;
-	text-align: center;
+	/*margin: 0px auto;*/
 }
 
 #my-camera {
 	min-width: 215px;
-	padding: 0px;
+	padding: 1px 4px;
+	position: absolute;
+}
+
+#links {
+	display: inline;
+	position: absolute;
+	left: 260px;
 }
 
 /* BOOKS --------------------------------------------------------- */
@@ -456,6 +459,7 @@ img#scientistImage {
 	width: 500px;
 	overflow: hidden;
 	text-align: center;	
+	min-height: 600px;
 }
 
 .book-image {
@@ -477,7 +481,7 @@ img#scientistImage {
 	text-align: center;
 	font-size: 1.5em;
 	position: absolute;
-	bottom: 0px;
+	top: 540px;
 	left: 25%;
 }
 
