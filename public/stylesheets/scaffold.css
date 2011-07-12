@@ -449,6 +449,17 @@ img#scientistImage {
 	left: 260px;
 }
 
+#links ul {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 1em;
+	text-indent: -1em;
+	}
+
+#links ul li {
+	list-style: none;
+}
+
 /* BOOKS --------------------------------------------------------- */
 
 .activity-content {
@@ -481,7 +492,7 @@ img#scientistImage {
 	text-align: center;
 	font-size: 1.5em;
 	position: absolute;
-	top: 540px;
+	top: 530px;
 	left: 25%;
 }
 
@@ -511,4 +522,20 @@ img#scientistImage {
 
 #first-page:hover {
 	text-decoration: underline;
+}
+
+/* LIBRARY --------------------------------------------------------- */
+.library-item {
+	width: 175px;
+	padding: 10px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.library-item img {
+	width: 150px;
+}
+
+.library-item input[type="submit"] {
+	width: 150px;
 }

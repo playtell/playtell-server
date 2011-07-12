@@ -16,6 +16,7 @@ class GamesController < ApplicationController
     elsif (params[:connection_type] == "join")
       joinPlaydate
     end
+    @books = Book.all
     @feedback = Feedback.new
   end
   
@@ -33,21 +34,23 @@ class GamesController < ApplicationController
     end
   end
     
-  # equivalent of "turn page" - changes the currently displayed book page stored in the playdate session
+  # updates the player-initiated change of the playdate state, like change book or turn page, in the db 
   def updatePage
     @playdate = Playdate.find(session[:playdate])
-    @playdate.page_num = params[:newPage]
-    @playdate.save
-    respond_to do |format|
-      format.js { render :nothing => true }
+    if (params[:playdateChange] == "turn_page")
+      @playdate.page_num = params[:newPage]
+      @playdate.save
+      render :nothing => true
+    elsif params[:playdateChange] == "change_book"
+      getBook(params[:book])
     end
   end
   
   # refreshes the playdate with the latest play state e.g. turned page in a book. called via ajax from one of the players in the playdate b/c they got a tokbox signal from another player.
-  def updatePlaydate
+  def updateFromPlaydate
     @playdate = current_playdate
     respond_to do |format|
-      format.js { render 'update_page' }
+      format.js 
     end
   end
   
@@ -81,8 +84,6 @@ private
   
   # sets up a new playdate session with a new opentok video session and a book to be read in the playdate. gets an opentok token for the user. currently hard-coded to use the 'little red riding hood' book.   
   def createPlaydate
-    getBook(Book.find_by_title("Little Red Riding Hood"))
-
     # set up the opentok video session and get a token for this user
     video_session = @@opentok.create_session '127.0.0.1'  
     tok_session_id = video_session.session_id
@@ -93,9 +94,8 @@ private
       :player1_id => session[:user_id], 
       :player2_id => params[:friend_id],
       :video_session_id => tok_session_id)
-    @playdate.book_id = @book.id
-    @playdate.page_num = 1
-    @playdate.save
+    getBook(Book.find_by_title("Little Red Riding Hood"))
+    
     session[:playdate] = @playdate.id
   end
 
@@ -111,6 +111,9 @@ private
   # loads a book for a playdate.   
   def getBook(id)
     @book = Book.find(id)
+    @playdate.book_id = id
+    @playdate.page_num = 1
+    @playdate.save
   end
   
   # uses the application layout for homepage and games layout for all other pages

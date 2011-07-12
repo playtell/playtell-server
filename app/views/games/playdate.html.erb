@@ -162,7 +162,7 @@
 			
 			function signalReceivedHandler (event) {
 				if (event.fromConnection.connectionId != session.connection.connectionId) {
-					$.get("<%= update_playdate_path %>");
+					$.get("<%= update_from_playdate_path %>");
 				}
 			}
 			
@@ -226,6 +226,23 @@
 					$('#new-page').val(1);
 				});
 				
+				$('#change_activity')
+					.bind('ajax:success', function() {
+						//if (subscribers.length > 0) {
+							session.signal();
+						//}
+					});
+				
+				$("#select-book").click(function() {
+					
+				});				
+				
+				$('.library-link').click(function() {
+					$('#library-lightbox').lightbox_me({
+					    centered: true, 
+					});					
+				})
+				
 				$('#connect-link').click(function() {
 					connect();
 				});
@@ -250,6 +267,7 @@
 				$('#setup-lightbox').lightbox_me({
 				    centered: true, 
 				});
+				
 				//load image for setup lightbox
 				$(function () {
 				  var img = new Image();
@@ -273,13 +291,7 @@
 				});
 					
 				// book setup and display	
-				var currentPage = 1;
-				// TODO: change currentPage to "<%= @playdate.page_num %>"; 
-				$('#page_'+currentPage).animate({
-					left: 0
-				});
-				//show("page_"+currentPage);
-				updateBookNavLinks(currentPage);
+				showBook(1); // TODO: change currentPage param to "<%= @playdate.page_num %>";
 				
 				// opentok video session setup and display
 				
@@ -312,16 +324,18 @@
 	<div id="videos">
 		<div class="activity-content">
 			<%= render :partial => "book" %>
-			<div class="clear"></div>
 		</div>
 		<div class="video-content">
 			<div id="fam-camera-holder"></div>
 			<div id="my-camera-holder">
 				<div id="links">
-					<%= link_to '#' do %>
-						<button id="connect-link" class="blue hidden">Connect</button>
-					<% end %>
-					<button class="red" id="disconnect-link">End Playdate</button>
+					<ul>
+						<li class="hidden"><%= link_to '#' do %>
+							<button id="connect-link" class="blue">Connect</button>
+						<% end %></li>
+						<li><button class="red" id="disconnect-link">End Playdate</button></li>
+						<li><button class="blue library-link">Play Something Different</button></li>
+					</ul>
 				</div>
 				<div id="my-camera" class="loading"></div>
 			</div>
@@ -359,4 +373,11 @@
 		<button class="close close-x blue">X</button>
 	</div>
 
+	<div id="library-lightbox" class="lightbox hidden">
+		<div id="feedback-lightbox-text">
+			<h2>What do you want to play?</h2>	
+			<%= render :partial => "library", :locals => {:books => @books} %>
+		</div>
+		<button class="close close-x blue">X</button>
+	</div>
 

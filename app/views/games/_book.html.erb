@@ -12,6 +12,7 @@
  	<%= form_tag update_page_path, :remote => true, :id => 'turn-page' do %>
 		<%= hidden_field_tag 'title', @book.title %>
 		<%= hidden_field_tag 'newPage', @playdate.page_num, :id => "new-page" %>
+		<%= hidden_field_tag 'playdateChange', "turn_page" %>
 		<%= hidden_field_tag 'direction', 'next', :id => "page-direction" %>
 		
 		<%= submit_tag 'Previous', :class => "blue", :id => 'prev-page' %>

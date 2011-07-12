@@ -4,7 +4,7 @@ Semiralabs::Application.routes.draw do
   match 'games' => 'games#index'
   match 'update_page' => 'games#updatePage'
   match 'playdate' => 'games#playdate'
-  match 'update_playdate' => 'games#updatePlaydate'
+  match 'update_from_playdate' => 'games#updateFromPlaydate'
   match 'clear_playdate' => 'games#clearPlaydate'
   match 'disconnect_playdate' => 'games#disconnectPlaydate'
   match 'playdate_requested' => 'games#playdateRequested'

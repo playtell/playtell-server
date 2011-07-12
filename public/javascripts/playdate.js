@@ -1,3 +1,11 @@
+function showBook(currentPage) { 
+	$('#page_'+currentPage).animate({
+		left: 0
+	});
+	//show("page_"+currentPage); - remnant of no animation
+	updateBookNavLinks(currentPage);
+}
+
 function getCurrentPage () {
 	return parseInt($("#page-num").html(), 10)
 }
