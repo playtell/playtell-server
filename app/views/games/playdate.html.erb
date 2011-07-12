@@ -291,7 +291,7 @@
 				});
 					
 				// book setup and display	
-				showBook(1); // TODO: change currentPage param to "<%= @playdate.page_num %>";
+				showBook(1, "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>";
 				
 				// opentok video session setup and display
 				
@@ -323,7 +323,9 @@
 
 	<div id="videos">
 		<div class="activity-content">
-			<%= render :partial => "book" %>
+			<div class="pages"><%= render :partial => "book" %></div>
+			<div class="book-nav"><%= render :partial => "bookNav", :locals => {:book => @book} %></div>
+			<div class="clear"></div>
 		</div>
 		<div class="video-content">
 			<div id="fam-camera-holder"></div>

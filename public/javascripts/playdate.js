@@ -1,9 +1,12 @@
-function showBook(currentPage) { 
+function showBook(currentPage, totalPages) { 
 	$('#page_'+currentPage).animate({
 		left: 0
 	});
 	//show("page_"+currentPage); - remnant of no animation
+	$('#total-pages').html(totalPages);
+	$('#page-num').html(currentPage);
 	updateBookNavLinks(currentPage);
+	
 }
 
 function getCurrentPage () {
@@ -60,11 +63,3 @@ function updateBookNavLinks(currentPage) {
 		}
 	}
 } 
-
-function turnPage (pageDiv) {
-	$('#'+pageDiv).animate({
-		left: parseInt($('#'+pageDiv).css('left'), 10) == 0 ?
-			-$('#'+pageDiv).outerWidth() :
-			0
-	});
-}
