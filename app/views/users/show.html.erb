@@ -15,6 +15,22 @@
 <div class="lightbox hidden" id="join-lightbox">
 </div>
 
+<div class="lightbox hidden" id="find-lightbox">
+	<div id="find-lightbox-text">
+		<h2>Find Playmates</h2>
+		<%= form_tag search_users_path, :method => 'get', :id => "playmate-search" do %>
+		  <p>
+		    <%= text_field_tag :search, params[:search] %>
+		    <%= submit_tag "Search", :name => nil %>
+		  </p>	
+		<% end %>
+		<div id="users">
+			<%= render "users" %>
+		</div>
+	</div>
+	<button class="close close-x blue">X</button>	
+</div>
+
 <script type="text/javascript">
 	var t;
 	
@@ -27,8 +43,15 @@
 		});
 		
 		$('.find-playmates-link').click(function() {
-			
+			$('#find-lightbox').lightbox_me({
+		    	centered: true,
+			});
 		});
+		
+		$("#playmate-search").click(function() {
+		    $.get($("#playmate-search").attr("action"), $("#playmate-search").serialize(), null, "script");
+		    return false;
+		  });
 	});
 	
 	function checkForPlaydateRequest() {

@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def fullName
+    self.firstname + " " + self.lastname
+  end
+  
   def allFriends
     self.friends + self.inverse_friends
   end

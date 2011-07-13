@@ -18,6 +18,11 @@ class UsersController < ApplicationController
   def show
     u = current_user
     @new_friends = User.all.select { |friend| friend.id != u.id && u.isFriend?(friend).nil? }
+    @users = []
+  end
+  
+  def search
+    @users = User.all
   end
 
 end
