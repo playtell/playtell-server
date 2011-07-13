@@ -1,5 +1,5 @@
 <% content_for :head do %>
-<%= javascript_include_tag 'playdate' %>
+<%= javascript_include_tag 'playdate', 'video' %>
 <script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script> 
 <script type="text/javascript">
     var sessionId = "<%= @playdate.video_session_id %>"; 
@@ -18,298 +18,120 @@
 	var deviceManager;
 	
 	var inSetup = true;
-				
-			//--------------------------------------
-			//  LINK CLICK HANDLERS
-			//--------------------------------------
-
-			/* 
-			If testing the app from the desktop, be sure to check the Flash Player Global Security setting
-			to allow the page from communicating with SWF content loaded from the web. For more information,
-			see http://www.tokbox.com/opentok/build/tutorials/basictutorial.html#localTest
-			*/
-			function connect() {
-				session.connect(apiKey, token);
-			}
-
-			function disconnect() {
-				if (!inSetup) {
-					session.signal();
-				}
-				session.disconnect();
-				//hide('disconnect-link');
-				//hide('publish-link');
-				//hide('unpublish-link');
-			}
-
-			function publish(location) {
-				if (!publisher) {
-					var parentDiv = document.getElementById(location);
-					var div = document.createElement('div');			// Create a replacement div for the publisher
-					div.setAttribute('id', 'opentok_publisher');
-					parentDiv.appendChild(div);
-					$('#'+location).removeClass('loading');
-					var publisherProps = {width: PUBLISHER_WIDTH, height: PUBLISHER_HEIGHT, microphoneEnabled: true};
-					publisher = session.publish('opentok_publisher', publisherProps); 	// Pass the replacement div id to the publish method
-					//show('unpublish-link');
-					//hide('publish-link');
-				}
-			}
-
-			function unpublish() {
-				if (publisher) {
-					session.unpublish(publisher);
-				}
-				publisher = null;
-
-				//show('publish-link');
-				//hide('unpublish-link');
-			}
 			
-			function subscribeAndPublish() {
-				// Subscribe to all streams currently in the Session
-				for (var i = 0; i < event.streams.length; i++) {
-					addStream(event.streams[i]);
-				}
-				
-				show('disconnect-link');
-				hide('connect-link');
-				publish("my-camera");				
-			}
+	$(document).ready(function() {
+		// writes out the page direction so it can be used later.
+		// upon success, signals the other player in the playdate to ping the server for the latest view of the book	
+		// load setup lightbox
+		$('#setup-lightbox').lightbox_me({
+		    centered: true, 
+		});
+		
+		//load image for setup lightbox
+		$(function () {
+		  var img = new Image();
+		  $(img)
+		    .load(function () {
+		      $(this).hide();
 
-			//--------------------------------------
-			//  OPENTOK EVENT HANDLERS
-			//--------------------------------------
+		      $('#loader')
+		        .removeClass('loading')
+		        .append(this);
 
-			function sessionConnectedHandler(event) {
-				for (var i = 0; i < event.streams.length; i++) {
-					addStream(event.streams[i]);
-				}
-				publish("my-camera");
-				//listen for device status event
-				//deviceManager = TB.initDeviceManager(apiKey);
-				//deviceManager.addEventListener("devicesDetected", devicesDetectedHandler);
-				//deviceManager.detectDevices();
-			}
-			
-			function devicesDetectedHandler(event) {
-				if (inSetup) {
-					if (event.selectedCamera) {
-						if (event.selectedCamera.status	== "unknown") {
-							inSetup = true;
-							$("#setup").removeClass("hidden");
-							deviceManager.removeEventListener("devicesDetected", function(){});
-							publish("setup");
-							publisher.addEventListener("accessAllowed", accessAllowedHandler);
-						}
-						//else {
-							//inSetup = false;
-						//	publish("my-camera");
-						//}				
+		      $(this).fadeIn();
+		    })
+
+		    .error(function () {
+		      // notify the user that the image could not be loaded
+		    })
+
+		    .attr('src', '/images/flashbox.png')
+		    .attr('alt', 'Click Allow if you see the Flash settings box.');
+		});
+		
+		// book setup and display	
+		showBook(1, "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>";
+		
+		// opentok video session setup and display
+		
+		// Un-comment either of the following to set automatic logging and exception handling.
+		// See the exceptionHandler() method below.
+		// TB.setLogLevel(TB.DEBUG);
+		// TB.addEventListener("exception", exceptionHandler);
+
+		if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
+			alert('You do not have the minimum system requirements to use this service :(');
+		} else {
+			session = TB.initSession(sessionId);	// Initialize session
+			// Add event listeners to the session
+			session.addEventListener('sessionConnected', sessionConnectedHandler);
+			session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
+			session.addEventListener('connectionCreated', connectionCreatedHandler);
+			session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
+			session.addEventListener('streamCreated', streamCreatedHandler);
+			session.addEventListener('streamDestroyed', streamDestroyedHandler);
+			session.addEventListener('signalReceived', signalReceivedHandler);
+
+			connect();
+		}
+		
+		$('#turn-page')
+			.bind('ajax:beforeSend', function() {
+				updatePage($('#page-direction').val());
+			})
+			.bind('ajax:success', function() {
+				//if (subscribers.length > 0) {
+					if (session) {
+						session.signal();
 					}
+				//}
+			});					
+
+		//writes out the page direction and new page number to be used later
+		$('#next-page').click(function() {
+			$('#page-direction').val("next");
+			$('#new-page').val(getNewPage(getCurrentPage(), "next"));
+		});
+
+		$("#prev-page").click(function() {
+			$('#page-direction').val("previous");
+			$('#new-page').val(getNewPage(getCurrentPage(), "previous"));
+		});
+		
+		$("#first-page").click(function() {
+			$('#page-direction').val("beginning");
+			$('#new-page').val(1);
+		});
+		
+		$("#select-book").click(function() {
+		});				
+		
+		$('.library-link').click(function() {
+			$('#library-lightbox').lightbox_me({
+			    centered: true, 
+			});					
+		})
+		
+		$('#connect-link').click(function() {
+			connect();
+		});
+		
+		$('#disconnect-link').click(function() {
+			disconnect(); //tokbox
+			$.get("<%= disconnect_playdate_path %>"); // ragatzi playdate
+			// every 3rd playdate, prompt for feedback:
+			$('#feedback-lightbox').lightbox_me({
+			    centered: true, 
+				onClose: function () {
+					document.location.href='<%= user_path @current_user %>';
 				}
-			}
-			
-			function accessAllowedHandler(event) {
-				publisher.removeEventListener("accessAllowed", function(){});
-				$("#setup").html("success!");
-				$("#setup").addClass("hidden");
-				unpublish();
-				publish("my-camera");
-			}
-
-			function streamCreatedHandler(event) {
-				// Subscribe to these newly created streams
-				for (var i = 0; i < event.streams.length; i++) {
-					addStream(event.streams[i]);
-				}
-			}
-
-			function streamDestroyedHandler(event) {
-				// This signals that a stream was destroyed. Any Subscribers will automatically be removed. 
-				// This default behaviour can be prevented using event.preventDefault()
-			}
-
-			function sessionDisconnectedHandler(event) {
-				// This signals that the user was disconnected from the Session. Any subscribers and publishers
-				// will automatically be removed. This default behaviour can be prevented using event.preventDefault()
-				publisher = null;
-
-				//show('connect-link');
-				//hide('disconnect-link');
-				//hide('publish-link');
-				//hide('unpublish-link');
-			}
-
-			function connectionDestroyedHandler(event) {
-				// This signals that connections were destroyed
-			}
-
-			function connectionCreatedHandler(event) {
-				// This signals new connections have been created (ie another person has joined the session)
-			}
-
-			/* 
-			If you un-comment the call to TB.setEventLister(), above, OpenTok 
-			calls the exceptionHandler() method when exception events occur. 
-			You can modify this method to further process exception events.
-			If you un-comment the call to TB.setLogLevel(), above, OpenTok 
-			automatically displays exception event messages. 
-			*/
-			function exceptionHandler(event) {
-				alert("Exception: " + event.code + "::" + event.message);
-			}
-			
-			function signalReceivedHandler (event) {
-				if (event.fromConnection.connectionId != session.connection.connectionId) {
-					$.get("<%= update_from_playdate_path %>");
-				}
-			}
-			
-
-			//--------------------------------------
-			//  HELPER METHODS
-			//--------------------------------------
-
-			function addStream(stream) {
-				// Check if this is the stream that I am publishing. If not
-				// we choose to subscribe to the stream.
-				if (stream.connection.connectionId == session.connection.connectionId) {
-//					if (inSetup) {
-//						$("#setup").html("success!");
-//						$("#setup").addClass("hidden");
-//						unpublish();
-//						publish("my-camera");
-//						return;
-//					}
-//					else {
-//						return;
-//					}
-					return;
-				}
-				var parentDiv = document.getElementById("fam-camera-holder");
-
-				var div = document.createElement('div');	// Create a replacement div for the subscriber
-				var divId = stream.streamId;	// Give the replacement div the id of the stream as its id
-				div.setAttribute('id', divId);			
-				parentDiv.appendChild(div);
-				var subscriberProps = {width: SUBSCRIBER_WIDTH, height: SUBSCRIBER_HEIGHT, microphoneEnabled: true};
-				subscribers[stream.streamId] = session.subscribe(stream, divId, subscriberProps);
-			}
-			
-			$(document).ready(function() {
-				// writes out the page direction so it can be used later.
-				// upon success, signals the other player in the playdate to ping the server for the latest view of the book	
-				// load setup lightbox
-				$('#setup-lightbox').lightbox_me({
-				    centered: true, 
-				});
-				
-				//load image for setup lightbox
-				$(function () {
-				  var img = new Image();
-				  $(img)
-				    .load(function () {
-				      $(this).hide();
-
-				      $('#loader')
-				        .removeClass('loading')
-				        .append(this);
-
-				      $(this).fadeIn();
-				    })
-
-				    .error(function () {
-				      // notify the user that the image could not be loaded
-				    })
-
-				    .attr('src', '/images/flashbox.png')
-				    .attr('alt', 'Click Allow if you see the Flash settings box.');
-				});
-				
-				// book setup and display	
-				showBook(1, "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>";
-				
-				// opentok video session setup and display
-				
-				// Un-comment either of the following to set automatic logging and exception handling.
-				// See the exceptionHandler() method below.
-				// TB.setLogLevel(TB.DEBUG);
-				// TB.addEventListener("exception", exceptionHandler);
-
-				if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
-					alert('You do not have the minimum system requirements to use this service :(');
-				} else {
-					session = TB.initSession(sessionId);	// Initialize session
-					// Add event listeners to the session
-					session.addEventListener('sessionConnected', sessionConnectedHandler);
-					session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
-					session.addEventListener('connectionCreated', connectionCreatedHandler);
-					session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
-					session.addEventListener('streamCreated', streamCreatedHandler);
-					session.addEventListener('streamDestroyed', streamDestroyedHandler);
-					session.addEventListener('signalReceived', signalReceivedHandler);
-
-					connect();
-				}
-				
-				$('#turn-page')
-					.bind('ajax:beforeSend', function() {
-						updatePage($('#page-direction').val());
-					})
-					.bind('ajax:success', function() {
-						//if (subscribers.length > 0) {
-							if (session) {
-								session.signal();
-							}
-						//}
-					});					
-
-				//writes out the page direction and new page number to be used later
-				$('#next-page').click(function() {
-					$('#page-direction').val("next");
-					$('#new-page').val(getNewPage(getCurrentPage(), "next"));
-				});
-
-				$("#prev-page").click(function() {
-					$('#page-direction').val("previous");
-					$('#new-page').val(getNewPage(getCurrentPage(), "previous"));
-				});
-				
-				$("#first-page").click(function() {
-					$('#page-direction').val("beginning");
-					$('#new-page').val(1);
-				});
-				
-				$("#select-book").click(function() {
-				});				
-				
-				$('.library-link').click(function() {
-					$('#library-lightbox').lightbox_me({
-					    centered: true, 
-					});					
-				})
-				
-				$('#connect-link').click(function() {
-					connect();
-				});
-				
-				$('#disconnect-link').click(function() {
-					disconnect(); //tokbox
-					$.get("<%= disconnect_playdate_path %>"); // ragatzi playdate
-					// every 3rd playdate, prompt for feedback:
-					$('#feedback-lightbox').lightbox_me({
-					    centered: true, 
-						onClose: function () {
-							document.location.href='<%= user_path @current_user %>';
-						}
-					});
-				});
-				
-				$('#fullscreen').click(function() {
-					maxWindow();
-				});				
 			});
+		});
+		
+		$('#fullscreen').click(function() {
+			maxWindow();
+		});				
+	});
 			
 </script>
 <% end %>
