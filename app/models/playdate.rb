@@ -5,7 +5,12 @@ class Playdate < ActiveRecord::Base
   DISCONNECTED=0
   CONNECTING=1
   CONNECTED=2
-
+  
+  NONE=0
+  CHANGE_BOOK=100
+  TURN_PAGE=101
+  #CHANGE_GAME=200 in the future maybe make this an array so all activity within a playdate can be tracked
+  
 # returns the playdate object if a non-disconnected playdate exists for the given user
   def self.findActivePlaydate(user)
     p = Playdate.where("player1_id = ? AND status != 0 OR player2_id = ? AND status != 0", user.id, user.id)
@@ -46,6 +51,11 @@ class Playdate < ActiveRecord::Base
   
   def connecting?
     return self.status == CONNECTING
+  end
+  
+  def clearChange
+    self.change = NONE
+    save
   end
 
 end

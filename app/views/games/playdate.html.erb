@@ -226,15 +226,7 @@
 					$('#new-page').val(1);
 				});
 				
-				$('#change_activity')
-					.bind('ajax:success', function() {
-						//if (subscribers.length > 0) {
-							session.signal();
-						//}
-					});
-				
 				$("#select-book").click(function() {
-					
 				});				
 				
 				$('.library-link').click(function() {
@@ -336,7 +328,7 @@
 							<button id="connect-link" class="blue">Connect</button>
 						<% end %></li>
 						<li><button class="red" id="disconnect-link">End Playdate</button></li>
-						<li><button class="blue library-link">Play Something Different</button></li>
+						<li><button class="blue library-link">Read Something Different</button></li>
 					</ul>
 				</div>
 				<div id="my-camera" class="loading"></div>

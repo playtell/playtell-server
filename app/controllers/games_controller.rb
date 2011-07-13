@@ -37,21 +37,32 @@ class GamesController < ApplicationController
   # updates the player-initiated change of the playdate state, like change book or turn page, in the db 
   def updatePage
     @playdate = Playdate.find(session[:playdate])
-    if (params[:playdateChange] == "turn_page")
+    @playdate.change = params[:playdateChange]
+    @playdate.save
+    
+    case @playdate.change
+    when Playdate::TURN_PAGE
       @playdate.page_num = params[:newPage]
       @playdate.save
       render :nothing => true
-    elsif params[:playdateChange] == "change_book"
+    when Playdate::CHANGE_BOOK
       getBook(params[:book])
+    when Playdate::NONE
+      render :nothing => true
     end
   end
   
   # refreshes the playdate with the latest play state e.g. turned page in a book. called via ajax from one of the players in the playdate b/c they got a tokbox signal from another player.
   def updateFromPlaydate
     @playdate = current_playdate
-    respond_to do |format|
-      format.js 
+    case @playdate.change
+    when Playdate::TURN_PAGE
+      render "turn_page"
+    when Playdate::CHANGE_BOOK
+      getBook(@playdate.book_id)
+      render "change_book"
     end
+    @playdate.clearChange
   end
   
   # deletes all playdate sessions from the db
@@ -94,7 +105,7 @@ private
       :player1_id => session[:user_id], 
       :player2_id => params[:friend_id],
       :video_session_id => tok_session_id)
-    getBook(Book.find_by_title("Little Red Riding Hood"))
+    getBook(Book.find_by_title("Little Red Riding Hood").id)
     
     session[:playdate] = @playdate.id
   end
