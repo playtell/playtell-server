@@ -200,13 +200,68 @@
 			$(document).ready(function() {
 				// writes out the page direction so it can be used later.
 				// upon success, signals the other player in the playdate to ping the server for the latest view of the book	
+				// load setup lightbox
+				$('#setup-lightbox').lightbox_me({
+				    centered: true, 
+				});
+				
+				//load image for setup lightbox
+				$(function () {
+				  var img = new Image();
+				  $(img)
+				    .load(function () {
+				      $(this).hide();
+
+				      $('#loader')
+				        .removeClass('loading')
+				        .append(this);
+
+				      $(this).fadeIn();
+				    })
+
+				    .error(function () {
+				      // notify the user that the image could not be loaded
+				    })
+
+				    .attr('src', '/images/flashbox.png')
+				    .attr('alt', 'Click Allow if you see the Flash settings box.');
+				});
+				
+				// book setup and display	
+				showBook(1, "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>";
+				
+				// opentok video session setup and display
+				
+				// Un-comment either of the following to set automatic logging and exception handling.
+				// See the exceptionHandler() method below.
+				// TB.setLogLevel(TB.DEBUG);
+				// TB.addEventListener("exception", exceptionHandler);
+
+				if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
+					alert('You do not have the minimum system requirements to use this service :(');
+				} else {
+					session = TB.initSession(sessionId);	// Initialize session
+					// Add event listeners to the session
+					session.addEventListener('sessionConnected', sessionConnectedHandler);
+					session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
+					session.addEventListener('connectionCreated', connectionCreatedHandler);
+					session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
+					session.addEventListener('streamCreated', streamCreatedHandler);
+					session.addEventListener('streamDestroyed', streamDestroyedHandler);
+					session.addEventListener('signalReceived', signalReceivedHandler);
+
+					connect();
+				}
+				
 				$('#turn-page')
 					.bind('ajax:beforeSend', function() {
 						updatePage($('#page-direction').val());
 					})
 					.bind('ajax:success', function() {
 						//if (subscribers.length > 0) {
-							session.signal();
+							if (session) {
+								session.signal();
+							}
 						//}
 					});					
 
@@ -253,66 +308,23 @@
 				
 				$('#fullscreen').click(function() {
 					maxWindow();
-				});
-				
-				// load setup lightbox
-				$('#setup-lightbox').lightbox_me({
-				    centered: true, 
-				});
-				
-				//load image for setup lightbox
-				$(function () {
-				  var img = new Image();
-				  $(img)
-				    .load(function () {
-				      $(this).hide();
-
-				      $('#loader')
-				        .removeClass('loading')
-				        .append(this);
-
-				      $(this).fadeIn();
-				    })
-
-				    .error(function () {
-				      // notify the user that the image could not be loaded
-				    })
-
-				    .attr('src', '/images/flashbox.png')
-				    .attr('alt', 'Click Allow if you see the Flash settings box.');
-				});
-					
-				// book setup and display	
-				showBook(1, "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>";
-				
-				// opentok video session setup and display
-				
-				// Un-comment either of the following to set automatic logging and exception handling.
-				// See the exceptionHandler() method below.
-				// TB.setLogLevel(TB.DEBUG);
-				// TB.addEventListener("exception", exceptionHandler);
-
-				if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
-					alert('You do not have the minimum system requirements to use this service :(');
-				} else {
-					session = TB.initSession(sessionId);	// Initialize session
-					// Add event listeners to the session
-					session.addEventListener('sessionConnected', sessionConnectedHandler);
-					session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
-					session.addEventListener('connectionCreated', connectionCreatedHandler);
-					session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
-					session.addEventListener('streamCreated', streamCreatedHandler);
-					session.addEventListener('streamDestroyed', streamDestroyedHandler);
-					session.addEventListener('signalReceived', signalReceivedHandler);
-
-					connect();
-				}
-				
+				});				
 			});
 			
 </script>
 <% end %>
-
+	
+	<div id="setup-lightbox" class="lightbox hidden">
+		<h1>One quick thing - </h1>
+		<div>
+			<h4>If you see this box, click "Allow." This gives Ragatzi permission to use your camera.</h4>
+			<div id="loader" class="loading"></div>
+			<p>In the future, you'll be able to say "don't show me this again." But not yet, sorry!</p>
+			<button class="button-bottom blue close">Close Window</button>
+		</div>
+		<button class="close close-x blue">X</button>
+	</div>
+	
 	<div id="videos">
 		<div class="activity-content">
 			<div class="pages"><%= render :partial => "book" %></div>
@@ -338,17 +350,6 @@
 		<div class="clear"></div>	
 	</div>
 	
-	<div id="setup-lightbox" class="lightbox hidden">
-		<h1>One quick thing - </h1>
-		<div>
-			<h4>If you see this box, click "Allow." This gives Ragatzi permission to use your camera.</h4>
-			<div id="loader" class="loading"></div>
-			<p>In the future, you'll be able to say "don't show me this again." But not yet, sorry!</p>
-			<button class="button-bottom blue close">Close Window</button>
-		</div>
-		<button class="close close-x blue">X</button>
-	</div>
-	
 	<div id="feedback-lightbox" class="lightbox hidden">
 		<%= image_tag "mad_scientist.gif", :class => "fl lightbox-scientist-img" %>
 		<div class="lightbox-content">
@@ -369,7 +370,7 @@
 
 	<div id="library-lightbox" class="lightbox hidden">
 		<div id="feedback-lightbox-text">
-			<h2>What do you want to play?</h2>	
+			<h2>What shall we read?</h2>	
 			<%= render :partial => "library", :locals => {:books => @books} %>
 		</div>
 		<button class="close close-x blue">X</button>

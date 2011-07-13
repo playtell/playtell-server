@@ -105,7 +105,7 @@ private
       :player1_id => session[:user_id], 
       :player2_id => params[:friend_id],
       :video_session_id => tok_session_id)
-    getBook(Book.find_by_title("Little Red Riding Hood").id)
+    getBook(@playdate.book_id)
     
     session[:playdate] = @playdate.id
   end

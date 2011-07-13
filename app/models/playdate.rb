@@ -2,6 +2,8 @@ class Playdate < ActiveRecord::Base
   belongs_to :book
   belongs_to :user
   
+  after_create :initBook
+  
   DISCONNECTED=0
   CONNECTING=1
   CONNECTED=2
@@ -10,6 +12,11 @@ class Playdate < ActiveRecord::Base
   CHANGE_BOOK=100
   TURN_PAGE=101
   #CHANGE_GAME=200 in the future maybe make this an array so all activity within a playdate can be tracked
+  
+  def initBook 
+    self.book_id = Book.find_by_title("Little Red Riding Hood").id
+    save
+  end
   
 # returns the playdate object if a non-disconnected playdate exists for the given user
   def self.findActivePlaydate(user)
