@@ -33,7 +33,15 @@ class User < ActiveRecord::Base
   end
   
   def fullName
-    self.firstname + " " + self.lastname
+    "#{firstname} #{lastname}" 
+  end
+  
+  def self.search(search)
+    if search
+      where("firstname like ? or lastname like ? or username like ?", "%#{search}%", "%#{search}%", "%#{search}%")
+    else
+      scoped
+    end
   end
   
   def allFriends

@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
   
   def search
-    @users = User.all
+    @users = User.search(params[:search])
   end
 
 end

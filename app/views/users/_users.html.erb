@@ -1,3 +1,8 @@
 <% for user in @users %>
-	<p><%= user.fullName %></p>
+	<p>
+		<%= user.fullName %> 
+		<% if current_user != user && !current_user.isFriend?(user) %>
+			<%= link_to "Add as Playmate", friendships_path(:friend_id => user), :method => :post %>
+		<% end %>
+	</p>
 <% end %>

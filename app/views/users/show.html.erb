@@ -1,15 +1,6 @@
 <div class="content">
 	<%= render :partial => "friends" %>
-
 	<button class="blue find-playmates-link">Find Playmates</button>
-
-	<% if @new_friends.count > 0 %>
-	<ul>
-		<% for user in @new_friends %>
-			<li><%=h user.username %> <%= link_to "Add as friend", friendships_path(:friend_id => user), :method => :post %></li>
-		<% end %>
-	</ul>
-	<% end %>
 </div>
 
 <div class="lightbox hidden" id="join-lightbox">
@@ -18,7 +9,7 @@
 <div class="lightbox hidden" id="find-lightbox">
 	<div id="find-lightbox-text">
 		<h2>Find Playmates</h2>
-		<%= form_tag search_users_path, :method => 'get', :id => "playmate-search" do %>
+		<%= form_tag search_users_path, :remote => true, :method => 'get', :id => "playmate-search" do %>
 		  <p>
 		    <%= text_field_tag :search, params[:search] %>
 		    <%= submit_tag "Search", :name => nil %>
@@ -45,13 +36,12 @@
 		$('.find-playmates-link').click(function() {
 			$('#find-lightbox').lightbox_me({
 		    	centered: true,
+				onLoad: function() {
+					$('#find-lightbox-text').find('input[type=text]:first').focus();
+				}
 			});
 		});
-		
-		$("#playmate-search").click(function() {
-		    $.get($("#playmate-search").attr("action"), $("#playmate-search").serialize(), null, "script");
-		    return false;
-		  });
+
 	});
 	
 	function checkForPlaydateRequest() {

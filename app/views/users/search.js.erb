@@ -1,1 +1,5 @@
-$("#users").html("<%= escape_javascript(render("users")) %>");
+<% if @users.empty? %>
+	$("#users").html("<p>No results found.</p>");	
+<% else %>
+	$("#users").html("<%= escape_javascript(render("users")) %>");
+<% end %>
