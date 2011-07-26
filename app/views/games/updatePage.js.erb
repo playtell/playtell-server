@@ -1,6 +1,6 @@
 $('#library-lightbox').trigger('close');
 $(".pages").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
-showBook("<%= @playdate.page_num %>", "<%= @book.pages.count %>");
+showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>");
 if (session) {
 	session.signal();
 }

@@ -485,7 +485,12 @@ img#scientistImage {
 
 .book-text {
 	text-align: justify;
-	font-size: 18px;
+	font-size: 16px;
+	padding: 0px 15px;
+}
+
+.book-text p {
+	color: black;
 }
 
 .book-nav {

@@ -50,7 +50,7 @@
 		});
 		
 		// book setup and display	
-		showBook(1, "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>";
+		showBook("<%= @book.title %>", 1, "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>"; once pages left: location is reset
 		
 		// opentok video session setup and display
 		
@@ -192,7 +192,7 @@
 
 	<div id="library-lightbox" class="lightbox hidden">
 		<div id="library-lightbox-text">
-			<h2>What shall we read?</h2>	
+			<h2>Whatcha wanna read?</h2>	
 			<%= render :partial => "library", :locals => {:books => @books} %>
 		</div>
 		<button class="close close-x blue">X</button>

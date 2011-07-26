@@ -57,13 +57,13 @@ Page.create({:book_id => pigs.id,
              :page_text => "The second little pig, whose name was Blackey, met a man carrying some wood, and he said to him, \"Please mister, will you give me that wood to build a house with?\"\nThe man gave Blackey the wood and he built himself a house with it.\nBut along came the wolf and knocked at the door of Blackey\'s house."})
 Page.create({:book_id => pigs.id, 
              :page_num => 5, 
-             :page_text => "\"Little pig, little pig, let me come in!\" he said.\n\"No, no,\" replied Blackey in great fright. \"Not by the hair on my chinny-chin-chin.\"\n\"Then I\'ll huff and I\'ll puff and I\'ll blow your house in.\"\nSo the wolf huffed and he puffed and at last he blew the house in. And away he went with Blackey to his home in the forest."})
+             :page_text => "\"Little pig, little pig, let me come in!\" he said.\n\"No, no,\" replied Blackey in great fright. \"Not by the hair of my chinny-chin-chin.\"\n\"Then I\'ll huff and I\'ll puff and I\'ll blow your house in.\"\nSo the wolf huffed and he puffed and at last he blew the house in. And away he went with Blackey to his home in the forest."})
 Page.create({:book_id => pigs.id, 
              :page_num => 6, 
              :page_text => "Now the third little pig, whose name was Brownie, met a man with a load of bricks and he said to him: \"Please, mister, will you give me those bricks to build a house with?\"\nThe man gave him the bricks, and Brownie built himself a very snug little house with them.\nHe had just finished his house when the wolf came along.\n\"Little pig, little pig, let me come in!\" he said.\n \"Not by the hair of my chinny-chin-chin!\"\n\"Then I\'ll huff and I\'ll puff and I\'ll blow your house in.\""})
 Page.create({:book_id => pigs.id, 
              :page_num => 7, 
-             :page_text => "But though the wolf huffed and puffed, and he puffed and he huffed, he could not blow down Brownie\'s house made of bricks. So he said:\"Little pig, I know where there is a nice field of turnips.\"\n\"Where?\" asked Brownie.\n\"Over in Mr. Smith\'s field. If you will be ready tomorrow morning, I will call for you and we will go together to get some for dinner.\"\n\"Very well,\" answered Brownie. \"I will be ready. What time do you want to go?\"\n\"Around six o\'clock,\" answered the wolf."})
+             :page_text => "But though the wolf huffed and puffed, and he puffed and he huffed, he could not blow down Brownie\'s house made of bricks. So he said: \"Little pig, I know where there is a nice field of turnips.\"\n\"Where?\" asked Brownie.\n\"Over in Mr. Smith\'s field. If you will be ready tomorrow morning, I will call for you and we will go together to get some for dinner.\"\n\"Very well,\" answered Brownie. \"I will be ready. What time do you want to go?\"\n\"Around six o\'clock,\" answered the wolf."})
 Page.create({:book_id => pigs.id, 
              :page_num => 8, 
              :page_text => "Well, do you know, that smart little pig got up at five o\'clock and went out and got the turnips and was back home before the wolf came at six o\'clock. When the wolf found that Brownie had been to Mr Smith\'s field before him, he was very angry, and wondered how he could catch him. So he said: \"Little pig, I know here there is a nice apple orchard.\"\n\"Where?\" asked Brownie.\n\"Down at Merry Garden,\" replied the wolf. \"I will go with you tomorrow morning at five o\'clock and we will get some apples.\"\nBut Brownie hustled and bustled around, and went the next morning at four o\'clock to the apple orchard."})
@@ -82,3 +82,95 @@ Page.create({:book_id => pigs.id,
 Page.create({:book_id => pigs.id, 
              :page_num => 13, 
              :page_text => "So Brownie boiled the wolf for supper and then went out and rescued his two brothers, Whitey and Blackey, from the woods where the wolf had been keeping them.\nAnd they all lived happily ever after in the little brick house together."})
+             
+t = Book.create( {:title => "Thomas Breaks a Promise", :image_directory => "thomas-breaks-a-promise"} )
+Page.create({:book_id => t.id, 
+             :page_num => 1, 
+             :page_text => ""})
+Page.create({:book_id => t.id, 
+            :page_num => 2, 
+            :page_text => "The seasons were changing on the Island of Sodor. The leaves had begun to change color, and the air was growing crisp. Thomas the Tank Engine was feeling restless.\n\"Summer is almost over, and I haven\'t had any real fun,\" he complained. \n\"You\'re a fussy little engine,\" replied Gordon. \"We\'re not here to have fun. We\'re here to work,\"\nWell, that didn\'t make Thomas feel any better.\n\"I\'d rather be fussy and fun than bossy and boring!\" he retorted."
+            })
+Page.create({:book_id => t.id, 
+             :page_num => 3, 
+             :page_text => "The next morning, Sir Topham Hatt called the engines together.\n\"We\'re opening a new branch line tomorrow,\" he told them. \"I need one of you to check the signals on the new line to see that they\'re all working properly. Who will volunteer?\""
+             })
+Page.create({:book_id => t.id, 
+            :page_num => 4, 
+            :page_text => "\"I will,\" Thomas piped up. \"I promise to check very carefully.\" Checking signals wasn\'t much fun, but it was better than being bossed around in the train yard.\n\"Off you go, then,\" said Sir Topham Hatt. \"And be sure to check every signal, Thomas. Safety is our first concern.\""
+            })
+Page.create({:book_id => t.id, 
+             :page_num => 5, 
+             :page_text => "Something about shiny new tracks always put Thomas in a good mood. He whistled merrily as he rolled along the new branch line. \"Checking signals is really useful,\" he thought. \"Safety is our first concern.\""
+             })
+Page.create({:book_id => t.id, 
+            :page_num => 6, 
+            :page_text => "Each time he saw a signal, Thomas made sure that the arm was in the right position. He also checked to see that the signal lamp was working, so it could be seen at night.\nIf the signal arm was down and the lamp was red, that meant danger on the tracks ahead.\nThere were hidden junctions..."
+            })
+Page.create({:book_id => t.id, 
+             :page_num => 7, 
+             :page_text => "...hanging rocks..."
+             })
+Page.create({:book_id => t.id, 
+            :page_num => 8, 
+            :page_text => "...dangerous curves..."
+            })
+Page.create({:book_id => t.id, 
+             :page_num => 9, 
+             :page_text => "...and steep hills..."})
+Page.create({:book_id => t.id, 
+           :page_num => 10, 
+           :page_text => "Thomas had almost reached the end of the new branch line when he saw the sign for a carnival. there was nothing Thomas loved more than a carnival. Oh, how he would love to go!"
+           })
+Page.create({:book_id => t.id, 
+            :page_num => 11, 
+            :page_text => "\"If I hurry to the carnival now, I can check the rest of the signals later,\" he told himself. And with that, Thomas turned off and headed into the countryside."
+            })
+Page.create({:book_id => t.id, 
+           :page_num => 12, 
+           :page_text => "The carnival was splendid. There were games and rides and cotton candy. And there were lots of children.\n\"Look, it\'s Thomas!\" they cried, and ran to greet their favorite blue engine."
+           })
+Page.create({:book_id => t.id, 
+            :page_num => 13, 
+            :page_text => "When Thomas got back to the train yard, Sir Topham Hatt was waiting.\n\"You've been gone a long time, Thomas,\" he said. \"You must have done a very thorough job of checking the signals on the new branch line.\""
+            })
+Page.create({:book_id => t.id, 
+           :page_num => 14, 
+           :page_text => "\"Yes sir,\" peeped Thomas. But suddenly he realized that he\'d forgotten to go back and finish the job. He had broken his promise! But how could he tell that to Sir Topham Hatt?\n\"Good.\" Sir Topham Hatt beamed. \"Then everything is ready for tomorrow\'s grand opening.\""
+           })
+Page.create({:book_id => t.id, 
+            :page_num => 15, 
+            :page_text => "Thomas gulped. What if there was trouble? What if one of the unchecked signals didn\'t work?\n\"I know,\" thought Thomas. \"I\'ll get up very early tomorrow and go out to check the rest of the signals before the grand opening.\""
+            })
+Page.create({:book_id => t.id, 
+           :page_num => 16, 
+           :page_text => "That night, Percy was being loaded for his mail run when a call came into the station. Rain had washed out a section of track on the mail route. Percy would have to find a way around."
+           })
+Page.create({:book_id => t.id, 
+            :page_num => 17, 
+            :page_text => "\"Don\'t worry, Percy.\" Sir Toham Hatt smiled. \"You can take the new branch line.\"\nOff Percy went, pulling two big cars loaded with mail."
+            })
+Page.create({:book_id => t.id, 
+           :page_num => 18, 
+           :page_text => "The rain fell heavily. Each time Percy saw a red signal lamp, he slowed carefully until he had passed the dangerous spot. Then suddenly, in the dark, Percy passed another signal. The lamp was not lit, so he didn\'t see it until it was too late. The arm was down, for danger!"
+           })
+Page.create({:book_id => t.id, 
+            :page_num => 19, 
+            :page_text => "Percy slammed on his brakes, but the rain made the tracks slippery. And there it was ahead -- a very dangerous curve.\n\"Oh, no!\" cried Percy. He closed his eyes and did his best to hold on through the turn.\nCRASH! One of the mail cars flew off the tracks and was smashed to bits. Percy shivered with fear from his close call."
+            })
+Page.create({:book_id => t.id, 
+           :page_num => 20, 
+           :page_text => "The next morning, Thomas awoke and sneaked out of his shed. Then he saw Percy returning with Sir Topham Hatt.\n\"Percy has had a terrible fright,\" Sir Topham said sternly. \"He almost derailed because of a signal lamp that didn\'t work. How could such a thing have happened, Thomas?\""
+           })
+Page.create({:book_id => t.id, 
+            :page_num => 21, 
+            :page_text => "\"Oh sir! I\'m so sorry, sir,\" Thomas sputtered. And it all came rushing out -- about the carnival, and the children, and about how he\'d forgotten to go back and finish the job.\n\"I\'m sorry I broke my promise, sir,\" said Thomas sheepishly. \"I just wanted to be part of the fun, and then I forgot.\""
+            })
+Page.create({:book_id => t.id, 
+           :page_num => 22, 
+           :page_text => "\"There will be no fun for you for quite some time,\" Sir Topham Hatt scolded. \"Percy will run your branch line until you\'ve gone and checked every signal on my railway -- twice!\""
+           })
+Page.create({:book_id => t.id, 
+            :page_num => 23, 
+            :page_text => "And now, every time Thomas passes a signal, he checks it twice, just to be safe. Gordon likes to tease him. \"Fussy little Thomas certainly is fussy about signals.\"\n\"Peep, peep!\" says Thomas. \"Safety is our first concern.\""
+            })

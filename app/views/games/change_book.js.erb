@@ -1,2 +1,3 @@
 $(".pages").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
-showBook("<%= @playdate.page_num %>", "<%= @book.pages.count %>");
+alert("<%= @book.title %>");
+showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>");

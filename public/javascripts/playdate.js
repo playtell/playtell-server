@@ -1,10 +1,11 @@
-function showBook(currentPage, totalPages) { 
+function showBook(title, currentPage, totalPages) { 
 	$('#page_'+currentPage).animate({
 		left: 0
 	});
 	//show("page_"+currentPage); - remnant of no animation
 	$('#total-pages').html(totalPages);
 	$('#page-num').html(currentPage);
+	$('#book-title').val(title);
 	updateBookNavLinks(currentPage);
 	
 }
@@ -51,6 +52,7 @@ function updateBookNavLinks(currentPage) {
 	if (currentPage == 1) {
 		hideButton("prev-page");
 		hideButton("first-page");
+		showButton("next-page");
 	}
 	else if (currentPage > 1) {
 		showButton("prev-page");
