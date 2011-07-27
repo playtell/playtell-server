@@ -538,7 +538,7 @@ img#scientistImage {
 	vertical-align: bottom;
 }
 
-.library-item img {
+.library-item input[type="image"] {
 	width: 150px;
 }
 

@@ -1,6 +1,3 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-
 function show(id) {
 	$("#"+id).toggleClass('hidden', false)
 }
@@ -49,4 +46,17 @@ $(function() {
 			} 
 		});
 	});
+	// add alt text to title attribute of all images
+	$('img').each( function() {
+    	var o = $(this);
+    	if( ! o.attr('title') && o.attr('alt') ) {
+			o.attr('title', o.attr('alt') );
+		}
+  	});
+	$('input[type="image"]').each( function() {
+    	var o = $(this);
+    	if( ! o.attr('title') && o.attr('alt') ) {
+			o.attr('title', o.attr('alt') );
+		}
+  	});
 });
