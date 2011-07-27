@@ -72,3 +72,4 @@ function updateBookNavLinks(currentPage) {
 		}
 	}
 } 
+
