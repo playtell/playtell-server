@@ -33,6 +33,7 @@ function goToPage (new_page_num) {
 	var current_page_div = "page_" + current_page_num;
 	var new_page_div = "page_" + new_page_num;
 	
+	// set the position off the page: negative if moving forward a page, positive if moving back
 	var new_left_position = (current_page_num < new_page_num) ? 
 		-$('#'+current_page_div).outerWidth() : $('#'+current_page_div).outerWidth();
 	
@@ -43,6 +44,12 @@ function goToPage (new_page_num) {
 		left: 0
 	});
 	//if beginning, then set all lefts to outerwidth
+	if (new_page_num == 1) {
+		var i;
+		for (i=1; i<=$('#total-pages').html(); i++) {
+			$('#'+"page_"+i).css('left', $('#'+"page_"+i).outerWidth());
+		}
+	}
 
 	$("#page-num").html(new_page_num);
 	updateBookNavLinks(new_page_num);				

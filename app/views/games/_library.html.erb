@@ -1,7 +1,7 @@
 <% for book in @books %>
 	<div class="library-item">
 		<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
-			<%= image_tag getPageImageFilePath(book.title, "1"), :alt => book.title %>
+			<%= image_tag getPageImageFilePath(book.image_directory, "1"), :alt => book.title %>
 			<%= hidden_field_tag :book, book.id %>
 			<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_BOOK, :id => "new-page" %>
 			<%= submit_tag "Read this Book", :class => "blue button-bottom", :id => "select-book" %>
