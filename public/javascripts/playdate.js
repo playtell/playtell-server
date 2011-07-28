@@ -73,3 +73,22 @@ function updateBookNavLinks(currentPage) {
 	}
 } 
 
+//keyboard shortcuts for book navigation: left arrow and right arrow
+$(document).bind("keydown", function(event)
+{
+    var key = event.keyCode;
+    if(key == 37) //left arrow
+    {
+        //$(".slide div:nth-child("+page+")").toggle();
+        //page = (page > 1) ? (page - 1) : 1;
+        //$(".slide div:nth-child("+page+")").toggle();
+		alert("left arrow!");
+    }
+    else if(key == 39) //right arrow
+    {
+        //$(".slide div:nth-child("+page+")").toggle();
+        //page = (page < pages) ? (page + 1) : pages;
+        //$(".slide div:nth-child("+page+")").toggle();
+		alert("right arrow!");
+    }
+});
