@@ -79,16 +79,18 @@ $(document).bind("keydown", function(event)
     var key = event.keyCode;
     if(key == 37) //left arrow
     {
-        //$(".slide div:nth-child("+page+")").toggle();
-        //page = (page > 1) ? (page - 1) : 1;
-        //$(".slide div:nth-child("+page+")").toggle();
-		alert("left arrow!");
+		if (!$('#prev-page').is(':disabled')) {
+			$('#page-direction').val("previous");
+			$('#new-page').val(getNewPage(getCurrentPage(), "previous"));
+			$('#turn-page').submit();
+		}
     }
     else if(key == 39) //right arrow
     {
-        //$(".slide div:nth-child("+page+")").toggle();
-        //page = (page < pages) ? (page + 1) : pages;
-        //$(".slide div:nth-child("+page+")").toggle();
-		alert("right arrow!");
+		if (!$('#next-page').is(':disabled')) {
+			$('#page-direction').val("next");
+			$('#new-page').val(getNewPage(getCurrentPage(), "next"));
+			$('#turn-page').submit();
+		}
     }
 });
