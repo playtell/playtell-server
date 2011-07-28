@@ -34,6 +34,7 @@ class Playdate < ActiveRecord::Base
 
 #getter/setter methods for playdate status  
   def disconnect
+    self.duration = (Time.now.utc.to_i - self.created_at.to_i)/60.0
     self.status = DISCONNECTED
     save
   end
