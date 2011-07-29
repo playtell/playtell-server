@@ -25,15 +25,26 @@ $(function() {
 		$('#early-access-lightbox').lightbox_me({
 		    centered: true, 
 			onLoad: function() { 
+				show('early-access-submit');
 			    show('access-lightbox-text');
 				$('#access-lightbox-text').find('input[type=email]:first').focus();
 			},
 			onClose: function() {
 				$('#thank-you').css("display", "none");
 				hide('access-lightbox-text');
+				$('#loader').removeClass('inline');
+				hide('loader');
 			} 
 		});
 	});
+	
+	$('#early-access-submit')
+		.click(function() {
+			hide('early-access-submit');
+			$('#loader').addClass('inline');
+			show('loader');
+	});
+	
 	$('.login-link').click(function() {
 		$('#early-access-lightbox').lightbox_me({
 		    centered: true, 

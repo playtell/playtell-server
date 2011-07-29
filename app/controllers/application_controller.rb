@@ -7,8 +7,10 @@ class ApplicationController < ActionController::Base
   end
   
   def earlyAccess
-    @earlyUser = EarlyUser.new(params[:early_user])
-    @earlyUser.save
+    if !params[:early_user][:email].blank?
+      @earlyUser = EarlyUser.new(params[:early_user])
+      @earlyUser.save
+    end
     respond_to do |format|
       format.js
     end
