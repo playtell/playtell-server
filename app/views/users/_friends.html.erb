@@ -6,7 +6,6 @@
 		<%=h friend.username %> 
 		<%= form_tag playdate_path do %>
 			<%= hidden_field_tag 'friend_id', friend.id, :id => 'friend_id' %>
-			<%= hidden_field_tag 'connection_type', 'create', :id => "connection-type" %>
 			<%= submit_tag 'Start Video Playdate', :class => "default", :id => "create-playdate" %>
 		<% end %>
 	</li>

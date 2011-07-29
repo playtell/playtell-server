@@ -50,7 +50,7 @@
 		});
 		
 		// book setup and display	
-		showBook("<%= @book.title %>", 1, "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>"; once pages left: location is reset
+		showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>"; once pages left: location is reset
 		
 		// opentok video session setup and display
 		

@@ -15,6 +15,7 @@ class Playdate < ActiveRecord::Base
   
   def initBook 
     self.book_id = Book.find_by_title("Little Red Riding Hood").id
+    self.page_num = 1
     save
   end
   

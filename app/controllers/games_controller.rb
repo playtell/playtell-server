@@ -11,9 +11,11 @@ class GamesController < ApplicationController
 
   # main method to connect users with playdates. creates a new playdate, or adds user to existing playdate.
   def playdate
-    if (params[:connection_type] == "create")
+    #if (params[:connection_type] == "create")
+    if !requesting_playdate
       createPlaydate
-    elsif (params[:connection_type] == "join")
+    #elsif (params[:connection_type] == "join")
+    else
       joinPlaydate
     end
     @books = Book.all
@@ -47,20 +49,21 @@ class GamesController < ApplicationController
       render :nothing => true
     when Playdate::CHANGE_BOOK
       getBook(params[:book])
+      @playdate.page_num = 1
+      @playdate.save
     when Playdate::NONE
       render :nothing => true
     end
   end
   
-  # refreshes the playdate with the latest play state e.g. turned page in a book. called via ajax from one of the players in the playdate b/c they got a tokbox signal from another player.
+  # called via ajax from one of the players in the playdate b/c they got a tokbox signal from another player indicating that the play state has changed, e.g. turned page in a book. refreshes the playdate for this user with the latest play state 
   def updateFromPlaydate
     @playdate = current_playdate
-    case @playdate.change
-    when Playdate::TURN_PAGE
-      render "turn_page"
-    when Playdate::CHANGE_BOOK
+    if params[:title] != @playdate.book.title
       getBook(@playdate.book_id)
       render "change_book"
+    elsif params[:current_page] != @playdate.page_num
+      render "turn_page"
     end
     @playdate.clearChange
   end
@@ -112,7 +115,7 @@ private
 
   # adds the user to the requested playdate. gets a fresh opentok token for this user.
   def joinPlaydate
-    @playdate = Playdate.find(params[:playdate_id])
+    @playdate = requesting_playdate
     @playdate.connected
     getBook(@playdate.book_id)
 
@@ -123,7 +126,6 @@ private
   def getBook(id)
     @book = Book.find(id)
     @playdate.book_id = id
-    @playdate.page_num = 1
     @playdate.save
   end
   
