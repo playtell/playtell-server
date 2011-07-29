@@ -4,10 +4,6 @@ class GamesController < ApplicationController
   layout :chooseLayout
       
   @@opentok = nil
-  
-  def earlyAccess
-    File.open("early_access.txt", 'a+') { |f| f.write(params[:email]) }
-  end
 
   # main method to connect users with playdates. creates a new playdate, or adds user to existing playdate.
   def playdate
