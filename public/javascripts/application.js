@@ -1,9 +1,9 @@
 function show(id) {
-	$("#"+id).toggleClass('hidden', false)
+	$("#"+id).removeClass('hidden')
 }
 
 function hide(id) {
-	$("#"+id).toggleClass('hidden', true)
+	$("#"+id).addClass('hidden')
 	
 }
 
@@ -28,9 +28,9 @@ $(function() {
 			    show('access-lightbox-text');
 				$('#access-lightbox-text').find('input[type=email]:first').focus();
 			},
-			onClose: function () {
+			onClose: function() {
+				$('#thank-you').css("display", "none");
 				hide('access-lightbox-text');
-				hide('thank-you');
 			} 
 		});
 	});
