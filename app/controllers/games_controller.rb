@@ -64,6 +64,22 @@ class GamesController < ApplicationController
     @playdate.clearChange
   end
   
+  def memory
+    @cardgame = Cardgame.new
+    @cardgame.save
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+  
+  def updateGame
+    
+  end
+  
+  def updateGameFromSession
+  end
+  
   # deletes all playdate sessions from the db
   def clearPlaydate
     Playdate.delete_all 
@@ -130,8 +146,10 @@ private
     case action_name
     when 'index'
       'application'
-    else
+    when 'memory', 'updateGame', 'updateGameFromSession'
       'games'
+    else
+      'playdates'
     end
   end
 end

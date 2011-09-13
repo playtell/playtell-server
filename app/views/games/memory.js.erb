@@ -1,0 +1,11 @@
+$("#memorycards").html("<%= escape_javascript(render(:partial => 'memoryCards')).html_safe %>");
+$("#matches").find("p").text(0);
+
+$('.activespot').hover(function() {
+	 $(this).css('cursor','pointer');
+	 }, function() {
+	 $(this).css('cursor','auto');		
+});
+$('.activespot').click(function() {
+	turnFaceup (this);
+});

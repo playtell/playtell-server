@@ -10,13 +10,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110728063943) do
+ActiveRecord::Schema.define(:version => 20110830190427) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image_directory"
+  end
+
+  create_table "cardgames", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cards", :force => true do |t|
+    t.integer  "num"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "cardgame_id"
   end
 
   create_table "dailies", :force => true do |t|
@@ -81,6 +94,14 @@ ActiveRecord::Schema.define(:version => 20110728063943) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "user_settings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "key"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"

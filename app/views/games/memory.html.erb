@@ -1,0 +1,136 @@
+<div class="board">
+	<div class="hidden win-image"><%= image_tag "winner.png"%> </div>
+	<div id="memorycards">
+		<%= render :partial => "memoryCards" %>
+	</div>
+	<div class="clear"></div>
+	<div class="bottom-title">
+		<%= image_tag "banner.png" %>
+	</div>
+	<div class="inline-block fl bottom-box match-count" id="matches">
+		0
+	</div>
+	<div class="inline-block fr bottom-box new-game" id="newgame">
+		<%= image_tag "shuffle_buttons_active.png", :class => "facedown" %>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+	var num_faceup = 0;
+	var played = new Array(); //keeps track of which 2 cards are faceup
+	var num_matches = 0;
+	
+	function cardLayout () {
+		var y= new Array("64px;", "400px");
+		var x = new Array("92px", "352px", "611px", "870px");
+		
+	//	$(div.board).children()
+		for (ypos=1; ypos<=2; ypos++) {
+			for (xpos=1; xpos<=4; xpos++) {
+				$('face_x'+xpos+"_y"+y).css("top", y[ypos]);
+				$('face_x'+xpos+"_y"+y).css("left", x[xpos]);
+			}
+		}
+	}
+	
+	function dealNewGame() {
+		num_faceup = 0;
+		num_matches = 0;
+		played.length = 0;
+		$(".win-image").hide();
+		
+		$.get("/memory.js");
+	}
+	
+	//turns the card faceup
+	function turnFaceup(element) {
+		//$(element).find(".faceup").toggle();
+		//$(element).find(".facedown").toggle();
+		//$(element).unbind('click');
+		//$.get("/update_game.js?card=" + $('#book-title').val() + "&current_page=" + $('#page-num').html());
+		
+		played.push($(element));
+		num_faceup++;
+		if (num_faceup == 2) {
+			$('.activespot').unbind('click');
+			setTimeout(checkForMatch, 1500);
+		}
+	}
+	
+	//checks to see if the two cards facing up are the same. 
+	function checkForMatch() {
+		if (played[0].find("p.cardvalue").html() == played[1].find("p.cardvalue").html())
+			doMatch();
+		else
+			allFacedown();
+		played.pop();
+		played.pop();
+		num_faceup = 0;
+		$('.activespot').click(function() {
+			turnFaceup (this);
+		});
+	}
+	
+	function doMatch() {
+		//flip back over
+		played[0].find(".faceup").toggle();
+		played[0].removeClass("activespot");
+		played[0].unbind("click");
+		played[1].find(".faceup").toggle();
+		played[1].removeClass("activespot");		
+		played[1].unbind("click");
+		num_matches++;
+		$("#matches").text(num_matches);
+		checkForWin();
+	}
+	
+	function checkForWin() {
+		if (num_matches == 4)
+			$('.win-image').fadeToggle();
+	}
+	
+	//flips both cards facedown
+	function allFacedown() {
+		played[0].find(".facedown").fadeToggle();
+		played[0].find(".faceup").toggle();
+		played[1].find(".facedown").fadeToggle();
+		played[1].find(".faceup").toggle();
+	}
+	
+	//to be used for flipping cards using rotate3Di
+	function mySideChange (front) {
+		if (front) {
+			$(this).parent().find('div.front').show();
+			$(this).parent().find('div.back').hide();
+		}
+		else {
+			$(this).parent().find('div.front').hide();
+			$(this).parent().find('div.back').show();
+		}
+	}
+
+	$(document).ready(function() {
+
+		$('.activespot').hover(function() {
+			 $(this).css('cursor','pointer');
+			 }, function() {
+			 $(this).css('cursor','auto');		
+		});
+		$('#newgame').hover(function() {
+			 $(this).css('cursor','pointer');
+			 }, function() {
+			 $(this).css('cursor','auto');		
+		});
+		$('#newgame').click(function() {
+			dealNewGame();
+		});
+		
+		$('.activespot').click(
+			function() { 
+				$(this).find('div').rotate3Di('toggle', 'normal', {direction: 'clockwise', sideChange: mySideChange});
+			}
+		);
+	
+});
+</script>

@@ -11,6 +11,10 @@ Semiralabs::Application.routes.draw do
   match 'playdate_disconnected' => 'games#playdateDisconnected'
   match 'early_access' => 'application#earlyAccess'
   
+  match 'memory' => 'games#memory'
+  match 'update_game' => 'games#updateGame'
+  match 'update_game_from_session' => 'games#updateGameFromSession'
+  
   match 'feedbacks' => 'feedback#create'
   
   get 'signup' => 'users#new', :as => 'sign_up'

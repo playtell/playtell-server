@@ -1,0 +1,22 @@
+
+<div class="block spot activespot">
+	<div class="back face hidden"><%= image_tag "monsters_1.jpg", :class => "faceup" %></div>
+	<div class="front face"><%= image_tag "Card.jpg", :class => "facedown" %></div>
+</div>
+
+<div>
+<% @cardgame.cards.each do |card| %>
+     <div class="block spot activespot" id="<%= "card"+card.num.to_s %>">
+     	<div class="back face hidden">
+			<%= image_tag"monsters_"+card.value.to_s+".jpg", :class => "faceup hidden" %>
+		</div>
+        <div class="front face">
+			<%= image_tag "Card.jpg", :class => "facedown" %>
+		</div>
+        <p class="hidden cardvalue"><%= card.value %></p>
+     </div>
+     <% if card.num+1.%(4)==0 %>
+        </div>
+        <div>
+     <% end %>
+<% end %>
