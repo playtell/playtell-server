@@ -8,6 +8,24 @@ function showBook(title, currentPage, totalPages) {
 	$('#book-title').val(title);
 	updateBookNavLinks(currentPage);
 	
+	$('#book').booklet({
+		width: 1000,
+		height: 520, 
+		closed: true,
+		manual: false,
+		hovers: false,
+		pageNumbers: false, 
+		after: function(opts){
+			$('#new-page').val(opts.curr);
+			$.ajax({
+				url: "/update_page.js?newPage=" + opts.curr + "&playdateChange=" + 101,
+				type: "POST",
+				success: function() {
+					session.signal();
+				}
+			});	
+		}
+	});
 }
 
 function getCurrentPage () {
@@ -34,7 +52,7 @@ function goToPage (new_page_num) {
 	var new_page_div = "page_" + new_page_num;
 	
 	// set the position off the page: negative if moving forward a page, positive if moving back
-	var new_left_position = (current_page_num < new_page_num) ? 
+/*	var new_left_position = (current_page_num < new_page_num) ? 
 		-$('#'+current_page_div).outerWidth() : $('#'+current_page_div).outerWidth();
 	
 	$('#'+current_page_div).animate({
@@ -50,13 +68,15 @@ function goToPage (new_page_num) {
 			$('#'+"page_"+i).css('left', $('#'+"page_"+i).outerWidth());
 		}
 	}
-
+*/
+	$('#book').booklet(new_page_num);
+	
 	$("#page-num").html(new_page_num);
 	updateBookNavLinks(new_page_num);				
 }
 
 function updateBookNavLinks(currentPage) {
-	if (currentPage == 1) {
+/*	if (currentPage == 1) {
 		hideButton("prev-page");
 		hideButton("first-page");
 		showButton("next-page");
@@ -71,7 +91,7 @@ function updateBookNavLinks(currentPage) {
 			showButton("next-page");
 			$('#first-page').hide();
 		}
-	}
+	}*/
 } 
 
 function toggleToyBox() {
@@ -91,24 +111,3 @@ function hideToyBox() {
 	});
 }
 
-//keyboard shortcuts for book navigation: left arrow and right arrow
-$(document).bind("keydown", function(event)
-{
-    var key = event.keyCode;
-    if(key == 37) //left arrow
-    {
-		if (!$('#prev-page').is(':disabled')) {
-			$('#page-direction').val("previous");
-			$('#new-page').val(getNewPage(getCurrentPage(), "previous"));
-			$('#turn-page').submit();
-		}
-    }
-    else if(key == 39) //right arrow
-    {
-		if (!$('#next-page').is(':disabled')) {
-			$('#page-direction').val("next");
-			$('#new-page').val(getNewPage(getCurrentPage(), "next"));
-			$('#turn-page').submit();
-		}
-    }
-});

@@ -402,42 +402,13 @@ img#scientistImage {
 	min-height: 600px;
 }
 
-#book {
-	background: url("/images/book.jpg") no-repeat center;
-	width: 745px;
-	height: 496px;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin-left: -400px;
-	margin-top: -210px;
-	padding-top: 15px;
-}
-
-#pages section {
-	background: url("/images/paper.jpg") no-repeat;
-	display: block;
-	width: 360px;
-	height: 478px;
-	position: absolute;
-	left: 372px;
-	top: 17px;
-	overflow: hidden;
-}
-	#pages section>div {
-		display: block;
-		width: 360px;
-		height: 486px;
-		font-size: 12px;
-	}
-	
+.book-container {
+	width: 1000px;
+	height: 520px;
+}	
 	
 .page {
 	background: url("/images/paper.jpg") no-repeat;
-	position: absolute;
-	width: 500px;
-	left: 372px;
-	top: 17px;
 }
 
 .book-image {
@@ -446,7 +417,7 @@ img#scientistImage {
 
 .book-image img {
 	max-height: 280px;
-	max-width: 500px;
+	max-width: 400px;
 }
 
 .book-text {

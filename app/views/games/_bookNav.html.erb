@@ -5,10 +5,10 @@
 	<%= hidden_field_tag 'playdateChange', Playdate::TURN_PAGE %>
 	<%= hidden_field_tag 'direction', 'next', :id => "page-direction" %>
 	
-	<%= submit_tag 'Previous', :class => "blue left-button", :id => 'prev-page' %>
+	<%= submit_tag 'Previous', :class => "blue left-button hidden", :id => 'prev-page' %>
 	<span class="page-num-text hidden">Page <span id="page-num"><%= @playdate.page_num %></span></span> 
 	<span class="hidden" id="total-pages"><%= @book.pages.count %></span>
-	<%= submit_tag 'Next', :class => "blue right-button", :id => "next-page" %>
+	<%= submit_tag 'Next', :class => "blue right-button hidden", :id => "next-page" %>
 	<p><%= submit_tag 'Back to Beginning', :id => 'first-page', :class => 'hidden' %></p>
 <% end %>
 </div>
