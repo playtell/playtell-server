@@ -1,7 +1,7 @@
 //TODO should move this to happen before the server hit to make the page more responsive from a user perspective
 $('#library-lightbox').trigger('close');
 hideToyBox();
-$(".pages").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
+$("#book").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
 showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>");
 if (session) {
 	session.signal();

@@ -1,5 +1,5 @@
 <% content_for :head do %>
-<%= javascript_include_tag 'playdate', 'video' %>
+<%= javascript_include_tag 'playdate', 'video', 'jquery.jflip-0.4.min' %>
 <script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script> 
 <script type="text/javascript">
     var sessionId = "<%= @playdate.video_session_id %>"; 
@@ -51,6 +51,7 @@
 		
 		// book setup and display	
 		showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>"; once pages left: location is reset
+		$("#book").jFlip(300,300, {background:"white", cornersTop:true});
 		
 		// opentok video session setup and display
 		
@@ -166,7 +167,7 @@
 		</div>
 		<div class="book-nav"><%= render :partial => "bookNav", :locals => {:book => @book} %></div>
 		<div class="activity-content">
-			<div class="pages">
+			<div id="book">
 				<%= render :partial => "book" %>
 				<div class="clear"></div>
 			</div>
@@ -210,4 +211,4 @@
 		</div>
 		<button class="close close-x blue">X</button>
 	</div>
-
+	

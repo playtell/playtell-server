@@ -1,5 +1,5 @@
 <% @book.pages.each do |page| %>
-	<div id= "<%= "page_"+page.page_num.to_s %>" class="page" style="left: 500px;">
+	<div id= "<%= "page_"+page.page_num.to_s %>" class="page">
 		<div class="book-image">
 			<%= image_tag getPageImageFilePath(@book.image_directory, page.page_num.to_s) %>
 		</div>
@@ -8,3 +8,4 @@
 		</div>
 	</div>
 <% end %>
+
