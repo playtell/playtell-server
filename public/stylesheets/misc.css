@@ -1,0 +1,26 @@
+/* MISC
+-------------------------------------------------------------------*/
+.emphasis { 
+    font-weight: bold;
+    color: #539AB7;
+}
+
+.smallcaps { 
+    font-variant: small-caps;
+}
+
+.smalltext { font-size: 10px; }
+.mediumtext { font-size: 12px; }
+
+.bold { font-weight: bold; }
+.fl { float: left; }
+.fr { float: right; }
+.hidden { display: none; }
+.inline { display: inline; }
+.block { display: block; }
+.inline-block { display: inline-block; }
+.clear { clear: both; }
+
+.brown-color { color: #b76f53;}
+
+.button-bottom { margin-left: 0px !important; }

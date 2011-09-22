@@ -1,38 +1,30 @@
-<div class="homepage-content">
+<div class="header">
 	<%= image_tag "ragatzi-logo.png", :alt => "Ragatzi" %><br>
-	<h1>Play together,</h1>
-	<h2>wherever you are.</h2>
-	<%= link_to "Login", '#', :class => "login-link" %> ::
-	<%= link_to "Want early access?", "#", :id => "early-access" %>
-</div>	
+</div>
 
-<div class="lightbox hidden" id="early-access-lightbox">
-	<%= image_tag "mad_scientist.gif", :class => "fl lightbox-scientist-img" %>
-	<div class="lightbox-content">
-		<div id="thank-you" class="hidden">
-			<h2>Thanks! You're on the list.</h2> 
-			<p class="mediumtext">We'll be in touch soon.</p> 
-		</div>
-	
-		<div id="access-lightbox-text" class="hidden">
-			<h2>We're still experimenting!</h2>
-			<p class="mediumtext">
-				But we'd love to let you into the lab early. 
-			</p>
-			<p class="mediumtext">
-				Sign up to get early access, but be warned:&nbsp it might be a little messy.
-			</p>
+<div class="family inline-block">
+   <img src="images/apart.png"/>
+</div>
+<div class="survey-form inline-block">
+	<script type="text/javascript">
+		var host = (("https:" == document.location.protocol) ? "https://secure." : "http://");document.write(unescape("%3Cscript src='" + host + "wufoo.com/scripts/embed/form.js' type='text/javascript'%3E%3C/script%3E"));</script>
 
-			<%= form_for @earlyUser, :url => early_access_path, :remote => true do |f| %>
-				<%= f.email_field :email %>
-				<%= submit_tag "Sign me up!", :class => "blue", :id => "early-access-submit" %>
-				<div id="loader" class="hidden loading"></div>
-			<% end %>
-		</div>
-	
-		<div id="login-lightbox-text" class="hidden">
-			<%= render :partial => "sessions/form" %>
-		</div>
-	</div>
-	<button class="close close-x blue">X</button>
+		<script type="text/javascript">
+		var z7x3k1 = new WufooForm();
+		z7x3k1.initialize({
+		'userName':'ragatzi', 
+		'formHash':'z7x3k1', 
+		'autoResize':true,
+		'height':'1044',
+		'header':'show'});
+		z7x3k1.display();
+	</script>
+</div>
+
+<div class="early-access">
+	<%= form_for @earlyUser, :url => early_access_path, :remote => true do |f| %>
+		<%= f.email_field :email %>
+		<%= submit_tag "Sign me up!", :class => "blue", :id => "early-access-submit" %>
+		<div id="loader" class="hidden loading"></div>
+	<% end %>
 </div>

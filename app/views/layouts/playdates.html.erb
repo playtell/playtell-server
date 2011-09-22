@@ -22,12 +22,6 @@
   	<% end %>
 	
 	<div class="header">
-		<div class="inline fl">
-			<%= image_tag "mad_scientist.gif", :id => "scientistImage" %>
-		</div>
-		<div class="inline fl">
-			<%= image_tag "ragatzi-logo.png", :class => "logo" %>
-		</div>
 		<div class="inline fr" id="login-area">
 			<% if current_user %>
 				Logged in as <%= link_to current_user.username, current_user %>

@@ -8,11 +8,11 @@
 	var session;
 	var publisher;
 
-	var PUBLISHER_WIDTH = 215;
-	var PUBLISHER_HEIGHT = 138;
+	var PUBLISHER_WIDTH = 128;
+	var PUBLISHER_HEIGHT = 96;
 			
-	var SUBSCRIBER_WIDTH = 450;
-	var SUBSCRIBER_HEIGHT = 390;
+	var SUBSCRIBER_WIDTH = 192;
+	var SUBSCRIBER_HEIGHT = 144;
 
 	var subscribers = {};
 	var deviceManager;
@@ -23,9 +23,9 @@
 		// writes out the page direction so it can be used later.
 		// upon success, signals the other player in the playdate to ping the server for the latest view of the book	
 		// load setup lightbox
-		$('#setup-lightbox').lightbox_me({
-		    centered: true, 
-		});
+		//$('#setup-lightbox').lightbox_me({
+		//    centered: true, 
+		//});
 		
 		//load image for setup lightbox
 		$(function () {
@@ -128,6 +128,10 @@
 			});
 		});
 		
+		$('#toybox-link').click(function() {
+			toggleToyBox();
+		});
+		
 		$('#fullscreen').click(function() {
 			maxWindow();
 		});				
@@ -148,28 +152,34 @@
 	</div>
 	
 	<div id="videos">
-		<div class="activity-content">
-			<div class="pages"><%= render :partial => "book" %></div>
-			<div class="book-nav"><%= render :partial => "bookNav", :locals => {:book => @book} %></div>
+		<div class="video-content">
+			<div class="video-controls inline-block right-button">
+				<p><a href="#" id="disconnect-link"></a></p>
+				<p><a href="#" id="reconnect-link"></a></p>
+			</div>
+			<div class="snapshot-controls inline-block left-button">
+				<p><a href="#" id="snapshot-link"></a></p>
+			</div>
+			<div id="fam-camera-holder" class="inline-block"></div>
+			<div id="my-camera" class="loading inline-block"></div>
 			<div class="clear"></div>
 		</div>
-		<div class="video-content">
-			<div id="fam-camera-holder"></div>
-			<div id="my-camera-holder">
-				<div id="links">
-					<ul>
-						<li class="hidden"><%= link_to '#' do %>
-							<button id="connect-link" class="blue">Connect</button>
-						<% end %></li>
-						<li><button class="red" id="disconnect-link">End Playdate</button></li>
-						<li><button class="blue library-link">Read Something Different</button></li>
-					</ul>
-				</div>
-				<div id="my-camera" class="loading"></div>
-			</div>
+		<div class="book-nav"><%= render :partial => "bookNav", :locals => {:book => @book} %></div>
+		<div class="activity-content">
+			<div class="pages"><%= render :partial => "book" %></div>
 			<div class="clear"></div>
 		</div>
 		<div class="clear"></div>	
+		<div id="bottom-drawer">
+			<div id="links">
+				<p><a href="#" id="contacts-link"></a></p>
+				<p><a href="#" id="toybox-link"></a></p>
+				<p><a href="#" id="keepsakes-link"></a></p>
+			</div>
+			<div id="shelf">	
+				<%= render :partial => "library", :locals => {:books => @books} %>
+			</div>
+		</div>
 	</div>
 	
 	<div id="feedback-lightbox" class="lightbox hidden">

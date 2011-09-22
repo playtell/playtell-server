@@ -5,7 +5,6 @@
 			<p><%= book.title %></p>
 			<%= hidden_field_tag :book, book.id %>
 			<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_BOOK, :id => "new-page" %>
-			<%= submit_tag "Read this Book", :class => "blue button-bottom", :id => "select-book" %>
 		<% end %>
 	</div>	
 <% end %>

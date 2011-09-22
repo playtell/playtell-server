@@ -17,6 +17,8 @@ Semiralabs::Application.routes.draw do
   
   match 'feedbacks' => 'feedback#create'
   
+  match 'home' => 'application#index_old'
+  
   get 'signup' => 'users#new', :as => 'sign_up'
   get 'login' => 'sessions#new', :as => 'login'
   get 'logout' => 'sessions#destroy', :as => 'logout'

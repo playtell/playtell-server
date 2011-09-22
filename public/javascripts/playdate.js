@@ -63,15 +63,33 @@ function updateBookNavLinks(currentPage) {
 	}
 	else if (currentPage > 1) {
 		showButton("prev-page");
-		showButton("first-page");
 		if (currentPage == parseInt($("#total-pages").html())) {
 			hideButton("next-page");
+			$('#first-page').show();
 		}
 		else if (currentPage < parseInt($("#total-pages").html())) {
 			showButton("next-page");
+			$('#first-page').hide();
 		}
 	}
 } 
+
+function toggleToyBox() {
+	var new_bottom_pos = ($('#bottom-drawer').css('bottom') == '0px') ?
+		-$('#bottom-drawer').outerHeight() + $('#links').outerHeight() : 0;
+	
+	$('#bottom-drawer').animate({ 
+		bottom: new_bottom_pos
+	});
+}
+
+function hideToyBox() {
+	var new_bottom_pos = -$('#bottom-drawer').outerHeight() + $('#links').outerHeight();
+	
+	$('#bottom-drawer').animate({ 
+		bottom: new_bottom_pos
+	});
+}
 
 //keyboard shortcuts for book navigation: left arrow and right arrow
 $(document).bind("keydown", function(event)

@@ -1,12 +1,14 @@
+<div class="book-nav-inner">
 <%= form_tag update_page_path, :remote => true, :id => 'turn-page' do %>
 	<%= hidden_field_tag 'title', @book.title, :id => "book-title" %>
 	<%= hidden_field_tag 'newPage', @playdate.page_num, :id => "new-page" %>
 	<%= hidden_field_tag 'playdateChange', Playdate::TURN_PAGE %>
 	<%= hidden_field_tag 'direction', 'next', :id => "page-direction" %>
 	
-	<%= submit_tag 'Previous', :class => "blue", :id => 'prev-page' %>
-	<span class="page-num-text">Page <span id="page-num"><%= @playdate.page_num %></span></span> 
+	<%= submit_tag 'Previous', :class => "blue left-button", :id => 'prev-page' %>
+	<span class="page-num-text hidden">Page <span id="page-num"><%= @playdate.page_num %></span></span> 
 	<span class="hidden" id="total-pages"><%= @book.pages.count %></span>
-	<%= submit_tag 'Next', :class => "blue", :id => "next-page" %>
-	<p><%= submit_tag 'Back to Beginning', :id => 'first-page' %></p>
+	<%= submit_tag 'Next', :class => "blue right-button", :id => "next-page" %>
+	<p><%= submit_tag 'Back to Beginning', :id => 'first-page', :class => 'hidden' %></p>
 <% end %>
+</div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ragatzi - Play together, wherever you are</title>
+  <title>Ragatzi</title>
 
   <%= stylesheet_link_tag :all %>
   
@@ -17,13 +17,10 @@
 </head>
 <body>
 	<div class="mainContainer">
-
-		<div class="header">
+		<div id="mainContent">
+			<%= yield %>
+			<div class="clear"></div>
 		</div>
-			<div id="mainContent">
-				<%= yield %>
-				<div class="clear"></div>
-			</div>
 	</div>
 </body>
 </html>
