@@ -19,10 +19,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	color: #536376;
 }
 
-html, body {
-	height: 100%;
-}
-
 ol, ul {
     list-style: none;
 }
