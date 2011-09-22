@@ -1,13 +1,10 @@
 
-<h2>My Playmates</h2>
-<ul>
+<div class="friends">
 	<% for friend in @current_user.allFriends %>
-	<li>
-		<%=h friend.username %> 
 		<%= form_tag playdate_path do %>
 			<%= hidden_field_tag 'friend_id', friend.id, :id => 'friend_id' %>
-			<%= submit_tag 'Start Video Playdate', :class => "default", :id => "create-playdate" %>
+			<%= image_submit_tag 'dialpad_'+friend.username+".png", :id => "create-playdate" %>
 		<% end %>
-	</li>
 	<% end %>
-</ul>
+	<%= image_tag "add_person.png" %>
+</div>
