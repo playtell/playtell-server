@@ -23,6 +23,10 @@ html, body {
 	height: 100%;
 }
 
+body {
+	min-height: 800px;
+}
+
 ol, ul {
     list-style: none;
 }
