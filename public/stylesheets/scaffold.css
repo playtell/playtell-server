@@ -284,65 +284,11 @@ label {
 	text-align: center;
 }
 
-/* HOMEPAGE --------------------------------------------------------- */
-
-.homepage-content {
-	margin: auto;
-	margin-top: 200px;
-	text-align: center;
-	background: white;
-	padding: 20px;
-	width: 400px;
-}
-
-.homepage-content img {
-	width: 300px
-}
-
-.homepage-content h1 {
-	font-size: 44px;
-	margin-bottom: 3px;
-	color: #536376;
-}
-
-.homepage-content h2 {
-	font-size: 32px;
-	font-weight: normal;
-	margin-bottom: 15px;
-}
-
-.homepage-content a {
-	font-size: 14px;
-	padding: 0px 10px;
-}
-
-#early-access-lightbox {
-	width: 440px;
-}
-
-#early-access-lightbox h2 {
-	padding-top: 5px;
-}
-
-#early-access-lightbox p {
-	line-height: 18px;
-	padding-top: 5px;
-}
-
-#access-lightbox-text form {
-	padding-top: 20px;
-}
-
-#access-lightbox-text input[type="email"] {
-	width: 200px;
-}
-
 /* LAYOUT --------------------------------------------------------- */
 
 .mainContainer {
     width: 1000px;
     margin: 0px auto;
-    padding: 5px 10px;
 }
 
 .header {
@@ -362,7 +308,6 @@ img#scientistImage {
 }
 
 #mainContent {
-    padding: 0px 5px;
 	text-align: left;
     font-size: 1.3em;
     font-weight: normal;
@@ -390,7 +335,6 @@ img#scientistImage {
 .video-content {
 	width: 1000px;
 	text-align: center;
-	border: 1px solid lightgrey;
 	background: url("/images/video_background.png") repeat 0 0;
 }
 
@@ -461,6 +405,7 @@ img#scientistImage {
 	text-align: center;	
 	min-height: 600px;
 }
+
 
 .book-image {
 	text-align: center;
@@ -591,6 +536,64 @@ img#scientistImage {
 #videos p input#prev-page { background-position: -230px -186px; }
 
 #videos p input#next-page { background-position: -276px -236px; }
+
+
+/* HOMEPAGE --------------------------------------------------------- */
+
+.homepage-content {
+	margin: auto;
+	margin-top: 200px;
+	text-align: center;
+	background: white;
+	padding: 20px;
+	width: 400px;
+}
+
+.homepage-content img {
+	width: 300px
+}
+
+.homepage-content h1 {
+	font-size: 44px;
+	margin-bottom: 3px;
+	color: #536376;
+}
+
+.homepage-content h2 {
+	font-size: 32px;
+	font-weight: normal;
+	margin-bottom: 15px;
+}
+
+.homepage-content a {
+	font-size: 14px;
+	padding: 0px 10px;
+}
+
+#early-access-lightbox {
+	width: 440px;
+}
+
+#early-access-lightbox h2 {
+	padding-top: 5px;
+}
+
+#early-access-lightbox p {
+	line-height: 18px;
+	padding-top: 5px;
+}
+
+#access-lightbox-text form {
+	padding-top: 20px;
+}
+
+#access-lightbox-text input[type="email"] {
+	width: 200px;
+}
+
+.black {
+	background-color: black;
+}
 
 /* LANDING PAGE --------------------------------------------------------- */
 .family {

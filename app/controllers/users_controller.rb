@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout 'application'
+  layout 'playdates'
   before_filter :authorize, :only => [:show]
   
   def new

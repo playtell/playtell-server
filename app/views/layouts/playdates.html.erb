@@ -15,13 +15,17 @@
   <%= yield :head %>
 
 </head>
-<body>
+<body class="black">
 <div class="mainContainer">
 	<% flash.each do |name, msg| %>
   		<%= content_tag :div, msg, :id => "flash_#{name}" %>
   	<% end %>
 	
-	<div class="header">
+	<div id="mainContent">
+		<%= yield %>
+		<div class="clear"></div>
+	</div>
+	<div class="footer">
 		<div class="inline fr" id="login-area">
 			<% if current_user %>
 				Logged in as <%= link_to current_user.username, current_user %>
@@ -32,11 +36,6 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-		<div id="mainContent">
-			<%= yield %>
-			<div class="clear"></div>
-		</div>
-	
 </div>
 </body>
 </html>

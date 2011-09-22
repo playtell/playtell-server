@@ -166,7 +166,10 @@
 		</div>
 		<div class="book-nav"><%= render :partial => "bookNav", :locals => {:book => @book} %></div>
 		<div class="activity-content">
-			<div class="pages"><%= render :partial => "book" %></div>
+			<div class="pages">
+				<%= render :partial => "book" %>
+				<div class="clear"></div>
+			</div>
 			<div class="clear"></div>
 		</div>
 		<div class="clear"></div>	
