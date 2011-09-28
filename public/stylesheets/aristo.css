@@ -242,7 +242,7 @@ button:disabled, button:hover:disabled, input[type="submit"]:disabled, input[typ
   -o-box-shadow: none;
   cursor: default;
 }
-
+/*
 ::-webkit-scrollbar {
   width: 17px;
   height: 17px;
@@ -302,7 +302,7 @@ button:disabled, button:hover:disabled, input[type="submit"]:disabled, input[typ
   background-repeat: no-repeat, repeat-x;
 }
 
-
+*/
 /* Turn on single button up on top, and down on bottom */
 ::-webkit-scrollbar-button:start:decrement,
 ::-webkit-scrollbar-button:end:increment {
