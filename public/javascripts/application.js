@@ -38,12 +38,11 @@ $(function() {
 		});
 	});
 	
-	$('#early-access-submit')
-		.click(function() {
-			hide('early-access-submit');
-			$('#loader').addClass('inline');
-			show('loader');
-	});
+//	$('#early-access-submit')
+//		.click(function() {
+//			hide('early-access-submit');
+//			show('loader');
+//	});
 	
 	$('.login-link').click(function() {
 		$('#early-access-lightbox').lightbox_me({

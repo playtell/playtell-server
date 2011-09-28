@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
      @earlyUser = EarlyUser.new
   end
   
-  def index_new
+  def index_old
     @earlyUser = EarlyUser.new
   end
   
