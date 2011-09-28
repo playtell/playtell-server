@@ -640,7 +640,7 @@ img#scientistImage {
 .family img {
 	width: 656px;
 	height: 497px;
-	margin:40px 20px 0px 0px;
+	margin: 10px 20px 0px 0px;
 	vertical-align:top;
 	border: solid 15px #8E8E8E;
 }
@@ -648,7 +648,7 @@ img#scientistImage {
 .survey-form {
 	height: 728px;
 	width: 310px;
-	margin: 40px 0px 0px 0px;
+	margin: 10px 0px 0px 0px;
 	vertical-align:top;
 	padding: 5px;
 	background-color:#FFD100;
