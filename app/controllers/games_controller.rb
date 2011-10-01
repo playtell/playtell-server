@@ -51,6 +51,8 @@ class GamesController < ApplicationController
       render 'update_video'
     when Playdate::PLAY_VIDEO
       render :nothing => true
+    when Playdate::PAUSE_VIDEO
+      render :nothing => true
     when Playdate::NONE
       render :nothing => true
     end
@@ -73,6 +75,8 @@ class GamesController < ApplicationController
       render 'change_video'
     when Playdate::PLAY_VIDEO
       render 'play_video'
+    when Playdate::PAUSE_VIDEO
+      render 'pause_video'
     when Playdate::NONE
       render :nothing => true
     end
