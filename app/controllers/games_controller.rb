@@ -48,7 +48,9 @@ class GamesController < ApplicationController
       @playdate.page_num = 1
       @playdate.save
     when Playdate::CHANGE_VIDEO
-      render 'play_video'
+      render 'update_video'
+    when Playdate::PLAY_VIDEO
+      render :nothing => true
     when Playdate::NONE
       render :nothing => true
     end
@@ -69,6 +71,8 @@ class GamesController < ApplicationController
 #      end
     when Playdate::CHANGE_VIDEO
       render 'change_video'
+    when Playdate::PLAY_VIDEO
+      render 'play_video'
     when Playdate::NONE
       render :nothing => true
     end
