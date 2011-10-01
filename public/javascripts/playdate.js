@@ -98,6 +98,17 @@ function toggleToyBox() {
 	var new_bottom_pos = ($('#bottom-drawer').css('bottom') == '0px') ?
 		-$('#bottom-drawer').outerHeight() + $('#links').outerHeight() : 0;
 	
+	if ($('#player-container').is(':visible')) {
+		if (new_bottom_pos == 0) {
+			$("#player-container iframe").css('width', '200px')
+	    	$("#player-container iframe").css('height', '200px')
+		}
+		else {
+			$('#player').remove();
+			createPlayer();
+		}
+	}
+	
 	$('#bottom-drawer').animate({ 
 		bottom: new_bottom_pos
 	});
@@ -109,5 +120,9 @@ function hideToyBox() {
 	$('#bottom-drawer').animate({ 
 		bottom: new_bottom_pos
 	});
+	
+	if ($('#player-container').is(':visible')) {
+		$('#player').remove();
+	}
 }
 

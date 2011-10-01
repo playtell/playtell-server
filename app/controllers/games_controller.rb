@@ -47,19 +47,30 @@ class GamesController < ApplicationController
       getBook(params[:book])
       @playdate.page_num = 1
       @playdate.save
+    when Playdate::CHANGE_VIDEO
+      render 'play_video'
     when Playdate::NONE
       render :nothing => true
     end
   end
   
   # called via ajax from one of the players in the playdate b/c they got a tokbox signal from another player indicating that the play state has changed, e.g. turned page in a book. refreshes the playdate for this user with the latest play state 
+  # gonna need to fix up this code: won't work with multiple changes in a row by one party...
   def updateFromPlaydate
     @playdate = current_playdate
-    if params[:title] != @playdate.book.title
-      getBook(@playdate.book_id)
-      render "change_book"
-    elsif params[:current_page] != @playdate.page_num
-      render "turn_page"
+    case @playdate.change
+    when Playdate::CHANGE_BOOK
+#      if params[:title] != @playdate.book.title
+        getBook(@playdate.book_id)
+        render "change_book"
+    when Playdate::TURN_PAGE
+#      elsif params[:current_page] != @playdate.page_num
+        render "turn_page"
+#      end
+    when Playdate::CHANGE_VIDEO
+      render 'change_video'
+    when Playdate::NONE
+      render :nothing => true
     end
     @playdate.clearChange
   end

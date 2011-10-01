@@ -423,6 +423,11 @@ img#scientistImage {
 	min-height: 600px;
 }
 
+#player-container {
+	width: 1000px;
+	height: 520px;
+}
+
 .book-container {
 	width: 1000px;
 	height: 520px;
