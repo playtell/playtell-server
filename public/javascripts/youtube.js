@@ -39,7 +39,7 @@ function onPlayerReady(event) {
 //    the player should play for six seconds and then stop.
 function onPlayerStateChange(event) {
 	if (event.data == YT.PlayerState.PLAYING) {
-		$.get("/update_playdate.js?playdateChange=301;
+		$.get("/update_playdate.js?playdateChange=301");
       	session.signal();
     }
 }
