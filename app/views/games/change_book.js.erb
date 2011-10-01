@@ -1,3 +1,5 @@
 hideToyBox();
+$('#player-container').hide();
+$('.book-container').show();
 $("#book").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
 showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>");
