@@ -69,7 +69,9 @@ class GamesController < ApplicationController
     p = current_playdate
     u = current_user
     @playmate = User.find_by_username(p.getOtherPlayerName(u))
-    render 'print_time'
+    respond_to do |format|
+      format.js { render 'print_time' }
+    end
   end
   
   # called via ajax from one of the players in the playdate b/c they got a tokbox signal from another player indicating that the play state has changed, e.g. turned page in a book. refreshes the playdate for this user with the latest play state 
