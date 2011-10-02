@@ -21,8 +21,10 @@ function createPlayer() {
 	    events: {
 	     'onReady': onPlayerReady,
 	     'onStateChange': onPlayerStateChange
-	   	}
-
+	   	},
+		playerVars: {
+		 'origin': 'www.ragatzi.com'
+		}
  	});
 }
 
@@ -31,18 +33,38 @@ function onPlayerReady(event) {
  //event.target.playVideo();
 }
 
+var playerTimeChecker;
+var playerTimeSetter;
+
 //http://code.google.com/apis/youtube/js_api_reference.html
 function onPlayerStateChange(event) {
 	if (event.data == 1) { //playing
 		$.get("/update_page.js?playdateChange=301");
       	session.signal();
+		playerTimeSetter = setInterval("sendTime()", 5000);
+		playerTimeChecker = setInterval("checkTime()", 9000);
     }
-	else if (event.data == 2) { //paused
+	else if (event.data == 2 || event.data == 3) { //paused or buffering
 		$.get("/update_page.js?playdateChange=302");
       	session.signal();
+		clearInterval(playerTimeSetter);
+		clearInterval(playerTimeChecker);
+    }
+	else if (event.data == 0) { //ended
+		clearInterval(playerTimeSetter);
+		clearInterval(playerTimeChecker);
     }
 }
 
 function stopVideo() {
  player.stopVideo();
+}
+
+function sendTime() {
+	t = player.getCurrentTime();
+	$.get("/set_time.js?currentTime="+t);
+}
+
+function checkTime () {
+	$.get("/check_time.js");
 }

@@ -58,6 +58,19 @@ class GamesController < ApplicationController
     end
   end
   
+  def setTime
+    u = current_user
+    u.video_time = params[:currentTime]
+    u.save!
+    render :nothing => true
+  end
+  
+  def checkTime
+    p = current_playdate
+    @playmate = User.find_by_username(p.getOtherPlayerName(current_user))
+    render 'print_time'
+  end
+  
   # called via ajax from one of the players in the playdate b/c they got a tokbox signal from another player indicating that the play state has changed, e.g. turned page in a book. refreshes the playdate for this user with the latest play state 
   # gonna need to fix up this code: won't work with multiple changes in a row by one party...
   def updateFromPlaydate
