@@ -62,7 +62,7 @@ function stopVideo() {
 
 function sendTime() {
 	t = player.getCurrentTime();
-	$.get("/set_time.js?currentTime="+t);
+	$.post("/set_time.js?currentTime="+t);
 }
 
 function checkTime () {
