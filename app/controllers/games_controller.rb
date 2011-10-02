@@ -67,7 +67,8 @@ class GamesController < ApplicationController
   
   def checkTime
     p = current_playdate
-    @playmate = User.find_by_username(p.getOtherPlayerName(current_user))
+    u = current_user
+    @playmate = User.find_by_username(p.getOtherPlayerName(u))
     render 'print_time'
   end
   
