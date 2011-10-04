@@ -553,11 +553,11 @@ div.friend {
 #videos p a#snapshot-link { background-position: -230px 0px; }
 #videos p a:hover#snapshot-link { background-position: -230px -60px; }
 
-#videos p a#contacts-link {	background-position: -77px -89px; }
-#videos p a:hover#contacts-link { background-position: -77px -45px; }
-
 #videos p a#toybox-link { background-position: 0px -89px; }
 #videos p a:hover#toybox-link { background-position: 0px -45px; }
+
+#videos p a#contacts-link {	background-position: -77px -89px; }
+#videos p a:hover#contacts-link { background-position: -77px -45px; }
 
 #videos p a#keepsakes-link { background-position: -154px -89px; }
 #videos p a:hover#keepsakes-link { background-position: -154px -45px; }
