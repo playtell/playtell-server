@@ -1,10 +1,12 @@
 
 <div class="friends">
 	<% for friend in @current_user.allFriends %>
-		<%= form_tag playdate_path do %>
-			<%= hidden_field_tag 'friend_id', friend.id, :id => 'friend_id' %>
-			<%= image_submit_tag 'dialpad_'+friend.username+".png", :id => "create-playdate" %>
-		<% end %>
+		<div class="friend">
+			<%= form_tag playdate_path do %>
+				<%= hidden_field_tag 'friend_id', friend.id, :id => 'friend_id' %>
+				<%= image_submit_tag 'dialpad_'+friend.username+".png", :id => "create-playdate" %>
+			<% end %>
+		</div>
 	<% end %>
-	<div class="fl"><%= image_tag "add_person.png" %></div>
+	<div class="friend"><%= image_tag "add_person.png" %></div>
 </div>

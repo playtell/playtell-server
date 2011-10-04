@@ -331,13 +331,16 @@ img#scientistImage {
 
 .friends {
 	width: 1000px;
+	margin: 0px auto;
+}
+
+div.friend {
+	display: inline-block;
+	padding: 3px;
 }
 
 .friends img, input[type="image"] {
 	max-width: 296px;
-	padding-right: 6px;
-	padding-top: 6px;
-	float: left;
 }
 
 
@@ -346,9 +349,9 @@ img#scientistImage {
 	
 #videos {
 	position: relative;
-	float: left;
+	margin: 0px auto;
 	width: 1000px;
-	height: 740px;
+	min-height: 740px;
 	overflow: hidden;
 	background: url("/images/playspace_background.jpg") repeat 0 0;
 }
