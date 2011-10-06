@@ -59,7 +59,7 @@ function subscribeAndPublish() {
 
 function takeSnapshot() {
 	var pubImgData = publisher.getImgData();
-	var subImgData = subscriber.getImgData()
+	var subImgData = subscribers[0].getImgData()
 
 	var pubImg = document.createElement("img");
 	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);
