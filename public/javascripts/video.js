@@ -190,5 +190,5 @@ function addStream(stream) {
 	div.setAttribute('id', divId);			
 	parentDiv.appendChild(div);
 	var subscriberProps = {width: SUBSCRIBER_WIDTH, height: SUBSCRIBER_HEIGHT, microphoneEnabled: true};
-	subscribers[stream.streamId] = session.subscribe(stream, divId, subscriberProps);
+	subscribers[0] = session.subscribe(stream, divId, subscriberProps);
 }
