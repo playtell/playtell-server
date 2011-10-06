@@ -57,6 +57,17 @@ function subscribeAndPublish() {
 	publish("my-camera");				
 }
 
+function takeSnapshot() {
+	var pubImgData = publisher.getImgData();
+	var subImgData = subscriber.getImgData()
+
+	var img = document.createElement("img");
+	img.setAttribute("src", "data:image/png;base64," + pubImgData + subImgData);
+	var imgWin = window.open("about:blank", "Screenshot");
+	imgWin.document.write("<body></body>");
+	imgWin.document.body.appendChild(img);
+}
+
 //--------------------------------------
 //  OPENTOK EVENT HANDLERS
 //--------------------------------------
