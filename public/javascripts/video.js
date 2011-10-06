@@ -59,20 +59,24 @@ function subscribeAndPublish() {
 
 function takeSnapshot() {
 	var pubImgData = publisher.getImgData();
-	var subImgData = subscribers[0].getImgData()
-
+	var subImgData; 
+	var subImg;
+		
 	var pubImg = document.createElement("img");
-	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);
+	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);	
 	
-	var subImg = document.createElement("img");
-	if (subscriber[0]) {
+	if (subscribers[0]) {
+		subImgData = subscribers[0].getImgData();	
+		subImg = document.createElement("img");
 		subImg.setAttribute("src", "data:image/png;base64," + subImgData);
 	}
 	
 	var imgWin = window.open("about:blank", "Screenshot");
 	imgWin.document.write("<body></body>");
 	imgWin.document.body.appendChild(pubImg);
-	imgWin.document.body.appendChild(subImg);
+	if (subscribers[0]) {
+		imgWin.document.body.appendChild(subImg);
+	}
 }
 
 //--------------------------------------
