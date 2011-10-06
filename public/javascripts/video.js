@@ -65,7 +65,9 @@ function takeSnapshot() {
 	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);
 	
 	var subImg = document.createElement("img");
-	subImg.setAttribute("src", "data:image/png;base64," + subImgData);
+	if (subscriber[0]) {
+		subImg.setAttribute("src", "data:image/png;base64," + subImgData);
+	}
 	
 	var imgWin = window.open("about:blank", "Screenshot");
 	imgWin.document.write("<body></body>");
