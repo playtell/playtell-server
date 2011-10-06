@@ -61,11 +61,16 @@ function takeSnapshot() {
 	var pubImgData = publisher.getImgData();
 	var subImgData = subscriber.getImgData()
 
-	var img = document.createElement("img");
-	img.setAttribute("src", "data:image/png;base64," + pubImgData + subImgData);
+	var pubImg = document.createElement("img");
+	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);
+	
+	var subImg = document.createElement("img");
+	pubImg.setAttribute("src", "data:image/png;base64," + subImgData);
+	
 	var imgWin = window.open("about:blank", "Screenshot");
 	imgWin.document.write("<body></body>");
-	imgWin.document.body.appendChild(img);
+	imgWin.document.body.appendChild(pubImg);
+	imgWin.document.body.appendChild(subImg);
 }
 
 //--------------------------------------
