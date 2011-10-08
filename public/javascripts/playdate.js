@@ -23,7 +23,10 @@ function showBook(title, currentPage, totalPages) {
 				success: function() {
 					session.signal();
 				}
-			});	
+			});
+			if (opts.curr == $('#total-pages').html()) {
+				turnOnKeepsakeCameras();
+			}
 		}
 	});
 }
