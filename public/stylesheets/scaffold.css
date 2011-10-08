@@ -497,6 +497,47 @@ div.friend {
 	text-decoration: underline;
 }
 
+#book-keepsake {
+	position: absolute;
+	top: 170px;
+	left: 620px;
+	min-height: 530px;
+	min-width: 350px;
+	background: url("/images/keepsake_bg.png") no-repeat 0 0;
+}
+
+#camera-button-keepsake {
+	margin-top: 6px;
+	margin-left: 40px;
+}
+
+#camera-button-keepsake p a {
+	background: url("/images/sprite_sheet.png") no-repeat;
+	width: 248px;
+	height: 46px;
+}
+
+#camera-button-keepsake p a#keepsake-link { background-position: -4px -178px; }
+#camera-button-keepsake p a:hover#keepsake-link { background-position: -4px -225px; }
+
+.keepsake-camera-container {
+	width: 243px;
+	height: 182px;
+	position: absolute;
+}
+
+#myCam-keepsake {
+	top: 73px;
+	left: 42px;
+}
+
+#famCam-keepsake {
+	top: 280px;
+	left: 42px;
+
+}
+
+
 /* LIBRARY --------------------------------------------------------- */
 
 .library-item {

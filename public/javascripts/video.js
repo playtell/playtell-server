@@ -17,19 +17,16 @@ function disconnect() {
 		session.signal();
 	}
 	session.disconnect();
-	//hide('disconnect-link');
-	//hide('publish-link');
-	//hide('unpublish-link');
 }
 
-function publish(location) {
+function publish(location, width, height, name) {
 	if (!publisher) {
 		var parentDiv = document.getElementById(location);
 		var div = document.createElement('div');			// Create a replacement div for the publisher
 		div.setAttribute('id', 'opentok_publisher');
 		parentDiv.appendChild(div);
 		$('#'+location).removeClass('loading');
-		var publisherProps = {width: PUBLISHER_WIDTH, height: PUBLISHER_HEIGHT, microphoneEnabled: true};
+		var publisherProps = {width: width, height: height, name: name, microphoneEnabled: true};
 		publisher = session.publish('opentok_publisher', publisherProps); 	// Pass the replacement div id to the publish method
 		//show('unpublish-link');
 		//hide('publish-link');
@@ -46,15 +43,20 @@ function unpublish() {
 	//hide('unpublish-link');
 }
 
-function subscribeAndPublish() {
+function subscribeAndPublish(publisherDiv, pubWidth, pubHeight, pubName) {
+
 	// Subscribe to all streams currently in the Session
 	for (var i = 0; i < event.streams.length; i++) {
 		addStream(event.streams[i]);
 	}
 	
-	show('disconnect-link');
-	hide('connect-link');
-	publish("my-camera");				
+	publish(publisherDiv, pubWidth, pubHeight, pubName);				
+}
+
+function turnOnKeepsakeCameras() {
+	session.cleanup();
+	publisher = null;
+	publish('myCam-keepsake', KEEPSAKE_WIDTH, KEEPSAKE_HEIGHT, 'keepsake');
 }
 
 function takeSnapshot() {
@@ -87,7 +89,7 @@ function sessionConnectedHandler(event) {
 	for (var i = 0; i < event.streams.length; i++) {
 		addStream(event.streams[i]);
 	}
-	publish("my-camera");
+	publish("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
 	//listen for device status event
 	//deviceManager = TB.initDeviceManager(apiKey);
 	//deviceManager.addEventListener("devicesDetected", devicesDetectedHandler);
@@ -101,7 +103,7 @@ function devicesDetectedHandler(event) {
 				inSetup = true;
 				$("#setup").removeClass("hidden");
 				deviceManager.removeEventListener("devicesDetected", function(){});
-				publish("setup");
+				publish("setup", PUBLISHER_WIDTH, PUBLISHER_HEIGHT);
 				publisher.addEventListener("accessAllowed", accessAllowedHandler);
 			}
 			//else {
@@ -117,7 +119,7 @@ function accessAllowedHandler(event) {
 	$("#setup").html("success!");
 	$("#setup").addClass("hidden");
 	unpublish();
-	publish("my-camera");
+	publish("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
 }
 
 function streamCreatedHandler(event) {
@@ -136,11 +138,6 @@ function sessionDisconnectedHandler(event) {
 	// This signals that the user was disconnected from the Session. Any subscribers and publishers
 	// will automatically be removed. This default behaviour can be prevented using event.preventDefault()
 	publisher = null;
-
-	//show('connect-link');
-	//hide('disconnect-link');
-	//hide('publish-link');
-	//hide('unpublish-link');
 }
 
 function connectionDestroyedHandler(event) {
@@ -189,12 +186,21 @@ function addStream(stream) {
 //		}
 		return;
 	}
-	var parentDiv = document.getElementById("fam-camera-holder");
+	var parentDiv; 
+	var subscriberProps;
 
+	if (stream.name == 'keepsake') {
+		parentDiv =  document.getElementById('famCam-keepsake');
+		subscriberProps = {width: KEEPSAKE_WIDTH, height: KEEPSAKE_HEIGHT, microphoneEnabled: true};
+	}
+	else {
+		parentDiv = document.getElementById("fam-camera-holder");
+		subscriberProps = {width: SUBSCRIBER_WIDTH, height: SUBSCRIBER_HEIGHT, microphoneEnabled: true};
+	}
+	
 	var div = document.createElement('div');	// Create a replacement div for the subscriber
 	var divId = stream.streamId;	// Give the replacement div the id of the stream as its id
 	div.setAttribute('id', divId);			
 	parentDiv.appendChild(div);
-	var subscriberProps = {width: SUBSCRIBER_WIDTH, height: SUBSCRIBER_HEIGHT, microphoneEnabled: true};
 	subscribers[0] = session.subscribe(stream, divId, subscriberProps);
 }
