@@ -362,27 +362,18 @@ div.friend {
 	background: url("/images/video_background.png") repeat 0 0;
 }
 
-#fam-camera-wrapper {
-	margin: 10px 0px 0px 8px;
-	position: absolute;
-	width: 192px;
-	height: 144px;
-}
-
 #fam-camera-holder {
 	background: black;
 	width: 192px;
 	height: 144px;
-	margin: 5px 5px;
+	margin: 5px;
 	border: 1px solid #555;
 }
 
 #my-camera {
-	width: 128px;
-	height: 96px;
-	position: absolute;
-	left: 200px;
-	top: 25px;
+	width: 192px;
+	height: 144px;
+	margin: 5px;
 	border: 1px solid #555;
 	background: black;
 }
@@ -525,13 +516,12 @@ div.friend {
 	top: 20px;
 	left: 50px;
 	min-height: 530px;
-	min-width: 350px;
+	min-width: 330px;
 	background: url("/images/keepsake_bg.png") no-repeat 0 0;
 }
 
-#camera-button-keepsake {
-	margin-top: 6px;
-	margin-left: 40px;
+.header-image-keepsake {
+	margin-top: 4px;
 }
 
 #camera-button-keepsake p a {

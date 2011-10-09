@@ -8,8 +8,8 @@
 	var session;
 	var publisher;
 
-	var PUBLISHER_WIDTH = 128;
-	var PUBLISHER_HEIGHT = 96;
+	var PUBLISHER_WIDTH = 192; //128;
+	var PUBLISHER_HEIGHT = 144; //96;
 			
 	var SUBSCRIBER_WIDTH = 192;
 	var SUBSCRIBER_HEIGHT = 144;
@@ -105,7 +105,7 @@
 		$("#beginning-link").click(function() {
 			goToPage(1);
 			$('.back-cover').hide();
-			toggleCameras("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
+			//toggleCameras("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
 		});
 		
 		$("#select-book").click(function() {
@@ -174,7 +174,7 @@
 				<p><a href="#" id="snapshot-link"></a></p>
 			</div>
 			<div id="fam-camera-holder" class="inline-block"></div>
-			<div id="my-camera" class="loading inline-block"></div>
+			<div id="my-camera" class="inline-block"></div>
 			<div class="clear"></div>
 		</div>
 		<div class="book-nav"><%= render :partial => "bookNav", :locals => {:book => @book} %></div>
@@ -194,8 +194,11 @@
 						</div>						
 					</div>
 					<div class="book-keepsake"> 
-						<div id="camera-button-keepsake">
+						<!--<div id="camera-button-keepsake">
 							<p><a href="#" id="keepsake-link"></a></p>
+						</div>-->
+						<div class="header-image-keepsake">
+							<%= image_tag @book.image_directory+".png" %>
 						</div>
 						<div id="myCam-keepsake" class="keepsake-camera-container"></div>
 						<div id="famCam-keepsake" class="keepsake-camera-container"></div>

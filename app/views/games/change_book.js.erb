@@ -1,9 +1,7 @@
 $('.back-cover').hide();
 hideToyBox();
-if (keepsakeCameraOn) {
-	toggleCameras("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
-}
 $('#player-container').hide();
 $('.book-container').show();
 $("#book").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
+$('.header-image-keepsake img').attr("src", "<%= '/images/'+@book.image_directory+'.png' %>");
 showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>");

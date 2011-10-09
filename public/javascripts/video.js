@@ -54,8 +54,8 @@ function subscribeAndPublish(publisherDiv, pubWidth, pubHeight, pubName) {
 }
 
 function toggleCameras(div, width, height, name) {
+	unpublish();
 	session.cleanup();
-	publisher = null;
 	publish(div, width, height, name);
 	keepsakeCameraOn = !keepsakeCameraOn;
 }
@@ -101,6 +101,27 @@ function takeSnapshot() {
 		subDiv.appendChild(subImg);
 	}
 }
+
+function takeSnapshotNew() {
+	var pubImgData = publisher.getImgData();
+	var subImgData; 
+	var subImg;
+		
+	var pubImg = document.createElement("img");
+	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);	
+	
+	if (subscribers[0]) {
+		subImgData = subscribers[0].getImgData();	
+		subImg = document.createElement("img");
+		subImg.setAttribute("src", "data:image/png;base64," + subImgData);
+		var famCam = document.getElementById("famCam-keepsake");
+		famCam.appendChild(subImg);
+	}
+	
+	var myCam = document.getElementById("myCam-keepsake");	
+	myCam.appendChild(pubImg);
+}
+
 
 //--------------------------------------
 //  OPENTOK EVENT HANDLERS
