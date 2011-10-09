@@ -57,6 +57,7 @@ function toggleCameras(div, width, height, name) {
 	session.cleanup();
 	publisher = null;
 	publish(div, width, height, name);
+	keepsakeCameraOn = !keepsakeCameraOn;
 }
 
 function takeSnapshot() {

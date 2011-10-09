@@ -1,4 +1,8 @@
+$('.back-cover').hide();
 hideToyBox();
+if (keepsakeCameraOn) {
+	toggleCameras("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
+}
 $('.book-container').hide();
 $('#player-container').show();
 createPlayer();

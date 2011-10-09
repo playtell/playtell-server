@@ -24,7 +24,14 @@ function showBook(title, currentPage, totalPages) {
 					session.signal();
 				}
 			});
-			if (opts.curr == $('#total-pages').html()) {
+			if (parseInt($('#total-pages').html())%2 == 0) {
+				if (opts.curr == $('#total-pages').html()) {
+					$('.back-cover').show();
+					$('.back-cover').css("z-index", 20);
+					toggleCameras('myCam-keepsake', KEEPSAKE_WIDTH, KEEPSAKE_HEIGHT, 'keepsake');
+				}
+			}
+			else if (opts.curr == parseInt($('#total-pages').html())+1) {
 				$('.back-cover').show();
 				$('.back-cover').css("z-index", 20);
 				toggleCameras('myCam-keepsake', KEEPSAKE_WIDTH, KEEPSAKE_HEIGHT, 'keepsake');

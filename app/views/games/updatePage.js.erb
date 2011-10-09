@@ -1,6 +1,10 @@
 //TODO should move this to happen before the server hit to make the page more responsive from a user perspective
 //$('#library-lightbox').trigger('close');
+$('.back-cover').hide();
 hideToyBox();
+if (keepsakeCameraOn) {
+	toggleCameras("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
+}
 $('#player-container').hide();
 $('.book-container').show();
 $("#book").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
