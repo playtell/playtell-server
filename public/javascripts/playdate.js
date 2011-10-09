@@ -39,6 +39,9 @@ function showBook(title, currentPage, totalPages) {
 				$('.back-cover').css("z-index", 20);
 				//toggleCameras('myCam-keepsake', KEEPSAKE_WIDTH, KEEPSAKE_HEIGHT, 'keepsake');
 			}
+			else {
+				$('.back-cover').hide();
+			}
 		}
 	});
 }
@@ -139,5 +142,10 @@ function hideToyBox() {
 	if ($('#player-container').is(':visible')) {
 		$('#player').remove();
 	}
+}
+
+function removeKeepsakes() {
+	$('#myCam-keepsake img').remove();
+	$('#famCam-keepsake img').remove();
 }
 
