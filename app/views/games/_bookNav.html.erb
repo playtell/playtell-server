@@ -9,6 +9,5 @@
 	<span class="page-num-text hidden">Page <span id="page-num"><%= @playdate.page_num %></span></span> 
 	<span class="hidden" id="total-pages"><%= @book.pages.count %></span>
 	<%= submit_tag 'Next', :class => "blue right-button hidden", :id => "next-page" %>
-	<p><%= submit_tag 'Back to Beginning', :id => 'first-page', :class => 'hidden' %></p>
 <% end %>
 </div>

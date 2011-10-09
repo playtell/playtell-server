@@ -482,25 +482,48 @@ div.friend {
 	font-size: 14px;
 }
 
-#first-page {
-	font-size: 12px;
-	background: none;
-	text-decoration: none;
-	border: none;
-	color: #539AB7;
-	cursor: pointer;
-	font-weight: normal;
-	margin: 0px;
+.back-cover {
+	position: absolute;
+	top: 157px;
+	left: 502px;
+	min-height: 540px;
+	min-width: 500px;
 }
 
-#first-page:hover {
-	text-decoration: underline;
+.beginning-container {
+	position: absolute;
+	top: -12px;
+	left: 423px;
+	width: 50px;
+	height: 200px;
 }
+
+.beginning-container p a {
+	width: 60px;
+	height: 250px;
+}
+.beginning-container p a#beginning-banner { background-position: -516px -8px; }
+
+.beginning-text-container {
+	position: absolute;
+	top: 19px;
+	left: 17px;
+}
+
+.beginning-text-container p a {
+	width: 30px;
+}
+
+#beginning-link p a {
+	width: 60px;
+	height: 250px;
+}
+.beginning-container p a#beginning-link { background-position: -585px -25px; }
 
 .book-keepsake {
 	position: absolute;
-	top: 170px;
-	left: 620px;
+	top: 20px;
+	left: 50px;
 	min-height: 530px;
 	min-width: 350px;
 	background: url("/images/keepsake_bg.png") no-repeat 0 0;
