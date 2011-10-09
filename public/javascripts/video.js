@@ -106,6 +106,8 @@ function takeSnapshotNew() {
 	var pubImgData = publisher.getImgData();
 	var subImgData; 
 	var subImg;
+	
+	removeKeepsakes();
 		
 	var pubImg = document.createElement("img");
 	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);	

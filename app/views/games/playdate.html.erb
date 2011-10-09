@@ -138,11 +138,11 @@
 		});
 		
 		$('#snapshot-link').click(function() {
-			takeSnapshot();
+			takeSnapshotNew();
 		});
 		
 		$('#keepsake-link').click(function () {
-			takeSnapshot();
+			takeSnapshotNew();
 		});
 		
 		$('#fullscreen').click(function() {
@@ -194,11 +194,8 @@
 						</div>						
 					</div>
 					<div class="book-keepsake"> 
-						<!--<div id="camera-button-keepsake">
+						<div id="camera-button-keepsake">
 							<p><a href="#" id="keepsake-link"></a></p>
-						</div>-->
-						<div class="header-image-keepsake">
-							<%= image_tag @book.image_directory+".png" %>
 						</div>
 						<div id="myCam-keepsake" class="keepsake-camera-container"></div>
 						<div id="famCam-keepsake" class="keepsake-camera-container"></div>

@@ -524,6 +524,11 @@ div.friend {
 	margin-top: 4px;
 }
 
+.header-image-keepsake {
+	margin-top: 6px;
+	margin-left: 40px;
+}
+
 #camera-button-keepsake p a {
 	background: url("/images/sprite_sheet.png") no-repeat;
 	width: 248px;
