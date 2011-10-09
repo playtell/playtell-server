@@ -497,7 +497,7 @@ div.friend {
 	text-decoration: underline;
 }
 
-#book-keepsake {
+.book-keepsake {
 	position: absolute;
 	top: 170px;
 	left: 620px;
@@ -534,7 +534,14 @@ div.friend {
 #famCam-keepsake {
 	top: 280px;
 	left: 42px;
+}
 
+.myPic-keepsake {
+	width: 243px;
+	height: 182px;
+	position: absolute;	
+	top: 73px;
+	left: 42px;
 }
 
 
