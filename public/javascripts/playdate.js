@@ -27,7 +27,7 @@ function showBook(title, currentPage, totalPages) {
 			if (opts.curr == $('#total-pages').html()) {
 				$('.back-cover').show();
 				$('.back-cover').css("z-index", 20);
-				turnOnKeepsakeCameras();
+				toggleCameras('myCam-keepsake', KEEPSAKE_WIDTH, KEEPSAKE_HEIGHT, 'keepsake');
 			}
 		}
 	});

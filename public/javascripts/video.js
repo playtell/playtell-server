@@ -53,10 +53,10 @@ function subscribeAndPublish(publisherDiv, pubWidth, pubHeight, pubName) {
 	publish(publisherDiv, pubWidth, pubHeight, pubName);				
 }
 
-function turnOnKeepsakeCameras() {
+function toggleCameras(div, width, height, name) {
 	session.cleanup();
 	publisher = null;
-	publish('myCam-keepsake', KEEPSAKE_WIDTH, KEEPSAKE_HEIGHT, 'keepsake');
+	publish(div, width, height, name);
 }
 
 function takeSnapshot() {
