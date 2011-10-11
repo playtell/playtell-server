@@ -227,25 +227,6 @@ label {
 	font-size: 12px;;
 }
 
-#setup-lightbox div {
-	width: 365px;
-	padding: 8px 10px;
-}
-
-#setup-lightbox div#loader {
-	margin: auto;
-	min-height: 175px;
-	padding: 0px;
-}
-
-#setup-lightbox div img {
-	padding-top: 5px;
-}
-
-#setup-lightbox h4 {
-	line-height: 1.2em;
-}
-
 #feedback-lightbox {
 	width: 475px;
 }
@@ -342,8 +323,6 @@ div.friend {
 .friends img, input[type="image"] {
 	max-width: 296px;
 }
-
-
 
 /* VIDEO --------------------------------------------------------- */
 	
@@ -590,7 +569,7 @@ div.friend {
 
 #bottom-drawer {
 	position: absolute;
-	bottom: -243px;
+	bottom: 0px;
 	text-align: center;
 	width: 1000px;
 	z-index: 1000;
@@ -637,64 +616,6 @@ div.friend {
 #videos p input#prev-page { background-position: -230px -186px; }
 
 #videos p input#next-page { background-position: -276px -236px; }
-
-
-/* HOMEPAGE --------------------------------------------------------- */
-
-.homepage-content {
-	margin: auto;
-	margin-top: 200px;
-	text-align: center;
-	background: white;
-	padding: 20px;
-	width: 400px;
-}
-
-.homepage-content img {
-	width: 300px
-}
-
-.homepage-content h1 {
-	font-size: 44px;
-	margin-bottom: 3px;
-	color: #536376;
-}
-
-.homepage-content h2 {
-	font-size: 32px;
-	font-weight: normal;
-	margin-bottom: 15px;
-}
-
-.homepage-content a {
-	font-size: 14px;
-	padding: 0px 10px;
-}
-
-#early-access-lightbox {
-	width: 440px;
-}
-
-#early-access-lightbox h2 {
-	padding-top: 5px;
-}
-
-#early-access-lightbox p {
-	line-height: 18px;
-	padding-top: 5px;
-}
-
-#access-lightbox-text form {
-	padding-top: 20px;
-}
-
-#access-lightbox-text input[type="email"] {
-	width: 200px;
-}
-
-.black {
-	background-color: black;
-}
 
 /* LANDING PAGE --------------------------------------------------------- */
 
