@@ -13,9 +13,6 @@ function connect() {
 }
 
 function disconnect() {
-	if (!inSetup) {
-		session.signal();
-	}
 	session.disconnect();
 }
 
@@ -28,8 +25,6 @@ function publish(location, width, height, name) {
 		$('#'+location).removeClass('loading');
 		var publisherProps = {width: width, height: height, name: name, microphoneEnabled: true};
 		publisher = session.publish('opentok_publisher', publisherProps); 	// Pass the replacement div id to the publish method
-		//show('unpublish-link');
-		//hide('publish-link');
 	}
 }
 
@@ -38,9 +33,6 @@ function unpublish() {
 		session.unpublish(publisher);
 	}
 	publisher = null;
-
-	//show('publish-link');
-	//hide('unpublish-link');
 }
 
 function subscribeAndPublish(publisherDiv, pubWidth, pubHeight, pubName) {
@@ -218,16 +210,6 @@ function addStream(stream) {
 	// Check if this is the stream that I am publishing. If not
 	// we choose to subscribe to the stream.
 	if (stream.connection.connectionId == session.connection.connectionId) {
-//		if (inSetup) {
-//			$("#setup").html("success!");
-//			$("#setup").addClass("hidden");
-//			unpublish();
-//			publish("my-camera");
-//			return;
-//		}
-//		else {
-//			return;
-//		}
 		return;
 	}
 	var parentDiv; 

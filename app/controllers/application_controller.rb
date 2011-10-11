@@ -6,10 +6,6 @@ class ApplicationController < ActionController::Base
      @earlyUser = EarlyUser.new
   end
   
-  def index_old
-    @earlyUser = EarlyUser.new
-  end
-  
   def earlyAccess
     if !params[:early_user][:email].blank?
       @earlyUser = EarlyUser.new(params[:early_user])

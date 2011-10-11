@@ -1,8 +1,4 @@
 function showBook(title, currentPage, totalPages) { 
-	//$('#page_'+currentPage).animate({
-	//	left: 0
-	//});
-	//show("page_"+currentPage); - remnant of no animation
 	$('#total-pages').html(totalPages);
 	$('#page-num').html(currentPage);
 	$('#book-title').val(title);
@@ -31,13 +27,11 @@ function showBook(title, currentPage, totalPages) {
 				if (opts.curr == $('#total-pages').html()) {
 					$('.back-cover').show();
 					$('.back-cover').css("z-index", 20);
-					//toggleCameras('myCam-keepsake', KEEPSAKE_WIDTH, KEEPSAKE_HEIGHT, 'keepsake');
 				}
 			}
 			else if (opts.curr == parseInt($('#total-pages').html())+1) {
 				$('.back-cover').show();
 				$('.back-cover').css("z-index", 20);
-				//toggleCameras('myCam-keepsake', KEEPSAKE_WIDTH, KEEPSAKE_HEIGHT, 'keepsake');
 			}
 			else {
 				$('.back-cover').hide();
@@ -68,25 +62,7 @@ function goToPage (new_page_num) {
 	var current_page_num = getCurrentPage();
 	var current_page_div = "page_" + current_page_num;
 	var new_page_div = "page_" + new_page_num;
-	
-	// set the position off the page: negative if moving forward a page, positive if moving back
-/*	var new_left_position = (current_page_num < new_page_num) ? 
-		-$('#'+current_page_div).outerWidth() : $('#'+current_page_div).outerWidth();
-	
-	$('#'+current_page_div).animate({
-		left: new_left_position
-	});
-	$('#'+new_page_div).animate({
-		left: 0
-	});
-	//if beginning, then set all lefts to outerwidth
-	if (new_page_num == 1) {
-		var i;
-		for (i=1; i<=$('#total-pages').html(); i++) {
-			$('#'+"page_"+i).css('left', $('#'+"page_"+i).outerWidth());
-		}
-	}
-*/
+
 	$('#book').booklet(new_page_num);
 	
 	$("#page-num").html(new_page_num);

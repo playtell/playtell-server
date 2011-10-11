@@ -17,8 +17,6 @@ Semiralabs::Application.routes.draw do
   
   match 'feedbacks' => 'feedback#create'
   
-  match 'home' => 'application#index_old'
-
   match 'set_time' => 'games#setTime'
   match 'check_time' => 'games#checkTime'
   

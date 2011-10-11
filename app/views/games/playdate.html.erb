@@ -19,18 +19,13 @@
 
 	var subscribers = {};
 	var deviceManager;
-	
-	var inSetup = true;
-	
+		
 	var keepsakeCameraOn = false;
 			
 	$(document).ready(function() {
 		// writes out the page direction so it can be used later.
 		// upon success, signals the other player in the playdate to ping the server for the latest view of the book	
 		// load setup lightbox
-		//$('#setup-lightbox').lightbox_me({
-		//    centered: true, 
-		//});
 		
 		//load image for setup lightbox
 		$(function () {
@@ -56,6 +51,7 @@
 		
 		// book setup and display	
 		//showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>"; once pages left: location is reset
+		
 		// opentok video session setup and display
 		
 		// Un-comment either of the following to set automatic logging and exception handling.
@@ -77,45 +73,13 @@
 			session.addEventListener('signalReceived', signalReceivedHandler);
 
 			connect();
-		}
-		
-		$('#turn-page')
-			.bind('ajax:beforeSend', function() {
-				updatePage($('#page-direction').val());
-			})
-			.bind('ajax:success', function() {
-				//if (subscribers.length > 0) {
-					if (session) {
-						session.signal();
-					}
-				//}
-			});					
-
-		//writes out the page direction and new page number to be used later
-		$('#next-page').click(function() {
-			$('#page-direction').val("next");
-			$('#new-page').val(getNewPage(getCurrentPage(), "next"));
-		});
-
-		$("#prev-page").click(function() {
-			$('#page-direction').val("previous");
-			$('#new-page').val(getNewPage(getCurrentPage(), "previous"));
-		});
+		}				
 		
 		$("#beginning-link").click(function() {
 			goToPage(1);
 			$('.back-cover').hide();
 			//toggleCameras("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
-		});
-		
-		$("#select-book").click(function() {
 		});				
-		
-		$('.library-link').click(function() {
-			$('#library-lightbox').lightbox_me({
-			    centered: true, 
-			});					
-		})
 		
 		$('#connect-link').click(function() {
 			connect();
@@ -152,17 +116,6 @@
 			
 </script>
 <% end %>
-	
-	<div id="setup-lightbox" class="lightbox hidden">
-		<h1>One quick thing - </h1>
-		<div>
-			<h4>If you see this box, click "Allow." This gives Ragatzi permission to use your camera.</h4>
-			<div id="loader" class="loading"></div>
-			<p>In the future, you'll be able to say "don't show me this again." But not yet, sorry!</p>
-			<button class="button-bottom blue close">Close Window</button>
-		</div>
-		<button class="close close-x blue">X</button>
-	</div>
 	
 	<div id="videos">
 		<div class="video-content">
@@ -231,14 +184,6 @@
 				<h2>Did you enjoy your playdate?</h2>	
 				<%= render :partial => "feedback/form", :locals => {:feedback => @feedback} %>
 			</div>
-		</div>
-		<button class="close close-x blue">X</button>
-	</div>
-
-	<div id="library-lightbox" class="lightbox hidden">
-		<div id="library-lightbox-text">
-			<h2>Whatcha wanna read?</h2>	
-			<%= render :partial => "library", :locals => {:books => @books} %>
 		</div>
 		<button class="close close-x blue">X</button>
 	</div>
