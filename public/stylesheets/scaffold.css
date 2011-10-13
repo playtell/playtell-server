@@ -357,13 +357,13 @@ div.friend {
 #fam-camera-holder {
 	background: black;
 	width: 200px;
-	height: 155px;
+	height: 150px;
 	border: 1px solid #555;
 }
 
 #my-camera {
 	width: 200px;
-	height: 155px;
+	height: 150px;
 	border: 1px solid #555;
 	background: black;
 }
@@ -457,8 +457,8 @@ div.friend {
 
 .back-cover {
 	position: absolute;
-	top: 157px;
-	left: 502px;
+	top: 0;
+	left: 650px;
 	min-height: 540px;
 	min-width: 500px;
 }
