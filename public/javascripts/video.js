@@ -105,14 +105,12 @@ function takeSnapshotNew() {
 //--------------------------------------
 
 function sessionConnectedHandler(event) {
-	// session.connect adds a flash object to the bottom of the webpage. It adds a small line of whitespace to the bottom of the app, tho tokbox says it won't mess with the layout. So we find that object and hide it.
-	if ($('body object').attr("width") == 1) {
-		$('body object').hide();
-	}
+	// session.connect adds a flash object to the bottom of the webpage. It adds a small line of whitespace to the bottom of the app, tho tokbox says it won't mess with the layout. So we find that object and hide it
 	for (var i = 0; i < event.streams.length; i++) {
 		addStream(event.streams[i]);
 	}
 	publish("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
+
 }
 
 function devicesDetectedHandler(event) {
@@ -199,6 +197,6 @@ function addStream(stream) {
 	var div = document.createElement('div');	// Create a replacement div for the subscriber
 	var divId = stream.streamId;	// Give the replacement div the id of the stream as its id
 	div.setAttribute('id', divId);			
-	parentDiv.appendChild(div);
-	subscribers[0] = session.subscribe(stream, divId, subscriberProps);
+	document.getElementById("fam-camera-holder").appendChild(div);
+	subscribers[0] = session.subscribe(stream, divId, {width: SUBSCRIBER_WIDTH, height: SUBSCRIBER_HEIGHT,  microphoneEnabled: true});
 }
