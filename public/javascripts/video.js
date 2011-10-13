@@ -35,23 +35,6 @@ function unpublish() {
 	publisher = null;
 }
 
-function subscribeAndPublish(publisherDiv, pubWidth, pubHeight, pubName) {
-
-	// Subscribe to all streams currently in the Session
-	for (var i = 0; i < event.streams.length; i++) {
-		addStream(event.streams[i]);
-	}
-	
-	publish(publisherDiv, pubWidth, pubHeight, pubName);				
-}
-
-function toggleCameras(div, width, height, name) {
-	unpublish();
-	session.cleanup();
-	publish(div, width, height, name);
-	keepsakeCameraOn = !keepsakeCameraOn;
-}
-
 function takeSnapshot() {
 	var pubImgData = publisher.getImgData();
 	var subImgData; 
@@ -122,14 +105,14 @@ function takeSnapshotNew() {
 //--------------------------------------
 
 function sessionConnectedHandler(event) {
+	// session.connect adds a flash object to the bottom of the webpage. It adds a small line of whitespace to the bottom of the app, tho tokbox says it won't mess with the layout. So we find that object and hide it.
+	if ($('body object').attr("width") == 1) {
+		$('body object').hide();
+	}
 	for (var i = 0; i < event.streams.length; i++) {
 		addStream(event.streams[i]);
 	}
 	publish("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
-	//listen for device status event
-	//deviceManager = TB.initDeviceManager(apiKey);
-	//deviceManager.addEventListener("devicesDetected", devicesDetectedHandler);
-	//deviceManager.detectDevices();
 }
 
 function devicesDetectedHandler(event) {
@@ -211,17 +194,6 @@ function addStream(stream) {
 	// we choose to subscribe to the stream.
 	if (stream.connection.connectionId == session.connection.connectionId) {
 		return;
-	}
-	var parentDiv; 
-	var subscriberProps;
-
-	if (stream.name == 'keepsake') {
-		parentDiv =  document.getElementById('famCam-keepsake');
-		subscriberProps = {width: KEEPSAKE_WIDTH, height: KEEPSAKE_HEIGHT, microphoneEnabled: true};
-	}
-	else {
-		parentDiv = document.getElementById("fam-camera-holder");
-		subscriberProps = {width: SUBSCRIBER_WIDTH, height: SUBSCRIBER_HEIGHT, microphoneEnabled: true};
 	}
 	
 	var div = document.createElement('div');	// Create a replacement div for the subscriber

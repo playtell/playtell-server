@@ -184,7 +184,7 @@ private
     when 'memory', 'updateGame', 'updateGameFromSession'
       'games'
     else
-      'playdates'
+      'application' #'playdates'
     end
   end
 end

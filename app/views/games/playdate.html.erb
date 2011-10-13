@@ -8,11 +8,11 @@
 	var session;
 	var publisher;
 
-	var PUBLISHER_WIDTH = 192; //128;
-	var PUBLISHER_HEIGHT = 144; //96;
+	var PUBLISHER_WIDTH = 200; //128;
+	var PUBLISHER_HEIGHT = 155; //96;
 			
-	var SUBSCRIBER_WIDTH = 192;
-	var SUBSCRIBER_HEIGHT = 144;
+	var SUBSCRIBER_WIDTH = 200;
+	var SUBSCRIBER_HEIGHT = 155;
 	
 	var KEEPSAKE_WIDTH = 242;
 	var KEEPSAKE_HEIGHT = 180;
@@ -20,7 +20,7 @@
 	var subscribers = {};
 	var deviceManager;
 		
-	var keepsakeCameraOn = false;
+	var keepsakeCameraOn = false;	
 			
 	$(document).ready(function() {
 		// writes out the page direction so it can be used later.
@@ -118,7 +118,7 @@
 <% end %>
 	
 	<div id="videos">
-		<div class="video-content">
+		<div class="video-content row">
 			<div class="video-controls inline-block right-button">
 				<p><a href="#" id="disconnect-link"></a></p>
 				<p><a href="#" id="reconnect-link"></a></p>
@@ -130,8 +130,7 @@
 			<div id="my-camera" class="inline-block"></div>
 			<div class="clear"></div>
 		</div>
-		<div class="book-nav"><%= render :partial => "bookNav", :locals => {:book => @book} %></div>
-		<div class="activity-content">
+		<div class="activity-content row">
 			<div id="player-container" class="hidden">
 			</div>
 			<div class="book-container hidden">	
@@ -139,6 +138,7 @@
 					<%= render :partial => "book" %>
 					<div class="clear"></div>
 				</div>
+				<div class="book-nav"><%= render :partial => "bookNav", :locals => {:book => @book} %></div>
 				<div class="back-cover hidden">
 					<div class="beginning-container">
 						<p><a href="#" id="beginning-banner"></a></p>
@@ -157,8 +157,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		<div class="clear"></div>	
-		<div id="bottom-drawer">
+		<div id="bottom-drawer" class="row">
 			<div id="links">
 				<!--<p><a href="#" id="contacts-link"></a></p>-->
 				<p><a href="#" id="toybox-link"></a></p>
@@ -168,6 +167,7 @@
 				<%= render :partial => "library", :locals => {:books => @books} %>
 			</div>
 		</div>
+		<div class="clear"></div>
 	</div>
 	
 	<div id="feedback-lightbox" class="lightbox hidden">

@@ -1,23 +1,24 @@
-<%= render :partial => "friends" %>
+<div class="black height100">
+	<%= render :partial => "friends" %>
 
-
-<div class="lightbox hidden" id="join-lightbox">
-</div>
-
-<div class="lightbox hidden" id="find-lightbox">
-	<div id="find-lightbox-text">
-		<h2>Find Playmates</h2>
-		<%= form_tag search_users_path, :remote => true, :method => 'get', :id => "playmate-search" do %>
-		  <p>
-		    <%= text_field_tag :search, params[:search] %>
-		    <%= submit_tag "Search", :name => nil %>
-		  </p>	
-		<% end %>
-		<div id="users">
-			<%= render "users" %>
-		</div>
+	<div class="lightbox hidden" id="join-lightbox">
 	</div>
-	<button class="close close-x blue">X</button>	
+
+	<div class="lightbox hidden" id="find-lightbox">
+		<div id="find-lightbox-text">
+			<h2>Find Playmates</h2>
+			<%= form_tag search_users_path, :remote => true, :method => 'get', :id => "playmate-search" do %>
+			  <p>
+			    <%= text_field_tag :search, params[:search] %>
+			    <%= submit_tag "Search", :name => nil %>
+			  </p>	
+			<% end %>
+			<div id="users">
+				<%= render "users" %>
+			</div>
+		</div>
+		<button class="close close-x blue">X</button>	
+	</div>
 </div>
 
 <script type="text/javascript">

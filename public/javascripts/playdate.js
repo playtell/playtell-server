@@ -6,7 +6,7 @@ function showBook(title, currentPage, totalPages) {
 	
 	$('#book').booklet({
 		width: 1000,
-		height: 520, 
+		height: 540, 
 		closed: true,
 		manual: false,
 		hovers: false,
