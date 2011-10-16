@@ -1,7 +1,7 @@
 <% for book in @books %>
 	<div class="library-item">
 		<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
-			<%= image_submit_tag getPageImageFilePath(book.image_directory	, 0), :alt => book.title %>
+			<%= image_submit_tag getPageImageFilePath(book.image_directory, 0), :alt => book.title %>
 			<%= hidden_field_tag :book, book.id %>
 			<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_BOOK %>
 		<% end %>
@@ -15,9 +15,11 @@
 	<% end %>
 </div>
 
-<div class="library-item">
-	<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
-		<%= image_submit_tag getImageFilePath("youtube.png") %>
-		<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_SLIDE %>
-	<% end %>
-</div>	
+<% if @current_user.username == "semira" %>
+	<div class="library-item">
+		<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
+			<%= image_submit_tag getImageFilePath("youtube.png") %>
+			<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_SLIDE %>
+		<% end %>
+	</div>	
+<% end %>

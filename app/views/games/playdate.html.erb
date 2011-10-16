@@ -160,8 +160,13 @@
 				<p><a href="#" id="toybox-link" title="Toy Box"></a></p>
 				<!--<p><a href="#" id="keepsakes-link"></a></p>-->
 			</div>
-			<div id="shelf">	
-				<%= render :partial => "library", :locals => {:books => @books} %>
+			<div id="shelf">
+				<div class="items">	
+					<%= render :partial => "library", :locals => {:books => @books} %>
+				</div>				
+				<div class="shelf_bg shelf_left_bg inline-block"></div>
+				<div class="shelf_bg shelf_mid_bg inline-block"></div>
+				<div class="shelf_bg shelf_right_bg inline-block"></div>
 			</div>
 		</div>
 		<div class="clear"></div>

@@ -580,12 +580,39 @@ div.friend {
 	text-align: center;
 	min-width: 1000px;
 	z-index: 1000;
-	background: url("/images/shelf_background.jpg") no-repeat 0 0;	
-	
 }
 
 #bottom-drawer.row {
 	bottom: 0;
+}
+
+.shelf_bg {
+	position: absolute;
+	height: 205px;
+	top: 44px;
+	z-index: -1;
+}
+
+.shelf_left_bg {
+	background: url("/images/drawer_left_bg.jpg") no-repeat 0 0;
+	width: 500px;
+	left: 0px;
+}
+
+.shelf_mid_bg {
+	background: url("/images/drawer_middle_bg.jpg") repeat 0 0;	
+	left: 500px;
+	right: 500px;
+}
+
+.shelf_right_bg {
+	background: url("/images/drawer_right_bg.jpg") no-repeat 0 0;	
+	width: 500px;
+	right: 0px;
+}
+
+.items {
+	z-index: 100;
 }
 
 #links {
@@ -604,9 +631,6 @@ div.friend {
 #links p a {
 	height: 43px;
 	width: 75px;
-}
-
-#shelf {
 }
 
 /* SPRITES --------------------------------------------------------- */
