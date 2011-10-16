@@ -66,7 +66,7 @@ function goToPage (new_page_num, is_slideshow) {
 			left: new_left_pos
 		});
 		$(new_page_div).animate({ 
-			left: 250
+			left: 275
 		});
 		updateBookNavLinks(new_page_num);						
 	}
