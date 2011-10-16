@@ -1,0 +1,41 @@
+<button id="previous-link">Previous</button>
+<button id="next-link">Next</button>
+<div class="slides">
+	<% 15.times do |i| %>
+		<div id= "<%= "slide_"+(i+1).to_s %>">
+			<%= image_tag getImageFilePath("pitch."+(i+1).to_s+".jpg")%>
+		</div>
+	<% end %>
+</div>
+
+<script>
+	$(document).ready(function() {
+
+		$("#next-link").click(function() {
+			goToPage(getNewPage(getCurrentPage(),"next"), true);
+			syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
+		});
+		$("#previous-link").click(function() {
+			goToPage(getNewPage(getCurrentPage(),"prev"), true);
+			syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
+		});
+		
+		//keyboard shortcuts for slide navigation: left arrow and right arrow
+		$(document).bind("keydown", function(event)
+		{
+		    var key = event.keyCode;
+		    if(key == 37) { //left arrow - previous
+			    if (!$('#previous-link').is(':disabled')) {
+					goToPage(getNewPage(getCurrentPage(),"prev"), true);
+					syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
+			    }
+		    }
+			else if(key == 39) { //right arrow - next
+			    if (!$('#next-link').is(':disabled')) {
+					goToPage(getNewPage(getCurrentPage(),"next"), true);
+					syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
+			    }
+		    }
+		});
+	});
+</script>

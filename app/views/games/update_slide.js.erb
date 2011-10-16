@@ -1,0 +1,14 @@
+$('.back-cover').hide();
+hideToyBox();
+$('.book-container').hide();
+$('#player-container').hide();
+$('.slide-container').show();
+$(".slide-container").html("<%= escape_javascript(render(:partial => 'slide')).html_safe %>");
+$('#page-num').html(1);
+$('#total-pages').html(15);
+$("#slide_1").animate({ 
+	left: 250
+});
+if (session) {
+	session.signal();
+}

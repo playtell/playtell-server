@@ -33,6 +33,7 @@ class GamesController < ApplicationController
   end
     
   # updates the player-initiated change of the playdate state, like change book or turn page, in the db 
+  # should be called updatePlaydate
   def updatePage
     @playdate = Playdate.find(session[:playdate])
     @playdate.change = params[:playdateChange]
@@ -52,6 +53,12 @@ class GamesController < ApplicationController
     when Playdate::PLAY_VIDEO
       render :nothing => true
     when Playdate::PAUSE_VIDEO
+      render :nothing => true
+    when Playdate::CHANGE_SLIDE
+      render 'update_slide'
+    when Playdate::TURN_SLIDE
+      @playdate.page_num = params[:newPage]
+      @playdate.save
       render :nothing => true
     when Playdate::NONE
       render :nothing => true
@@ -80,19 +87,20 @@ class GamesController < ApplicationController
     @playdate = current_playdate
     case @playdate.change
     when Playdate::CHANGE_BOOK
-#      if params[:title] != @playdate.book.title
         getBook(@playdate.book_id)
         render "change_book"
     when Playdate::TURN_PAGE
-#      elsif params[:current_page] != @playdate.page_num
         render "turn_page"
-#      end
     when Playdate::CHANGE_VIDEO
       render 'change_video'
     when Playdate::PLAY_VIDEO
       render 'play_video'
     when Playdate::PAUSE_VIDEO
       render 'pause_video'
+    when Playdate::CHANGE_SLIDE
+      render 'change_slide'
+    when Playdate::TURN_SLIDE
+        render "turn_slide"
     when Playdate::NONE
       render :nothing => true
     end

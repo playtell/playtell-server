@@ -73,12 +73,7 @@
 			session.addEventListener('signalReceived', signalReceivedHandler);
 
 			connect();
-		}				
-		
-		$("#beginning-link").click(function() {
-			goToPage(1);
-			$('.back-cover').hide();
-		});				
+		}							
 		
 		$('#connect-link').click(function() {
 			connect();
@@ -108,6 +103,11 @@
 			takeSnapshotNew();
 		});
 		
+		$("#beginning-link").click(function() {
+			goToPage(1, false);
+			$('.back-cover').hide();
+		});
+		
 		$('#fullscreen').click(function() {
 			maxWindow();
 		});				
@@ -130,14 +130,12 @@
 			<div class="clear"></div>
 		</div>
 		<div class="activity-content row">
-			<div id="player-container" class="hidden">
-			</div>
+			<div class="book-nav"><%= render :partial => "bookNav" %></div>
+			<div id="player-container" class="hidden"></div>
+			<div class="slide-container hidden"></div>
 			<div class="book-container hidden">	
 				<div id="book">
-					<%= render :partial => "book" %>
-					<div class="clear"></div>
 				</div>
-				<div class="book-nav"><%= render :partial => "bookNav", :locals => {:book => @book} %></div>
 				<div class="back-cover hidden">
 					<div class="beginning-container">
 						<p><a href="#" id="beginning-banner"></a></p>

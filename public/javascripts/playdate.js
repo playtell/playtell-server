@@ -1,8 +1,8 @@
 function showBook(title, currentPage, totalPages) { 
 	$('#total-pages').html(totalPages);
 	$('#page-num').html(currentPage);
-	$('#book-title').val(title);
-	updateBookNavLinks(currentPage);
+//	$('#book-title').val(title);
+//	updateBookNavLinks(currentPage);
 	
 	$('#book').booklet({
 		width: 1000,
@@ -44,13 +44,6 @@ function getCurrentPage () {
 	return parseInt($("#page-num").html(), 10)
 }
 
-function updatePage (direction) {
-	if (direction == "beginning")
-		goToPage(1);
-	else
-		goToPage(getNewPage(getCurrentPage(), direction));
-}
-
 function getNewPage (current_page, direction) {
 	if (direction == "next") {
 		return current_page+1;
@@ -58,40 +51,52 @@ function getNewPage (current_page, direction) {
 	return current_page-1;			
 }
 
-function goToPage (new_page_num) {
+function goToPage (new_page_num, is_slideshow) {
 	var current_page_num = getCurrentPage();
-	var current_page_div = "page_" + current_page_num;
-	var new_page_div = "page_" + new_page_num;
-
-	$('#book').booklet(new_page_num);
+	var div_target = is_slideshow ? "#slide_" : "#page_";
+	var current_page_div = div_target + current_page_num;
+	var new_page_div = div_target + new_page_num;
+	var new_left_pos;
 	
+	if (is_slideshow) {
+		new_left_pos = (current_page_num < new_page_num) ? 
+			-$(current_page_div).outerWidth() : $(current_page_div).outerWidth()*2; 
+			
+		$(current_page_div).animate({ 
+			left: new_left_pos
+		});
+		$(new_page_div).animate({ 
+			left: 250
+		});
+		updateBookNavLinks(new_page_num);						
+	}
+	else {
+		$('#book').booklet(new_page_num);
+	}
 	$("#page-num").html(new_page_num);
-	updateBookNavLinks(new_page_num);				
 }
 
 function updateBookNavLinks(currentPage) {
-/*	if (currentPage == 1) {
-		hideButton("prev-page");
-		hideButton("first-page");
-		showButton("next-page");
+	if (currentPage == 1) {
+		hideButton("previous-link");
+		showButton("next-link");
 	}
 	else if (currentPage > 1) {
-		showButton("prev-page");
+		showButton("previous-link");
 		if (currentPage == parseInt($("#total-pages").html())) {
-			hideButton("next-page");
-			$('#first-page').show();
+			hideButton("next-link");
 		}
 		else if (currentPage < parseInt($("#total-pages").html())) {
-			showButton("next-page");
-			$('#first-page').hide();
+			showButton("next-link");
 		}
-	}*/
+	}
 } 
 
 function toggleToyBox() {
 	var new_bottom_pos = ($('#bottom-drawer').css('bottom') == '0px') ?
 		-$('#bottom-drawer').outerHeight() + $('#links').outerHeight() : 0;
 	
+	//youtube player can't be occluded according to their TOS, so player gets smaller when toybox is open
 	if ($('#player-container').is(':visible')) {
 		if (new_bottom_pos == 0) {
 			$("#player-container iframe").css('width', '200px')
@@ -124,4 +129,15 @@ function removeKeepsakes() {
 	$('#myCam-keepsake img').remove();
 	$('#famCam-keepsake img').remove();
 }
+
+function syncToServer(new_page, change) {
+	$.ajax({
+		url: "/update_page.js?newPage=" + new_page + "&playdateChange=" + change,
+		type: "POST",
+		success: function() {
+			session.signal();
+		}
+	});
+}
+
 
