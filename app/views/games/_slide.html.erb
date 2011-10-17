@@ -20,21 +20,17 @@
 			syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
 		});
 		
-		//keyboard shortcuts for slide navigation: left arrow and right arrow
-		$(document).bind("keydown", function(event)
-		{
-		    var key = event.keyCode;
-		    if(key == 37) { //left arrow - previous
-			    if (!$('#previous-link').is(':disabled')) {
-					goToPage(getNewPage(getCurrentPage(),"prev"), true);
-					syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
-			    }
+		$(document).bind('keyup', 'left', function() {
+			if (!$('#previous-link').is(':disabled')) {
+				goToPage(getNewPage(getCurrentPage(),"prev"), true);
+				syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
 		    }
-			else if(key == 39) { //right arrow - next
-			    if (!$('#next-link').is(':disabled')) {
-					goToPage(getNewPage(getCurrentPage(),"next"), true);
-					syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
-			    }
+		});
+		
+		$(document).bind('keyup', 'right', function() {
+			if (!$('#next-link').is(':disabled')) {
+				goToPage(getNewPage(getCurrentPage(),"next"), true);
+				syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
 		    }
 		});
 	});
