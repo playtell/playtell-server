@@ -3,6 +3,7 @@ hideToyBox();
 $('.book-container').hide();
 $('#player-container').hide();
 $('.slide-container').show();
+$('.book-nav').show();
 $(".slide-container").html("<%= escape_javascript(render(:partial => 'slide')).html_safe %>");
 $('#page-num').html(1);
 $('#total-pages').html(15);

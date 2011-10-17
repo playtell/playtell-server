@@ -9,6 +9,7 @@ function showBook(title, currentPage, totalPages) {
 		height: 540, 
 		closed: true,
 		manual: false,
+		keyboard: false,
 		hovers: false,
 		pageNumbers: false, 
 		after: function(opts){

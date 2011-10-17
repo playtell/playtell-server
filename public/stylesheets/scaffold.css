@@ -328,7 +328,6 @@ div.friend {
 -------------------------------------------------------------------*/
 
 .row {
-	overflow: hidden;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -342,7 +341,6 @@ div.friend {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	/*background: url("/images/playspace_background.jpg") repeat 0 0;*/
 	background-color:#d8dce1;
 	background: -moz-linear-gradient(center top, #d8dce1, #a2afb7 46%, #eff0f4);
 	background: -webkit-gradient(linear, center top, center bottom, from(#d8dce1), color-stop(46%, #a2afb7), to(#eff0f4));
@@ -357,18 +355,37 @@ div.friend {
 	top: 0;
 }
 
+.chat-window-container {
+	position: relative;
+	width: 410px;
+	min-height: 10px;
+}
+
+.chat-window-container img {
+	position: absolute;
+	top: 0px;
+	left: -200px;
+	z-index: 1;
+}
+
 #fam-camera-holder {
 	background: black;
+	border: 1px solid #555;
 	width: 200px;
 	height: 150px;
-	border: 1px solid #555;
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
 
 #my-camera {
+	background: black;
+	border: 1px solid #555;
 	width: 200px;
 	height: 150px;
-	border: 1px solid #555;
-	background: black;
+	position: absolute;
+	top: 0px;
+	left: 205px;
 }
 
 .left-button {
@@ -440,18 +457,35 @@ div.friend {
 	font-size: 1.5em;
 	position: absolute;
 	top: 50%;
-	width: 1000px;
 	z-index: 2;
+	width: 100%;
+}
+
+.previous-container {
+	left: 50px;
+	position: absolute;
+}
+
+.next-container {
+	right: 50px;
+	position: absolute;
+}
+
+p a#previous-link {
+	width: 48px;
+	height: 50px;
+	background-position: -295px -135px;
+}
+
+p a#next-link {
+	width: 48px;
+	height: 50px;
+	background-position: -324px -135px;
 }
 
 .book-nav-inner {
 	position: relative; 
 	top: -50%
-}
-
-.book-nav p {
-	width: 48px;
-	height: 50px;
 }
 
 .page-num-text {

@@ -35,48 +35,6 @@ function unpublish() {
 	publisher = null;
 }
 
-function takeSnapshot() {
-	var pubImgData = publisher.getImgData();
-	var subImgData; 
-	var subImg;
-		
-	var pubImg = document.createElement("img");
-	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);	
-	
-	if (subscribers[0]) {
-		subImgData = subscribers[0].getImgData();	
-		subImg = document.createElement("img");
-		subImg.setAttribute("src", "data:image/png;base64," + subImgData);
-	}
-	
-	var imgWin = window.open("about:blank", "Keepsake");
-	imgWin.document.write("<head><link href=stylesheets/scaffold.css rel=stylesheet type=text/css></head>");
-	imgWin.document.write("<body></body>");
-	
-	var div = document.createElement('div');	// Create a replacement div for the subscriber
-	div.setAttribute('class', 'book-keepsake');
-	div.setAttribute("style", "position:absolute; top: 5px; left: 5px;");
-	imgWin.document.body.appendChild(div);
-	
-	var topDiv = document.createElement('div');
-	topDiv.setAttribute("style", "margin-top: 4px; margin-left: 30px");
-	var topImg = document.createElement('img');
-	topImg.setAttribute("src", "/images/red_riding_hood.png");
-	topDiv.appendChild(topImg);
-	div.appendChild(topDiv);
-	
-	var pubDiv = document.createElement('div');
-	pubDiv.setAttribute("style", "position:absolute; top: 73px; left: 42px;");
-	div.appendChild(pubDiv);
-	pubDiv.appendChild(pubImg);
-	if (subscribers[0]) {
-		var subDiv = document.createElement('div');
-		subDiv.setAttribute("style", "position:absolute; top: 280px; left: 42px;");
-		div.appendChild(subDiv);
-		subDiv.appendChild(subImg);
-	}
-}
-
 function takeSnapshotNew() {
 	var pubImgData = publisher.getImgData();
 	var subImgData; 
@@ -191,6 +149,9 @@ function addStream(stream) {
 	// Check if this is the stream that I am publishing. If not
 	// we choose to subscribe to the stream.
 	if (stream.connection.connectionId == session.connection.connectionId) {
+		if ($('img#flash-instructions').is(':visible')) {
+			$('img#flash-instructions').hide();
+		}
 		return;
 	}
 	

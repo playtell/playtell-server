@@ -125,12 +125,18 @@
 			<div class="snapshot-controls inline-block left-button">
 				<p><a href="#" id="snapshot-link" title="Say Cheese! Take a photo"></a></p>
 			</div>
-			<div id="fam-camera-holder" class="inline-block"></div>
-			<div id="my-camera" class="inline-block"></div>
+			<div class="chat-window-container inline-block">
+				<%= image_tag "flash_instructions.png", :id => "flash-instructions" %>
+				<div id="fam-camera-holder" class="inline-block"></div>
+				<div id="my-camera" class="inline-block"></div>
+				<div class="clear"></div>
+			</div>
 			<div class="clear"></div>
 		</div>
 		<div class="activity-content row">
-			<div class="book-nav"><%= render :partial => "bookNav" %></div>
+			<div class="book-nav hidden">
+				<%= render :partial => "bookNav" %>
+			</div>
 			<div id="player-container" class="hidden"></div>
 			<div class="slide-container hidden"></div>
 			<div class="book-container hidden">	
@@ -189,4 +195,3 @@
 		</div>
 		<button class="close close-x blue">X</button>
 	</div>
-	
