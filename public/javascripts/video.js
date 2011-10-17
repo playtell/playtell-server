@@ -149,8 +149,8 @@ function addStream(stream) {
 	// Check if this is the stream that I am publishing. If not
 	// we choose to subscribe to the stream.
 	if (stream.connection.connectionId == session.connection.connectionId) {
-		if ($('img#flash-instructions').is(':visible')) {
-			$('img#flash-instructions').hide();
+		if ($('div.flash-instructions').is(':visible')) {
+			$('div.flash-instructions').hide();
 		}
 		return;
 	}

@@ -328,6 +328,7 @@ div.friend {
 -------------------------------------------------------------------*/
 
 .row {
+	overflow: hidden;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -594,7 +595,7 @@ p a#next-link {
 /* LIBRARY --------------------------------------------------------- */
 
 .library-item {
-	width: 175px;
+	width: 150px;
 	padding: 10px;
 	display: inline-block;
 	vertical-align: bottom;
