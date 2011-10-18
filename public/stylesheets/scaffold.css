@@ -538,7 +538,7 @@ p a#next-link {
 	top: 20px;
 	left: 50px;
 	min-height: 530px;
-	min-width: 330px;
+	min-width: 414px;
 	background: url("/images/keepsake_bg.png") no-repeat 0 0;
 }
 
@@ -557,27 +557,22 @@ p a#next-link {
 #camera-button-keepsake p a:hover#keepsake-link { background-position: -4px -225px; }
 
 .keepsake-camera-container {
-	width: 243px;
-	height: 182px;
+	width: 185px;
 	position: absolute;
 }
 
+.keepsake-camera-container img {
+	width: 185px;
+}
+
 #myCam-keepsake {
-	top: 73px;
-	left: 42px;
+	top: 104px;
+	left: 30px;
 }
 
 #famCam-keepsake {
-	top: 280px;
-	left: 42px;
-}
-
-.myPic-keepsake {
-	width: 243px;
-	height: 182px;
-	position: absolute;	
-	top: 73px;
-	left: 42px;
+	top: 104px;
+	left: 215px;
 }
 
 /* SLIDE DECK --------------------------------------------------------- */
