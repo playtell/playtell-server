@@ -475,14 +475,16 @@ div.friend {
 p a#previous-link {
 	width: 48px;
 	height: 50px;
-	background-position: -295px -135px;
+	background-position: -310px -152px;
 }
+p a#previous-link:hover { background-position: -310px -302px; }
 
 p a#next-link {
 	width: 48px;
 	height: 50px;
-	background-position: -324px -135px;
+	background-position: -356px -152px;
 }
+p a#next-link:hover { background-position: -356px -302px; }
 
 .book-nav-inner {
 	position: relative; 
@@ -513,7 +515,6 @@ p a#next-link {
 	width: 60px;
 	height: 250px;
 }
-.beginning-container p a#beginning-banner { background-position: -516px -8px; }
 
 .beginning-text-container {
 	position: absolute;
@@ -529,7 +530,6 @@ p a#next-link {
 	width: 60px;
 	height: 250px;
 }
-.beginning-container p a#beginning-link { background-position: -585px -25px; }
 
 /* KEEPSAKE --------------------------------------------------------- */
 
@@ -553,9 +553,6 @@ p a#next-link {
 	height: 46px;
 }
 
-#camera-button-keepsake p a#keepsake-link { background-position: -4px -178px; }
-#camera-button-keepsake p a:hover#keepsake-link { background-position: -4px -225px; }
-
 .keepsake-camera-container {
 	width: 185px;
 	position: absolute;
@@ -566,13 +563,13 @@ p a#next-link {
 }
 
 #myCam-keepsake {
-	top: 104px;
+	top: 105px;
 	left: 27px;
 }
 
 #famCam-keepsake {
-	top: 104px;
-	left: 209px;
+	top: 105px;
+	left: 212px;
 }
 
 /* SLIDE DECK --------------------------------------------------------- */
@@ -665,27 +662,34 @@ p a#next-link {
 
 /* SPRITES --------------------------------------------------------- */
 
-#videos p a#reconnect-link { background-position: -332px 0px; }
+#videos p a#reconnect-link { background-position: -357px -30px; }
 #videos p a:hover#reconnect-link { background-position: -332px -60px; }
 
-#videos p a#disconnect-link { background-position: -281px 0px; }
-#videos p a:hover#disconnect-link { background-position: -281px -60px; }
+#videos p a#disconnect-link { background-position: -306px -30px; }
+#videos p a:hover#disconnect-link { background-position: -306px -90px; }
 
-#videos p a#snapshot-link { background-position: -230px 0px; }
-#videos p a:hover#snapshot-link { background-position: -230px -60px; }
+#videos p a#snapshot-link { background-position: -5px -190px; }
 
-#videos p a#toybox-link { background-position: 0px -89px; }
-#videos p a:hover#toybox-link { background-position: 0px -45px; }
+#videos p a#toybox-link { background-position: -36px -22px; }
+#videos p a:hover#toybox-link { background-position: -36px -66px; }
 
 #videos p a#contacts-link {	background-position: -77px -89px; }
 #videos p a:hover#contacts-link { background-position: -77px -45px; }
 
-#videos p a#keepsakes-link { background-position: -154px -89px; }
-#videos p a:hover#keepsakes-link { background-position: -154px -45px; }
+#videos p a#keepsakes-link { background-position: -190px -22px; }
+#videos p a:hover#keepsakes-link { background-position: -190px -66px; }
 
 #videos p input#prev-page { background-position: -230px -186px; }
 
 #videos p input#next-page { background-position: -276px -236px; }
+
+.beginning-container p a#beginning-banner { background-position: -470px -46px; }
+
+.beginning-container p a#beginning-link { background-position: -450px -117px; }
+
+#camera-button-keepsake p a#keepsake-link { background-position: -4px -178px; }
+#camera-button-keepsake p a:hover#keepsake-link { background-position: -4px -225px; }
+
 
 /* LANDING PAGE --------------------------------------------------------- */
 
