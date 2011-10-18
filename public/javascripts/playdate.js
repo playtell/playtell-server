@@ -24,17 +24,6 @@ function showBook(title, currentPage, totalPages) {
 			if (opts.curr == 2) {
 				takeSnapshotNew();
 			}
-			if (parseInt($('#total-pages').html())%2 == 0) {
-				if (opts.curr == $('#total-pages').html()) {
-					$('.back-cover').show();
-				}
-			}
-			else if (opts.curr == parseInt($('#total-pages').html())+1) {
-				$('.back-cover').show();
-			}
-			else {
-				$('.back-cover').hide();
-			}
 		}
 	});
 }
