@@ -475,16 +475,16 @@ div.friend {
 p a#previous-link {
 	width: 48px;
 	height: 50px;
-	background-position: -310px -152px;
+	background-position: -285px -127px;
 }
-p a#previous-link:hover { background-position: -310px -302px; }
+p a#previous-link:hover { background-position: -285px -177px; }
 
 p a#next-link {
 	width: 48px;
 	height: 50px;
-	background-position: -356px -152px;
+	background-position: -332px -127px;
 }
-p a#next-link:hover { background-position: -356px -302px; }
+p a#next-link:hover { background-position: -332px -177px; }
 
 .book-nav-inner {
 	position: relative; 
@@ -505,37 +505,30 @@ p a#next-link:hover { background-position: -356px -302px; }
 
 .beginning-container {
 	position: absolute;
-	top: -7px;
-	left: 423px;
-	width: 50px;
-	height: 200px;
+	top: 5px;
+	left: 323px;
 }
 
 .beginning-container p a {
-	width: 60px;
-	height: 250px;
+	width: 200px;
+	height: 60px;
 }
 
 .beginning-text-container {
 	position: absolute;
-	top: 19px;
-	left: 17px;
+	top: 16px;
+	left: 20px;
 }
 
 .beginning-text-container p a {
-	width: 30px;
-}
-
-#beginning-link p a {
-	width: 60px;
-	height: 250px;
+	height: 25px;
 }
 
 /* KEEPSAKE --------------------------------------------------------- */
 
 .book-keepsake {
 	position: absolute;
-	top: 20px;
+	top: 60px;
 	left: 50px;
 	min-height: 530px;
 	min-width: 414px;
@@ -658,36 +651,35 @@ p a#next-link:hover { background-position: -356px -302px; }
 #links p a {
 	height: 43px;
 	width: 75px;
+	margin: 5px;
 }
 
 /* SPRITES --------------------------------------------------------- */
 
-#videos p a#reconnect-link { background-position: -357px -30px; }
+#videos p a#reconnect-link { background-position: -332px 0px; }
 #videos p a:hover#reconnect-link { background-position: -332px -60px; }
 
-#videos p a#disconnect-link { background-position: -306px -30px; }
-#videos p a:hover#disconnect-link { background-position: -306px -90px; }
+#videos p a#disconnect-link { background-position: -279px 0px; }
+#videos p a:hover#disconnect-link { background-position: -279px -60px; }
 
-#videos p a#snapshot-link { background-position: -5px -190px; }
+#videos p a#snapshot-link { background-position: -228px 0px; }
+#videos p a:hover#snapshot-link { background-position: -228px -60px; }
 
-#videos p a#toybox-link { background-position: -36px -22px; }
-#videos p a:hover#toybox-link { background-position: -36px -66px; }
+#videos p a#toybox-link { background-position: -9px -6px; }
+#videos p a:hover#toybox-link { background-position: -9px -50px; }
 
 #videos p a#contacts-link {	background-position: -77px -89px; }
 #videos p a:hover#contacts-link { background-position: -77px -45px; }
 
-#videos p a#keepsakes-link { background-position: -190px -22px; }
-#videos p a:hover#keepsakes-link { background-position: -190px -66px; }
+#videos p a#keepsakes-link { background-position: -171px -6px; }
+#videos p a:hover#keepsakes-link { background-position: -162px -40px; }
 
-#videos p input#prev-page { background-position: -230px -186px; }
+.beginning-container p a#beginning-banner { background-position: -389px -16px; }
 
-#videos p input#next-page { background-position: -276px -236px; }
+.beginning-container p a#beginning-link { background-position: -385px -77px; }
+.beginning-container p a:hover#beginning-link { background-position: -385px -105px; }
 
-.beginning-container p a#beginning-banner { background-position: -470px -46px; }
-
-.beginning-container p a#beginning-link { background-position: -450px -117px; }
-
-#camera-button-keepsake p a#keepsake-link { background-position: -4px -178px; }
+#camera-button-keepsake p a#keepsake-link { background-position: -23px -490px; }
 #camera-button-keepsake p a:hover#keepsake-link { background-position: -4px -225px; }
 
 
