@@ -35,29 +35,6 @@ function unpublish() {
 	publisher = null;
 }
 
-function takeSnapshot() {
-	var pubImgData = publisher.getImgData();
-	var subImgData; 
-	var subImg;
-	
-	removeKeepsakes();
-		
-	var pubImg = document.createElement("img");
-	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);	
-	
-	if (subscribers[0]) {
-		subImgData = subscribers[0].getImgData();	
-		subImg = document.createElement("img");
-		subImg.setAttribute("src", "data:image/png;base64," + subImgData);
-		var famCam = document.getElementById("famCam-keepsake");
-		famCam.appendChild(subImg);
-	}
-	
-	var myCam = document.getElementById("myCam-keepsake");	
-	myCam.appendChild(pubImg);
-}
-
-
 //--------------------------------------
 //  OPENTOK EVENT HANDLERS
 //--------------------------------------

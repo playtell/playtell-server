@@ -1,8 +1,6 @@
 function showBook(title, currentPage, totalPages) { 
 	$('#total-pages').html(totalPages);
 	$('#page-num').html(currentPage);
-//	$('#book-title').val(title);
-//	updateBookNavLinks(currentPage);
 	
 	$('#book').booklet({
 		width: 1000,
@@ -21,7 +19,7 @@ function showBook(title, currentPage, totalPages) {
 					session.signal();
 				}
 			});
-			if (opts.curr == 2) {
+			if (opts.curr == 2 || opts.curr == 4 || opts.curr == parseInt($('#total-pages').html())) {
 				takeSnapshot();
 			}
 		}
@@ -111,6 +109,30 @@ function hideToyBox() {
 	if ($('#player-container').is(':visible')) {
 		$('#player').remove();
 	}
+}
+
+function takeSnapshot() {
+	var pubImgData = publisher.getImgData();
+	var subImgData; 
+	var subImg;
+	
+	num_keepsakes++;
+	alert("snapshots:"+num_keepsakes);
+	removeKeepsakes();
+		
+	var pubImg = document.createElement("img");
+	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);	
+	
+	if (subscribers[0]) {
+		subImgData = subscribers[0].getImgData();	
+		subImg = document.createElement("img");
+		subImg.setAttribute("src", "data:image/png;base64," + subImgData);
+		var famCam = document.getElementById("famCam-keepsake");
+		famCam.appendChild(subImg);
+	}
+	
+	var myCam = document.getElementById("myCam-keepsake");	
+	myCam.appendChild(pubImg);
 }
 
 function removeKeepsakes() {

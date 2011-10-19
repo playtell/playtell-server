@@ -20,7 +20,7 @@
 	var subscribers = {};
 	var deviceManager;
 		
-	var keepsakeCameraOn = false;	
+	var num_keepsakes = 0;	
 			
 	$(document).ready(function() {
 		// writes out the page direction so it can be used later.
@@ -143,6 +143,7 @@
 					</div>
 				</div>
 			</div>
+			<div class="keepsake-container hidden"></div>
 			<div class="clear"></div>
 		</div>
 		<div id="bottom-drawer" class="row">

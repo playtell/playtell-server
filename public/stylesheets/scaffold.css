@@ -548,7 +548,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 	position: absolute;
 }
 
-.keepsake-image-container {
+.keepsake-image-container img {
 	width: 183px;
 }
 
