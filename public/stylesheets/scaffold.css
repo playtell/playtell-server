@@ -274,6 +274,7 @@ label {
 	width: 100%;
 	height: 100%;
     margin: 0px auto;
+	overflow: auto;
 }
 
 .header {
@@ -326,6 +327,14 @@ div.friend {
 
 /* WEB APP
 -------------------------------------------------------------------*/
+
+.appContainer {
+    min-width: 1024px;
+	width: 100%;
+	height: 100%;
+    margin: 0px auto;
+	overflow: hidden;
+}
 
 .row {
 	overflow: hidden;
@@ -561,7 +570,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 
 .library-item {
 	width: 150px;
-	padding: 10px;
+	padding-right: 10px;
 	display: inline-block;
 	vertical-align: bottom;
 }
