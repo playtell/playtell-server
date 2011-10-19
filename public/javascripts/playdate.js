@@ -128,4 +128,20 @@ function syncToServer(new_page, change) {
 	});
 }
 
+function enableButtons(){
+	$('a').attr("disabled", false);
+	
+	$('#snapshot-link').click(function() {
+		takeSnapshotNew();
+	});
+	
+	$('#toybox-link').click(function() {
+		toggleToyBox();
+	});
+	
+	$("#beginning-link").click(function() {
+		goToPage(1, false);
+	});
+}
+
 

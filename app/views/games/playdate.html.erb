@@ -45,7 +45,7 @@
 		      // notify the user that the image could not be loaded
 		    })
 
-		    .attr('src', '/images/flashbox.png')
+		    //.attr('src', '/images/flashbox.png')
 		    .attr('alt', 'Click Allow if you see the Flash settings box.');
 		});
 		
@@ -91,22 +91,8 @@
 			});
 		});
 		
-		$('#snapshot-link').click(function() {
-			takeSnapshotNew();
-		});
-		
-		$('#toybox-link').click(function() {
-			toggleToyBox();
-		});
-		
-		$('#keepsakes-link').click(function () {
-			toggleToyBox();
-		});
-		
-		$("#beginning-link").click(function() {
-			goToPage(1, false);
-			$('.back-cover').hide();
-		});
+		$('a').attr("disabled", true);
+		$('#disconnect-link').attr("disabled", false);
 		
 		$('#fullscreen').click(function() {
 			maxWindow();

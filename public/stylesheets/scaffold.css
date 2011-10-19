@@ -535,26 +535,6 @@ p a#next-link:hover { background-position: -332px -177px; }
 	background: url("/images/keepsake_bg.png") no-repeat 0 0;
 }
 
-#camera-button-keepsake {
-	margin-top: 6px;
-	margin-left: 40px;
-}
-
-#camera-button-keepsake p a {
-	background: url("/images/sprite_sheet.png") no-repeat;
-	width: 248px;
-	height: 46px;
-}
-
-.keepsake-camera-container {
-	width: 185px;
-	position: absolute;
-}
-
-.keepsake-camera-container img {
-	width: 182px;
-}
-
 #myCam-keepsake {
 	top: 105px;
 	left: 27px;
@@ -603,7 +583,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 }
 
 #bottom-drawer.row {
-	bottom: 0;
+	bottom: -213px;
 }
 
 .shelf_bg {
@@ -667,6 +647,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 
 #videos p a#toybox-link { background-position: -9px -6px; }
 #videos p a:hover#toybox-link { background-position: -9px -50px; }
+#videos p a:active#toybox-link { background-position: -9px -95px; }
 
 #videos p a#contacts-link {	background-position: -77px -89px; }
 #videos p a:hover#contacts-link { background-position: -77px -45px; }
@@ -678,9 +659,6 @@ p a#next-link:hover { background-position: -332px -177px; }
 
 .beginning-container p a#beginning-link { background-position: -385px -77px; }
 .beginning-container p a:hover#beginning-link { background-position: -385px -105px; }
-
-#camera-button-keepsake p a#keepsake-link { background-position: -23px -490px; }
-#camera-button-keepsake p a:hover#keepsake-link { background-position: -4px -225px; }
 
 
 /* LANDING PAGE --------------------------------------------------------- */
