@@ -35,7 +35,7 @@ function unpublish() {
 	publisher = null;
 }
 
-function takeSnapshotNew() {
+function takeSnapshot() {
 	var pubImgData = publisher.getImgData();
 	var subImgData; 
 	var subImg;

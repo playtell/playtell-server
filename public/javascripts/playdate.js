@@ -22,7 +22,7 @@ function showBook(title, currentPage, totalPages) {
 				}
 			});
 			if (opts.curr == 2) {
-				takeSnapshotNew();
+				takeSnapshot();
 			}
 		}
 	});
@@ -132,7 +132,7 @@ function enableButtons(){
 	$('a').attr("disabled", false);
 	
 	$('#snapshot-link').click(function() {
-		takeSnapshotNew();
+		takeSnapshot();
 	});
 	
 	$('#toybox-link').click(function() {
