@@ -544,8 +544,11 @@ p a#next-link:hover { background-position: -332px -177px; }
 	background: url("/images/keepsake_bg.png") no-repeat 0 0;
 }
 
-.keepsake-camera-container {
+.keepsake-image-container {
 	position: absolute;
+}
+
+.keepsake-image-container {
 	width: 183px;
 }
 
@@ -556,7 +559,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 
 #famCam-keepsake {
 	top: 104px;
-	left: 212px;
+	left: 215px;
 }
 
 /* SLIDE DECK --------------------------------------------------------- */
