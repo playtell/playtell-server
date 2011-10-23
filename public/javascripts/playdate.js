@@ -146,10 +146,14 @@ function addToKeepsakes(pubImg, subImg) {
 	kDiv.setAttribute("id", "keepsake_"+num_keepsakes);
 	kDiv.setAttribute("class", "keepsake");
 	kDiv.setAttribute("style", "left: 1500px");
-//	d.append($('#book-keepsake > .myCam-keepsake').clone());	
+	kDiv.appendChild(pubImg);	
 	if (subImg) { kDiv.appendChild(subImg); }
 	
-	document.getElementById("keepsake-container").appendChild(kDiv);	
+	document.getElementById("keepsake-container").appendChild(kDiv);
+	
+	bookEnd = $('#keepsake_'+num_keepsakes).clone();
+	bookEnd.removeAttr("style");
+	$('#book-keepsake').append(bookEnd);	
 }
 
 //removes images from the end of book keepsake frame

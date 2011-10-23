@@ -18,7 +18,7 @@
 <% if @current_user.username == "semira" %>
 	<div class="library-item">
 		<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
-			<%= image_submit_tag getImageFilePath("pitch1.png") %>
+			<%= image_submit_tag getImageFilePath("pitch.png") %>
 			<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_SLIDE %>
 		<% end %>
 	</div>	
