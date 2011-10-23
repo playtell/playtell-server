@@ -111,35 +111,54 @@ function hideToyBox() {
 	}
 }
 
+//captures images from video cams and creates html elements
 function takeSnapshot() {
 	var pubImgData = publisher.getImgData();
 	var subImgData; 
+	var pubImg; 
 	var subImg;
 	
-	num_keepsakes++;
-	alert("snapshots:"+num_keepsakes);
-	removeKeepsakes();
+	//removeKeepsakes();
 		
-	var pubImg = document.createElement("img");
+	pubImg = document.createElement("img");
 	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);	
 	
 	if (subscribers[0]) {
 		subImgData = subscribers[0].getImgData();	
 		subImg = document.createElement("img");
 		subImg.setAttribute("src", "data:image/png;base64," + subImgData);
-		var famCam = document.getElementById("famCam-keepsake");
-		famCam.appendChild(subImg);
+		subImg.setAttribute("class", "famCam-keepsake");
+//		$("#book-keepsake").append(subImg);
 	}
 	
-	var myCam = document.getElementById("myCam-keepsake");	
-	myCam.appendChild(pubImg);
+	pubImg.setAttribute("class", "myCam-keepsake");
+//	$("#book-keepsake").append(pubImg);
+	
+	addToKeepsakes(pubImg, subImg);
 }
 
+//takes in two images and adds them to the keepsake frame, creating a div on the page with the keepsake in it
+function addToKeepsakes(pubImg, subImg) {
+	num_keepsakes++;
+	
+	var d = $("#keepsake_"+num_keepsakes);
+	var kDiv= document.createElement("div");
+	kDiv.setAttribute("id", "keepsake_"+num_keepsakes);
+	kDiv.setAttribute("class", "keepsake");
+	kDiv.setAttribute("style", "left: 1500px");
+//	d.append($('#book-keepsake > .myCam-keepsake').clone());	
+	if (subImg) { kDiv.appendChild(subImg); }
+	
+	document.getElementById("keepsake-container").appendChild(kDiv);	
+}
+
+//removes images from the end of book keepsake frame
 function removeKeepsakes() {
 	$('#myCam-keepsake img').remove();
 	$('#famCam-keepsake img').remove();
 }
 
+//sends payload to current playdate state to server
 function syncToServer(new_page, change) {
 	$.ajax({
 		url: "/update_page.js?newPage=" + new_page + "&playdateChange=" + change,

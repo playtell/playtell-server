@@ -416,6 +416,8 @@ div.friend {
 .snapshot-controls a {
 	display: block;
 	margin-top: 12px;
+	width: 90px;
+	height: 100px;
 }
 
 #videos p a {
@@ -423,7 +425,7 @@ div.friend {
 	display: block;
 }
 
-.video-content p a {
+.video-controls p a {
 	height: 60px;
 	width: 51px;
 }
@@ -535,29 +537,29 @@ p a#next-link:hover { background-position: -332px -177px; }
 
 /* KEEPSAKE --------------------------------------------------------- */
 
-.book-keepsake {
-	position: absolute;
+#book-keepsake {
 	top: 60px;
 	left: 50px;
+}
+
+.keepsake {
+	position: absolute;
 	min-height: 530px;
 	min-width: 414px;
 	background: url("/images/keepsake_bg.png") no-repeat 0 0;
 }
 
-.keepsake-image-container {
+.keepsake img {
 	position: absolute;
-}
-
-.keepsake-image-container img {
 	width: 183px;
 }
 
-#myCam-keepsake {
+.myCam-keepsake {
 	top: 104px;
 	left: 29px;
 }
 
-#famCam-keepsake {
+.famCam-keepsake {
 	top: 104px;
 	left: 215px;
 }
@@ -600,7 +602,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 }
 
 #bottom-drawer.row {
-	bottom: -213px;
+	bottom: -193px;
 }
 
 .shelf_bg {
@@ -634,11 +636,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 
 #links {
 	background: url("/images/drawer_background.jpg") repeat 0 0;
-}
-
-#links.row {
-	height: 60px;
-	bottom: 0;
+	min-height: 50px;
 }
 
 #links p {
@@ -646,9 +644,9 @@ p a#next-link:hover { background-position: -332px -177px; }
 }
 
 #links p a {
-	height: 43px;
-	width: 75px;
-	margin: 5px;
+	height: 38px;
+	width: 38px;
+	margin-top: 8px;
 }
 
 /* SPRITES --------------------------------------------------------- */
@@ -659,8 +657,8 @@ p a#next-link:hover { background-position: -332px -177px; }
 #videos p a#disconnect-link { background-position: -279px 0px; }
 #videos p a:hover#disconnect-link { background-position: -279px -60px; }
 
-#videos p a#snapshot-link { background-position: -228px 0px; }
-#videos p a:hover#snapshot-link { background-position: -228px -60px; }
+#videos p a#snapshot-link { background-position: -24px -496px; }
+#videos p a:active#snapshot-link { background-position: -24px -368px; }
 
 #videos p a#toybox-link { background-position: -9px -6px; }
 #videos p a:hover#toybox-link { background-position: -9px -50px; }
