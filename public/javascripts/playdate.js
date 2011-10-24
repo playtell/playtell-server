@@ -81,7 +81,7 @@ function goToPage (new_page_num, activity) {
 				takeSnapshot();	
 				createSpecialKeepsake('#slide-keepsake');
 			}
-			if (current_page_num == parseInt($("#total-pages").html())-1) {
+			if (current_page_num == parseInt($("#total-pages").html())) {
 				$('#slide-keepsake').show();
 			}					
 		}
@@ -227,28 +227,44 @@ function enableButtons(){
 	});
 }
 
+function disableNavButtons() {
+	$("#next-link").die("click");
+	$("#previous-link").die("click");
+	
+	$(document).unbind('keyup', 'left');
+	$(document).bind('keyup', 'right');
+}
+
 function enableNavButtons(activity, playdateChange) {
-	$("#next-link").click(function() {
+	disableNavButtons()
+	
+	$("#next-link").live("click", function() {
 		goToPage(getNewPage(getCurrentPage(),"next"), activity);
-		syncToServer(getCurrentPage(), playdateChange)
+		syncToServer(getCurrentPage(), playdateChange);
+		return false;
 	});
-	$("#previous-link").click(function() {
+	$("#previous-link").live("click", function() {
 		goToPage(getNewPage(getCurrentPage(),"prev"), activity);
-		syncToServer(getCurrentPage(), playdateChange)
+		syncToServer(getCurrentPage(), playdateChange);
+		return false;
 	});
 	
 	$(document).bind('keyup', 'left', function() {
 		if (!$('#previous-link').is(':disabled')) {
 			goToPage(getNewPage(getCurrentPage(),"prev"), activity);
-			syncToServer(getCurrentPage(), playdateChange)
+			syncToServer(getCurrentPage(), playdateChange);
 	    }
 	});
 	
 	$(document).bind('keyup', 'right', function() {
 		if (!$('#next-link').is(':disabled')) {
 			goToPage(getNewPage(getCurrentPage(),"next"), activity);
-			syncToServer(getCurrentPage(), playdateChange)
+			syncToServer(getCurrentPage(), playdateChange);
 	    }
+	});
+	
+	$(document).bind('keyup', 'up', function() {
+		$('#keepsake-container').children().removeAttr("style");
 	});
 }
 
