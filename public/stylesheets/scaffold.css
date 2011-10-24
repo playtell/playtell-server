@@ -548,7 +548,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 	min-width: 414px;
 }
 
-#book-keepsake .keepsake {
+.keepsake {
 	background: url("/images/keepsake_bg.png") no-repeat 0 0;	
 }
 

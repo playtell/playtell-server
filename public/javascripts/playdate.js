@@ -21,6 +21,7 @@ function showBook(title, currentPage, totalPages) {
 			});
 			if (opts.curr == 2 || opts.curr == 4 || opts.curr == parseInt($('#total-pages').html())) {
 				takeSnapshot();
+				createSpecialKeepsake('#book-keepsake')
 			}
 		}
 	});
@@ -45,6 +46,9 @@ function goToPage (new_page_num, is_slideshow) {
 	var new_left_pos;
 	
 	if (is_slideshow) {
+		if ($('#slide-keepsake').is(':visible')) {
+			$('#slide-keepsake').hide();
+		}
 		new_left_pos = (current_page_num < new_page_num) ? 
 			-$(current_page_div).outerWidth() : $(current_page_div).outerWidth()*2; 
 			
@@ -54,7 +58,14 @@ function goToPage (new_page_num, is_slideshow) {
 		$(new_page_div).animate({ 
 			left: 275
 		});
-		updateBookNavLinks(new_page_num);						
+		updateBookNavLinks(new_page_num);
+		if (current_page_num == 3) {
+			takeSnapshot();	
+			createSpecialKeepsake('#slide-keepsake');
+		}
+		if (current_page_num == parseInt($("#total-pages").html())) {
+			$('#slide-keepsake').show();
+		}					
 	}
 	else {
 		$('#book').booklet(new_page_num);
@@ -62,6 +73,7 @@ function goToPage (new_page_num, is_slideshow) {
 	$("#page-num").html(new_page_num);
 }
 
+//disable book nav links as appropriate
 function updateBookNavLinks(currentPage) {
 	if (currentPage == 1) {
 		hideButton("previous-link");
@@ -69,7 +81,7 @@ function updateBookNavLinks(currentPage) {
 	}
 	else if (currentPage > 1) {
 		showButton("previous-link");
-		if (currentPage == parseInt($("#total-pages").html())) {
+		if (currentPage >= parseInt($("#total-pages").html())) {
 			hideButton("next-link");
 		}
 		else if (currentPage < parseInt($("#total-pages").html())) {
@@ -78,6 +90,7 @@ function updateBookNavLinks(currentPage) {
 	}
 } 
 
+//expand/collapse the toy box
 function toggleToyBox() {
 	var new_bottom_pos = ($('#bottom-drawer').css('bottom') == '0px') ?
 		-$('#bottom-drawer').outerHeight() + $('#links').outerHeight() : 0;
@@ -150,10 +163,12 @@ function addToKeepsakes(pubImg, subImg) {
 	if (subImg) { kDiv.appendChild(subImg); }
 	
 	document.getElementById("keepsake-container").appendChild(kDiv);
-	
+}
+
+function createSpecialKeepsake(divId) {	
 	bookEnd = $('#keepsake_'+num_keepsakes).clone();
 	bookEnd.removeAttr("style");
-	$('#book-keepsake').append(bookEnd);	
+	$(divId).append(bookEnd);	
 }
 
 //removes images from the end of book keepsake frame
