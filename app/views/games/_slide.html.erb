@@ -6,28 +6,6 @@
 
 <script>
 	$(document).ready(function() {
-
-		$("#next-link").click(function() {
-			goToPage(getNewPage(getCurrentPage(),"next"), true);
-			syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
-		});
-		$("#previous-link").click(function() {
-			goToPage(getNewPage(getCurrentPage(),"prev"), true);
-			syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
-		});
-		
-		$(document).bind('keyup', 'left', function() {
-			if (!$('#previous-link').is(':disabled')) {
-				goToPage(getNewPage(getCurrentPage(),"prev"), true);
-				syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
-		    }
-		});
-		
-		$(document).bind('keyup', 'right', function() {
-			if (!$('#next-link').is(':disabled')) {
-				goToPage(getNewPage(getCurrentPage(),"next"), true);
-				syncToServer(getCurrentPage(), "<%= Playdate::TURN_SLIDE %>")
-		    }
-		});
+		enableNavButtons("slide", "<%= Playdate::TURN_SLIDE %>");
 	});
 </script>

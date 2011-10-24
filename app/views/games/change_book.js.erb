@@ -2,6 +2,7 @@ removeKeepsakes();
 hideToyBox();
 $('#player-container').hide();
 $('.slide-container').hide();
+$('#keepsake-container').hide();
 $('.book-nav').hide();
 $('.book-container').show();
 $("#book").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");

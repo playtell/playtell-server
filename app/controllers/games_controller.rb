@@ -60,6 +60,12 @@ class GamesController < ApplicationController
       @playdate.page_num = params[:newPage]
       @playdate.save
       render :nothing => true
+    when Playdate::CHANGE_KEEPSAKE
+      render 'update_keepsake'
+    when Playdate::TURN_KEEPSAKE
+      @playdate.page_num = params[:newPage]
+      @playdate.save
+      render :nothing => true
     when Playdate::NONE
       render :nothing => true
     end
@@ -101,6 +107,10 @@ class GamesController < ApplicationController
       render 'change_slide'
     when Playdate::TURN_SLIDE
         render "turn_slide"
+    when Playdate::CHANGE_KEEPSAKE
+      render 'change_keepsake'
+    when Playdate::TURN_KEEPSAKE
+        render "turn_keepsake"
     when Playdate::NONE
       render :nothing => true
     end

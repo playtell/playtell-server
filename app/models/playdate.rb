@@ -17,6 +17,8 @@ class Playdate < ActiveRecord::Base
   PAUSE_VIDEO=302
   CHANGE_SLIDE=400
   TURN_SLIDE=401
+  CHANGE_KEEPSAKE=500
+  TURN_KEEPSAKE=501
   
   def initBook 
     self.book_id = Book.find_by_title("Little Red Riding Hood").id

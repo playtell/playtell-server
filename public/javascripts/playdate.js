@@ -21,7 +21,9 @@ function showBook(title, currentPage, totalPages) {
 			});
 			if (opts.curr == 2 || opts.curr == 4 || opts.curr == parseInt($('#total-pages').html())) {
 				takeSnapshot();
-				createSpecialKeepsake('#book-keepsake')
+				if (opts.curr == 4) {
+					createSpecialKeepsake('#book-keepsake')
+				}
 			}
 		}
 	});
@@ -38,34 +40,50 @@ function getNewPage (current_page, direction) {
 	return current_page-1;			
 }
 
-function goToPage (new_page_num, is_slideshow) {
+function goToPage (new_page_num, activity) {
 	var current_page_num = getCurrentPage();
-	var div_target = is_slideshow ? "#slide_" : "#page_";
+
+	var div_target;
+	
+	if (activity == "slide") {
+		div_target = "#slide_";
+	}
+	else if (activity == "keepsake") {
+		div_target = "#keepsake_";
+	}
+	else {
+		div_target = "#page_";
+	}
+
 	var current_page_div = div_target + current_page_num;
 	var new_page_div = div_target + new_page_num;
 	var new_left_pos;
+	var show_left_pos;
 	
-	if (is_slideshow) {
+	if (activity == "slide" || activity == "keepsake") {
 		if ($('#slide-keepsake').is(':visible')) {
 			$('#slide-keepsake').hide();
 		}
 		new_left_pos = (current_page_num < new_page_num) ? 
 			-$(current_page_div).outerWidth() : $(current_page_div).outerWidth()*2; 
-			
+		show_left_pos = (activity == "slide") ? 275 : 440;
+		
 		$(current_page_div).animate({ 
 			left: new_left_pos
 		});
 		$(new_page_div).animate({ 
-			left: 275
+			left: show_left_pos
 		});
 		updateBookNavLinks(new_page_num);
-		if (current_page_num == 3) {
-			takeSnapshot();	
-			createSpecialKeepsake('#slide-keepsake');
+		if (activity == "slide") {
+			if (current_page_num == 3) {
+				takeSnapshot();	
+				createSpecialKeepsake('#slide-keepsake');
+			}
+			if (current_page_num == parseInt($("#total-pages").html())-1) {
+				$('#slide-keepsake').show();
+			}					
 		}
-		if (current_page_num == parseInt($("#total-pages").html())-1) {
-			$('#slide-keepsake').show();
-		}					
 	}
 	else {
 		$('#book').booklet(new_page_num);
@@ -158,7 +176,9 @@ function addToKeepsakes(pubImg, subImg) {
 	var kDiv= document.createElement("div");
 	kDiv.setAttribute("id", "keepsake_"+num_keepsakes);
 	kDiv.setAttribute("class", "keepsake");
-	kDiv.setAttribute("style", "left: 1500px");
+	if (num_keepsakes == 1) {
+		kDiv.setAttribute("style", "left: 440px");
+	}
 	kDiv.appendChild(pubImg);	
 	if (subImg) { kDiv.appendChild(subImg); }
 	
@@ -167,6 +187,7 @@ function addToKeepsakes(pubImg, subImg) {
 
 function createSpecialKeepsake(divId) {	
 	bookEnd = $('#keepsake_'+num_keepsakes).clone();
+	bookEnd.removeAttr("id");
 	bookEnd.removeAttr("style");
 	$(divId).append(bookEnd);	
 }
@@ -201,6 +222,31 @@ function enableButtons(){
 	
 	$("#beginning-link").click(function() {
 		goToPage(1, false);
+	});
+}
+
+function enableNavButtons(activity, playdateChange) {
+	$("#next-link").click(function() {
+		goToPage(getNewPage(getCurrentPage(),"next"), activity);
+		syncToServer(getCurrentPage(), playdateChange)
+	});
+	$("#previous-link").click(function() {
+		goToPage(getNewPage(getCurrentPage(),"prev"), activity);
+		syncToServer(getCurrentPage(), playdateChange)
+	});
+	
+	$(document).bind('keyup', 'left', function() {
+		if (!$('#previous-link').is(':disabled')) {
+			goToPage(getNewPage(getCurrentPage(),"prev"), activity);
+			syncToServer(getCurrentPage(), playdateChange)
+	    }
+	});
+	
+	$(document).bind('keyup', 'right', function() {
+		if (!$('#next-link').is(':disabled')) {
+			goToPage(getNewPage(getCurrentPage(),"next"), activity);
+			syncToServer(getCurrentPage(), playdateChange)
+	    }
 	});
 }
 

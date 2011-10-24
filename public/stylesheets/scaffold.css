@@ -546,10 +546,14 @@ p a#next-link:hover { background-position: -332px -177px; }
 	left: 440px;
 }
 
+#keepsake-container div {
+	left: 1500px;
+}
+
 .keepsake {
 	position: absolute;
 	min-height: 530px;
-	min-width: 414px;
+	width: 414px;
 }
 
 .keepsake {

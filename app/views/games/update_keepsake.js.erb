@@ -1,0 +1,12 @@
+//TODO should move this to happen before the server hit to make the page more responsive from a user perspective
+removeKeepsakes();
+hideToyBox();
+$('#player-container').hide();
+$('.slide-container').hide();
+$('.book-container').hide();
+$('#keepsake-container').show();
+$('.book-nav').show();
+enableNavButtons("keepsake", "<%= Playdate::TURN_KEEPSAKE %>");
+if (session) {
+	session.signal();
+}
