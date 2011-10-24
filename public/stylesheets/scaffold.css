@@ -546,7 +546,14 @@ p a#next-link:hover { background-position: -332px -177px; }
 	position: absolute;
 	min-height: 530px;
 	min-width: 414px;
-	background: url("/images/keepsake_bg.png") no-repeat 0 0;
+}
+
+#book-keepsake .keepsake {
+	background: url("/images/keepsake_bg.png") no-repeat 0 0;	
+}
+
+#keepsake-container .keepsake {
+	background: url("/images/frame_little-red-riding-hood.jpg") no-repeat 13px 52px;	
 }
 
 .keepsake img {
