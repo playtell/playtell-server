@@ -253,6 +253,7 @@ function enableNavButtons(activity, playdateChange) {
 		if (!$('#previous-link').is(':disabled')) {
 			goToPage(getNewPage(getCurrentPage(),"prev"), activity);
 			syncToServer(getCurrentPage(), playdateChange);
+			return false;
 	    }
 	});
 	
@@ -260,6 +261,7 @@ function enableNavButtons(activity, playdateChange) {
 		if (!$('#next-link').is(':disabled')) {
 			goToPage(getNewPage(getCurrentPage(),"next"), activity);
 			syncToServer(getCurrentPage(), playdateChange);
+			return false;
 	    }
 	});
 	
