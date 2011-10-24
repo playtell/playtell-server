@@ -81,9 +81,9 @@ function goToPage (new_page_num, activity) {
 				takeSnapshot();	
 				createSpecialKeepsake('#slide-keepsake');
 			}
-			if (current_page_num == parseInt($("#total-pages").html())) {
-				$('#slide-keepsake').show();
-			}					
+			//if (current_page_num == parseInt($("#total-pages").html())) {
+			//	$('#slide-keepsake').show();
+			//}					
 		}
 	}
 	else {
