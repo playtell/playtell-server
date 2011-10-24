@@ -65,7 +65,8 @@ function goToPage (new_page_num, activity) {
 			$('#slide-keepsake').hide();
 		}
 		new_left_pos = (current_page_num < new_page_num) ? 
-			-$(current_page_div).outerWidth() : $(current_page_div).outerWidth()*2; 
+			-1500 : 1500;
+//			-$(current_page_div).outerWidth() : $(current_page_div).outerWidth()*2; 
 		show_left_pos = (activity == "slide") ? 275 : 440;
 		
 		$(current_page_div).animate({ 
