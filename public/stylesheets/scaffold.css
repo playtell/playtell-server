@@ -542,6 +542,10 @@ p a#next-link:hover { background-position: -332px -177px; }
 	left: 50px;
 }
 
+#slide-keepsake .keepsake {
+	left: 440px;
+}
+
 .keepsake {
 	position: absolute;
 	min-height: 530px;

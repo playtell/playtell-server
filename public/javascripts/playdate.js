@@ -63,7 +63,7 @@ function goToPage (new_page_num, is_slideshow) {
 			takeSnapshot();	
 			createSpecialKeepsake('#slide-keepsake');
 		}
-		if (current_page_num == parseInt($("#total-pages").html())) {
+		if (current_page_num == parseInt($("#total-pages").html())-1) {
 			$('#slide-keepsake').show();
 		}					
 	}
