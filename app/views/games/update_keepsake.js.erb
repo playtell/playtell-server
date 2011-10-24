@@ -5,8 +5,14 @@ $('#player-container').hide();
 $('.slide-container').hide();
 $('.book-container').hide();
 $('#keepsake-container').show();
+
 $('.book-nav').show();
 enableNavButtons("keepsake", "<%= Playdate::TURN_KEEPSAKE %>");
+$('#total-pages').html(num_keepsakes);
+$('#page-num').html(1);
+$('.keepsake').removeAttr("style");
+goToPage(1, "keepsake");
+
 if (session) {
 	session.signal();
 }

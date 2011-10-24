@@ -172,6 +172,7 @@ function takeSnapshot() {
 //takes in two images and adds them to the keepsake frame, creating a div on the page with the keepsake in it
 function addToKeepsakes(pubImg, subImg) {
 	num_keepsakes++;
+	$('#total-pages').html(num_keepsakes);
 	
 	var d = $("#keepsake_"+num_keepsakes);
 	var kDiv= document.createElement("div");
