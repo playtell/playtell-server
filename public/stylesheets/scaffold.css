@@ -669,8 +669,8 @@ p a#next-link:hover { background-position: -332px -177px; }
 #videos p a#reconnect-link { background-position: -332px 0px; }
 #videos p a:hover#reconnect-link { background-position: -332px -60px; }
 
-#videos p a#disconnect-link { background-position: -279px 0px; }
-#videos p a:hover#disconnect-link { background-position: -279px -60px; }
+#videos p a#disconnect-link { background-position: -280px 0px; }
+#videos p a:hover#disconnect-link { background-position: -280px -60px; }
 
 #videos p a#snapshot-link { background-position: -24px -496px; }
 #videos p a:active#snapshot-link { background-position: -24px -368px; }
