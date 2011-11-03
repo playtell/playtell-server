@@ -4,11 +4,12 @@ $('#player-container').hide();
 $('#keepsake-container').hide();
 $('.slide-container').show();
 $('.book-nav').show();
+enableNavButtons("slide", "<%= Playdate::TURN_SLIDE %>");
 $(".slides").html("<%= escape_javascript(render(:partial => 'slide')).html_safe %>");
 $('#page-num').html(1);
-$('#total-pages').html(8);
+$('#total-pages').html(13);
 $("#slide_1").animate({ 
-	left: 275
+	left: ($('.slides').outerWidth())/4
 });
 if (session) {
 	session.signal();

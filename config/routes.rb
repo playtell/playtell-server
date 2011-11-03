@@ -16,7 +16,7 @@ Semiralabs::Application.routes.draw do
   match 'update_game_from_session' => 'games#updateGameFromSession'
   
   match 'feedbacks' => 'feedback#create'
-  
+    
   match 'set_time' => 'games#setTime'
   match 'check_time' => 'games#checkTime'
   

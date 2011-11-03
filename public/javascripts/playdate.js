@@ -2,7 +2,13 @@ function showBook(title, currentPage, totalPages) {
 	$('#total-pages').html(totalPages);
 	$('#page-num').html(currentPage);
 	
-	$('#book').booklet({
+	var c = $('.activity-content').outerWidth();
+	var b = $("#book").outerWidth();
+	var bookPos = $('.activity-content').outerWidth() > $("#book").outerWidth() ?
+		($('.activity-content').outerWidth()-$("#book").outerWidth())/2 : 5;
+	$('#book').attr("style", "right: "+bookPos+"px");
+	
+/*	$('#book').booklet({
 		width: 1000,
 		height: 540, 
 		closed: true,
@@ -26,7 +32,7 @@ function showBook(title, currentPage, totalPages) {
 				}
 			}
 		}
-	});
+	}); */
 }
 
 function getCurrentPage () {
@@ -67,7 +73,7 @@ function goToPage (new_page_num, activity) {
 		new_left_pos = (current_page_num < new_page_num) ? 
 			-1500 : 1500;
 //			-$(current_page_div).outerWidth() : $(current_page_div).outerWidth()*2; 
-		show_left_pos = (activity == "slide") ? 275 : 440;
+		show_left_pos = (activity == "slide") ? ($('.slides').outerWidth())/4 : 440;
 		
 		$(current_page_div).animate({ 
 			left: new_left_pos
@@ -87,7 +93,8 @@ function goToPage (new_page_num, activity) {
 		}
 	}
 	else {
-		$('#book').booklet(new_page_num);
+		//$('#book').booklet(new_page_num);
+		turnBookPage(new_page_num);
 	}
 	$("#page-num").html(new_page_num);
 }
@@ -222,6 +229,16 @@ function enableButtons(){
 		toggleToyBox();
 	});
 	
+	app = document.getElementById('videos');
+    $('#reconnect-link').live('click', function() {
+		if (fullScreenApi.supportsFullScreen) {
+        	fullScreenApi.requestFullScreen(app);
+		}
+		else {
+			maxWindow();
+		}
+    }, true);
+	
 	$("#beginning-link").click(function() {
 		goToPage(1, false);
 	});
@@ -236,7 +253,7 @@ function disableNavButtons() {
 }
 
 function enableNavButtons(activity, playdateChange) {
-	disableNavButtons()
+	disableNavButtons();
 	
 	$("#next-link").live("click", function() {
 		goToPage(getNewPage(getCurrentPage(),"next"), activity);
@@ -266,7 +283,6 @@ function enableNavButtons(activity, playdateChange) {
 	});
 	
 	$(document).bind('keyup', 'up', function() {
-		$('#keepsake-container').children().removeAttr("style");
 	});
 }
 

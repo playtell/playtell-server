@@ -1,12 +1,16 @@
-<div class="b-load">
+<div id="pages">
 	<% @book.pages.each do |page| %>
-		<div id= "<%= "page_"+page.page_num.to_s %>">
-			<div class="book-image">
-				<%= image_tag getPageImageFilePath(@book.image_directory, page.page_num) %>
+		<section>
+			<div id= "<%= "page_"+page.page_num.to_s %>">
+				<div class="book-image">
+					<%= image_tag getPageImageFilePath(@book.image_directory, page.page_num) %>
+				</div>
+				<div class="book-text">
+					<%= simple_format (page.page_text) %> 
+				</div>
 			</div>
-			<div class="book-text">
-				<%= simple_format (page.page_text) %> 
-			</div>
-		</div>
+		</section>
 	<% end %>
 </div>
+<script type="text/javascript" src="/javascripts/pageflipInit.js"></script>
+

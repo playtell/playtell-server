@@ -430,7 +430,7 @@ div.friend {
 	width: 51px;
 }
 
-/* BOOKS --------------------------------------------------------- */
+/* ACTIVITY --------------------------------------------------------- */
 
 .activity-content {
 	text-align: center;	
@@ -439,11 +439,47 @@ div.friend {
 .activity-content.row {
 	top: 150px;
 	bottom: 60px;
-}	
-	
-.page {
-	background: url("/images/paper.jpg") no-repeat;
 }
+
+/* BOOK FLIP --------------------------------------------------------- */
+
+#book {
+	background: url("/images/book.jpg") no-repeat;
+	position: absolute;
+	width: 1200px;
+	height: 470px;
+}
+
+#pages section {
+	background: url("/images/paper.jpg") no-repeat;
+	display: block;
+	width: 576px;
+	height: 456px;
+	position: absolute;
+	left: 600px;
+	top: 7px;
+	overflow: hidden;
+}
+	#pages section>div {
+		display: block;
+		width: 576px;
+		height: 456px;
+		font-size: 12px;
+	}
+	#pages section p,
+	#pages section h2 {
+		padding: 3px 35px;
+		line-height: 1.4em;
+		text-align: justify;
+	}
+	#pages section h2{
+		margin: 15px 0 10px;
+	}
+
+#pageflip-canvas {
+	position: absolute;
+	z-index: 100;
+}	
 
 .book-image {
 	text-align: center;
@@ -474,12 +510,12 @@ div.friend {
 }
 
 .previous-container {
-	left: 50px;
+	left: 15px;
 	position: absolute;
 }
 
 .next-container {
-	right: 50px;
+	right: 15px;
 	position: absolute;
 }
 
@@ -509,7 +545,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 .back-cover {
 	position: absolute;
 	top: 0;
-	left: 650px;
+	left: 50%;
 	min-height: 540px;
 	min-width: 500px;
 }
@@ -770,3 +806,4 @@ button.green2, input[type="submit"].green2 {
 	width: 250px;
   	margin: 8px;
 }
+

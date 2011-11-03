@@ -1,5 +1,5 @@
 <% content_for :head do %>
-<%= javascript_include_tag 'playdate', 'video', 'jquery.booklet.1.2.0.min', 'jquery.easing.1.3', 'youtube', 'jquery.hotkeys-0.8' %>
+<%= javascript_include_tag 'playdate', 'video', 'jquery.easing.1.3', 'youtube', 'jquery.hotkeys-0.8', 'fullscreen', 'pageflip' %>
 <script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script> 
 <script type="text/javascript">
     var sessionId = "<%= @playdate.video_session_id %>"; 
@@ -21,12 +21,32 @@
 	var deviceManager;
 		
 	var num_keepsakes = 0;	
+	
+	//book canvas vars and constants
+	// Dimensions of the whole book
+	var BOOK_WIDTH = 1200;
+	var BOOK_HEIGHT = 470;
+
+	// Dimensions of one page in the book
+	var PAGE_WIDTH = 576;
+	var PAGE_HEIGHT = 456;
+
+	// Vertical spacing between the top edge of the book and the papers
+	var PAGE_Y = ( BOOK_HEIGHT - PAGE_HEIGHT ) / 2;
+
+	// The canvas size equals to the book dimensions + this padding
+	var CANVAS_PADDING = 30;
+	var canvas;
+	var context;
+	var mouse;
+	var page;
+	var flips = [];
+	var book;
+	var pages;
 			
 	$(document).ready(function() {
-		// writes out the page direction so it can be used later.
-		// upon success, signals the other player in the playdate to ping the server for the latest view of the book	
-		// load setup lightbox
 		
+		// load setup lightbox
 		//load image for setup lightbox
 		$(function () {
 		  var img = new Image();
@@ -94,9 +114,18 @@
 		$('a').attr("disabled", true);
 		$('#disconnect-link').attr("disabled", false);
 		
-		$('#fullscreen').click(function() {
-			maxWindow();
-		});				
+		//book canvas init
+		canvas = document.getElementById( "pageflip-canvas" );
+		context = canvas.getContext( "2d" );
+
+		// Resize the canvas to match the book size
+		canvas.width = BOOK_WIDTH + ( CANVAS_PADDING * 2 );
+		canvas.height = BOOK_HEIGHT + ( CANVAS_PADDING * 2 );
+
+		// Offset the canvas so that it's padding is evenly spread around the book
+		canvas.style.top = -CANVAS_PADDING + "px";
+		canvas.style.left = -CANVAS_PADDING + "px";
+		
 	});
 			
 </script>
@@ -131,7 +160,7 @@
 				<div id="slide-keepsake" class="hidden"></div>
 			</div>
 			<div class="book-container hidden">	
-				<div id="book">
+				<div id="book"><canvas id="pageflip-canvas"></canvas>
 				</div>
 				<div class="back-cover">
 					<!--<div class="beginning-container">

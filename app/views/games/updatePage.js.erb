@@ -3,11 +3,12 @@ removeKeepsakes();
 hideToyBox();
 $('#player-container').hide();
 $('.slide-container').hide();
-$('.book-nav').hide();
+$('.book-nav').show();
+disableNavButtons();
 $('#keepsake-container').hide();
-$('.book-container').show();
-$("#book").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
+$("#book").append("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
 showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>");
+$('.book-container').show();
 if (session) {
 	session.signal();
 }

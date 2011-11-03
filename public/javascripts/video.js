@@ -123,8 +123,7 @@ function signalReceivedHandler (event) {
 //--------------------------------------
 
 function addStream(stream) {
-	// Check if this is the stream that I am publishing. If not
-	// we choose to subscribe to the stream.
+	// Check if this is the stream that I am publishing. 
 	if (stream.connection.connectionId == session.connection.connectionId) {
 		if ($('div.flash-instructions').is(':visible')) {
 			$('div.flash-instructions').hide();
