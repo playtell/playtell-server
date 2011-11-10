@@ -1,5 +1,3 @@
-
-// called each time a book is loaded
 (function() {
 	
 	mouse = { x: 0, y: 0 };
