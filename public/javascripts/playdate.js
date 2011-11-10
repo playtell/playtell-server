@@ -17,31 +17,6 @@ function showBook(title, currentPage, totalPages) {
 	//canvas.style.left = -CANVAS_PADDING + "px";
 	canvas.style.right = (bookPos - CANVAS_PADDING) + "px";
 	
-/*	$('#book').booklet({
-		width: 1000,
-		height: 540, 
-		closed: true,
-		manual: false,
-		keyboard: false,
-		hovers: false,
-		pageNumbers: false, 
-		after: function(opts){
-			$('#new-page').val(opts.curr);
-			$.ajax({
-				url: "/update_page.js?newPage=" + opts.curr + "&playdateChange=" + 101,
-				type: "POST",
-				success: function() {
-					session.signal();
-				}
-			});
-			if (opts.curr == 2 || opts.curr == 4 || opts.curr == parseInt($('#total-pages').html())) {
-				takeSnapshot();
-				if (opts.curr == 4) {
-					createSpecialKeepsake('#book-keepsake')
-				}
-			}
-		}
-	}); */
 }
 
 function getCurrentPage () {
@@ -82,7 +57,8 @@ function goToPage (new_page_num, activity) {
 		new_left_pos = (current_page_num < new_page_num) ? 
 			-1500 : 1500;
 //			-$(current_page_div).outerWidth() : $(current_page_div).outerWidth()*2; 
-		show_left_pos = (activity == "slide") ? ($('.slides').outerWidth())/4 : 440;
+		show_left_pos = (activity == "slide") ? 
+		($('.slides').outerWidth())/4 : 490;
 		
 		$(current_page_div).animate({ 
 			left: new_left_pos
@@ -100,10 +76,6 @@ function goToPage (new_page_num, activity) {
 			//	$('#slide-keepsake').show();
 			//}					
 		}
-	}
-	else {
-		//$('#book').booklet(new_page_num);
-		turnBookPage(new_page_num);
 	}
 	$("#page-num").html(new_page_num);
 }

@@ -577,12 +577,6 @@ p a#next-link:hover { background-position: -332px -177px; }
 }
 
 /* KEEPSAKE --------------------------------------------------------- */
-
-#book-keepsake {
-	top: 60px;
-	left: 50px;
-}
-
 #slide-keepsake .keepsake {
 	left: 440px;
 }
@@ -598,7 +592,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 }
 
 .keepsake {
-	background: url("/images/keepsake_bg.png") no-repeat 0 0;	
+	background: url("/images/frame_little-red-riding-hood.jpg") no-repeat 0 0;	
 }
 
 #keepsake-container .keepsake {
@@ -618,6 +612,22 @@ p a#next-link:hover { background-position: -332px -177px; }
 .famCam-keepsake {
 	top: 104px;
 	left: 215px;
+}
+
+#book-keepsake .myCam-keepsake {
+	top: 52px;
+	left: 16px;
+}
+
+#book-keepsake .famCam-keepsake {
+	top: 52px;
+	left: 212px;
+}
+
+
+#book-keepsake {
+	top: 100px;
+	left: 75px;
 }
 
 /* SLIDE DECK --------------------------------------------------------- */

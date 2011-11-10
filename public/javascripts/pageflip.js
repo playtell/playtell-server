@@ -58,6 +58,11 @@
 			page = Math.min( page + 1, flips.length );
 		}
 		flips[toTurn].dragging = false;
+		
+		if (new_page == 3 || new_page == 5 || new_page == parseInt($("#total-pages").html())) {
+			takeSnapshot();	
+			createSpecialKeepsake('#book-keepsake');
+		}
 	}
 	
 	function render() {
