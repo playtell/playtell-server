@@ -8,6 +8,15 @@ function showBook(title, currentPage, totalPages) {
 		($('.activity-content').outerWidth()-$("#book").outerWidth())/2 : 5;
 	$('#book').attr("style", "right: "+bookPos+"px");
 	
+	// Resize the canvas to match the book size
+	canvas.width = BOOK_WIDTH + ( CANVAS_PADDING * 2 );
+	canvas.height = BOOK_HEIGHT + ( CANVAS_PADDING * 2 );
+
+	// Offset the canvas so that it's padding is evenly spread around the book
+	canvas.style.top = -CANVAS_PADDING + "px";
+	//canvas.style.left = -CANVAS_PADDING + "px";
+	canvas.style.right = (bookPos - CANVAS_PADDING) + "px";
+	
 /*	$('#book').booklet({
 		width: 1000,
 		height: 540, 

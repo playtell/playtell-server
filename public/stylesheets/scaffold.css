@@ -460,6 +460,11 @@ div.friend {
 	top: 7px;
 	overflow: hidden;
 }
+#pages section.last-page {
+	background: none;
+	width: 596px;
+}
+
 	#pages section>div {
 		display: block;
 		width: 576px;
@@ -553,7 +558,7 @@ p a#next-link:hover { background-position: -332px -177px; }
 .beginning-container {
 	position: absolute;
 	top: 5px;
-	left: 323px;
+	left: 393px;
 }
 
 .beginning-container p a {

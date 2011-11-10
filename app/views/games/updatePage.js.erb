@@ -6,7 +6,7 @@ $('.slide-container').hide();
 $('.book-nav').show();
 disableNavButtons();
 $('#keepsake-container').hide();
-$("#book").append("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
+$("#book").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
 showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>");
 $('.book-container').show();
 if (session) {
