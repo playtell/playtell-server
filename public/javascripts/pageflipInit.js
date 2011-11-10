@@ -34,14 +34,18 @@
   //document.addEventListener( "mousedown", mouseDownHandler, false );
   //document.addEventListener( "mouseup", mouseUpHandler, false );
   var nextlink = document.getElementById("next-link");
-  nextlink.addEventListener("click", function() {
+  var nextHandler;
+  //nextlink.addEventListener
+	$("#next-link").live("click", function n(e) {
     turnBookPage(page+1);
     syncToServer(page, 101);
-    }, false);
+    });
   var prevlink = document.getElementById("previous-link");
-  prevlink.addEventListener("click", function() {
+  var prevHandler;
+  //prevlink.addEventListener
+	$("prev-link").live("click", function p(e) {
     turnBookPage(page-1);
     syncToServer(page, 101);
-    }, false);
+    });
   
 })();

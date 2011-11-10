@@ -226,6 +226,7 @@ function enableButtons(){
 }
 
 function disableNavButtons() {
+  
 	$("#next-link").die("click");
 	$("#previous-link").die("click");
 	
