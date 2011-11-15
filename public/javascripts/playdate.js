@@ -263,9 +263,7 @@ function enableNavButtons(activity, playdateChange) {
 			return false;
 	    }
 	});
-	
-	$(document).bind('keyup', 'up', function() {
-	});
+
 }
 
 
