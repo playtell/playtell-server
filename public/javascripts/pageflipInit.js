@@ -43,7 +43,7 @@
   var prevlink = document.getElementById("previous-link");
   var prevHandler;
   //prevlink.addEventListener
-	$("previous-link").live("click", function p(e) {
+	$("#previous-link").live("click", function p(e) {
     turnBookPage(page-1);
     syncToServer(page, 101);
     });
