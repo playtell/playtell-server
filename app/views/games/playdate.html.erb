@@ -92,6 +92,8 @@
 			session.addEventListener('streamDestroyed', streamDestroyedHandler);
 			session.addEventListener('signalReceived', signalReceivedHandler);
 
+			session.addEventListener('streamPropertyChanged', streamPropertyChangedHandler);
+
 			connect();
 		}							
 		

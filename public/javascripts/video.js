@@ -48,6 +48,10 @@ function sessionConnectedHandler(event) {
 
 }
 
+function streamPropertyChangedHandler(event) {
+	console.log(event.stream);
+}
+
 function devicesDetectedHandler(event) {
 	if (inSetup) {
 		if (event.selectedCamera) {
@@ -127,9 +131,9 @@ function addStream(stream) {
 	if (stream.connection.connectionId == session.connection.connectionId) {
 		if ($('div.flash-instructions').is(':visible')) {
 			$('div.flash-instructions').hide();
-			$('.chat-window-container').animate({
-				bottom: PUBLISHER_HEIGHT+2
-			});
+			//$('.chat-window-container').animate({
+			//	bottom: PUBLISHER_HEIGHT+2
+			//});
 			enableButtons();
 			toggleToyBox();
 		}
@@ -141,4 +145,5 @@ function addStream(stream) {
 	div.setAttribute('id', divId);			
 	document.getElementById("fam-camera-holder").appendChild(div);
 	subscribers[0] = session.subscribe(stream, divId, {width: SUBSCRIBER_WIDTH, height: SUBSCRIBER_HEIGHT,  microphoneEnabled: true});
+	
 }
