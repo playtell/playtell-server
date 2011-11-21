@@ -369,6 +369,7 @@ div.friend {
 	position: relative;
 	width: 410px;
 	min-height: 10px;
+	bottom: 0px;
 }
 
 .chat-window-container img {
@@ -735,6 +736,8 @@ p a#next-link:hover { background-position: -332px -177px; }
 
 #videos p a#keepsakes-link { background-position: -171px -6px; }
 #videos p a:hover#keepsakes-link { background-position: -162px -40px; }
+
+#videos p a#audio-toggle { background-position: -700px 0px; }
 
 .beginning-container p a#beginning-banner { background-position: -389px -16px; }
 

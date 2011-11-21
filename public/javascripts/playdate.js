@@ -131,6 +131,15 @@ function hideToyBox() {
 	}
 }
 
+function toggleVideoWindows() {
+	var new_bottom_pos = ($('.chat-window-container').css('bottom') == '0px') ?
+		PUBLISHER_HEIGHT+2 : 0;
+	
+	$('.chat-window-container').animate({ 
+		bottom: new_bottom_pos
+	});
+}
+
 //captures images from video cams and creates html elements
 function takeSnapshot() {
 	var pubImgData = publisher.getImgData();
@@ -219,6 +228,11 @@ function enableButtons(){
 			maxWindow();
 		}
     }, true);
+
+	$("#audio-toggle").live("click", function() {
+		toggleVideoWindows();
+		return false;
+	});
 	
 	$("#beginning-link").click(function() {
 		goToPage(1, false);
