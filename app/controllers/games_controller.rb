@@ -66,6 +66,8 @@ class GamesController < ApplicationController
       @playdate.page_num = params[:newPage]
       @playdate.save
       render :nothing => true
+    when Playdate::TOGGLE_VIDEO
+      render :nothing => true
     when Playdate::NONE
       render :nothing => true
     end
@@ -111,6 +113,8 @@ class GamesController < ApplicationController
       render 'change_keepsake'
     when Playdate::TURN_KEEPSAKE
         render "turn_keepsake"
+    when Playdate::TOGGLE_VIDEO
+      render 'toggle_video'
     when Playdate::NONE
       render :nothing => true
     end

@@ -231,6 +231,7 @@ function enableButtons(){
 
 	$("#audio-toggle").live("click", function() {
 		toggleVideoWindows();
+		syncToServer(0, 1000);
 		return false;
 	});
 	

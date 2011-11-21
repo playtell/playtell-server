@@ -19,6 +19,7 @@ class Playdate < ActiveRecord::Base
   TURN_SLIDE=401
   CHANGE_KEEPSAKE=500
   TURN_KEEPSAKE=501
+  TOGGLE_VIDEO=1000
   
   def initBook 
     self.book_id = Book.find_by_title("Little Red Riding Hood").id
