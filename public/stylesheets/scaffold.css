@@ -318,11 +318,24 @@ img#scientistImage {
 
 div.friend {
 	display: inline-block;
+	vertical-align: top;
 	padding: 3px;
+	background: url("/images/dialpad_bg.png") no-repeat 0 0;	
+	min-width: 294px;
+	height: 296px;
+	line-height: 296px;
+	text-align: center;
 }
 
-.friends img, input[type="image"] {
-	max-width: 296px;
+.friends a {
+	font-family: "Georgia", sans-serif;
+	font-size: 52px;
+	color: #ded300;
+	margin-top: -50%;
+}
+
+.friend img {
+	vertical-align: middle;
 }
 
 /* WEB APP
