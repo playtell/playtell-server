@@ -327,11 +327,22 @@ div.friend {
 	text-align: center;
 }
 
-.friends a {
-	font-family: "Georgia", sans-serif;
+.friends input[type="submit"] {
+	background-color: transparent;
+	background: none;
+	-webkit-box-shadow: none;
+	-moz-bok-shadow: none;
+	border: none;
+	font-family: "Georgia", serif;
 	font-size: 52px;
 	color: #ded300;
+	font-weight: normal;
 	margin-top: -50%;
+}
+
+.friends input[type="submit"]:hover {
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 .friend img {
@@ -434,7 +445,7 @@ div.friend {
 	height: 100px;
 }
 
-#videos p a {
+.video-content p a, #bottom-drawer p a, .book-nav p a {
 	background: url("/images/sprite_sheet.png") no-repeat;
 	display: block;
 }
@@ -838,3 +849,50 @@ button.green2, input[type="submit"].green2 {
   	margin: 8px;
 }
 
+/* I-SPY --------------------------------------------------------- */
+
+.ispy-container {
+	background: url("/images/ispy_bg.png") no-repeat center;
+	min-height: 530px;	
+}
+
+.game-container p a {
+	background: url("/images/ispy_sprite_sheet.png") no-repeat;
+	display: inline-block;
+	position: absolute;
+	-webkit-transition: -webkit-transform .2s;
+}
+
+.game-container p a:active { 
+	z-index: 2;
+	-webkit-transform: scale(2);
+    -moz-transform: scale(2);
+    -o-transform: scale(2);
+    -ms-transform: scale(2);
+ }
+
+.game-container p a#seahorse_1 { background-position: 0 0; width: 94px; height: 126px; left: 515px; top: 5px; } 
+.game-container p a#seal_2 { background-position: 0 -176px; width: 230px; height: 241px; left: 360px; top: 102px; } 
+.game-container p a#starfish_3 { background-position: 0 -467px; width: 59px; height: 52px; left: 580px; top: 130px; } 
+.game-container p a#seal_4 { background-position: 0 -569px; width: 136px; height: 96px; left: 548px; top: 193px; } 
+.game-container p a#seal_5 { background-position: 0 -715px; width: 158px; height: 71px; left: 481px; top: 279px; } 
+.game-container p a#fish_6 { background-position: 0 -836px; width: 104px; height: 75px; left: 646px; top: 393px; } 
+.game-container p a#dolphin_7 { background-position: 0 -961px; width: 212px; height: 178px; left: 424px; top: 341px; } 
+.game-container p a#fish_8 { background-position: 0 -1189px; width: 98px; height: 68px; left: 629px; top: 318px; }
+
+.ispy-results {
+	background-color: #eaeaea;
+	width: 300px;
+	height: 300px;
+	line-height: 300px;
+	text-align: center;
+	margin: 100px 200px;
+	padding: 0px 50px;
+	opacity: .8;
+}
+
+.ispy-results p {
+	font-size: 36px;
+	color: #45C3CF;
+	font-family: "Georgia", serif;
+}

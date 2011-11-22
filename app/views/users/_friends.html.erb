@@ -4,7 +4,7 @@
 		<div class="friend">
 			<%= form_tag playdate_path, :class => 'playdate_form' do %>
 				<%= hidden_field_tag 'friend_id', friend.id, :id => 'friend_id' %>
-				<%= link_to friend.username, "#", :id => "create-playdate", :onclick=>"$('.playdate_form').submit()" %>
+				<%= submit_tag friend.username %>
 			<% end %>
 		</div>
 	<% end %>

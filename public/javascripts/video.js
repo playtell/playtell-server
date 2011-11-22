@@ -133,6 +133,7 @@ function addStream(stream) {
 			$('div.flash-instructions').hide();
 			enableButtons();
 			toggleToyBox();
+			//$('.game-container').show();
 		}
 		return;
 	}
