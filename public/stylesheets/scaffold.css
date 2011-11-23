@@ -330,7 +330,7 @@ div.friend {
 .friends input[type="submit"] {
 	background-color: transparent;
 	background: none;
-	-webkit-box-shadow: none;
+	box-shadow: none;
 	-moz-bok-shadow: none;
 	border: none;
 	font-family: "Georgia", serif;
@@ -670,14 +670,14 @@ p a#next-link:hover { background-position: -332px -177px; }
 /* LIBRARY --------------------------------------------------------- */
 
 .library-item {
-	width: 150px;
-	padding-right: 10px;
+	width: 140px;
+	padding-right: 5px;
 	display: inline-block;
 	vertical-align: bottom;
 }
 
 .library-item input[type="image"] {
-	width: 150px;
+	width: 125px;
 }
 
 .library-item input[type="submit"] {

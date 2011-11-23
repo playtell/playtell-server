@@ -9,6 +9,7 @@ class Playdate < ActiveRecord::Base
   CONNECTED=2
   
   NONE=0
+  TOGGLE_VIDEO=99
   CHANGE_BOOK=100
   TURN_PAGE=101
   #CHANGE_GAME=200 in the future maybe make this an array so all activity within a playdate can be tracked
@@ -19,7 +20,7 @@ class Playdate < ActiveRecord::Base
   TURN_SLIDE=401
   CHANGE_KEEPSAKE=500
   TURN_KEEPSAKE=501
-  TOGGLE_VIDEO=1000
+  CHANGE_GAME=1000
   
   def initBook 
     self.book_id = Book.find_by_title("Little Red Riding Hood").id
