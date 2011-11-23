@@ -9,10 +9,10 @@ class Playdate < ActiveRecord::Base
   CONNECTED=2
   
   NONE=0
-  TOGGLE_VIDEO=99
+  TOGGLE_VIDEO=99 #hack for our audio-only tests. hides the video windows
   CHANGE_BOOK=100
   TURN_PAGE=101
-  #CHANGE_GAME=200 in the future maybe make this an array so all activity within a playdate can be tracked
+  #CHANGE_GAME=200 
   CHANGE_VIDEO=300
   PLAY_VIDEO=301
   PAUSE_VIDEO=302
@@ -21,6 +21,7 @@ class Playdate < ActiveRecord::Base
   CHANGE_KEEPSAKE=500
   TURN_KEEPSAKE=501
   CHANGE_GAME=1000
+  CHANGE_GAMELET=10001
   
   def initBook 
     self.book_id = Book.find_by_title("Little Red Riding Hood").id

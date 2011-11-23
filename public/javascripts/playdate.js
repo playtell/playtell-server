@@ -2,6 +2,7 @@ function showBook(title, currentPage, totalPages) {
 	$('#total-pages').html(totalPages);
 	$('#page-num').html(currentPage);
 	
+	// position the book on the page centered horizontally
 	var c = $('.activity-content').outerWidth();
 	var b = $("#book").outerWidth();
 	var bookPos = $('.activity-content').outerWidth() > $("#book").outerWidth() ?
@@ -131,6 +132,7 @@ function hideToyBox() {
 	}
 }
 
+//this is our hack to do "audio-only." we keep the video session alive, but hide the video windows
 function toggleVideoWindows() {
 	var new_bottom_pos = ($('.chat-window-container').css('bottom') == '0px') ?
 		PUBLISHER_HEIGHT+2 : 0;
@@ -146,9 +148,7 @@ function takeSnapshot() {
 	var subImgData; 
 	var pubImg; 
 	var subImg;
-	
-	//removeKeepsakes();
-		
+			
 	pubImg = document.createElement("img");
 	pubImg.setAttribute("src", "data:image/png;base64," + pubImgData);	
 	
@@ -157,16 +157,14 @@ function takeSnapshot() {
 		subImg = document.createElement("img");
 		subImg.setAttribute("src", "data:image/png;base64," + subImgData);
 		subImg.setAttribute("class", "famCam-keepsake");
-//		$("#book-keepsake").append(subImg);
 	}
 	
 	pubImg.setAttribute("class", "myCam-keepsake");
-//	$("#book-keepsake").append(pubImg);
 	
 	addToKeepsakes(pubImg, subImg);
 }
 
-//takes in two images and adds them to the keepsake frame, creating a div on the page with the keepsake in it
+//takes in two images and adds them to the keepsake frame, creating a div on the page with the keepsake in it inside of the keepsake-container
 function addToKeepsakes(pubImg, subImg) {
 	num_keepsakes++;
 	$('#total-pages').html(num_keepsakes);
@@ -191,7 +189,7 @@ function createSpecialKeepsake(divId) {
 	$(divId).append(bookEnd);	
 }
 
-//removes images from the end of book keepsake frame
+//removes images from the end of book keepsake frame. should really be called removeSpecialKeepsakes
 function removeKeepsakes() {
 	$('#myCam-keepsake img').remove();
 	$('#famCam-keepsake img').remove();
@@ -219,6 +217,7 @@ function enableButtons(){
 		toggleToyBox();
 	});
 	
+	//currently the reconnect button makes the app fullscreen
 	app = document.getElementById('videos');
     $('#reconnect-link').live('click', function() {
 		if (fullScreenApi.supportsFullScreen) {
@@ -229,6 +228,7 @@ function enableButtons(){
 		}
     }, true);
 
+	//hides the video chat windows. controlled via a hot corner on the bottom right of the toybox icon bar
 	$("#audio-toggle").live("click", function() {
 		toggleVideoWindows();
 		syncToServer(0, 99);
