@@ -3,6 +3,8 @@ hideToyBox();
 $('#player-container').hide();
 $('.slide-container').hide();
 $('#keepsake-container').hide();
+$('.game-container').hide();
+
 $('.book-nav').show();
 disableNavButtons();
 $("#book").html("<%= escape_javascript(render(:partial => 'book', :locals => {:book => @book})).html_safe %>");
