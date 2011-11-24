@@ -68,6 +68,11 @@ class GamesController < ApplicationController
       render :nothing => true
     when Playdate::CHANGE_GAME
       render 'update_game'
+    when Playdate::TAKE_TURN
+      @playdate.page_num = params[:item]      
+      @playdate.correct = params[:correct]   
+      @playdate.save   
+      render :nothing => true
     when Playdate::TOGGLE_VIDEO
       render :nothing => true
     when Playdate::NONE
@@ -117,6 +122,8 @@ class GamesController < ApplicationController
         render "turn_keepsake"
     when Playdate::CHANGE_GAME
       render 'change_game'
+    when Playdate::TAKE_TURN
+      render 'take_turn'
     when Playdate::TOGGLE_VIDEO
       render 'toggle_video'
     when Playdate::NONE

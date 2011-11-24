@@ -1,0 +1,7 @@
+var divID = "#ispy_"+"<%= @playdate.page_num %>";
+if (<%= @playdate.correct %>) {
+	iSpyCorrect($("#ispy_"+"<%= @playdate.page_num %>"));
+}
+else { 
+	iSpyWrong($("#ispy_"+"<%= @playdate.page_num %>")); 
+}

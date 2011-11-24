@@ -21,7 +21,8 @@ class Playdate < ActiveRecord::Base
   CHANGE_KEEPSAKE=500
   TURN_KEEPSAKE=501
   CHANGE_GAME=1000
-  CHANGE_GAMELET=10001
+  CHANGE_GAMELET=1001
+  TAKE_TURN=1002
   
   def initBook 
     self.book_id = Book.find_by_title("Little Red Riding Hood").id

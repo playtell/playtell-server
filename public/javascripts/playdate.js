@@ -98,28 +98,39 @@ function updateBookNavLinks(currentPage) {
 	}
 } 
 
-function enableISpy() {
+function enableISpy(gameKey) {
 	$('div.ispy-item').live("click", function() {
-		if ($(this).attr("data-item") != "1") {
-		$(this).animate( //shakes from left to right
-			{
-			left: '-=25' 
-			}, 100, function () 
-				{
-				$(this).animate(
-					{
-					left: '+=50'
-					}, 100, function () 
-						{
-						$(this).animate(
-							{
-							left: '-=25'
-							}, 100);
-						});
-				});
+		var correct;
+		if (!$(this).hasClass("selected")) {
+			if (!gameKey[parseInt($(this).attr("data-item"))]) {
+				iSpyWrong($(this));
+				correct = false;
+			}
+			else { 
+				iSpyCorrect($(this));
+				correct = true;
+			}
+			syncGameToServer($(this).attr("data-item"), correct, 1002); //TODO
 		}
-		else { $(this).addClass("selected"); }
-	})
+	});
+}
+
+function iSpyCorrect(item) {
+	item.addClass("selected"); 
+}
+
+function iSpyWrong(item) {
+	item.animate({
+		left: '-=25' 
+		}, 100, function () {
+			$(this).animate({
+				left: '+=50'
+			}, 100, function () {
+				$(this).animate({
+					left: '-=25'
+					}, 100);
+				});
+	});
 }
 
 //expand/collapse the toy box
@@ -219,7 +230,7 @@ function removeKeepsakes() {
 	$('#famCam-keepsake img').remove();
 }
 
-//sends payload to current playdate state to server
+//sends payload of current playdate state to server
 function syncToServer(new_page, change) {
 	$.ajax({
 		url: "/update_page.js?newPage=" + new_page + "&playdateChange=" + change,
@@ -228,6 +239,17 @@ function syncToServer(new_page, change) {
 			session.signal();
 		}
 	});
+}
+
+//right now this is very specific to the ispy game. total hack: using the newPage field usually used for books to capture which item has been chosen.
+function syncGameToServer(item, correct, change) {
+	$.ajax({
+		url: "/update_page.js?item=" + item + "&correct=" + correct + "&playdateChange=" + change,
+		type: "POST",
+		success: function() {
+			session.signal();
+		}
+	});	
 }
 
 function enableButtons(){
@@ -255,7 +277,7 @@ function enableButtons(){
 	//hides the video chat windows. controlled via a hot corner on the bottom right of the toybox icon bar
 	$("#audio-toggle").live("click", function() {
 		toggleVideoWindows();
-		syncToServer(0, 99);
+		syncToServer(0, 99); //TODO
 		return false;
 	});
 	

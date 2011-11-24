@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111002002227) do
+ActiveRecord::Schema.define(:version => 20111124173311) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20111002002227) do
     t.integer  "status",           :default => 1
     t.integer  "change"
     t.integer  "duration"
+    t.boolean  "correct"
   end
 
   create_table "sessions", :force => true do |t|
