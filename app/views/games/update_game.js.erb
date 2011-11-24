@@ -1,0 +1,15 @@
+removeKeepsakes();
+hideToyBox();
+$('#player-container').hide();
+$('.slide-container').hide();
+$('.book-nav').hide();
+disableNavButtons();
+$('#keepsake-container').hide();
+$('.book-container').hide();
+
+$('.game-container').html("<%= escape_javascript(render(:partial => 'iSpy')).html_safe %>");
+enableISpy();
+$('.game-container').show();
+if (session) {
+	session.signal();
+}

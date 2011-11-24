@@ -10,6 +10,13 @@
 
 <div class="library-item">
 	<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
+		<%= image_submit_tag getImageFilePath("ispy.png") %>
+		<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_GAME %>
+	<% end %>
+</div>
+
+<div class="library-item">
+	<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
 		<%= image_submit_tag getImageFilePath("youtube.png") %>
 		<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_VIDEO %>
 	<% end %>

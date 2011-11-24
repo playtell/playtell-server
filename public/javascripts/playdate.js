@@ -98,6 +98,30 @@ function updateBookNavLinks(currentPage) {
 	}
 } 
 
+function enableISpy() {
+	$('div.ispy-item').live("click", function() {
+		if ($(this).attr("data-item") != "1") {
+		$(this).animate( //shakes from left to right
+			{
+			left: '-=25' 
+			}, 100, function () 
+				{
+				$(this).animate(
+					{
+					left: '+=50'
+					}, 100, function () 
+						{
+						$(this).animate(
+							{
+							left: '-=25'
+							}, 100);
+						});
+				});
+		}
+		else { $(this).addClass("selected"); }
+	})
+}
+
 //expand/collapse the toy box
 function toggleToyBox() {
 	var new_bottom_pos = ($('#bottom-drawer').css('bottom') == '0px') ?

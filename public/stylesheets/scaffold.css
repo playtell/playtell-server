@@ -856,29 +856,30 @@ button.green2, input[type="submit"].green2 {
 	min-height: 530px;	
 }
 
-.game-container p a {
-	background: url("/images/ispy_sprite_sheet.png") no-repeat;
+.ispy-container div.ispy-item {
 	display: inline-block;
+	position: absolute;
+	background: url("/images/ispy_sprite_sheet.png") no-repeat;
+	
+}
+
+.ispy-container p a {
+	background: url("/images/ispy_sprite_sheet.png") no-repeat;
 	position: absolute;
 	-webkit-transition: -webkit-transform .2s;
 }
 
-.game-container p a:active { 
-	z-index: 2;
-	-webkit-transform: scale(2);
-    -moz-transform: scale(2);
-    -o-transform: scale(2);
-    -ms-transform: scale(2);
- }
+.ispy-container div#seahorse_1 { background-position: 0 0; width: 94px; height: 126px; left: 515px; top: 5px; }
+.ispy-container div#seahorse_1.selected { background-position: 0 -127px; width: 94px; height: 126px; left: 515px; top: 5px; }
 
-.game-container p a#seahorse_1 { background-position: 0 0; width: 94px; height: 126px; left: 515px; top: 5px; } 
-.game-container p a#seal_2 { background-position: 0 -176px; width: 230px; height: 241px; left: 360px; top: 102px; } 
-.game-container p a#starfish_3 { background-position: 0 -467px; width: 59px; height: 52px; left: 580px; top: 130px; } 
-.game-container p a#seal_4 { background-position: 0 -569px; width: 136px; height: 96px; left: 548px; top: 193px; } 
-.game-container p a#seal_5 { background-position: 0 -715px; width: 158px; height: 71px; left: 481px; top: 279px; } 
-.game-container p a#fish_6 { background-position: 0 -836px; width: 104px; height: 75px; left: 646px; top: 393px; } 
-.game-container p a#dolphin_7 { background-position: 0 -961px; width: 212px; height: 178px; left: 424px; top: 341px; } 
-.game-container p a#fish_8 { background-position: 0 -1189px; width: 98px; height: 68px; left: 629px; top: 318px; }
+.ispy-container div#seal_2 { background-position: 0 -254px; width: 230px; height: 241px; left: 360px; top: 102px; } 
+.ispy-container div#starfish_3 { background-position: 0 -1229px; width: 59px; height: 52px; left: 580px; top: 130px; } 
+.ispy-container div#seal_4 { background-position: 0 -883px; width: 136px; height: 96px;  left: 548px; top: 193px; } 
+.ispy-container div#seal_5 { background-position: 0 -738px; width: 158px; height: 71px; left: 481px; top: 279px; } 
+.ispy-container div#fish_6 { background-position: 0 -1335px; width: 98px; left: 646px; top: 393px; } 
+.ispy-container div#dolphin_7 { background-position: 0 -1654px; width: 212px; height: 178px; left: 424px; top: 341px; } 
+.ispy-container div#fish_8 { background-position: 0 -1077px; width: 104px; height: 75px; left: 629px; top: 318px; }
+.ispy-container div#fish_9 { background-position: 0 -1833px; width: 92px; height: 53px; left: 332px; top: 346px; }
 
 .ispy-results {
 	background-color: #eaeaea;
