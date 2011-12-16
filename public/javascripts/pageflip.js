@@ -79,6 +79,7 @@
 			
 			// Ease progress towards the target value 
 			flip.progress += ( flip.target - flip.progress ) * 0.2;
+			if (flip.progress != 1) {console.log(flip.target + ", " + flip.progress);}
 			
 			// If the flip is being dragged or is somewhere in the middle of the book, render it
 			if( flip.dragging || Math.abs( flip.progress ) < 0.997 ) {
@@ -122,7 +123,6 @@
 		context.moveTo(foldX - foldWidth, -verticalOutdent * 0.5);
 		context.lineTo(foldX - foldWidth, PAGE_HEIGHT + (verticalOutdent * 0.5));
 		context.stroke();
-		
 		
 		// Right side drop shadow
 		var rightShadowGradient = context.createLinearGradient(foldX, 0, foldX + rightShadowWidth, 0);

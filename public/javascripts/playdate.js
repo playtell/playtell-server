@@ -3,10 +3,11 @@ function showBook(title, currentPage, totalPages) {
 	$('#page-num').html(currentPage);
 	
 	// position the book on the page centered horizontally
-	var c = $('.activity-content').outerWidth();
-	var b = $("#book").outerWidth();
-	var bookPos = $('.activity-content').outerWidth() > $("#book").outerWidth() ?
-		($('.activity-content').outerWidth()-$("#book").outerWidth())/2 : 5;
+	var rightmost = $('.activity-content').outerWidth()-$('.next-container').offset().left; //inside of right arrow
+	var bookPos = rightmost < $('.activity-content').outerWidth()-$("#book").outerWidth() ?
+		($('.activity-content').outerWidth()-$("#book").outerWidth())/2 : rightmost;
+	//var bookPos = $('.activity-content').outerWidth() > $("#book").outerWidth() ?
+	//    ($('.activity-content').outerWidth()-$("#book").outerWidth())/2 : 5;
 	$('#book').attr("style", "right: "+bookPos+"px");
 	
 	// Resize the canvas to match the book size
@@ -16,7 +17,7 @@ function showBook(title, currentPage, totalPages) {
 	// Offset the canvas so that it's padding is evenly spread around the book
 	canvas.style.top = -CANVAS_PADDING + "px";
 	//canvas.style.left = -CANVAS_PADDING + "px";
-	canvas.style.right = (bookPos - CANVAS_PADDING) + "px";
+	canvas.style.right = (bookPos - CANVAS_PADDING) + "px";	
 	
 }
 

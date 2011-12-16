@@ -535,7 +535,7 @@ div.friend {
 	font-size: 1.5em;
 	position: absolute;
 	top: 50%;
-	z-index: 2;
+	z-index: 101;
 	width: 100%;
 }
 
@@ -552,16 +552,16 @@ div.friend {
 p a#previous-link {
 	width: 48px;
 	height: 50px;
-	background-position: -285px -127px;
+	background-position: -285px -177px;
 }
-p a#previous-link:hover { background-position: -285px -177px; }
+p a#previous-link:hover { background-position: -285px -227px; }
 
 p a#next-link {
 	width: 48px;
 	height: 50px;
-	background-position: -332px -127px;
+	background-position: -332px -177px;
 }
-p a#next-link:hover { background-position: -332px -177px; }
+p a#next-link:hover { background-position: -332px -227px; }
 
 .book-nav-inner {
 	position: relative; 
