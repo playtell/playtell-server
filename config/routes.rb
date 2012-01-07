@@ -23,13 +23,16 @@ Semiralabs::Application.routes.draw do
   get 'signup' => 'users#new', :as => 'sign_up'
   get 'login' => 'sessions#new', :as => 'login'
   get 'logout' => 'sessions#destroy', :as => 'logout'
-  resources :users do
-    collection do
-      get 'search'
-    end
-  end
-  resources :sessions
+  
+  #resources :users do
+  #  collection do
+   #   get 'search'
+   # end
+  #end
+  #resources :sessions
   resources :friendships
+  
+  devise_for :users
   
   root :to => 'application#index'
   

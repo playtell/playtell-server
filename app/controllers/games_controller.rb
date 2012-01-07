@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   before_filter :initOpenTok, :only => [:playdate]
-  before_filter :authorize
+  #before_filter :authorize
+  before_filter :authenticate_user!
   layout :chooseLayout
       
   @@opentok = nil
@@ -209,7 +210,9 @@ private
     @playdate.save
   end
   
-  # uses the application layout for homepage and games layout for all other pages
+  # homepage & users -> application layout
+  # playdates -> playdate layout
+  # card games -> games layout (not really used right now)
   def chooseLayout 
     case action_name
     when 'index'

@@ -1,20 +1,23 @@
 class User < ActiveRecord::Base
-  has_one :playdate
+  devise :database_authenticatable, :registerable,
+           :recoverable, :rememberable, :trackable, :validatable
+  #         :token_authenticatable, :confirmable, :lockable, :timeoutable
   
+  attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname
+  
+  #attr_accessor :password
+  #before_save :encrypt_password, :init_settings
+  
+  #validates_confirmation_of :password
+  #validates_presence_of :password, :on => :create
+  #validates_presence_of :username
+  #validates_uniqueness_of :username  
+  
+  has_one :playdate  
   has_many :friendships
   has_many :friends, :through => :friendships
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
-  
-  attr_accessible :username, :password, :password_confirmation
-  
-  attr_accessor :password
-  before_save :encrypt_password, :init_settings
-  
-  validates_confirmation_of :password
-  validates_presence_of :password, :on => :create
-  validates_presence_of :username
-  validates_uniqueness_of :username
   
   def self.authenticate (username, password)
     user = find_by_username(username)
