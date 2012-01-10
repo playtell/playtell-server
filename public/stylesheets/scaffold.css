@@ -839,7 +839,7 @@ button.green2, input[type="submit"].green2 {
   text-shadow: 0 1px 1px #C9DBB4; 
 }
 
-.login input[type="password"], input[type="text"] {
+.login input[type="password"], input[type="text"], input[type="email"] {
   width: 155px;
   margin: 8px;
 }

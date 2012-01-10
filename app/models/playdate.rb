@@ -39,9 +39,9 @@ class Playdate < ActiveRecord::Base
 # returns the other player in the playdate of the given user
   def getOtherPlayerName(user)
     if user.id == player1_id
-      return User.find(player2_id).username
+      return User.find(player2_id).displayName
     end
-    User.find(player1_id).username
+    User.find(player1_id).displayName
   end
 
 #getter/setter methods for playdate status  

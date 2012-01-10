@@ -1,6 +1,5 @@
 Semiralabs::Application.routes.draw do
 
-  resources :dailies
   match 'games' => 'games#index'
   match 'update_page' => 'games#updatePage'
   match 'playdate' => 'games#playdate'
@@ -20,19 +19,13 @@ Semiralabs::Application.routes.draw do
   match 'set_time' => 'games#setTime'
   match 'check_time' => 'games#checkTime'
   
-  get 'signup' => 'users#new', :as => 'sign_up'
-  get 'login' => 'sessions#new', :as => 'login'
-  get 'logout' => 'sessions#destroy', :as => 'logout'
-  
-  #resources :users do
-  #  collection do
-   #   get 'search'
-   # end
-  #end
-  #resources :sessions
-  resources :friendships
-  
   devise_for :users
+  resources :users, :only => [:show] do
+    collection do
+      get 'search'
+    end
+  end
+  resources :friendships
   
   root :to => 'application#index'
   

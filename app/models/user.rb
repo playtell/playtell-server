@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     "#{firstname} #{lastname}" 
   end
   
+  def displayName
+    return !firstname.blank? ? firstname : username 
+  end
+  
   def self.search(search)
     if search
       where("firstname like ? or lastname like ? or username like ?", "%#{search}%", "%#{search}%", "%#{search}%")

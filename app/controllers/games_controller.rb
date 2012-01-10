@@ -8,10 +8,8 @@ class GamesController < ApplicationController
 
   # main method to connect users with playdates. creates a new playdate, or adds user to existing playdate.
   def playdate
-    #if (params[:connection_type] == "create")
     if !requesting_playdate
       createPlaydate
-    #elsif (params[:connection_type] == "join")
     else
       joinPlaydate
     end
@@ -186,7 +184,7 @@ private
 
     # put the playdate in the db and its id in the session
     @playdate = Playdate.find_or_create_by_player1_id_and_player2_id_and_video_session_id(
-      :player1_id => session[:user_id], 
+      :player1_id => current_user.id, 
       :player2_id => params[:friend_id],
       :video_session_id => tok_session_id)
     getBook(@playdate.book_id)
