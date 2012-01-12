@@ -19,7 +19,7 @@ Semiralabs::Application.routes.draw do
   match 'set_time' => 'games#setTime'
   match 'check_time' => 'games#checkTime'
   
-  devise_for :users 
+  devise_for :users
   resources :users, :only => [:show] do
     collection do
       get 'search'

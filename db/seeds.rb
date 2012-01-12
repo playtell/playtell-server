@@ -181,7 +181,7 @@ Page.create({:book_id => t.id,
              :page_text => ""})
 Page.create({:book_id => t.id, 
             :page_num => 2, 
-            :page_text => "Once upon a time there were three bears -- a great big papa bear, a middle-sized mama bear, and a wee little baby bear.\nThey lives in a little house in the forest."
+            :page_text => "Once upon a time there were three bears -- a great big papa bear, a middle-sized mama bear, and a wee little baby bear.\nThey lived in a little house in the forest."
             })
 Page.create({:book_id => t.id, 
              :page_num => 3, 
@@ -197,11 +197,11 @@ Page.create({:book_id => t.id,
              })
 Page.create({:book_id => t.id, 
             :page_num => 6, 
-            :page_text => "She filled a greet big bowl for the pap bear, a middle-sized bowl for the mama bear, and a wee little bowl for the baby bear."
+            :page_text => "She filled a greet big bowl for the papa bear, a middle-sized bowl for the mama bear, and a wee little bowl for the baby bear."
             })
 Page.create({:book_id => t.id, 
              :page_num => 7, 
-             :page_text => "But the porridge was too hot to eat, os the three bears went out for a walk in the forest."
+             :page_text => "But the porridge was too hot to eat, so the three bears went out for a walk in the forest."
              })
 Page.create({:book_id => t.id, 
             :page_num => 8, 
@@ -213,11 +213,11 @@ Page.create({:book_id => t.id,
              })
 Page.create({:book_id => t.id, 
            :page_num => 10, 
-           :page_text => "Now Goldilocks spied the porridge.\n\"I am hungry,\" she said.\nso she tasted the porridge.\nThe porridge in the big bowl was too hot."
+           :page_text => "Now Goldilocks spied the porridge.\n\"I am hungry,\" she said.\nSo she tasted the porridge."
            })
 Page.create({:book_id => t.id, 
             :page_num => 11, 
-            :page_text => "The porridge in the middle-sized bowl was too cold. The porridge in the wee little bowl was just right -- so she ate it all up."
+            :page_text => "The porridge in the big bowl was too hot.\n The porridge in the middle-sized bowl was too cold.\n The porridge in the wee little bowl was just right, so she ate it all up."
             })
 Page.create({:book_id => t.id, 
            :page_num => 12, 
@@ -225,7 +225,7 @@ Page.create({:book_id => t.id,
            })
 Page.create({:book_id => t.id, 
             :page_num => 13, 
-            :page_text => "The great big bed was too hard.\nthe middle-sized bed was too soft."
+            :page_text => "The great big bed was too hard.\nThe middle-sized bed was too soft."
             })
 Page.create({:book_id => t.id, 
            :page_num => 14, 
@@ -241,7 +241,7 @@ Page.create({:book_id => t.id,
            })
 Page.create({:book_id => t.id, 
             :page_num => 17, 
-            :page_text => "\"Land sakes!\" said the mama bear in her middle-sized voice. \"Someone has been sitting in my chair.\"\n\"Oh dear!\" crated the baby bear in his wee little voice. \"Someone has been sitting in my chair, and has broken it all to bits.\""
+            :page_text => "\"Land sakes!\" said the mama bear in her middle-sized voice. \"Someone has been sitting in my chair.\"\n\"Oh dear!\" cried the baby bear in his wee little voice. \"Someone has been sitting in my chair, and has broken it all to bits.\""
             })
 Page.create({:book_id => t.id, 
            :page_num => 18, 
@@ -249,15 +249,15 @@ Page.create({:book_id => t.id,
            })
 Page.create({:book_id => t.id, 
             :page_num => 19, 
-            :page_text => "\"Someone has eaten my porridge all up,\" said the baby bear sadly. \nThen up the stairs went the three bears, with"
+            :page_text => "\"Someone has eaten my porridge all up,\" said the baby bear sadly. \nThen up the stairs went the three bears..."
             })
 Page.create({:book_id => t.id, 
            :page_num => 20, 
-           :page_text => "a thump thump thump\nand a trot trot trot, and a skippity-skip-skip.\n(That was the wee little tiny bear.)"
+           :page_text => "...with a thump thump thump...\n...and a trot trot trot...\n ...and a skippity-skip-skip. (That was the wee little tiny bear.)"
            })
 Page.create({:book_id => t.id, 
             :page_num => 21, 
-            :page_text => "\"Humph,\" said the papa bear in his great big voice. \"Someone has been sleeping in my bed!\"\n\"And someone has been sleeping in my bed,\" said the mama bear.\n\"Oh dear!\" cried the baby bear in his wee little voice. \"And someone has been sleeping in my bed, and here she is right now!\"" 
+            :page_text => "\"Humph,\" said the papa bear in his great big voice. \"Someone has been sleeping in my bed!\"\n\"And someone has been sleeping in my bed,\" said the mama bear.\n\"Oh dear!\" cried the baby bear in his wee little voice. \"Someone has been sleeping in my bed, and here she is right now!\"" 
             })
 Page.create({:book_id => t.id, 
            :page_num => 22, 
@@ -265,6 +265,6 @@ Page.create({:book_id => t.id,
            })
 Page.create({:book_id => t.id, 
             :page_num => 23, 
-            :page_text => "She was so surprised that she jumped right out of the window and she ran all the way home. And she never saw the house in the forest again."
+            :page_text => "She was so surprised that she jumped right out of the window and she ran all the way home. \nAnd she never saw the house in the forest again."
             })
             
