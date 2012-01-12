@@ -35,17 +35,6 @@ private
       user_path user.id
   end
   
-  #def current_user
-  #  @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  #end
-  
-  #def authorize
-  #  unless current_user
-  #    flash.now.alert = "Please log in"
-  #   redirect_to login_path
-  #  end
-  #end
-  
   # returns the playdate if there is a playdate request for the current user. should be used only when checking for a playdate request (not to get the current playdate session)
   def requesting_playdate
     @playdate ||= Playdate.findActivePlaydate(current_user) 
