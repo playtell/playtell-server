@@ -5,9 +5,9 @@
   <p><%= f.label :password %> 
   <%= f.password_field :password %></p>
 
-  <% if devise_mapping.rememberable? -%>
+ <!-- <% if devise_mapping.rememberable? -%>
     <p>&nbsp&nbsp&nbsp<%= f.check_box :remember_me, :checked => true %> <%= f.label :remember_me %></p>
   <% end -%>
-
+-->
   <p><%= f.submit "Login", :class => "green2" %></p>
 <% end %>
