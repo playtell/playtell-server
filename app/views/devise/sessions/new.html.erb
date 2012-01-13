@@ -1,5 +1,10 @@
-<h2>Sign in</h2>
-
-<%= render :partial => "form" %>
-
-<%= render :partial => "devise/shared/links" %>
+<div class="landingpage">
+	<div class="login inline-block bottom-box">
+		<p>User Login</p>
+		
+		<p class="notice"><%= notice %></p>
+		<p class="alert"><%= alert %></p>
+		
+		<%= render :partial => "devise/sessions/form" %>
+	</div>
+</div>
