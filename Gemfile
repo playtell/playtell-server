@@ -27,6 +27,7 @@ gem 'jquery-rails', '>= 0.2.6'
 gem "bcrypt-ruby", :require => "bcrypt"
 
 gem 'devise'
+gem 'right_aws'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
