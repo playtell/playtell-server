@@ -25,6 +25,7 @@ private
   
   def prepare_for_tablet
     request.format = :tablet if tablet_device?
+  end
 
   # for use with devise
   def resource_name
