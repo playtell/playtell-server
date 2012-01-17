@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  #helper_method :current_user
-  helper_method :resource, :resource_name, :devise_mapping
+  before_filter :prepare_for_tablet
+  helper_method :resource, :resource_name, :devise_mapping, :tablet_device?
   
   def index 
      @earlyUser = EarlyUser.new
@@ -19,6 +19,14 @@ class ApplicationController < ActionController::Base
     
 private  
 
+  def tablet_device?
+    request.user_agent =~ /iPad/
+  end
+  
+  def prepare_for_tablet
+    request.format = :tablet if tablet_device?
+
+  # for use with devise
   def resource_name
     :user
   end
