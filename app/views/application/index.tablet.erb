@@ -1,1 +1,27 @@
-Hello World!
+<% content_for :head do %>
+	<link href='http://fonts.googleapis.com/css?family=Delius' rel='stylesheet' type='text/css'>
+<% end %>
+
+<div class="landingpage">
+	<div class="family inline-block">
+		<img src="images/apart.png">
+		<div>
+			<div class="sign-up inline-block bottom-box">
+				<%= form_for @earlyUser, :url => early_access_path, :remote => true do |f| %>
+				<p>Want early access? Enter your email address.</p>	
+					<%= f.email_field :email %>
+					<%= submit_tag "Sign me up!", :class => "blue big-button", :id => "early-access-submit" %>
+					<div id="loader" class="hidden loading"></div>
+				<% end %>
+				<div id="thank-you" class="hidden">
+					<p>Thanks! You're on the list.</p>
+					<p>We'll be in touch soon.</p> 
+				</div>
+			</div>
+			<div class="login inline-block bottom-box">
+				<p>User Login</p>
+				<%= render :partial => "devise/sessions/form" %>
+			</div>
+		</div>
+	</div>
+</div>
