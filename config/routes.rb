@@ -19,6 +19,7 @@ Semiralabs::Application.routes.draw do
   match 'set_time' => 'games#setTime'
   match 'check_time' => 'games#checkTime'
   
+  devise_for :users, :user_agent => /iPad/, :format => :tablet
   devise_for :users
   resources :users, :only => [:show] do
     collection do
