@@ -402,7 +402,7 @@ div.friend {
 }
 
 #fam-camera-holder {
-	background: black;
+	background: green;
 	border: 1px solid #555;
 	width: 200px;
 	height: 150px;
@@ -412,7 +412,7 @@ div.friend {
 }
 
 #my-camera {
-	background: black;
+	background: green;
 	border: 1px solid #555;
 	width: 200px;
 	height: 150px;
