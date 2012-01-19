@@ -1,0 +1,118 @@
+<% content_for :head do %>
+<%= javascript_include_tag 'playdate', 'jquery.easing.1.3', 'youtube', 'pageflip' %>
+<script type="text/javascript">
+	var KEEPSAKE_WIDTH = 242;
+	var KEEPSAKE_HEIGHT = 180;
+		
+	var num_keepsakes = 0;	
+	
+	//book canvas vars and constants
+	// Dimensions of the whole book
+	var BOOK_WIDTH = 1200;
+	var BOOK_HEIGHT = 470;
+
+	// Dimensions of one page in the book
+	var PAGE_WIDTH = 576;
+	var PAGE_HEIGHT = 456;
+
+	// Vertical spacing between the top edge of the book and the papers
+	var PAGE_Y = ( BOOK_HEIGHT - PAGE_HEIGHT ) / 2;
+
+	// The canvas size equals to the book dimensions + this padding
+	var CANVAS_PADDING = 50;
+	var canvas;
+	var context;
+	var mouse;
+	var page;
+	var flips = [];
+	var book;
+	var pages;
+			
+	$(document).ready(function() {
+		
+		$('#disconnect-link').click(function() {
+			$.get("<%= disconnect_playdate_path %>"); // ragatzi playdate
+			// every 3rd playdate, prompt for feedback:
+			$('#feedback-lightbox').lightbox_me({
+			    centered: true, 
+				onClose: function () {
+					document.location.href='<%= user_path @current_user %>';
+				}
+			});
+		});
+		
+		//book canvas init
+		canvas = document.getElementById( "pageflip-canvas" );
+		context = canvas.getContext( "2d" );
+		
+	});
+			
+</script>
+<% end %>
+	
+	<div id="videos">
+		<div class="video-content row">
+			<div class="video-controls inline-block right-button">
+				<p><a href="#" id="disconnect-link" title="End Playdate"></a></p>
+				<p><a href="#" id="reconnect-link" title="Bad connection? Click to reconnect"></a></p>
+			</div>
+			<div class="snapshot-controls inline-block left-button">
+				<p><a href="#" id="snapshot-link" title="Say Cheese! Take a photo"></a></p>
+			</div>
+			<div class="chat-window-container inline-block">
+				<div id="fam-camera-holder" class="inline-block"></div>
+				<div id="my-camera" class="inline-block"></div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="activity-content row">
+			<div class="book-nav hidden">
+				<%= render :partial => "bookNav" %>
+			</div>
+			<div id="player-container" class="hidden"></div>
+			<div class="slide-container hidden">
+			</div>
+			<div class="book-container hidden">	
+				<canvas id="pageflip-canvas"></canvas>
+				<div id="book"></div>
+			</div>
+			<div class="game-container hidden"></div>
+			<div id="keepsake-container" class="hidden"></div>
+			<div class="clear"></div>
+		</div>
+		<div id="bottom-drawer" class="row">
+			<div id="links">
+				<p><a href="#" id="toybox-link" title="Toy Box"></a></p>
+				<!--<p><a href="#" id="keepsakes-link"></a></p>-->
+				<p class="fr"><a href="#" id="audio-toggle"></a></p>
+			</div>
+			<div id="shelf">
+				<div class="items">	
+					<%= render :partial => "library", :locals => {:books => @books} %>
+				</div>				
+				<div class="shelf_bg shelf_left_bg inline-block"></div>
+				<div class="shelf_bg shelf_mid_bg inline-block"></div>
+				<div class="shelf_bg shelf_right_bg inline-block"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	<div id="feedback-lightbox" class="lightbox hidden">
+		<%= image_tag "mad_scientist.gif", :class => "fl lightbox-scientist-img" %>
+		<div class="lightbox-content">
+			<div id="thank-you" class="hidden">
+				<h2>You're the best!!</h2>
+				<h3>Thanks for helping us make Ragatzi better for you.</h3>
+				<p>
+					<span class="loading"></span> Ending Playdate...
+				</p>
+			</div>
+			<div id="feedback-lightbox-text">
+				<h2>Did you enjoy your playdate?</h2>	
+				<%= render :partial => "feedback/form", :locals => {:feedback => @feedback} %>
+			</div>
+		</div>
+		<button class="close close-x blue">X</button>
+	</div>
