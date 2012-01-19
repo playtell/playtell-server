@@ -1,24 +1,24 @@
 Semiralabs::Application.routes.draw do
 
-  match 'games' => 'games#index'
-  match 'update_page' => 'games#updatePage'
   match 'playdate' => 'games#playdate'
+  match 'playdate' => 'games#playdate', :user_agent => /iPad/, :format => :tablet
+  
+  match 'update_page' => 'games#updatePage'
   match 'update_from_playdate' => 'games#updateFromPlaydate'
   match 'clear_playdate' => 'games#clearPlaydate'
   match 'disconnect_playdate' => 'games#disconnectPlaydate'
   match 'playdate_requested' => 'games#playdateRequested'
   match 'playdate_disconnected' => 'games#playdateDisconnected'
-  match 'early_access' => 'application#earlyAccess'
   
   match 'memory' => 'games#memory'
   match 'update_game' => 'games#updateGame'
   match 'update_game_from_session' => 'games#updateGameFromSession'
   
-  match 'feedbacks' => 'feedback#create'
-    
   match 'set_time' => 'games#setTime'
   match 'check_time' => 'games#checkTime'
   
+  match 'feedbacks' => 'feedback#create'
+    
   devise_for :users
   resources :users, :only => [:show] do
     collection do
@@ -27,6 +27,7 @@ Semiralabs::Application.routes.draw do
   end
   resources :friendships
   
+  match 'early_access' => 'application#earlyAccess'  
   root :to => 'application#index'
   
   # The priority is based upon order of creation:
