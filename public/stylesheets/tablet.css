@@ -402,7 +402,7 @@ div.friend {
 }
 
 #fam-camera-holder {
-	background: green;
+	background: black;
 	border: 1px solid #555;
 	width: 200px;
 	height: 150px;
@@ -412,7 +412,7 @@ div.friend {
 }
 
 #my-camera {
-	background: green;
+	background: black;
 	border: 1px solid #555;
 	width: 200px;
 	height: 150px;
@@ -600,10 +600,6 @@ p a#next-link:hover { background-position: -332px -227px; }
 }
 
 /* KEEPSAKE --------------------------------------------------------- */
-#slide-keepsake .keepsake {
-	left: 440px;
-}
-
 #keepsake-container div {
 	left: 1500px;
 }
@@ -652,18 +648,6 @@ p a#next-link:hover { background-position: -332px -227px; }
 	top: 100px;
 	left: 75px;
 }
-
-/* SLIDE DECK --------------------------------------------------------- */
-
-.slides img {
-	width: 750px;
-}
-
-.slides div {
-	position: absolute;
-	left: 1500px;
-}
-
 
 /* LIBRARY --------------------------------------------------------- */
 

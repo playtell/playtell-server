@@ -8,15 +8,6 @@
 	</div>	
 <% end %>
 
-<!--
-<div class="library-item">
-	<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
-		<%= image_submit_tag getImageFilePath("ispy.png") %>
-		<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_GAME %>
-	<% end %>
-</div>
--->
-
 <div class="library-item">
 	<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
 		<%= image_submit_tag getImageFilePath("youtube.png") %>
@@ -24,14 +15,23 @@
 	<% end %>
 </div>
 
-<% if @current_user.username == "semira" %>
+<% if false #commenting out the next two items %> 
 	<div class="library-item">
 		<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
-			<%= image_submit_tag getImageFilePath("pitch.png") %>
-			<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_SLIDE %>
+			<%= image_submit_tag getImageFilePath("ispy.png") %>
+			<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_GAME %>
 		<% end %>
-	</div>	
-<% end %>
+	</div>
+
+	<% if @current_user.username == "semira" %>
+		<div class="library-item">
+			<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
+				<%= image_submit_tag getImageFilePath("pitch.png") %>
+				<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_SLIDE %>
+			<% end %>
+		</div>	
+	<% end %>
+<% end #end commented out items %>
 
 <div class="library-item">
 	<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
