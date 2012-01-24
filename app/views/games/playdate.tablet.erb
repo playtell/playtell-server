@@ -29,6 +29,7 @@
 	var pages;
 			
 	$(document).ready(function() {
+		enableButtons();
 		
 		$('#disconnect-link').click(function() {
 			$.get("<%= disconnect_playdate_path %>"); // ragatzi playdate
