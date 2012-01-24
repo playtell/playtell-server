@@ -4,6 +4,8 @@ Semiralabs::Application.routes.draw do
   match 'playdate' => 'games#playdate', :user_agent => /iPad/, :format => :tablet
   
   match 'update_page' => 'games#updatePage'
+  match 'update_page' => 'games#updatePage', :user_agent => /iPad/, :format => :tablet
+
   match 'update_from_playdate' => 'games#updateFromPlaydate'
   match 'clear_playdate' => 'games#clearPlaydate'
   match 'disconnect_playdate' => 'games#disconnectPlaydate'
