@@ -676,12 +676,8 @@ p a#next-link:hover { background-position: -332px -227px; }
 	vertical-align: bottom;
 }
 
-.library-item input[type="image"] {
+.library-item img {
 	width: 125px;
-}
-
-.library-item input[type="submit"] {
-	width: 150px;
 }
 
 /* BOTTOM DRAWER --------------------------------------------------------- */

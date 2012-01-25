@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  respond_to :html, :xml, :tablet
+  respond_to :html, :xml, :tablet, :json #, :except => :updatePlaydate
+  
   before_filter :prepare_for_tablet
   helper_method :resource, :resource_name, :devise_mapping, :tablet_device?
   

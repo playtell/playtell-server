@@ -131,9 +131,7 @@ function addStream(stream) {
 	if (stream.connection.connectionId == session.connection.connectionId) {
 		if ($('div.flash-instructions').is(':visible')) {
 			$('div.flash-instructions').hide();
-			enableButtons();
-			toggleToyBox();
-			//$('.game-container').show();
+			initPlaydate();
 		}
 		return;
 	}

@@ -34,15 +34,11 @@
   //document.addEventListener( "mousedown", mouseDownHandler, false );
   //document.addEventListener( "mouseup", mouseUpHandler, false );
   var nextlink = document.getElementById("next-link");
-  var nextHandler;
-  //nextlink.addEventListener
 	$("#next-link").live("click", function n(e) {
     turnBookPage(page+1);
     syncToServer(page, 101);
     });
   var prevlink = document.getElementById("previous-link");
-  var prevHandler;
-  //prevlink.addEventListener
 	$("#previous-link").live("click", function p(e) {
     turnBookPage(page-1);
     syncToServer(page, 101);

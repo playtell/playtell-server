@@ -18,7 +18,6 @@ function showBook(title, currentPage, totalPages) {
 	canvas.style.top = -CANVAS_PADDING + "px";
 	//canvas.style.left = -CANVAS_PADDING + "px";
 	canvas.style.right = (bookPos - CANVAS_PADDING) + "px";	
-	
 }
 
 function getCurrentPage () {
@@ -231,29 +230,7 @@ function removeKeepsakes() {
 	$('#famCam-keepsake img').remove();
 }
 
-//sends payload of current playdate state to server
-function syncToServer(new_page, change) {
-	$.ajax({
-		url: "/update_page.js?newPage=" + new_page + "&playdateChange=" + change,
-		type: "POST",
-		success: function() {
-			session.signal();
-		}
-	});
-}
-
-//right now this is very specific to the ispy game. total hack: using the newPage field usually used for books to capture which item has been chosen.
-function syncGameToServer(item, correct, change) {
-	$.ajax({
-		url: "/update_page.js?item=" + item + "&correct=" + correct + "&playdateChange=" + change,
-		type: "POST",
-		success: function() {
-			session.signal();
-		}
-	});	
-}
-
-function enableButtons(){
+function enableButtons() {
 	$('a').attr("disabled", false);
 	
 	$('#snapshot-link').click(function() {
@@ -328,4 +305,83 @@ function enableNavButtons(activity, playdateChange) {
 
 }
 
+function enableToySelectors() {
+	$('.library-item').live("click", function() {
+		syncToServer1(this.getAttribute('data-playdatechange'), this.getAttribute('data-activityid'));
+	});
+}
 
+function initPlaydate() {
+	enableButtons();
+	enableToySelectors();
+	toggleToyBox();
+}
+
+
+//sends payload of current playdate state to server
+function syncToServer(new_page, change) {
+	$.ajax({
+		url: "/update_page.js?newPage=" + new_page + "&playdateChange=" + change,
+		type: "POST",
+		success: function() {
+			session.signal();
+		}
+	});
+}
+
+//sends payload of current playdate state to server
+function syncToServer1(playdate_change, activityID) {
+	$.getJSON(
+		"/update_playdate", 
+		{ 
+			playdateChange: playdate_change, 
+		  	activityID: activityID 
+		},		
+		function(data) {
+			//alert("success! " + data.book.id);
+			createBookFromJSON(data.book);
+			//session.signal();
+		}
+	);
+}
+
+function createBookFromJSON(book) {
+	var bookMarkup = '';
+	var pageNum = 0;
+	
+	$.each(book.pages, function(i, page) {
+		pageNum = i+1;
+		bookMarkup += '<section> <div id="page_' + pageNum + '"> <div class="book-image"><img src="' + getPageImageFilePath(book.image_directory, i+1) + '"></div> <div class="book-text">' + book.pages[i].page_text + '</div>  </section>';
+	});
+	
+	$('<div />', {
+		id: "pages", 
+		html: bookMarkup
+	}).appendTo('#book');
+	
+	pageFlipInit();
+	toggleToyBox();
+	$('.book-nav').show();
+	showBook(book.title, 1, book.pages.length);
+	$('.book-container').show();
+}
+
+function getPageImageFilePath(directory, pageNum) {
+   //for S3 storage, e.g. https://ragatzi.s3.amazonaws.com/little-red-riding-hood-page1.png
+   path = "https://ragatzi.s3.amazonaws.com/" + directory; 
+   if (pageNum > 0) {
+     path += "-" + "page" + pageNum
+   }
+   return path += ".png"
+}
+
+//right now this is very specific to the ispy game. total hack: using the newPage field usually used for books to capture which item has been chosen.
+function syncGameToServer(item, correct, change) {
+	$.ajax({
+		url: "/update_page.js?item=" + item + "&correct=" + correct + "&playdateChange=" + change,
+		type: "POST",
+		success: function() {
+			session.signal();
+		}
+	});	
+}

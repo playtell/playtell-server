@@ -29,10 +29,12 @@
 	var pages;
 			
 	$(document).ready(function() {
-		enableButtons();
+		<% if tablet_device? %>
+			initPlaydate();
+		<% end %>
 		
 		$('#disconnect-link').click(function() {
-			$.get("<%= disconnect_playdate_path %>"); // ragatzi playdate
+			$.get("<%= disconnect_playdate_path %>"); 
 			// every 3rd playdate, prompt for feedback:
 			$('#feedback-lightbox').lightbox_me({
 			    centered: true, 

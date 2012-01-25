@@ -30,6 +30,29 @@ class GamesController < ApplicationController
       render :nothing => true
     end
   end
+  
+  def updatePlaydate
+    @playdate = Playdate.find(session[:playdate])
+    @playdate.change = params[:playdateChange]
+    @playdate.save
+    
+    case @playdate.change
+      when Playdate::CHANGE_BOOK
+        b = getBook(params[:activityID])
+        @playdate.page_num = 1
+        @playdate.save
+        respond_to do |format|
+          format.json { render :json => b.to_json(:include => :pages) } #book.as_json(root: false, :include => :pages)
+          format.tablet { render :json => b.to_json(:include => :pages) }
+        end
+      when Playdate::CHANGE_KEEPSAKE
+        puts @playdate.to_json
+        respond_to do |format|
+          format.json { render :json => @playdate.to_json } #book.as_json(root: false, :include => :pages)
+          format.tablet { render :json => @playdate.to_json }
+        end
+      end
+  end
     
   # updates the player-initiated change of the playdate state, like change book or turn page, in the db 
   # should be called updatePlaydate
@@ -203,9 +226,9 @@ private
 
   # loads a book for a playdate.   
   def getBook(id)
-    @book = Book.find(id)
     @playdate.book_id = id
     @playdate.save
+    @book = Book.find(id)
   end
   
   # homepage & users -> application layout

@@ -1,3 +1,4 @@
+<% if false #commenting out %> 
 <% for book in @books %>
 	<div class="library-item">
 		<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
@@ -7,12 +8,16 @@
 		<% end %>
 	</div>	
 <% end %>
+<% end #end commented out items %>
 
-<div class="library-item">
-	<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
-		<%= image_submit_tag getImageFilePath("youtube.png") %>
-		<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_VIDEO %>
-	<% end %>
+<% for book in @books %>
+	<div class="library-item" data-playdatechange="<%= Playdate::CHANGE_BOOK %>" data-activityid="<%= book.id %>">
+		<%= image_tag getPageImageFilePath(book.image_directory, 0), :alt => book.title %>
+	</div>	
+<% end %>
+
+<div class="library-item" data-playdatechange="<%= Playdate::CHANGE_VIDEO %>" data-activityid="1">
+	<%= image_tag getImageFilePath("youtube.png") %>
 </div>
 
 <% if false #commenting out the next two items %> 
@@ -33,10 +38,7 @@
 	<% end %>
 <% end #end commented out items %>
 
-<div class="library-item">
-	<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
-		<%= image_submit_tag "photo_album.png" %>
-		<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_KEEPSAKE %>
-	<% end %>
+<div class="library-item" data-playdatechange="<%= Playdate::CHANGE_KEEPSAKE %>">
+	<%= image_tag "photo_album.png" %>
 </div>
 
