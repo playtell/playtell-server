@@ -4,13 +4,8 @@
   <title>PlayTell - Make memories, not small talk.</title>
   <meta name="google-site-verification" content="LHyKmZJ26JDnDB49f0uSHDsqovNADc3g_nK4is9g67I" />
 
-  <% if tablet_device? %>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  	<%= stylesheet_link_tag "tablet.css" %>
-  <% else %>
-  	<%= stylesheet_link_tag "scaffold.css" %>
-  <% end %>
-  <%= stylesheet_link_tag "aristo.css", "misc.css" %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <%= stylesheet_link_tag "tablet.css", "aristo.css", "misc.css" %>
   
   <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" %>

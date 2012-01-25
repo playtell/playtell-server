@@ -3,13 +3,7 @@
 <head>
   <title>PlayTell - Make memories, not small talk.</title>
     
-  <% if tablet_device? %>
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  	<%= stylesheet_link_tag "tablet.css" %>
-  <% else %>
-  	<%= stylesheet_link_tag "scaffold.css" %>
-  <% end %>
-  <%= stylesheet_link_tag "aristo.css", "misc.css" %>
+  <%= stylesheet_link_tag "scaffold.css", "aristo.css", "misc.css" %>
 
   <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" %>
