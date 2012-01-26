@@ -183,10 +183,6 @@ class GamesController < ApplicationController
     current_playdate.disconnect if !current_playdate.disconnected?
     session[:playdate] = nil
     render :nothing => true
-#    respond_to do |format|
-#      format.html { redirect_to @current_user }
-#      format.js
-#    end
   end
 
 private
@@ -210,7 +206,6 @@ private
       :player1_id => current_user.id, 
       :player2_id => params[:friend_id],
       :video_session_id => tok_session_id)
-    #getBook(@playdate.book_id)
     
     session[:playdate] = @playdate.id
   end
