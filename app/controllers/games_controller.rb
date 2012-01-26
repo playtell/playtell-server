@@ -1,6 +1,5 @@
 class GamesController < ApplicationController
   before_filter :initOpenTok, :only => [:playdate]
-  #before_filter :authorize
   before_filter :authenticate_user!
   layout :chooseLayout
       
@@ -19,10 +18,6 @@ class GamesController < ApplicationController
   
   # checks to see if there is a playdate request for the current user, and if so, changes the current user's view to show a playdate request
   def playdateRequested
-    #if requesting_playdate
-    #  session[:playdate] = @playdate.id
-    #end
-    
     p = requesting_playdate
     if p
       session[:playdate] = p.id
@@ -53,6 +48,7 @@ class GamesController < ApplicationController
     end
   end
   
+  # updates the player-initiated change of the playdate state, like change book or turn page, in the db 
   def updatePlaydate
     @playdate = Playdate.find(session[:playdate])
     @playdate.change = params[:playdateChange]
@@ -77,7 +73,7 @@ class GamesController < ApplicationController
   end
     
   # updates the player-initiated change of the playdate state, like change book or turn page, in the db 
-  # should be called updatePlaydate
+  # deprecated => updatePlaydate
   def updatePage
     @playdate = Playdate.find(session[:playdate])
     @playdate.change = params[:playdateChange]
@@ -236,7 +232,7 @@ private
   def joinPlaydate
     @playdate = requesting_playdate
     @playdate.connected
-    getBook(@playdate.book_id)
+    getBook(@playdate.book_id) if @playdate.book_id
 
     @tok_token = @@opentok.generate_token :session_id => @playdate.video_session_id 
   end
