@@ -356,7 +356,7 @@ function createBookFromJSON(book) {
 	$('#pages').html(bookMarkup);
 	
 	pageFlipInit();
-	toggleToyBox();
+	hideToyBox();
 	$('.book-nav').show();
 	showBook(book.title, 1, book.pages.length);
 	$('.book-container').show();
