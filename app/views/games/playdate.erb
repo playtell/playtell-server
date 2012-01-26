@@ -1,24 +1,33 @@
 <% content_for :head do %>
-<%= javascript_include_tag 'playdate', 'video', 'jquery.easing.1.3', 'youtube', 'jquery.hotkeys-0.8', 'fullscreen', 'pageflip' %>
-<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script> 
-<script type="text/javascript">
-    var sessionId = "<%= @playdate.video_session_id %>"; 
-    var token = "<%= @tok_token %>"; 
-	var apiKey = "<%= @api_key %>";
-	var session;
-	var publisher;
 
-	var PUBLISHER_WIDTH = 200; //128;
-	var PUBLISHER_HEIGHT = 150; //96;
+	<%= javascript_include_tag 'playdate', 'jquery.easing.1.3', 'youtube', 'pageflip' %>
+
+	<% if !tablet_device? %>
+		<%= javascript_include_tag 'video', 'jquery.hotkeys-0.8', 'fullscreen' %>
+		<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script> 
+	<% end %>
+
+<script type="text/javascript">
+
+	<% if !tablet_device? %>
+	    var sessionId = "<%= @playdate.video_session_id %>"; 
+	    var token = "<%= @tok_token %>"; 
+		var apiKey = "<%= @api_key %>";
+		var session;
+		var publisher;
+		
+		var subscribers = {};
+		var deviceManager;
+
+		var PUBLISHER_WIDTH = 200; //128;
+		var PUBLISHER_HEIGHT = 150; //96;
 			
-	var SUBSCRIBER_WIDTH = 200;
-	var SUBSCRIBER_HEIGHT = 150;
+		var SUBSCRIBER_WIDTH = 200;
+		var SUBSCRIBER_HEIGHT = 150;
+	<% end %>
 	
 	var KEEPSAKE_WIDTH = 242;
 	var KEEPSAKE_HEIGHT = 180;
-
-	var subscribers = {};
-	var deviceManager;
 		
 	var num_keepsakes = 0;	
 	
@@ -46,65 +55,66 @@
 			
 	$(document).ready(function() {
 		
-		// load setup lightbox
-		//load image for setup lightbox
-		$(function () {
-		  var img = new Image();
-		  $(img)
-		    .load(function () {
-		      $(this).hide();
+		<% if tablet_device? %>
+			initPlaydate();
+		<% else %>
+			// load flash dialog instructions
+			$(function () {
+			  var img = new Image();
+			  $(img)
+			    .load(function () {
+			      $(this).hide();
 
-		      $('#loader')
-		        .removeClass('loading')
-		        .append(this);
+			      $('#loader')
+			        .removeClass('loading')
+			        .append(this);
 
-		      $(this).fadeIn();
-		    })
+			      $(this).fadeIn();
+			    })
 
-		    .error(function () {
-		      // notify the user that the image could not be loaded
-		    })
+			    .error(function () {
+			      // notify the user that the image could not be loaded
+			    })
 
-		    //.attr('src', '/images/flashbox.png')
-		    .attr('alt', 'Click Allow if you see the Flash settings box.');
-		});
-		
-		// book setup and display	
-		//showBook("<%= @book.title %>", "<%= @playdate.page_num %>", "<%= @book.pages.count %>"); // TODO: change currentPage param to "<%= @playdate.page_num %>"; once pages left: location is reset
-		
-		// opentok video session setup and display
-		
-		// Un-comment either of the following to set automatic logging and exception handling.
-		// See the exceptionHandler() method below.
-		// TB.setLogLevel(TB.DEBUG);
-		// TB.addEventListener("exception", exceptionHandler);
+			    //.attr('src', '/images/flashbox.png')
+			    .attr('alt', 'Click Allow if you see the Flash settings box.');
+			});
+				
+			// opentok video session setup and display
 
-		if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
-			alert('You do not have the minimum system requirements to use this service :(');
-		} else {
-			session = TB.initSession(sessionId);	// Initialize session
-			// Add event listeners to the session
-			session.addEventListener('sessionConnected', sessionConnectedHandler);
-			session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
-			session.addEventListener('connectionCreated', connectionCreatedHandler);
-			session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
-			session.addEventListener('streamCreated', streamCreatedHandler);
-			session.addEventListener('streamDestroyed', streamDestroyedHandler);
-			session.addEventListener('signalReceived', signalReceivedHandler);
+			// Un-comment either of the following to set automatic logging and exception handling.
+			// See the exceptionHandler() method below.
+			// TB.setLogLevel(TB.DEBUG);
+			// TB.addEventListener("exception", exceptionHandler);
 
-			session.addEventListener('streamPropertyChanged', streamPropertyChangedHandler);
+			if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
+				alert('You do not have the minimum system requirements to use this service :(');
+			} else {
+				session = TB.initSession(sessionId);	// Initialize session
+				// Add event listeners to the session
+				session.addEventListener('sessionConnected', sessionConnectedHandler);
+				session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
+				session.addEventListener('connectionCreated', connectionCreatedHandler);
+				session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
+				session.addEventListener('streamCreated', streamCreatedHandler);
+				session.addEventListener('streamDestroyed', streamDestroyedHandler);
+				session.addEventListener('signalReceived', signalReceivedHandler);
 
-			connect();
-		}							
-		
-		$('#connect-link').click(function() {
-			connect();
-		});
+				session.addEventListener('streamPropertyChanged', streamPropertyChangedHandler);
+
+				connect();
+			}
+			
+			$('a').attr("disabled", true);
+			$('#disconnect-link').attr("disabled", false);							
+		<% end %> //non-tablet setup
 		
 		$('#disconnect-link').click(function() {
-			disconnect(); //tokbox
-			$.get("<%= disconnect_playdate_path %>"); // ragatzi playdate
-			// every 3rd playdate, prompt for feedback:
+			<% if !tablet_device? %>
+				disconnect(); // disconnect on tokbox
+			<% end %>
+			$.get("<%= disconnect_playdate_path %>"); //disconnect on playtell 
+			// prompt for feedback:
 			$('#feedback-lightbox').lightbox_me({
 			    centered: true, 
 				onClose: function () {
@@ -112,9 +122,6 @@
 				}
 			});
 		});
-		
-		$('a').attr("disabled", true);
-		$('#disconnect-link').attr("disabled", false);
 		
 		//book canvas init
 		canvas = document.getElementById( "pageflip-canvas" );
@@ -142,17 +149,15 @@
 			<div class="clear"></div>
 		</div>
 		<div class="activity-content row">
-			<div class="flash-instructions">
-				<%= image_tag "flash_instructions.png" %>
-			</div>
+			<% if !tablet_device? %>
+				<div class="flash-instructions">
+					<%= image_tag "flash_instructions.png" %>
+				</div>
+			<% end %>
 			<div class="book-nav hidden">
 				<%= render :partial => "bookNav" %>
 			</div>
 			<div id="player-container" class="hidden"></div>
-			<div class="slide-container hidden">
-				<div class="slides"></div>
-				<div id="slide-keepsake" class="hidden"></div>
-			</div>
 			<div class="book-container hidden">	
 				<canvas id="pageflip-canvas"></canvas>
 				<div id="book">
@@ -165,7 +170,6 @@
 		</div>
 		<div id="bottom-drawer" class="row">
 			<div id="links">
-				<!--<p><a href="#" id="contacts-link"></a></p>-->
 				<p><a href="#" id="toybox-link" title="Toy Box"></a></p>
 				<!--<p><a href="#" id="keepsakes-link"></a></p>-->
 				<p class="fr"><a href="#" id="audio-toggle"></a></p>

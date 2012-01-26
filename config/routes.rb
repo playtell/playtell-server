@@ -1,7 +1,6 @@
 Semiralabs::Application.routes.draw do
 
   match 'playdate' => 'games#playdate'
-  match 'playdate' => 'games#playdate', :user_agent => /iPad/, :format => :tablet
   
   match 'update_page' => 'games#updatePage'
   match 'update_playdate' => 'games#updatePlaydate'
