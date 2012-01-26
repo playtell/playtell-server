@@ -357,7 +357,9 @@ function syncToServer1(playdate_change, activityID) {
 			createBookFromJSON(data.book);
 			showBook(data.book.title, 1, data.book.pages.length);
 			$('.book-container').show();
-			//session.signal();
+			if (!tablet) {
+				session.signal();
+			}
 		}
 	);
 }

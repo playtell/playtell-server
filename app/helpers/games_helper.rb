@@ -3,7 +3,7 @@ module GamesHelper
      #for S3 storage, e.g. https://ragatzi.s3.amazonaws.com/little-red-riding-hood-page1.png
      path = "https://ragatzi.s3.amazonaws.com/" + directory; 
      if pageNum > 0 
-       path += "-" + "page" + pageNum
+       path += "-" + "page" + pageNum.to_s
      end
      path += ".png"
   end

@@ -52,10 +52,13 @@
 	var flips = [];
 	var book;
 	var pages;
+	
+	var tablet = false;
 			
 	$(document).ready(function() {
 		
 		<% if tablet_device? %>
+			tablet = true;
 			initPlaydate();
 		<% else %>
 			// load flash dialog instructions
