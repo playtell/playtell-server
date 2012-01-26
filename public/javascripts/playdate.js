@@ -1,3 +1,14 @@
+function createBookFromJSON(book) {
+	var bookMarkup = '';
+	var pageNum = 0;
+	
+	$.each(book.pages, function(i, page) {
+		pageNum = i+1;
+		bookMarkup += '<section> <div id="page_' + pageNum + '"> <div class="book-image"><img src="' + getPageImageFilePath(book.image_directory, i+1) + '"></div> <div class="book-text">' + book.pages[i].page_text + '</div>  </section>';
+	});
+	$('#pages').html(bookMarkup);
+}
+
 function showBook(title, currentPage, totalPages) { 
 	$('#total-pages').html(totalPages);
 	$('#page-num').html(currentPage);
@@ -321,7 +332,7 @@ function initPlaydate() {
 }
 
 
-//sends payload of current playdate state to server
+//sends payload of current playdate state to server - deprecated
 function syncToServer(new_page, change) {
 	$.ajax({
 		url: "/update_page.js?newPage=" + new_page + "&playdateChange=" + change,
@@ -349,17 +360,6 @@ function syncToServer1(playdate_change, activityID) {
 			//session.signal();
 		}
 	);
-}
-
-function createBookFromJSON(book) {
-	var bookMarkup = '';
-	var pageNum = 0;
-	
-	$.each(book.pages, function(i, page) {
-		pageNum = i+1;
-		bookMarkup += '<section> <div id="page_' + pageNum + '"> <div class="book-image"><img src="' + getPageImageFilePath(book.image_directory, i+1) + '"></div> <div class="book-text">' + book.pages[i].page_text + '</div>  </section>';
-	});
-	$('#pages').html(bookMarkup);
 }
 
 //right now this is very specific to the ispy game. total hack: using the newPage field usually used for books to capture which item has been chosen.
