@@ -1,7 +1,10 @@
 function showBook(title, currentPage, totalPages) { 
 	$('#total-pages').html(totalPages);
 	$('#page-num').html(currentPage);
+	$('.book-nav').show();
 	
+	pageFlipInit();
+
 	// position the book on the page centered horizontally
 	var rightmost = $('.activity-content').outerWidth()-$('.next-container').offset().left; //inside of right arrow
 	var bookPos = rightmost < $('.activity-content').outerWidth()-$("#book").outerWidth() ?
@@ -338,8 +341,11 @@ function syncToServer1(playdate_change, activityID) {
 		  	activityID: activityID 
 		},		
 		function(data) {
-			//alert("success! " + data.book.id);
+			hideToyBox();
+			// book
 			createBookFromJSON(data.book);
+			showBook(book.title, 1, book.pages.length);
+			$('.book-container').show();
 			//session.signal();
 		}
 	);
@@ -354,21 +360,6 @@ function createBookFromJSON(book) {
 		bookMarkup += '<section> <div id="page_' + pageNum + '"> <div class="book-image"><img src="' + getPageImageFilePath(book.image_directory, i+1) + '"></div> <div class="book-text">' + book.pages[i].page_text + '</div>  </section>';
 	});
 	$('#pages').html(bookMarkup);
-	
-	pageFlipInit();
-	hideToyBox();
-	$('.book-nav').show();
-	showBook(book.title, 1, book.pages.length);
-	$('.book-container').show();
-}
-
-function getPageImageFilePath(directory, pageNum) {
-   //for S3 storage, e.g. https://ragatzi.s3.amazonaws.com/little-red-riding-hood-page1.png
-   path = "https://ragatzi.s3.amazonaws.com/" + directory; 
-   if (pageNum > 0) {
-     path += "-" + "page" + pageNum
-   }
-   return path += ".png"
 }
 
 //right now this is very specific to the ispy game. total hack: using the newPage field usually used for books to capture which item has been chosen.
