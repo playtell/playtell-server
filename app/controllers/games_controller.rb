@@ -210,7 +210,7 @@ private
       :player1_id => current_user.id, 
       :player2_id => params[:friend_id],
       :video_session_id => tok_session_id)
-    getBook(@playdate.book_id)
+    #getBook(@playdate.book_id)
     
     session[:playdate] = @playdate.id
   end
