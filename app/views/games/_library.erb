@@ -1,26 +1,15 @@
-<% if false #commenting out %> 
-<% for book in @books %>
-	<div class="library-item">
-		<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
-			<%= image_submit_tag getPageImageFilePath(book.image_directory, 0), :alt => book.title %>
-			<%= hidden_field_tag :book, book.id %>
-			<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_BOOK %>
-		<% end %>
-	</div>	
-<% end %>
-<% end #end commented out items %>
-
 <% for book in @books %>
 	<div class="library-item" data-playdatechange="<%= Playdate::CHANGE_BOOK %>" data-activityid="<%= book.id %>">
 		<%= image_tag getPageImageFilePath(book.image_directory, 0), :alt => book.title %>
 	</div>	
 <% end %>
 
-<div class="library-item" data-playdatechange="<%= Playdate::CHANGE_VIDEO %>" data-activityid="1">
-	<%= image_tag getImageFilePath("youtube.png") %>
-</div>
+<% if false #commenting out the next few items %> 
 
-<% if false #commenting out the next two items %> 
+	<div class="library-item" data-playdatechange="<%= Playdate::CHANGE_VIDEO %>" data-activityid="1">
+		<%= image_tag getImageFilePath("youtube.png") %>
+	</div>
+
 	<div class="library-item">
 		<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
 			<%= image_submit_tag getImageFilePath("ispy.png") %>
