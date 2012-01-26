@@ -219,7 +219,11 @@ private
 
   # adds the user to the requested playdate. gets a fresh opentok token for this user.
   def joinPlaydate
-    @playdate = requesting_playdate
+    if params[:playdate]
+      @playdate = Playdate.find_by_id(params[:playdate])
+    else
+      @playdate = requesting_playdate
+    end
     @playdate.connected
     getBook(@playdate.book_id) if @playdate.book_id
 

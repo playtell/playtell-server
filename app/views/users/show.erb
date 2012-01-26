@@ -79,7 +79,7 @@
 	
 	function joinPlaydateLightbox(data) {
 		var requestText = '';
-		requestText += '<h1>' + data.otherPlayer + '</h1><h2>wants to play!</h2><a href="/playdate"><button class="blue big-button">Join Playdate</button></a>';
+		requestText += '<h1>' + data.otherPlayer + '</h1><h2>wants to play!</h2><a href="/playdate?playdate=' + data.playdate.id + '"><button class="blue big-button">Join Playdate</button></a>';
 		$('#join-lightbox').append(requestText);
 		$('#join-lightbox').lightbox_me({
 		    centered: true, 
