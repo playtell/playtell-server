@@ -19,15 +19,37 @@ class GamesController < ApplicationController
   
   # checks to see if there is a playdate request for the current user, and if so, changes the current user's view to show a playdate request
   def playdateRequested
-    if requesting_playdate
-      session[:playdate] = @playdate.id
-    end
+    #if requesting_playdate
+    #  session[:playdate] = @playdate.id
+    #end
+    
+    p = requesting_playdate
+    if p
+      session[:playdate] = p.id
+      respond_to do |format|
+        format.json { render :json => p.to_json } 
+        format.tablet { render :json => p.to_json }
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => nil } 
+        format.tablet { render :json => nil }
+      end  
+    end  
   end
   
   # checks to see if the playdate has ended, and if so, changes the current user's view accordingly
   def playdateDisconnected
-    if !Playdate.find(params[:playdate]).disconnected? #current_playdate.disconnected?
-      render :nothing => true
+    if Playdate.find(params[:playdate]).disconnected? #current_playdate.disconnected?
+        respond_to do |format|
+          format.json { render :json => true } 
+          format.tablet { render :json => true }
+        end
+    else
+      respond_to do |format|
+        format.json { render :json => nil } 
+        format.tablet { render :json => nil }
+      end  
     end
   end
   
@@ -42,7 +64,7 @@ class GamesController < ApplicationController
         @playdate.page_num = 1
         @playdate.save
         respond_to do |format|
-          format.json { render :json => b.to_json(:include => :pages) } #book.as_json(root: false, :include => :pages)
+          format.json { render :json => b.to_json(:include => :pages) } 
           format.tablet { render :json => b.to_json(:include => :pages) }
         end
       when Playdate::CHANGE_KEEPSAKE

@@ -22,10 +22,10 @@
 </div>
 
 <script type="text/javascript">
-	var t;
+	var p, r, d;
 	
 	$(document).ready(function() {
-		clearTimeout(t);
+		//clearTimeout(t);
 		checkForPlaydateRequest();
 		
 		$('#join-playdate').click(function(){
@@ -48,12 +48,45 @@
 	});
 	
 	function checkForPlaydateRequest() {
-		$.getScript("/playdate_requested.js");
-		t = setTimeout("checkForPlaydateRequest()", 5000);
+		//$.getScript("/playdate_requested.js");
+		//t = setTimeout("checkForPlaydateRequest()", 5000);
+		
+		$.getJSON(
+			"/playdate_requested", 		
+			function(data) {
+				if (data) {
+					$('#join-lightbox').append("play with me!");
+					$('#join-lightbox').lightbox_me({
+					    centered: true, 
+						destroyOnClose: true,
+					});
+					clearTimeout(r);
+					p = data.playdate.id;
+					d = setTimeout("checkForDisconnect()", 1000);
+				}
+				else {
+					r = setTimeout("checkForPlaydateRequest()", 5000);
+				}
+			}
+		);		
 	}
 	
-	function checkForDisconnect(p) {
-		$.getScript("/playdate_disconnected.js?playdate="+p);
-		t = setTimeout("checkForDisconnect(p)", 1000)
+	function checkForDisconnect() {
+		//$.getScript("/playdate_disconnected.js?playdate="+p);
+		//t = setTimeout("checkForDisconnect(p)", 1000)
+		$.getJSON(
+			"/playdate_disconnected", 
+			{ playdate: p },		
+			function(data) {
+				if (data) {
+					$('#join-lightbox').trigger('close');
+					clearTimeout(d);
+					r = setTimeout(checkForPlaydateRequest, 5000);
+				}
+				else {
+					d = setTimeout("checkForDisconnect(p)", 1000)
+				}
+			}
+		);
 	}
 </script>
