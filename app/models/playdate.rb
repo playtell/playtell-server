@@ -43,6 +43,15 @@ class Playdate < ActiveRecord::Base
     end
     User.find(player1_id).displayName
   end
+  
+  #overriding to add the other player's name to the json payload if needed
+  def as_json(options = {})
+    j = super
+    
+    j = j.merge({otherPlayer: getOtherPlayerName(options[:user])}) if options[:user]
+    
+    j
+  end
 
 #getter/setter methods for playdate status  
   def disconnect

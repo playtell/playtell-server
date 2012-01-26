@@ -27,8 +27,8 @@ class GamesController < ApplicationController
     if p
       session[:playdate] = p.id
       respond_to do |format|
-        format.json { render :json => p.to_json } 
-        format.tablet { render :json => p.to_json }
+        format.json { render :json => p.to_json(:user => current_user) } 
+        format.tablet { render :json => p.to_json(:user => current_user) }
       end
     else
       respond_to do |format|

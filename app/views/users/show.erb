@@ -55,7 +55,9 @@
 			"/playdate_requested", 		
 			function(data) {
 				if (data) {
-					$('#join-lightbox').append("play with me!");
+					var requestText = '';
+					requestText += '<h1>' + data.otherPlayer + '</h1><h2>wants to play!</h2>';
+					$('#join-lightbox').append(requestText);
 					$('#join-lightbox').lightbox_me({
 					    centered: true, 
 						destroyOnClose: true,
