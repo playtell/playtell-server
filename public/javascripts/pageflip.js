@@ -32,16 +32,6 @@ function pageFlipInit() {
   //document.addEventListener( "mousemove", mouseMoveHandler, false );
   //document.addEventListener( "mousedown", mouseDownHandler, false );
   //document.addEventListener( "mouseup", mouseUpHandler, false );
-  var nextlink = document.getElementById("next-link");
-	$("#next-link").live("click", function n(e) {
-    turnBookPage(page+1);
-    syncToServer(page, 101);
-    });
-  var prevlink = document.getElementById("previous-link");
-	$("#previous-link").live("click", function p(e) {
-    turnBookPage(page-1);
-    syncToServer(page, 101);
-    });
 }
 
 function mouseMoveHandler( event ) {

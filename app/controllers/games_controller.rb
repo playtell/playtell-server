@@ -64,11 +64,10 @@ class GamesController < ApplicationController
           format.tablet { render :json => b.to_json(:include => :pages) }
         end
       when Playdate::CHANGE_KEEPSAKE
-        puts @playdate.to_json
         respond_to do |format|
-          format.json { render :json => @playdate.to_json } #book.as_json(root: false, :include => :pages)
-          format.tablet { render :json => @playdate.to_json }
-        end
+          format.json { render :json => true }
+          format.tablet { render :json => true }
+        end 
       end
   end
     
@@ -93,12 +92,6 @@ class GamesController < ApplicationController
     when Playdate::PLAY_VIDEO
       render :nothing => true
     when Playdate::PAUSE_VIDEO
-      render :nothing => true
-    when Playdate::CHANGE_SLIDE
-      render 'update_slide'
-    when Playdate::TURN_SLIDE
-      @playdate.page_num = params[:newPage]
-      @playdate.save
       render :nothing => true
     when Playdate::CHANGE_KEEPSAKE
       render 'update_keepsake'
@@ -152,10 +145,6 @@ class GamesController < ApplicationController
       render 'play_video'
     when Playdate::PAUSE_VIDEO
       render 'pause_video'
-    when Playdate::CHANGE_SLIDE
-      render 'change_slide'
-    when Playdate::TURN_SLIDE
-        render "turn_slide"
     when Playdate::CHANGE_KEEPSAKE
       render 'change_keepsake'
     when Playdate::TURN_KEEPSAKE

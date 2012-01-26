@@ -10,10 +10,6 @@ function createBookFromJSON(book) {
 }
 
 function showBook(title, currentPage, totalPages) { 
-	$('#total-pages').html(totalPages);
-	$('#page-num').html(currentPage);
-	$('.book-nav').show();
-	
 	pageFlipInit();
 
 	// position the book on the page centered horizontally
@@ -279,44 +275,35 @@ function enableButtons() {
 }
 
 function disableNavButtons() {
-  
 	$("#next-link").die("click");
 	$("#previous-link").die("click");
-	
-	$(document).unbind('keyup', 'left');
-	$(document).bind('keyup', 'right');
 }
 
 function enableNavButtons(activity, playdateChange) {
 	disableNavButtons();
-	
-	$("#next-link").live("click", function() {
-		goToPage(getNewPage(getCurrentPage(),"next"), activity);
-		syncToServer(getCurrentPage(), playdateChange);
-		return false;
-	});
-	$("#previous-link").live("click", function() {
-		goToPage(getNewPage(getCurrentPage(),"prev"), activity);
-		syncToServer(getCurrentPage(), playdateChange);
-		return false;
-	});
-	
-	$(document).bind('keyup', 'left', function() {
-		if (!$('#previous-link').is(':disabled')) {
-			goToPage(getNewPage(getCurrentPage(),"prev"), activity);
-			syncToServer(getCurrentPage(), playdateChange);
-			return false;
-	    }
-	});
-	
-	$(document).bind('keyup', 'right', function() {
-		if (!$('#next-link').is(':disabled')) {
+	if (activity == "book") {
+		$("#next-link").live("click", function n(e) {
+		    turnBookPage(page+1);
+		    syncToServer(page, playdateChange);
+	    });
+
+		$("#previous-link").live("click", function p(e) {
+		    turnBookPage(page-1);
+		    syncToServer(page, playdateChange);
+	    });
+	}
+	else {
+		$("#next-link").live("click", function() {
 			goToPage(getNewPage(getCurrentPage(),"next"), activity);
 			syncToServer(getCurrentPage(), playdateChange);
 			return false;
-	    }
-	});
-
+		});
+		$("#previous-link").live("click", function() {
+			goToPage(getNewPage(getCurrentPage(),"prev"), activity);
+			syncToServer(getCurrentPage(), playdateChange);
+			return false;
+		});
+	}
 }
 
 function enableToySelectors() {
@@ -353,10 +340,25 @@ function syncToServer1(playdate_change, activityID) {
 		},		
 		function(data) {
 			hideToyBox();
-			// book
-			createBookFromJSON(data.book);
-			showBook(data.book.title, 1, data.book.pages.length);
-			$('.book-container').show();
+			if (data.book) {
+				$('#keepsake-container').hide();
+				enableNavButtons("book", 101);
+				$('#total-pages').html(data.book.pages.length);
+				$('#page-num').html(1);
+				$('.book-nav').show();
+				createBookFromJSON(data.book);
+				showBook(data.book.title, 1, data.book.pages.length);
+				$('.book-container').show();
+			}
+			else {
+				$('.book-container').hide();
+				enableNavButtons("keepsake", 501);
+				$('#total-pages').html(num_keepsakes.toString()); 
+				$('#page-num').html(1);
+				$('.keepsake').removeAttr("style");
+				$('#keepsake-container').show();
+				goToPage(1, "keepsake"); 
+			}
 			if (!tablet) {
 				session.signal();
 			}
