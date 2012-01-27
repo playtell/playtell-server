@@ -48,7 +48,7 @@ class Playdate < ActiveRecord::Base
   def as_json(options = {})
     j = super
     
-    j = j.merge({otherPlayer: getOtherPlayerName(options[:user])}) if options[:user]
+    j = {id: self.id, otherPlayer: getOtherPlayerName(options[:user])} if options[:user]
     
     j
   end
