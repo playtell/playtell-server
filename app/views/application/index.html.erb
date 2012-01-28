@@ -1,12 +1,30 @@
 <% content_for :head do %>
 	<link href='http://fonts.googleapis.com/css?family=Delius' rel='stylesheet' type='text/css'>
+		
+	<script type="text/javascript">
+	  $(document).ready(function() {
+
+	    //Default
+	    $("#jump").click(function (event) {	
+			$(".mainContainer").animate(
+				{ scrollTop: 100}, "slow", "easeOutBack" );
+			event.preventDefault();
+			return false;
+		});
+		
+	    //Custom FX
+	    //$("#link2").anchorScroll({fx: "easeOutBounce"});
+	  });
+	 </script>
+	
 <% end %>
 
-<div class="landingpage">
+<div class="nav"><a id="jump" href="#">Jump</a></div>
+<div class="landingpage" id="landingpage">
 	<div class="family inline-block">
 		<img src="images/apart.png">
 		<div>
-			<div class="sign-up inline-block bottom-box">
+			<div class="sign-up inline-block bottom-box" id="sign-up">
 				<%= form_for @earlyUser, :url => early_access_path, :remote => true do |f| %>
 				<p>Want early access? Enter your email address.</p>	
 					<%= f.email_field :email %>
