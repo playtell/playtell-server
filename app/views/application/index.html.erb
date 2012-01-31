@@ -1,6 +1,6 @@
 <% content_for :head do %>
-	<link href='http://fonts.googleapis.com/css?family=Delius' rel='stylesheet' type='text/css'>
-		
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,400|Quicksand:300,400' rel='stylesheet' type='text/css'>	
+
 	<script type="text/javascript">
 	  $(document).ready(function() {
 
@@ -11,50 +11,27 @@
 			event.preventDefault();
 			return false;
 		});
-		
-	    //Custom FX
-	    //$("#link2").anchorScroll({fx: "easeOutBounce"});
 	  });
 	 </script>
 	
 <% end %>
 
-<div class="nav"><a id="jump" href="#">Jump</a></div>
-<div class="landingpage" id="landingpage">
-	<div class="family inline-block">
-		<img src="images/apart.png">
-		<div>
-			<div class="sign-up inline-block bottom-box" id="sign-up">
-				<%= form_for @earlyUser, :url => early_access_path, :remote => true do |f| %>
-				<p>Want early access? Enter your email address.</p>	
-					<%= f.email_field :email %>
-					<%= submit_tag "Sign me up!", :class => "blue big-button", :id => "early-access-submit" %>
-					<div id="loader" class="hidden loading"></div>
-				<% end %>
-				<div id="thank-you" class="hidden">
-					<p>Thanks! You're on the list.</p>
-					<p>We'll be in touch soon.</p> 
-				</div>
-			</div>
-			<div class="login inline-block bottom-box">
-				<p>User Login</p>
-				<%= render :partial => "devise/sessions/form" %>
+<div class="nav"><a href="#"><%= image_tag 'logo.png' %></a></div>
+<div class="landing-page" id="landingpage">
+	<div id="block-splash">
+		<%= image_tag 'splash_ipad.png' %>
+		<div class="alpha-sign-up" id="sign-up">
+			<%= form_for @earlyUser, :url => early_access_path, :remote => true do |f| %>
+			<h3>Request an Invitation</h3>	
+				<%= f.email_field :email %><br />
+				<%= submit_tag "Sign me up!", :class => "blue big-button", :id => "early-access-submit" %>
+				<div id="loader" class="hidden loading"></div>
+			<% end %>
+			<div id="thank-you" class="hidden">
+				<p>Thanks! You're on the list.</p>
+				<p>We'll be in touch soon.</p> 
 			</div>
 		</div>
-	</div>
-	<div class="survey-form inline-block">
-		<script type="text/javascript">
-var host = (("https:" == document.location.protocol) ? "https://secure." : "http://");document.write(unescape("%3Cscript src='" + host +            "wufoo.com/scripts/embed/form.js' type='text/javascript'%3E%3C/script%3E"));
-		</script> <script type="text/javascript">
-var z7x3k1 = new WufooForm();
-		z7x3k1.initialize({
-		'userName':'ragatzi', 
-		'formHash':'z7x3k1', 
-		'autoResize':false,
-		'height':'728',
-		'header':'show'});
-		z7x3k1.display();
-		</script>
 	</div>
 </div>
 

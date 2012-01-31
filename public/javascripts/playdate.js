@@ -1,14 +1,3 @@
-function createBookFromJSON(book) {
-	var bookMarkup = '';
-	var pageNum = 0;
-	
-	$.each(book.pages, function(i, page) {
-		pageNum = i+1;
-		bookMarkup += '<section> <div id="page_' + pageNum + '"> <div class="book-image"><img src="' + getPageImageFilePath(book.image_directory, i+1) + '"></div> <div class="book-text">' + book.pages[i].page_text + '</div>  </section>';
-	});
-	$('#pages').html(bookMarkup);
-}
-
 function showBook(title, currentPage, totalPages) { 
 	pageFlipInit();
 
@@ -346,7 +335,9 @@ function syncToServer1(playdate_change, activityID) {
 				$('#total-pages').html(data.book.pages.length);
 				$('#page-num').html(1);
 				$('.book-nav').show();
-				createBookFromJSON(data.book);
+				b = new PTBook();
+				b.createActivityFromJSON(data.book);
+				//createBookFromJSON(data.book);
 				showBook(data.book.title, 1, data.book.pages.length);
 				$('.book-container').show();
 			}

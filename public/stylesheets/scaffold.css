@@ -845,6 +845,36 @@ button.green2, input[type="submit"].green2 {
   	margin: 8px;
 }
 
+/* NEW LANDING PAGE */
+.landing-page {
+	overflow: auto;
+	min-width:1024px;
+	min-height:100%;
+	width:100%;
+	text-align: center;
+}
+
+.landing-page p {
+	font-family: 'Lato', sans-serif;	
+}
+
+.landing-page h3 {
+	font-family: 'Quicksand', sans-serif;
+}
+
+#block-splash img {
+	
+}
+
+.landing-page .alpha-sign-up {
+	
+}
+
+.alpha-sign-up input[type="email"] {
+	width: 250px;
+  	margin: 8px;
+}
+
 /* I-SPY --------------------------------------------------------- */
 
 .ispy-container {
