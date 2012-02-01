@@ -862,8 +862,30 @@ button.green2, input[type="submit"].green2 {
 	font-family: 'Quicksand', sans-serif;
 }
 
+.nav {
+	line-height: 5em;
+	padding-left: 100px;
+	position: fixed;
+}
+
+.nav img {
+	vertical-align: middle;
+}
+
+.nav ul {
+	display: inline;
+	padding-left: 300px;
+}
+
+.nav ul li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 7px;
+	font-family: 'Lato', sans-serif;
+	font-size: 14px;
+}
+
 #block-splash img {
-	
 }
 
 .landing-page .alpha-sign-up {

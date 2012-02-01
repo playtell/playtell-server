@@ -16,10 +16,29 @@
 	
 <% end %>
 
-<div class="nav"><a href="#"><%= image_tag 'logo.png' %></a></div>
+<div class="nav">
+	<a href="#"><%= image_tag 'logo.png' %></a>
+	<ul>
+		<li><a href="#">Product</a></li>
+		<li><a href="#">Team</a></li>
+		<li><a href="#">Contact</a></li>
+		<li><a href="#"><button>Request Invitation</button></a></li>
+	</ul>
+</div>
 <div class="landing-page" id="landingpage">
 	<div id="block-splash">
 		<%= image_tag 'splash_ipad.png' %>
+	</div>
+	<hr>
+	<div id="block-product">
+		<%= image_tag 'splash_ipad.png' %>
+	</div>
+	<hr>
+	<div id="block-team">
+		<%= image_tag 'splash_ipad.png' %>
+	</div>
+	<hr>
+	<div id="block-sign-up">
 		<div class="alpha-sign-up" id="sign-up">
 			<%= form_for @earlyUser, :url => early_access_path, :remote => true do |f| %>
 			<h3>Request an Invitation</h3>	
