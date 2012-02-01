@@ -7,7 +7,7 @@
 	    //Default
 	    $("#jump").click(function (event) {	
 			$(".mainContainer").animate(
-				{ scrollTop: 100}, "slow", "easeOutBack" );
+				{ scrollTop: 100 }, "slow", "easeOutBack" );
 			event.preventDefault();
 			return false;
 		});
@@ -29,15 +29,10 @@
 	<div id="block-splash">
 		<%= image_tag 'splash_ipad.png' %>
 	</div>
-	<hr>
 	<div id="block-product">
-		<%= image_tag 'splash_ipad.png' %>
 	</div>
-	<hr>
 	<div id="block-team">
-		<%= image_tag 'splash_ipad.png' %>
 	</div>
-	<hr>
 	<div id="block-sign-up">
 		<div class="alpha-sign-up" id="sign-up">
 			<%= form_for @earlyUser, :url => early_access_path, :remote => true do |f| %>
