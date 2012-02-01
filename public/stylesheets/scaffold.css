@@ -866,7 +866,7 @@ button.green2, input[type="submit"].green2 {
 	line-height: 5em;
 	padding: 5px 10px 5px 100px;
 	position: fixed;
-	background: white;
+	background: white; /*url("/images/nav_bg.png") repeat;*/
 	width: 100%;
 }
 
