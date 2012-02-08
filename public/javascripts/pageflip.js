@@ -83,7 +83,7 @@ function turnBookPage(new_page) {
 		toTurn = new_page;
 		flips[new_page].dragging = true;
 		flips[new_page].target = 1;
-		page = Math.max( page - 1, 0 );
+		page = Math.max( page - 1, 0 ); //change to new_page?
 	}
 	else if (new_page > page && new_page < flips.length) {
 		// Flip to next page

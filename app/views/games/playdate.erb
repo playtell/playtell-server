@@ -20,6 +20,11 @@
 			var thingBook = $.parseJSON(thing.data);
 			doChangeBook(thingBook.book);
 	});
+	
+	thingChannel.bind('turn_page', function(thing) {
+		if (thing.player != <%= current_user.id %>)
+			turnBookPage(thing.page); 
+	});
 
 	<% if !tablet_device? %>
 	    var sessionId = "<%= @playdate.video_session_id %>"; 

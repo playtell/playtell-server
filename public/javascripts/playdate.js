@@ -285,13 +285,13 @@ function enableNavButtons(activity, playdateChange) {
 	disableNavButtons();
 	if (activity == "book") {
 		$("#next-link").live("click", function n(e) {
-		    turnBookPage(page+1);
-		    syncToServer(page, playdateChange);
+		    turnBookPage(page+1); //page var gets updated in this fn call
+		    syncToServerNoData(playdateChange);
 	    });
 
 		$("#previous-link").live("click", function p(e) {
-		    turnBookPage(page-1);
-		    syncToServer(page, playdateChange);
+		    turnBookPage(page-1); //page var gets updated in this fn call
+		    syncToServerNoData(playdateChange);
 	    });
 	}
 	else {
@@ -310,7 +310,7 @@ function enableNavButtons(activity, playdateChange) {
 
 function enableToySelectors() {
 	$('.library-item').live("click", function() {
-		syncToServer1(this.getAttribute('data-playdatechange'), this.getAttribute('data-activityid'));
+		syncToServerReturnData(this.getAttribute('data-playdatechange'), this.getAttribute('data-activityid'));
 	});
 }
 
@@ -321,7 +321,7 @@ function initPlaydate() {
 }
 
 
-//sends payload of current playdate state to server - deprecated
+//DEPRECATED sends payload of current playdate state to server
 function syncToServer(new_page, change) {
 	$.ajax({
 		url: "/update_page.js?newPage=" + new_page + "&playdateChange=" + change,
@@ -332,8 +332,9 @@ function syncToServer(new_page, change) {
 	});
 }
 
-//sends payload of current playdate state to server
-function syncToServer1(playdate_change, activityID) {
+//used for changing activity. 
+//sends payload of current playdate state to server, then updates playspace with callback data
+function syncToServerReturnData(playdate_change, activityID) {
 	$.getJSON(
 		"/update_playdate", 
 		{ 
@@ -359,6 +360,16 @@ function syncToServer1(playdate_change, activityID) {
 			}
 		}
 	);
+}
+
+//used for in-activity changes like turn page
+//sends payload of current playdate state to server
+function syncToServerNoData(playdate_change) {
+	$.ajax({
+		url: "/update_playdate.js",
+		data: "playdateChange=" + playdate_change + "&newPage=" + page,
+		type: "POST"
+	});
 }
 
 //right now this is very specific to the ispy game. total hack: using the newPage field usually used for books to capture which item has been chosen.
