@@ -7,7 +7,19 @@
 		<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script> 
 	<% end %>
 
+	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
+
 <script type="text/javascript">
+
+	var pusher = new Pusher('<%= @pusher_key %>'); 
+	var thingChannel = pusher.subscribe('thing-channel');
+
+	thingChannel.bind('change_book', function(thing) {
+		if (thing.player != <%= current_user.id %>)
+			hideToyBox();
+			var thingBook = $.parseJSON(thing.data);
+			doChangeBook(thingBook.book);
+	});
 
 	<% if !tablet_device? %>
 	    var sessionId = "<%= @playdate.video_session_id %>"; 

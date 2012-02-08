@@ -1,3 +1,16 @@
+function doChangeBook(book) {
+	$('#keepsake-container').hide();
+	enableNavButtons("book", 101);
+	$('#total-pages').html(book.pages.length);
+	$('#page-num').html(1);
+	$('.book-nav').show();
+	b = new PTBook();
+	b.createActivityFromJSON(book);
+	//createBookFromJSON(data.book);
+	showBook(book.title, 1, book.pages.length);
+	$('.book-container').show();
+}
+
 function showBook(title, currentPage, totalPages) { 
 	pageFlipInit();
 
@@ -330,16 +343,7 @@ function syncToServer1(playdate_change, activityID) {
 		function(data) {
 			hideToyBox();
 			if (data.book) {
-				$('#keepsake-container').hide();
-				enableNavButtons("book", 101);
-				$('#total-pages').html(data.book.pages.length);
-				$('#page-num').html(1);
-				$('.book-nav').show();
-				b = new PTBook();
-				b.createActivityFromJSON(data.book);
-				//createBookFromJSON(data.book);
-				showBook(data.book.title, 1, data.book.pages.length);
-				$('.book-container').show();
+				doChangeBook(data.book);
 			}
 			else {
 				$('.book-container').hide();

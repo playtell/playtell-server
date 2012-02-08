@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :prepare_for_tablet
   helper_method :resource, :resource_name, :devise_mapping, :tablet_device?
-  
+    
   def index 
      @earlyUser = EarlyUser.new
   end

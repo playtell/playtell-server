@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_filter :initOpenTok, :only => [:playdate]
+  before_filter :initOpenTok, :initPusher, :only => [:playdate]
   before_filter :authenticate_user!
   layout :chooseLayout
       
@@ -59,6 +59,7 @@ class GamesController < ApplicationController
         b = getBook(params[:activityID])
         @playdate.page_num = 1
         @playdate.save
+        Pusher['thing-channel'].trigger('change_book', {:data => b.to_json(:include => :pages), :player => current_user.id})
         respond_to do |format|
           format.json { render :json => b.to_json(:include => :pages) } 
           format.tablet { render :json => b.to_json(:include => :pages) }
@@ -68,6 +69,15 @@ class GamesController < ApplicationController
           format.json { render :json => true }
           format.tablet { render :json => true }
         end 
+      when 22
+        b = getBook(5)
+        @playdate.page_num = 1
+        @playdate.save
+        Pusher['thing-channel'].trigger('change_book', {:data => b.to_json(:include => :pages), :player => current_user.id})
+        respond_to do |format|
+          format.json { render :json => b.to_json(:include => :pages) }
+          format.tablet { render :json => b.to_json(:include => :pages) }
+        end
       end
   end
     
@@ -199,6 +209,12 @@ private
       @@opentok = OpenTok::OpenTokSDK.new 335312, @api_key
       @@opentok.api_url = 'https://staging.tokbox.com/hl'
     end
+  end
+  
+  def initPusher
+    Pusher.app_id = '14641'
+    Pusher.key = @pusher_key = 'cdac251f32d5b6d2ef7d'
+    Pusher.secret = '60fbaecfc72e4b2cb86a'
   end
   
   # sets up a new playdate session with a new opentok video session and a book to be read in the playdate. gets an opentok token for the user. currently hard-coded to use the 'little red riding hood' book.   
