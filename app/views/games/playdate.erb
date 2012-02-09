@@ -12,7 +12,7 @@
 <script type="text/javascript">
 
 	var pusher = new Pusher('<%= @pusher_key %>'); 
-	var thingChannel = pusher.subscribe('thing-channel');
+	var thingChannel = pusher.subscribe("<%= @playdate.pusher_channel_name %>");
 
 	thingChannel.bind('change_book', function(thing) {
 		if (thing.player != <%= current_user.id %>)
@@ -133,7 +133,7 @@
 			<% if !tablet_device? %>
 				disconnect(); // disconnect on tokbox
 			<% end %>
-			pusher.unsubscribe('thing-channel'); //disconnect on pusher
+			pusher.unsubscribe("<%= @playdate.pusher_channel_name %>"); //disconnect on pusher
 			$.get("<%= disconnect_playdate_path %>"); //disconnect on playtell 
 			// prompt for feedback:
 			$('#feedback-lightbox').lightbox_me({

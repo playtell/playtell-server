@@ -59,7 +59,7 @@ class GamesController < ApplicationController
         b = getBook(params[:activityID])
         @playdate.page_num = 1
         @playdate.save
-        Pusher['thing-channel'].trigger('change_book', {:data => b.to_json(:include => :pages), :player => current_user.id})
+        Pusher[@playdate.pusher_channel_name].trigger('change_book', {:data => b.to_json(:include => :pages), :player => current_user.id})
         respond_to do |format|
           format.json { render :json => b.to_json(:include => :pages) } 
           format.tablet { render :json => b.to_json(:include => :pages) }
@@ -67,7 +67,7 @@ class GamesController < ApplicationController
       when Playdate::TURN_PAGE
         @playdate.page_num = params[:newPage]
         @playdate.save
-        Pusher['thing-channel'].trigger('turn_page', {:player => current_user.id, :page => params[:newPage]})
+        Pusher[@playdate.pusher_channel_name].trigger('turn_page', {:player => current_user.id, :page => params[:newPage]})
         render :nothing => true
       when Playdate::CHANGE_KEEPSAKE
         respond_to do |format|

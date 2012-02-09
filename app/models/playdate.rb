@@ -2,7 +2,8 @@ class Playdate < ActiveRecord::Base
   belongs_to :book
   belongs_to :user
   
-  after_create :initBook
+  after_create :setChannel
+  #after_create :initBook
   
   DISCONNECTED=0
   CONNECTING=1
@@ -28,6 +29,15 @@ class Playdate < ActiveRecord::Base
     self.book_id = Book.find_by_title("Little Red Riding Hood").id
     self.page_num = 1
     save
+  end
+  
+  def setChannel
+    self.pusher_channel_name = "private-playdate-channel-" + self.id.to_s
+    save
+  end
+  
+  def hasUser(user)
+    self.player1_id == user.id || self.player2_id == user.id
   end
   
 # returns the playdate object if a non-disconnected playdate exists for the given user
