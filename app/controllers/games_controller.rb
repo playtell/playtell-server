@@ -193,7 +193,10 @@ class GamesController < ApplicationController
   
   # ends the current playdate session (i.e. disconnects)
   def disconnectPlaydate
-    current_playdate.disconnect if !current_playdate.disconnected?
+    if !current_playdate.disconnected?
+      Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:player => current_user.id})
+      current_playdate.disconnect 
+    end
     session[:playdate] = nil
     render :nothing => true
   end

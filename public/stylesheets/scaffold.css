@@ -107,7 +107,10 @@ a:hover {
     color: #539AB7;
 }
 
-p { line-height: 1.4em; }
+p { 
+	font-family: 'Lato', sans-serif;
+	line-height: 1.4em; 
+}
 
 h1 {
     color: #539AB7; 
@@ -911,7 +914,10 @@ button.green2, input[type="submit"].green2 {
 .alpha-sign-up input[type="email"] {
 	width: 250px;
   	margin: 8px;
+	font-family: 'Lato', sans-serif;
 }
+
+
 
 /* I-SPY --------------------------------------------------------- */
 

@@ -2,36 +2,52 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato:100,400|Quicksand:300,400' rel='stylesheet' type='application/x-font-woff'>	
 
 	<script type="text/javascript">
-	  $(document).ready(function() {
+	  	$(document).ready(function() {
 
-	    //Default
-	    $("#jump").click(function (event) {	
-			$(".mainContainer").animate(
-				{ scrollTop: 100 }, "slow", "easeOutBack" );
-			event.preventDefault();
-			return false;
+		    //code to be used for scrolling page for nav links 
+		    $("#jump").click(function (event) {	
+				$(".mainContainer").animate(
+					{ scrollTop: 100 }, "slow", "easeOutBack" );
+				event.preventDefault();
+				return false;
+			});
+		  });
+	
+		//size the splash image to the window height
+		$(function () {
+		  var h = $(window).height();
+		  $('#block-splash').height(h);
+	
+		  var img = new Image();
+		  $(img)
+		    .load(function () {
+		      $(this).hide();
+			  $(this).appendTo('#block-splash');
+		      $(this).show();
+		    })
+
+		    .error(function () {
+		      // notify the user that the image could not be loaded
+		    })
+
+		    .attr('src', '/images/splash_ipad.png')
+		    .attr('style', 'height: ' + h + 'px');
+		});	
+		
+		//early access
+		$('#early-access-submit').live("click", function() {
+			$('#sign-up-form').hide();
+			$('#loader').show();
+			$.ajax({
+				url: "/early_access.js",
+				data: "email=" + $('#email').val(),
+				type: "POST",
+				success: function() {
+					$('#loader').hide();
+					$('#thank-you').show();
+				}
+			});		
 		});
-	  });
-	
-	$(function () {
-	  var h = $(window).height();
-	  $('#block-splash').height(h);
-	
-	  var img = new Image();
-	  $(img)
-	    .load(function () {
-	      $(this).hide();
-		  $(this).appendTo('#block-splash');
-	      $(this).show();
-	    })
-
-	    .error(function () {
-	      // notify the user that the image could not be loaded
-	    })
-
-	    .attr('src', '/images/splash_ipad.png')
-	    .attr('style', 'height: ' + h + 'px');
-	});	
 	
 	 </script>
 	
@@ -56,12 +72,13 @@
 	</div>
 	<div id="block-sign-up">
 		<div class="alpha-sign-up" id="sign-up">
-			<%= form_for @earlyUser, :url => early_access_path, :remote => true do |f| %>
-			<h3>Request an Invitation</h3>	
-				<%= f.email_field :email %><br />
-				<%= submit_tag "Sign me up!", :class => "blue big-button", :id => "early-access-submit" %>
-				<div id="loader" class="hidden loading"></div>
-			<% end %>
+			<h3>Request an Invitation</h3>
+			<div id="sign-up-form">
+				<input type="email" placeholder="Enter your email address"><br />
+				<button class="blue big-button" id="early-access-submit">Sign me up!</button>
+			</div>
+			<div id="loader" class="hidden loading"></div>
+			</div>
 			<div id="thank-you" class="hidden">
 				<p>Thanks! You're on the list.</p>
 				<p>We'll be in touch soon.</p> 

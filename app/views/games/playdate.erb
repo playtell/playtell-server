@@ -25,6 +25,11 @@
 		if (thing.player != <%= current_user.id %>)
 			turnBookPage(thing.page); 
 	});
+	
+	thingChannel.bind('end_playdate', function(thing) {
+		if (thing.player != <%= current_user.id %>)
+			endPlaydate(); 
+	});
 
 	<% if !tablet_device? %>
 	    var sessionId = "<%= @playdate.video_session_id %>"; 
@@ -130,18 +135,7 @@
 		<% end %> //non-tablet setup
 		
 		$('#disconnect-link').click(function() {
-			<% if !tablet_device? %>
-				disconnect(); // disconnect on tokbox
-			<% end %>
-			pusher.unsubscribe("<%= @playdate.pusher_channel_name %>"); //disconnect on pusher
-			$.get("<%= disconnect_playdate_path %>"); //disconnect on playtell 
-			// prompt for feedback:
-			$('#feedback-lightbox').lightbox_me({
-			    centered: true, 
-				onClose: function () {
-					document.location.href='<%= user_path @current_user %>';
-				}
-			});
+			endPlaydate();
 		});
 		
 		//book canvas init
@@ -149,6 +143,21 @@
 		context = canvas.getContext( "2d" );
 		
 	});
+	
+	function endPlaydate() {
+		<% if !tablet_device? %>
+			disconnect(); // disconnect on tokbox
+		<% end %>
+		pusher.unsubscribe("<%= @playdate.pusher_channel_name %>"); //disconnect on pusher
+		$.get("<%= disconnect_playdate_path %>"); //disconnect on playtell 
+		// prompt for feedback:
+		$('#feedback-lightbox').lightbox_me({
+		    centered: true, 
+			onClose: function () {
+				document.location.href='<%= user_path @current_user %>';
+			}
+		});
+	}
 			
 </script>
 <% end %>

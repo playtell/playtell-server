@@ -10,12 +10,13 @@ class ApplicationController < ActionController::Base
   end
   
   def earlyAccess
-    if !params[:early_user][:email].blank?
-      @earlyUser = EarlyUser.new(params[:early_user])
-      @earlyUser.save
-    end
-    respond_to do |format|
-      format.js
+    if !params[:email].blank?
+      earlyUser = EarlyUser.new(:email => params[:email])
+      earlyUser.save
+      respond_to do |format|
+        format.json { head :ok } 
+        format.tablet { head :ok }
+      end
     end
   end
     
