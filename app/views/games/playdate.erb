@@ -133,6 +133,7 @@
 			<% if !tablet_device? %>
 				disconnect(); // disconnect on tokbox
 			<% end %>
+			pusher.unsubscribe('thing-channel'); //disconnect on pusher
 			$.get("<%= disconnect_playdate_path %>"); //disconnect on playtell 
 			// prompt for feedback:
 			$('#feedback-lightbox').lightbox_me({
