@@ -3,7 +3,6 @@ class Playdate < ActiveRecord::Base
   belongs_to :user
   
   after_create :setChannel
-  #after_create :initBook
   
   DISCONNECTED=0
   CONNECTING=1
@@ -24,12 +23,6 @@ class Playdate < ActiveRecord::Base
   CHANGE_GAME=1000
   CHANGE_GAMELET=1001
   TAKE_TURN=1002
-  
-  def initBook 
-    self.book_id = Book.find_by_title("Little Red Riding Hood").id
-    self.page_num = 1
-    save
-  end
   
   def setChannel
     self.pusher_channel_name = "private-playdate-channel-" + self.id.to_s
