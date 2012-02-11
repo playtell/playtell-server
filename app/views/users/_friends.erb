@@ -2,10 +2,7 @@
 <div class="friends">
 	<% for friend in @current_user.allFriends %>
 		<div class="friend">
-			<%= form_tag playdate_path, :class => 'playdate_form' do %>
-				<%= hidden_field_tag 'friend_id', friend.id, :id => 'friend_id' %>
-				<%= submit_tag friend.displayName %>
-			<% end %>
+			<a href="<%= playdate_path :friend_id => friend.id %>" class="friend-item" data-friendid="<%= friend.id %>"><%= friend.displayName %></a>
 		</div>
 	<% end %>
 	<div class="friend" id="add-friend"><%= image_tag "add_person.png" %></div>

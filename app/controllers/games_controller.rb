@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_filter :initOpenTok, :initPusher, :only => [:playdate]
+  before_filter :initOpenTok, :pusher, :only => [:playdate]
   before_filter :authenticate_user!
   layout :chooseLayout
       
@@ -9,6 +9,7 @@ class GamesController < ApplicationController
   def playdate
     if !requesting_playdate
       createPlaydate
+      Pusher["request-channel"].trigger('playdate_requested', @playdate.to_json(:user => current_user))
     else
       joinPlaydate
     end
@@ -210,12 +211,6 @@ private
     end
   end
   
-  def initPusher
-    Pusher.app_id = '14641'
-    Pusher.key = @pusher_key = 'cdac251f32d5b6d2ef7d'
-    Pusher.secret = '60fbaecfc72e4b2cb86a'
-  end
-  
   # sets up a new playdate session with a new opentok video session and a book to be read in the playdate. gets an opentok token for the user. currently hard-coded to use the 'little red riding hood' book.   
   def createPlaydate
     # set up the opentok video session and get a token for this user
@@ -239,6 +234,7 @@ private
     else
       @playdate = requesting_playdate
     end
+    session[:playdate] = params[:playdate]
     @playdate.connected
     getBook(@playdate.book_id) if @playdate.book_id
 

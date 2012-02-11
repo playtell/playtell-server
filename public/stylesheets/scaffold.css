@@ -330,22 +330,11 @@ div.friend {
 	text-align: center;
 }
 
-.friends input[type="submit"] {
-	background-color: transparent;
-	background: none;
-	box-shadow: none;
-	-moz-bok-shadow: none;
-	border: none;
+.friends .friend-item {
 	font-family: "Georgia", serif;
 	font-size: 52px;
 	color: #ded300;
 	font-weight: normal;
-	margin-top: -50%;
-}
-
-.friends input[type="submit"]:hover {
-	cursor: pointer;
-	text-decoration: underline;
 }
 
 .friend img {

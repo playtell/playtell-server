@@ -1,0 +1,5 @@
+<div class="hidden" id="values">
+	<p id="pusher-key"><%= @pusher_key if @pusher_key %></p>
+	<p id="pusher-channel-name"><%= @playdate.pusher_channel_name if @playdate && @playdate.pusher_channel_name %></p>
+	<p id="current-user"><%= current_user.id if current_user %></p>
+</div>

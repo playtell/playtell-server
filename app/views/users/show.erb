@@ -1,3 +1,76 @@
+<% content_for :head do %>
+	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
+	<%= javascript_include_tag 'pusher' %>
+
+	<script type="text/javascript">
+		var p, r, d;
+		var pusher;
+		var requestChannel;
+		
+		$(document).ready(function() {
+			pusher = new Pusher($('#pusher-key').html()); 
+			requestChannel = pusher.subscribe("request-channel");
+			
+			checkForPlaydateRequest(); //ping the server right away to see if there's a playdate waiting
+		
+			//add friends
+			$("#add-friend").click(function() {
+				$('#find-lightbox').lightbox_me({
+			    	centered: true,
+					onLoad: function() {
+						$('#find-lightbox-text').find('input[type=text]:first').focus();
+					}
+				});
+			});	
+		});
+	
+		function checkForPlaydateRequest() {
+			$.getJSON(
+				"/playdate_requested", 		
+				function(data) {
+					if (data) {
+						p = data.id;
+						joinPlaydateLightbox(data);
+						//clearTimeout(r);
+						//d = setTimeout("checkForDisconnect(p)", 1000);
+					}
+					else {
+						listenForPlaydateRequest();
+					}
+				}
+			);		
+		}
+	
+		function checkForDisconnect(p) {
+			$.getJSON(
+				"/playdate_disconnected", 
+				{ playdate: p },		
+				function(data) {
+					if (data) {
+						$('#join-playdate').die("click");
+						$('#join-lightbox').trigger('close');
+						clearTimeout(d);
+						r = setTimeout(checkForPlaydateRequest, 5000);
+					}
+					else {
+						d = setTimeout("checkForDisconnect(p)", 1000)
+					}
+				}
+			);
+		}
+	
+		function joinPlaydateLightbox(data) {
+			var requestText = '';
+			requestText += '<h1>' + data.otherPlayer + '</h1><h2>wants to play!</h2><a href="/playdate?playdate=' + data.id + '"><button class="blue big-button">Join Playdate</button></a>';
+			$('#join-lightbox').append(requestText);
+			$('#join-lightbox').lightbox_me({
+			    centered: true, 
+				destroyOnClose: true,
+			});	
+		}
+
+	</script>
+<% end %>
 <div class="black height100">
 	<%= render :partial => "friends" %>
 
@@ -20,71 +93,3 @@
 		<button class="close close-x blue">X</button>	
 	</div>
 </div>
-
-<script type="text/javascript">
-	var p, r, d;
-	
-	$(document).ready(function() {
-		checkForPlaydateRequest();
-		
-		$('.find-playmates-link').click(function() {
-			$('#find-lightbox').lightbox_me({
-		    	centered: true,
-				onLoad: function() {
-					$('#find-lightbox-text').find('input[type=text]:first').focus();
-				}
-			});
-		});
-		
-		$("#add-friend").click(function() {
-			$("#find-lightbox").lightbox_me();			
-		});
-
-	});
-	
-	function checkForPlaydateRequest() {
-		$.getJSON(
-			"/playdate_requested", 		
-			function(data) {
-				if (data) {
-					p = data.id;
-					joinPlaydateLightbox(data);
-					clearTimeout(r);
-					d = setTimeout("checkForDisconnect(p)", 1000);
-				}
-				else {
-					r = setTimeout("checkForPlaydateRequest()", 5000);
-				}
-			}
-		);		
-	}
-	
-	function checkForDisconnect(p) {
-		$.getJSON(
-			"/playdate_disconnected", 
-			{ playdate: p },		
-			function(data) {
-				if (data) {
-					$('#join-playdate').die("click");
-					$('#join-lightbox').trigger('close');
-					clearTimeout(d);
-					r = setTimeout(checkForPlaydateRequest, 5000);
-				}
-				else {
-					d = setTimeout("checkForDisconnect(p)", 1000)
-				}
-			}
-		);
-	}
-	
-	function joinPlaydateLightbox(data) {
-		var requestText = '';
-		requestText += '<h1>' + data.otherPlayer + '</h1><h2>wants to play!</h2><a href="/playdate?playdate=' + data.id + '"><button class="blue big-button">Join Playdate</button></a>';
-		$('#join-lightbox').append(requestText);
-		$('#join-lightbox').lightbox_me({
-		    centered: true, 
-			destroyOnClose: true,
-		});	
-	}
-
-</script>

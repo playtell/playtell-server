@@ -1,35 +1,13 @@
 <% content_for :head do %>
-
-	<%= javascript_include_tag 'playdate', 'youtube', 'pageflip' %>
+	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
+	<%= javascript_include_tag 'playdate', 'pageflip', 'pusher' %>
 
 	<% if !tablet_device? %>
-		<%= javascript_include_tag 'video', 'fullscreen' %>
+		<%= javascript_include_tag 'video', 'fullscreen', 'youtube' %>
 		<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script> 
 	<% end %>
 
-	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
-
 <script type="text/javascript">
-
-	var pusher = new Pusher('<%= @pusher_key %>'); 
-	var thingChannel = pusher.subscribe("<%= @playdate.pusher_channel_name %>");
-
-	thingChannel.bind('change_book', function(thing) {
-		if (thing.player != <%= current_user.id %>)
-			hideToyBox();
-			var thingBook = $.parseJSON(thing.data);
-			doChangeBook(thingBook.book);
-	});
-	
-	thingChannel.bind('turn_page', function(thing) {
-		if (thing.player != <%= current_user.id %>)
-			turnBookPage(thing.page); 
-	});
-	
-	thingChannel.bind('end_playdate', function(thing) {
-		if (thing.player != <%= current_user.id %>)
-			endPlaydate(); 
-	});
 
 	<% if !tablet_device? %>
 	    var sessionId = "<%= @playdate.video_session_id %>"; 
@@ -76,8 +54,14 @@
 	var pages;
 	
 	var tablet = false;
+	var pusher;
+	var thingChannel;
 			
 	$(document).ready(function() {
+		//move to initplaydate
+		pusher = new Pusher($('#pusher-key').html()); 
+		thingChannel = pusher.subscribe($('#pusher-channel-name').html());
+		listenForEndPlaydate();
 		
 		<% if tablet_device? %>
 			tablet = true;
@@ -133,7 +117,7 @@
 			$('a').attr("disabled", true);
 			$('#disconnect-link').attr("disabled", false);							
 		<% end %> //non-tablet setup
-		
+				
 		$('#disconnect-link').click(function() {
 			endPlaydate();
 		});

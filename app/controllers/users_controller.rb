@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   layout 'application'
   before_filter :authenticate_user!
+  before_filter :pusher, :only => [:show]
   
   def show
     @user = User.find(params[:id])

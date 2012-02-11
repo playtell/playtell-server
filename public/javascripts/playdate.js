@@ -9,6 +9,7 @@ function doChangeBook(book) {
 	//createBookFromJSON(data.book);
 	showBook(book.title, 1, book.pages.length);
 	$('.book-container').show();
+	listenForTurnPage();
 }
 
 function showBook(title, currentPage, totalPages) { 
@@ -315,9 +316,13 @@ function enableToySelectors() {
 }
 
 function initPlaydate() {
+
+
 	enableButtons();
 	enableToySelectors();
 	toggleToyBox();
+	
+	listenForChangeBook();
 }
 
 

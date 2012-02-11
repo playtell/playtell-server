@@ -47,12 +47,19 @@ class Playdate < ActiveRecord::Base
     User.find(player1_id).displayName
   end
   
+  def getOtherPlayerID(user)
+    user.id == player1_id ? player2_id : player1_id
+  end
+  
   #overriding to add the other player's name to the json payload if needed
   def as_json(options = {})
     j = super
     
-    j = {:id => self.id, :otherPlayer => getOtherPlayerName(options[:user])} if options[:user]
-    
+    j = {
+      :id => self.id, 
+      :otherPlayerID => getOtherPlayerID(options[:user]),  
+      :otherPlayer => getOtherPlayerName(options[:user])} if options[:user]
+
     j
   end
 
