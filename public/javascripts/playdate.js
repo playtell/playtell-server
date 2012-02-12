@@ -316,8 +316,6 @@ function enableToySelectors() {
 }
 
 function initPlaydate() {
-
-
 	enableButtons();
 	enableToySelectors();
 	toggleToyBox();

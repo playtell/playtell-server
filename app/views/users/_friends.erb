@@ -2,7 +2,7 @@
 <div class="friends">
 	<% for friend in @current_user.allFriends %>
 		<div class="friend">
-			<a href="<%= playdate_path :friend_id => friend.id %>" class="friend-item" data-friendid="<%= friend.id %>"><%= friend.displayName %></a>
+			<a href="<%= playdate_path :friend_id => friend.id %>" class="friend-item offline" data-friendid="<%= friend.id %>"><%= friend.displayName %></a>
 		</div>
 	<% end %>
 	<div class="friend" id="add-friend"><%= image_tag "add_person.png" %></div>

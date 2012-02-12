@@ -337,6 +337,10 @@ div.friend {
 	font-weight: normal;
 }
 
+.friends .online {	color: #ded300; }
+.friends .offline {	color: grey; }
+.friends .in-playdate {	color: red; }
+
 .friend img {
 	vertical-align: middle;
 }

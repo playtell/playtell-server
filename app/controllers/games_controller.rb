@@ -9,7 +9,7 @@ class GamesController < ApplicationController
   def playdate
     if !requesting_playdate
       createPlaydate
-      Pusher["rendezvous-channel"].trigger('playdate_requested', @playdate.to_json(:user => current_user))
+      Pusher["presence-rendezvous-channel"].trigger('playdate_requested', @playdate.to_json(:user => current_user))
     else
       joinPlaydate
     end
