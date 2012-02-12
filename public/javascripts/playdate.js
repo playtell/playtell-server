@@ -398,7 +398,8 @@ function checkForPlaydateRequest() {
 			if (data) {
 				showPlaydateRequest(data);
 				//join private playdate
-				listenForPlaydateDisconnected();
+				playdateChannel = pusher.subscribe($('#pusher-channel-name').html());
+				listenForEndPlaydate();
 			}
 			else {
 				listenForPlaydateRequest();
@@ -416,6 +417,6 @@ function showPlaydateRequest(data) {
 	$('#join-lightbox').append(requestText);
 	$('#join-lightbox').lightbox_me({
 	    centered: true, 
-		onClose: function() { $('#join-lightbox').html(''); }
+		onClose: function() { $('#join-lightbox').empty(); }
 	});	
 }
