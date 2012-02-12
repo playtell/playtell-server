@@ -55,13 +55,13 @@
 	
 	var tablet = false;
 	var pusher;
-	var thingChannel;
+	var playdateChannel;
 			
 	$(document).ready(function() {
-		//move to initplaydate
+		//move to initplaydate - once we've gotten rid of tokbox
 		pusher = new Pusher($('#pusher-key').html()); 
-		thingChannel = pusher.subscribe($('#pusher-channel-name').html());
-		listenForEndPlaydate();
+		playdateChannel = pusher.subscribe($('#pusher-channel-name').html());
+		listenForEndPlaydate(true);
 		
 		<% if tablet_device? %>
 			tablet = true;

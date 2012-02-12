@@ -57,6 +57,7 @@ class Playdate < ActiveRecord::Base
     
     j = {
       :id => self.id, 
+      :pusherChannelName => self.pusher_channel_name,
       :otherPlayerID => getOtherPlayerID(options[:user]),  
       :otherPlayer => getOtherPlayerName(options[:user])} if options[:user]
 

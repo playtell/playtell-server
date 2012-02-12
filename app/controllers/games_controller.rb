@@ -9,7 +9,7 @@ class GamesController < ApplicationController
   def playdate
     if !requesting_playdate
       createPlaydate
-      Pusher["request-channel"].trigger('playdate_requested', @playdate.to_json(:user => current_user))
+      Pusher["rendezvous-channel"].trigger('playdate_requested', @playdate.to_json(:user => current_user))
     else
       joinPlaydate
     end
@@ -34,6 +34,18 @@ class GamesController < ApplicationController
     end  
   end
   
+  # ends the current playdate session (i.e. disconnects)
+  def disconnectPlaydate
+    if !current_playdate.disconnected?
+      Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:player => current_user.id})
+      #Pusher["disconnect-channel"].trigger('playdate_disconnected', current_playdate.as_json(:user => current_user))
+      current_playdate.disconnect 
+    end
+    session[:playdate] = nil
+    render :nothing => true
+  end
+  
+  # deprecated
   # checks to see if the playdate has ended, and if so, changes the current user's view accordingly
   def playdateDisconnected
     if Playdate.find(params[:playdate]).disconnected? #current_playdate.disconnected?
@@ -46,6 +58,15 @@ class GamesController < ApplicationController
         format.json { render :json => nil } 
         format.tablet { render :json => nil }
       end  
+    end
+  end
+  
+  # deprecated
+  # deletes all playdate sessions from the db
+  def clearPlaydate
+    Playdate.delete_all 
+    respond_to do |format|
+      format.js { render :nothing => true }
     end
   end
   
@@ -120,22 +141,6 @@ class GamesController < ApplicationController
     end
   end
   
-  def setTime
-    u = current_user
-    u.video_time = params[:currentTime]
-    u.save!
-    render :nothing => true
-  end
-  
-  def checkTime
-    p = current_playdate
-    u = current_user
-    @playmate = User.find_by_username(p.getOtherPlayerName(u))
-    respond_to do |format|
-      format.js { render 'print_time' }
-    end
-  end
-  
   # called via ajax from one of the players in the playdate b/c they got a tokbox signal from another player indicating that the play state has changed, e.g. turned page in a book. refreshes the playdate for this user with the latest play state 
   # gonna need to fix up this code: won't work with multiple changes in a row by one party...
   def updateFromPlaydate
@@ -168,6 +173,24 @@ class GamesController < ApplicationController
     @playdate.clearChange
   end
   
+  # for use with youtube vids
+  def setTime
+    u = current_user
+    u.video_time = params[:currentTime]
+    u.save!
+    render :nothing => true
+  end
+  
+  # for use with youtube vids
+  def checkTime
+    p = current_playdate
+    u = current_user
+    @playmate = User.find_by_username(p.getOtherPlayerName(u))
+    respond_to do |format|
+      format.js { render 'print_time' }
+    end
+  end
+  
   def memory
     @cardgame = Cardgame.new
     @cardgame.save
@@ -178,28 +201,9 @@ class GamesController < ApplicationController
   end
   
   def updateGame
-    
   end
   
   def updateGameFromSession
-  end
-  
-  # deletes all playdate sessions from the db
-  def clearPlaydate
-    Playdate.delete_all 
-    respond_to do |format|
-      format.js { render :nothing => true }
-    end
-  end
-  
-  # ends the current playdate session (i.e. disconnects)
-  def disconnectPlaydate
-    if !current_playdate.disconnected?
-      Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:player => current_user.id})
-      current_playdate.disconnect 
-    end
-    session[:playdate] = nil
-    render :nothing => true
   end
 
 private

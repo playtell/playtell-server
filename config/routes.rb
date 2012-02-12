@@ -5,7 +5,6 @@ Semiralabs::Application.routes.draw do
 
   #deprecated
   match 'update_page' => 'games#updatePage'
-
   match 'update_from_playdate' => 'games#updateFromPlaydate'
   match 'clear_playdate' => 'games#clearPlaydate'
   match 'disconnect_playdate' => 'games#disconnectPlaydate'

@@ -1,17 +1,15 @@
 <% content_for :head do %>
 	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
-	<%= javascript_include_tag 'pusher' %>
+	<%= javascript_include_tag 'pusher', 'playdate' %>
 
 	<script type="text/javascript">
 		var p, r, d;
 		var pusher;
-		var requestChannel;
+		var playdateChannel;
 		
 		$(document).ready(function() {
-			pusher = new Pusher($('#pusher-key').html()); 
-			requestChannel = pusher.subscribe("request-channel");
-			
-			checkForPlaydateRequest(); //ping the server right away to see if there's a playdate waiting
+			pusher = new Pusher($('#pusher-key').html()); 			
+			checkForPlaydateRequest(); 
 		
 			//add friends
 			$("#add-friend").click(function() {
@@ -23,51 +21,6 @@
 				});
 			});	
 		});
-	
-		function checkForPlaydateRequest() {
-			$.getJSON(
-				"/playdate_requested", 		
-				function(data) {
-					if (data) {
-						p = data.id;
-						joinPlaydateLightbox(data);
-						//clearTimeout(r);
-						//d = setTimeout("checkForDisconnect(p)", 1000);
-					}
-					else {
-						listenForPlaydateRequest();
-					}
-				}
-			);		
-		}
-	
-		function checkForDisconnect(p) {
-			$.getJSON(
-				"/playdate_disconnected", 
-				{ playdate: p },		
-				function(data) {
-					if (data) {
-						$('#join-playdate').die("click");
-						$('#join-lightbox').trigger('close');
-						clearTimeout(d);
-						r = setTimeout(checkForPlaydateRequest, 5000);
-					}
-					else {
-						d = setTimeout("checkForDisconnect(p)", 1000)
-					}
-				}
-			);
-		}
-	
-		function joinPlaydateLightbox(data) {
-			var requestText = '';
-			requestText += '<h1>' + data.otherPlayer + '</h1><h2>wants to play!</h2><a href="/playdate?playdate=' + data.id + '"><button class="blue big-button">Join Playdate</button></a>';
-			$('#join-lightbox').append(requestText);
-			$('#join-lightbox').lightbox_me({
-			    centered: true, 
-				destroyOnClose: true,
-			});	
-		}
 
 	</script>
 <% end %>

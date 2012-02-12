@@ -1,34 +1,42 @@
 function listenForPlaydateRequest() {
-	requestChannel.bind('playdate_requested', function(data) {
+	var rendezvousChannel = pusher.subscribe("rendezvous-channel");
+	rendezvousChannel.bind('playdate_requested', function(data) {
+		console.log(data);
 		if (data.otherPlayerID == $('#current-user').html()) {
-			joinPlaydateLightbox(data);
-			pusher.unsubscribe("request-channel");
-			//listenForEndPlaydate();
+			showPlaydateRequest(data);
+			pusher.unsubscribe("rendezvous-channel");
+			playdateChannel = pusher.subscribe($('#pusher-channel-name').html());
+			listenForEndPlaydate(false);
 		}
 	});	
 }
 
 //should be listenForChangeActivity
 function listenForChangeBook() {
-	thingChannel.bind('change_book', function(data) {
+	playdateChannel.bind('change_book', function(data) {
 		if (data.player != $('#current-user').html()) {
 			hideToyBox();
-			var thingBook = $.parseJSON(data.data);
-			doChangeBook(thingBook.book);
+			var bookData = $.parseJSON(data.data);
+			doChangeBook(bookData.book);
 		}
 	});
 }
 
 function listenForTurnPage() {
-	thingChannel.bind('turn_page', function(data) {
+	playdateChannel.bind('turn_page', function(data) {
 		if (data.player != $('#current-user').html())
 			turnBookPage(data.page); 
 	});
 }
 
-function listenForEndPlaydate() {
-	thingChannel.bind('end_playdate', function(data) {
-		if (data.player != $('#current-user').html())
+function listenForEndPlaydate(in_playdate) {
+	playdateChannel.bind('end_playdate', function(data) {
+		if (!in_playdate) {
+			$('#join-lightbox').trigger('close');
+			pusher.unsubscribe("disconnect-channel");
+			listenForPlaydateRequest();
+		}
+		else if (data.player != $('#current-user').html())
 			endPlaydate(); 
 	});
 }

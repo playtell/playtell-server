@@ -387,3 +387,35 @@ function syncGameToServer(item, correct, change) {
 		}
 	});	
 }
+
+// the next few fns are for REQUESTING, JOINING, DISCONNECTING from playdates (ie stuff that happens before player is in a playdate)
+
+//pings the server directly first to check for a requesting playdate; listens for pusher notification if there isn't yet a requesting playdate
+function checkForPlaydateRequest() {
+	$.getJSON(
+		"/playdate_requested", 		
+		function(data) {
+			if (data) {
+				showPlaydateRequest(data);
+				//join private playdate
+				listenForPlaydateDisconnected();
+			}
+			else {
+				listenForPlaydateRequest();
+			}
+		}
+	);		
+}
+
+//serves up a lightbox with the playdate join request 
+function showPlaydateRequest(data) {
+	//data.id is playdate id. put that in the playdate channel name field
+	$("#pusher-channel-name").html(data.pusherChannelName);
+	var requestText = '';
+	requestText += '<h1>' + data.otherPlayer + '</h1><h2>wants to play!</h2><a href="/playdate?playdate=' + data.id + '"><button class="blue big-button">Join Playdate</button></a>';
+	$('#join-lightbox').append(requestText);
+	$('#join-lightbox').lightbox_me({
+	    centered: true, 
+		onClose: function() { $('#join-lightbox').html(''); }
+	});	
+}

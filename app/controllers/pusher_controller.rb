@@ -2,7 +2,9 @@ class PusherController < ApplicationController
   protect_from_forgery :except => :auth # stop rails CSRF protection for this action
 
   def auth
-    if params[:channel_name].split("-")[3] == current_playdate.id.to_s && current_playdate.hasUser(current_user)
+    p = Playdate.find_by_id(params[:channel_name].split("-")[3])
+    if p.hasUser(current_user)
+      session[:playdate] = p.id
       response = Pusher[params[:channel_name]].authenticate(params[:socket_id])
       render :json => response
     else
