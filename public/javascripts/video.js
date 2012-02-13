@@ -117,6 +117,7 @@ function exceptionHandler(event) {
 
 function signalReceivedHandler (event) {
 	if (event.fromConnection.connectionId != session.connection.connectionId) {
+		console.log("signal");
 		$.get("/update_from_playdate.js"); //?title=" + $('#book-title').val() + "&current_page=" + $('#page-num').html()
 	}
 }

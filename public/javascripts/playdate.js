@@ -410,11 +410,21 @@ function checkForPlaydateRequest() {
 function showPlaydateRequest(data) {
 	//data.id is playdate id. put that in the playdate channel name field
 	$("#pusher-channel-name").html(data.pusherChannelName);
-	var requestText = '';
-	requestText += '<h1>' + data.otherPlayer + '</h1><h2>wants to play!</h2><a href="/playdate?playdate=' + data.id + '"><button class="blue big-button">Join Playdate</button></a>';
-	$('#join-lightbox').append(requestText);
+	$('#player-name').html(data.otherPlayer);
+	$('#playdate-target').attr('href', '/playdate?playdate=' + data.id);
 	$('#join-lightbox').lightbox_me({
 	    centered: true, 
 		onClose: function() { $('#join-lightbox').empty(); }
 	});	
+}
+
+function togglePresence(pageElement, online) {
+	if (online) {
+		element.removeClass("offline");
+		element.addClass("online");
+	}
+	else {
+		element.removeClass("online");
+		element.addClass("offline");
+	}
 }
