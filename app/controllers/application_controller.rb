@@ -59,9 +59,7 @@ private
   
   def pusher
     if !@pusher_key
-      Pusher.app_id = '14641'
-      Pusher.key = @pusher_key = 'cdac251f32d5b6d2ef7d'
-      Pusher.secret = '60fbaecfc72e4b2cb86a'
+      @pusher_key = Pusher.key
     end
   end
   
