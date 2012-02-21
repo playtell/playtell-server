@@ -1,4 +1,4 @@
-function doChangeBook(book) {
+function doChangeBookOld(book) {
 	$('#keepsake-container').hide();
 	enableNavButtons("book", 101);
 	$('#total-pages').html(book.pages.length);
@@ -6,8 +6,23 @@ function doChangeBook(book) {
 	$('.book-nav').show();
 	b = new PTBook();
 	b.createActivityFromJSON(book);
-	//createBookFromJSON(data.book);
 	showBook(book.title, 1, book.pages.length);
+	$('.book-container').show();
+	listenForTurnPage();
+}
+
+function doChangeBook(book) {
+	$('#keepsake-container').hide();
+	enableNavButtons("book", 101);
+	$('#total-pages').html(book.pages.length);
+	$('#page-num').html(1);
+	$('.book-nav').show();
+	b = new PTBook();
+	page = 0;
+	b.createActivityFromJSON(book);
+	mySwipe = new Swipe(
+	  document.getElementById('pages')
+	);
 	$('.book-container').show();
 	listenForTurnPage();
 }
@@ -286,13 +301,19 @@ function enableNavButtons(activity, playdateChange) {
 	disableNavButtons();
 	if (activity == "book") {
 		$("#next-link").live("click", function n(e) {
-		    turnBookPage(page+1); //page var gets updated in this fn call
+			page++;
+		    //turnBookPage(page+1); //page var gets updated in this fn call
 		    syncToServerNoData(playdateChange);
+			mySwipe.next();
+			return false;
 	    });
 
 		$("#previous-link").live("click", function p(e) {
-		    turnBookPage(page-1); //page var gets updated in this fn call
+			page--;
+		    //turnBookPage(page-1); //page var gets updated in this fn call
 		    syncToServerNoData(playdateChange);
+			mySwipe.prev();
+			return false;
 	    });
 	}
 	else {
@@ -358,9 +379,9 @@ function syncToServerReturnData(playdate_change, activityID) {
 				$('#keepsake-container').show();
 				goToPage(1, "keepsake"); 
 			}
-			if (!tablet) {
-				session.signal();
-			}
+			//if (!tablet) {
+			//	session.signal();
+			//}
 		}
 	);
 }

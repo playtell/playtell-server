@@ -8,7 +8,7 @@ PTBook.prototype.createActivityFromJSON=function(book) {
 
 	$.each(book.pages, function(i, page) {
 		pageNum = i+1;
-		bookMarkup += '<section> <div id="page_' + pageNum + '"> <div class="book-image"><img src="' + getPageImageFilePath(book.image_directory, i+1) + '"></div> <div class="book-text">' + book.pages[i].page_text + '</div>  </section>';
+		bookMarkup += '<div id="page_' + pageNum + '"> <div class="book-image"><img src="' + getPageImageFilePath(book.image_directory, i+1) + '"></div> <div class="book-text">' + book.pages[i].page_text + '</div></div>';
 	});
 	$('#pages').html(bookMarkup);
 }

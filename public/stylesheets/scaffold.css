@@ -381,7 +381,7 @@ div.friend {
 }
 
 .video-content.row {
-	height: 152px;
+	height: 130px;
 	top: 0;
 }
 
@@ -403,7 +403,7 @@ div.friend {
 	background: black;
 	border: 1px solid #555;
 	width: 200px;
-	height: 150px;
+	height: 130px;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -413,7 +413,7 @@ div.friend {
 	background: black;
 	border: 1px solid #555;
 	width: 200px;
-	height: 150px;
+	height: 130px;
 	position: absolute;
 	top: 0px;
 	left: 205px;
@@ -465,12 +465,13 @@ div.friend {
 /* BOOK FLIP --------------------------------------------------------- */
 
 #book {
-	background: url("/images/book.jpg") no-repeat;
-	position: absolute;
-	width: 1200px;
+	/*background: url("/images/book.jpg") no-repeat;*/
+	width: 600px;
 	height: 470px;
+	margin: 0 auto;
 }
 
+/*
 #pages section {
 	background: url("/images/paper.jpg") no-repeat;
 	display: block;
@@ -507,6 +508,32 @@ div.friend {
 	z-index: 100;
 }	
 
+#pages li {
+	width: 500px;
+} */
+
+.swipe-active {
+  overflow:hidden;
+  position:relative;
+}
+.swipe-active div {
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+.swipe-active .swipe-left {
+  -webkit-transform: translate3d(-100%, 0, 0);
+}
+.swipe-active .swipe-current {
+  -webkit-transform: translate3d(0, 0, 0);
+}
+.swipe-active .swipe-right {
+  -webkit-transform: translate3d(100%, 0, 0);
+}
+
 .book-image {
 	text-align: center;
 }
@@ -520,6 +547,7 @@ div.friend {
 	text-align: justify;
 	font-size: 14px;
 	padding: 0px 15px;
+	width: 500px;
 }
 
 .book-text p {
@@ -662,35 +690,22 @@ p a#next-link:hover { background-position: -332px -227px; }
 	left: 1500px;
 }
 
-
-/* LIBRARY --------------------------------------------------------- */
-
-.library-item {
-	width: 140px;
-	padding-right: 5px;
-	display: inline-block;
-	vertical-align: bottom;
-}
-
-.library-item img {
-	width: 125px;
-}
-
 /* BOTTOM DRAWER --------------------------------------------------------- */
 
 #bottom-drawer {
 	text-align: center;
 	min-width: 1000px;
 	z-index: 1000;
+	height: 284px;
 }
 
 #bottom-drawer.row {
-	bottom: -164px;
+	bottom: -284px;
 }
 
 .shelf_bg {
 	position: absolute;
-	height: 205px;
+	height: 284px;
 	top: 44px;
 	z-index: -1;
 }
@@ -713,10 +728,6 @@ p a#next-link:hover { background-position: -332px -227px; }
 	right: 0px;
 }
 
-.items {
-	z-index: 100;
-}
-
 #links {
 	background: url("/images/drawer_background.jpg") repeat 0 0;
 	min-height: 50px;
@@ -730,6 +741,38 @@ p a#next-link:hover { background-position: -332px -227px; }
 	height: 38px;
 	width: 38px;
 	margin-top: 8px;
+}
+
+.playdate-controls .left-button {
+	position: absolute;
+	left: 64px;	
+}
+
+.playdate-controls .right-button {
+	position: absolute;
+	right: 64px;
+}
+
+.playdate-controls a {
+	display: block;
+	margin-bottom: 8px;
+}
+
+.items {
+	z-index: 100;
+}
+
+/* LIBRARY --------------------------------------------------------- */
+
+.library-item {
+	width: 140px;
+	padding-right: 5px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.library-item img {
+	width: 125px;
 }
 
 /* SPRITES --------------------------------------------------------- */

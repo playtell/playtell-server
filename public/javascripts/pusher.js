@@ -40,6 +40,7 @@ function listenForChangeBook() {
 		if (data.player != $('#current-user').html()) {
 			hideToyBox();
 			var bookData = $.parseJSON(data.data);
+			console.log(bookData);
 			doChangeBook(bookData.book);
 		}
 	});
@@ -48,7 +49,10 @@ function listenForChangeBook() {
 function listenForTurnPage() {
 	playdateChannel.bind('turn_page', function(data) {
 		if (data.player != $('#current-user').html())
-			turnBookPage(data.page); 
+			//turnBookPage(data.page); 
+			console.log("page turned: " + data.page);
+			page = data.page;
+			mySwipe.slide(data.page, 300);
 	});
 }
 
