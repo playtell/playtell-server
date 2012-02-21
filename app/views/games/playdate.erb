@@ -6,7 +6,10 @@
 		<%= javascript_include_tag 'video', 'fullscreen', 'youtube' %>
 		<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script> 
 	<% end %>
-
+	<% if tablet_device? %>
+		<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<% end %>
+	
 <script type="text/javascript">
 
 	<% if !tablet_device? %>
@@ -121,10 +124,10 @@
 			$('#disconnect-link').attr("disabled", false);							
 		<% end %> //non-tablet setup
 				
-		$('#disconnect-link').click(function() {
+		$('#disconnect-link').on(tablet ? 'swipe' : 'click', function() {
 			endPlaydate();
 		});
-		
+		 
 		//book canvas init
 		//canvas = document.getElementById( "pageflip-canvas" );
 		//context = canvas.getContext( "2d" );
@@ -140,6 +143,7 @@
 		// prompt for feedback:
 		$('#feedback-lightbox').lightbox_me({
 		    centered: true, 
+			closeClick: false,
 			onClose: function () {
 				document.location.href='<%= user_path @current_user %>';
 			}
@@ -205,6 +209,7 @@
 			</div>
 		</div>
 		<div class="clear"></div>
+		<div class="hidden" id="finger">***</div>
 	</div>
 	
 	<div id="feedback-lightbox" class="lightbox hidden">

@@ -755,7 +755,9 @@ p a#next-link:hover { background-position: -332px -227px; }
 
 .playdate-controls .right-button {
 	position: absolute;
-	right: 64px;
+	right: 164px;
+	width: 200px;
+	height: 150px;
 }
 
 .playdate-controls a {

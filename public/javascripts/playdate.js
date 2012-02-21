@@ -1,16 +1,3 @@
-function doChangeBookOld(book) {
-	$('#keepsake-container').hide();
-	enableNavButtons("book", 101);
-	$('#total-pages').html(book.pages.length);
-	$('#page-num').html(1);
-	$('.book-nav').show();
-	b = new PTBook();
-	b.createActivityFromJSON(book);
-	showBook(book.title, 1, book.pages.length);
-	$('.book-container').show();
-	listenForTurnPage();
-}
-
 function doChangeBook(book) {
 	$('#keepsake-container').hide();
 	enableNavButtons("book", 101);
@@ -31,11 +18,17 @@ function doChangeBook(book) {
 				syncToServerNoData(101);
 			}
 		}
-	}
+	  }
 	);
 	$('.book-container').show();
 	mySwipe.setup();
 	listenForTurnPage();
+	
+	//grandma finger
+	//listenForTap(); <-- not yet built
+	//$('#book').on('tap', function(e) {
+	//	$("#finger").offset({ top: e.pageY, left: e.pageX}).show();
+	//});
 }
 
 function showBook(title, currentPage, totalPages) { 
