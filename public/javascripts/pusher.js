@@ -37,10 +37,9 @@ function listenForPlaydateRequest() {
 //should be listenForChangeActivity
 function listenForChangeBook() {
 	playdateChannel.bind('change_book', function(data) {
-		if (data.player != $('#current-user').html()) {
+		if (parseInt(data.player) != parseInt($('#current-user').html())) {
 			hideToyBox();
 			var bookData = $.parseJSON(data.data);
-			console.log(bookData);
 			doChangeBook(bookData.book);
 		}
 	});
@@ -48,11 +47,15 @@ function listenForChangeBook() {
 
 function listenForTurnPage() {
 	playdateChannel.bind('turn_page', function(data) {
-		if (data.player != $('#current-user').html())
+		if (parseInt(data.player) != parseInt($('#current-user').html())) {
 			//turnBookPage(data.page); 
-			console.log("page turned: " + data.page);
-			page = data.page;
-			mySwipe.slide(data.page, 300);
+			console.log("responding from player: " + data.player + ". page turning to: " + parseInt(data.page));
+			page = parseInt(data.page);
+			mySwipe.slide(parseInt(data.page), 100, true);
+		}
+		else {
+			console.log("(ignoring) heard trigger from player: " + data.player + " for: " + parseInt(data.page));
+		}
 	});
 }
 

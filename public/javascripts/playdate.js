@@ -21,9 +21,20 @@ function doChangeBook(book) {
 	page = 0;
 	b.createActivityFromJSON(book);
 	mySwipe = new Swipe(
-	  document.getElementById('pages')
+	  document.getElementById('pages'), {
+		speed: 100, 
+		callback: function() {
+			console.log("in callback. responder is: " + mySwipe.getResponder());
+			if (!mySwipe.getResponder()) {
+				console.log("pushing");
+				page = mySwipe.getPos();
+				syncToServerNoData(101);
+			}
+		}
+	}
 	);
 	$('.book-container').show();
+	mySwipe.setup();
 	listenForTurnPage();
 }
 
@@ -302,6 +313,7 @@ function enableNavButtons(activity, playdateChange) {
 	if (activity == "book") {
 		$("#next-link").live("click", function n(e) {
 			page++;
+			console.log("click to page:" + page);
 		    //turnBookPage(page+1); //page var gets updated in this fn call
 		    syncToServerNoData(playdateChange);
 			mySwipe.next();
