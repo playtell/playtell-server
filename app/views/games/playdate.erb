@@ -2,142 +2,32 @@
 	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
 	<%= javascript_include_tag 'playdate', 'pageflip', 'pusher', 'swipe.min' %>
 
-	<% if false %>
-		<%= javascript_include_tag 'video', 'fullscreen', 'youtube' %>
-		<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script> 
-	<% end %>
 	<% if tablet_device? %>
 		<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<% end %>
 	
 <script type="text/javascript">
-
-	<% if !tablet_device? %>
-	    var sessionId = "<%= @playdate.video_session_id %>"; 
-	    var token = "<%= @tok_token %>"; 
-		var apiKey = "<%= @api_key %>";
-		var session;
-		var publisher;
-		
-		var subscribers = {};
-		var deviceManager;
-
-		var PUBLISHER_WIDTH = 200;
-		var PUBLISHER_HEIGHT = 130;
-			
-		var SUBSCRIBER_WIDTH = 200;
-		var SUBSCRIBER_HEIGHT = 130;
-	<% end %>
 	
 	var KEEPSAKE_WIDTH = 242;
 	var KEEPSAKE_HEIGHT = 180;
 		
 	var num_keepsakes = 0;	
 	
-	//book canvas vars and constants
-	// Dimensions of the whole book
-	var BOOK_WIDTH = 1200;
-	var BOOK_HEIGHT = 470;
-
-	// Dimensions of one page in the book
-	var PAGE_WIDTH = 576;
-	var PAGE_HEIGHT = 456;
-
-	// Vertical spacing between the top edge of the book and the papers
-	var PAGE_Y = ( BOOK_HEIGHT - PAGE_HEIGHT ) / 2;
-
-	// The canvas size equals to the book dimensions + this padding
-	var CANVAS_PADDING = 50;
-	var canvas;
-	var context;
-	var mouse;
-	var page = 0;
-	var flips = [];
-	var book;
-	var pages;
-	
 	var tablet = false;
+	
 	var pusher;
 	var playdateChannel;
 	
 	var mySwipe;
 			
-	$(document).ready(function() {
-		//move to initplaydate - once we've gotten rid of tokbox
-		pusher = new Pusher($('#pusher-key').html()); 
-		playdateChannel = pusher.subscribe($('#pusher-channel-name').html());
-		listenForEndPlaydate(true);
-		
+	$(document).ready(function() {		
 		<% if tablet_device? %>
 			tablet = true;
 		<% end %>
 		initPlaydate();
-		<% if false %>
-			// load flash dialog instructions
-			$(function () {
-			  var img = new Image();
-			  $(img)
-			    .load(function () {
-			      $(this).hide();
-
-			      $('#loader')
-			        .removeClass('loading')
-			        .append(this);
-
-			      $(this).fadeIn();
-			    })
-
-			    .error(function () {
-			      // notify the user that the image could not be loaded
-			    })
-
-			    //.attr('src', '/images/flashbox.png')
-			    .attr('alt', 'Click Allow if you see the Flash settings box.');
-			});
-				
-			// opentok video session setup and display
-
-			// Un-comment either of the following to set automatic logging and exception handling.
-			// See the exceptionHandler() method below.
-			// TB.setLogLevel(TB.DEBUG);
-			// TB.addEventListener("exception", exceptionHandler);
-
-			if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
-				alert('You do not have the minimum system requirements to use this service :(');
-			} else {
-				session = TB.initSession(sessionId);	// Initialize session
-				// Add event listeners to the session
-				session.addEventListener('sessionConnected', sessionConnectedHandler);
-				session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
-				session.addEventListener('connectionCreated', connectionCreatedHandler);
-				session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
-				session.addEventListener('streamCreated', streamCreatedHandler);
-				session.addEventListener('streamDestroyed', streamDestroyedHandler);
-				session.addEventListener('signalReceived', signalReceivedHandler);
-
-				session.addEventListener('streamPropertyChanged', streamPropertyChangedHandler);
-
-				connect();
-			}
-			
-			$('a').attr("disabled", true);
-			$('#disconnect-link').attr("disabled", false);							
-		<% end %> //non-tablet setup
-				
-		$('#disconnect-link').on(tablet ? 'swipe' : 'click', function() {
-			endPlaydate();
-		});
-		 
-		//book canvas init
-		//canvas = document.getElementById( "pageflip-canvas" );
-		//context = canvas.getContext( "2d" );
-		
 	});
 	
 	function endPlaydate() {
-		<% if false %>
-			disconnect(); // disconnect on tokbox
-		<% end %>
 		pusher.unsubscribe("<%= @playdate.pusher_channel_name %>"); //disconnect on pusher
 		$.get("<%= disconnect_playdate_path %>"); //disconnect on playtell 
 		// prompt for feedback:
@@ -155,10 +45,6 @@
 	
 	<div id="videos">
 		<div class="video-content row">
-			<div class="video-controls inline-block right-button">
-				<!--<p><a href="#" id="disconnect-link" title="End Playdate"></a></p>-->
-				<!--<p><a href="#" id="reconnect-link" title="Bad connection? Click to reconnect"></a></p>-->
-			</div>
 			<div class="snapshot-controls inline-block left-button">
 				<p><a href="#" id="snapshot-link" title="Say Cheese! Take a photo"></a></p>
 			</div>
@@ -170,30 +56,21 @@
 			<div class="clear"></div>
 		</div>
 		<div class="activity-content row">
-			<% if false %>
-				<div class="flash-instructions">
-					<%= image_tag "flash_instructions.png" %>
-				</div>
-			<% end %>
+			<div class="loading hidden"></div>
 			<div class="book-nav hidden">
 				<%= render :partial => "bookNav" %>
 			</div>
-			<div id="player-container" class="hidden"></div>
 			<div class="book-container hidden">	
-				<!--<canvas id="pageflip-canvas"></canvas>-->
 				<div id="book">
 					<div id='pages'></div>
 				</div>
 			</div>
-			<div class="game-container hidden"></div>
 			<div id="keepsake-container" class="hidden"></div>
 			<div class="clear"></div>
 		</div>
 		<div id="bottom-drawer" class="row">
 			<div id="links">
 				<p><a href="#" id="toybox-link" title="Toy Box"></a></p>
-				<!--<p><a href="#" id="keepsakes-link"></a></p>-->
-				<p class="fr"><a href="#" id="audio-toggle"></a></p>
 			</div>
 			<div id="shelf">
 				<div class="items">	
