@@ -318,6 +318,10 @@ img#scientistImage {
 	float: left;
 }
 
+.user-profile {
+	background: url('/images/dialpad_bg.jpg') no-repeat center center; 
+}
+
 .friends {
 	width: 1000px;
 	margin: 0px auto;
@@ -325,28 +329,32 @@ img#scientistImage {
 
 div.friend {
 	display: inline-block;
-	vertical-align: top;
-	padding: 3px;
-	background: url("/images/dialpad_bg.png") no-repeat 0 0;	
-	min-width: 294px;
-	height: 296px;
-	line-height: 296px;
+	margin: 7px;
+	width: 170px;
+	height: 165px;
 	text-align: center;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	position: relative;
 }
 
-.friends .friend-item {
-	font-family: "Georgia", serif;
-	font-size: 52px;
-	color: #ded300;
-	font-weight: normal;
+.friend .friend-item {
+	width: 170px;
+	height: 165px;
+	border-radius: 6px;
+	position: absolute;
+	top: 3px;
+	left: 2px;
 }
 
-.friends .online {	color: #ded300; }
-.friends .offline {	color: grey; }
-.friends .in-playdate {	color: red; }
-
-.friend img {
-	vertical-align: middle;
+.friends .presence {
+	z-index: 100;
+	width: 175px;
+	height: 170px;
+	border-radius: 6px;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 /* WEB APP

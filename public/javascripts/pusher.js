@@ -13,23 +13,20 @@ function listenForPlaydateRequest() {
 	rendezvousChannel.bind('pusher:subscription_succeeded', function(members){
 		members.each(function(member) {
 			if ($('*[data-friendid=' + member.id + ']').length != 0) {
-				$('*[data-friendid=' + member.id + ']').removeClass("offline");
-				$('*[data-friendid=' + member.id + ']').addClass("online");
+				changeUserPresence(member.id, "online");
 			}
 		  });
 	})
 	
 	rendezvousChannel.bind('pusher:member_removed', function(member){
 	    if ($('*[data-friendid=' + member.id + ']').length != 0) {
-			$('*[data-friendid=' + member.id + ']').removeClass("online");
-			$('*[data-friendid=' + member.id + ']').addClass("offline");
+			changeUserPresence(member.id, "offline");
 		}
   })
 
   	rendezvousChannel.bind('pusher:member_added', function(member){
 	    if ($('*[data-friendid=' + member.id + ']').length != 0) {
-			$('*[data-friendid=' + member.id + ']').removeClass("offline");
-			$('*[data-friendid=' + member.id + ']').addClass("online");
+			changeUserPresence(member.id, "online");
 		}
   })
 }

@@ -226,13 +226,17 @@ function showPlaydateRequest(data) {
 	});	
 }
 
-function togglePresence(pageElement, online) {
-	if (online) {
-		element.removeClass("offline");
-		element.addClass("online");
-	}
-	else {
-		element.removeClass("online");
-		element.addClass("offline");
-	}
+// changes the visual state of a user's friend on the dialpad
+// presence can be online, offline, or pressed
+function changeUserPresence(user_id, presence) {
+	$('*[data-friendid=' + user_id + '] .presence').hide();
+	$('*[data-friendid=' + user_id + ']'+ presence).show();
+}
+
+function enableDialpadButtons() {
+	//$('.online').on(tablet ? 'touchstart' : 'click', function() {
+	//	changeUserPresensce(, "pressed");
+	//	//syncToServerReturnData(this.getAttribute('data-playdatechange'), this.getAttribute('data-activityid'));
+	//});
+	
 }

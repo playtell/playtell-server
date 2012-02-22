@@ -3,27 +3,33 @@
 	<%= javascript_include_tag 'pusher', 'playdate' %>
 
 	<script type="text/javascript">
+		var tablet = false;
 		var pusher;
 		var playdateChannel;
 		
 		$(document).ready(function() {
+			<% if tablet_device? %>
+				tablet = true;
+			<% end %>
 			pusher = new Pusher($('#pusher-key').html()); 			
 			checkForPlaydateRequest(); 
-		
 			//add friends
-			$("#add-friend").click(function() {
+
+			$("#add-friend").on('click', function() {
+				alert("clicked");
 				$('#find-lightbox').lightbox_me({
 			    	centered: true,
 					onLoad: function() {
 						$('#find-lightbox-text').find('input[type=text]:first').focus();
 					}
 				});
-			});	
+			});
+
 		});
 
 	</script>
 <% end %>
-<div class="black height100">
+<div class="user-profile height100">
 	<%= render :partial => "friends" %>
 
 	<div class="lightbox hidden" id="join-lightbox">
