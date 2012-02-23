@@ -2,12 +2,14 @@
 <div class="friends">
 	<% for friend in @current_user.allFriends %>
 		<div class="friend">
-			<a href="<%= playdate_path :friend_id => friend.id %>" class="friend-item" data-friendid="<%= friend.id %>">
-				<%= image_tag "semira.jpeg", :alt => friend.displayName, :class => "friend-item" %>
-				<%= image_tag "user_online.png", :class => "presence hidden online" %>
-				<%= image_tag "user_offline.png", :class => "presence offline" %>
-				<%= image_tag "user_pressed.png", :class => "presence hidden pressed" %>
-			</a>
+			<%= form_tag "#", :id => "friend_" + friend.id.to_s do %>
+				<a href="#" class="friend-item" data-friendid="<%=friend.id%>">
+					<%= image_tag "semira.jpeg", :alt => friend.displayName, :class => "friend-item" %>
+					<%= image_tag "user_online.png", :class => "presence hidden online" %>
+					<%= image_tag "user_offline.png", :class => "presence offline" %>
+					<%= image_tag "user_pressed.png", :class => "presence hidden pressed" %>
+				</input>
+			<% end %>
 		</div>
 	<% end %>
 	<div class="friend" id="add-friend"><%= image_tag "add_person.png" %></div>

@@ -13,23 +13,13 @@
 			<% end %>
 			pusher = new Pusher($('#pusher-key').html()); 			
 			checkForPlaydateRequest(); 
-			//add friends
-
-			$("#add-friend").on('click', function() {
-				alert("clicked");
-				$('#find-lightbox').lightbox_me({
-			    	centered: true,
-					onLoad: function() {
-						$('#find-lightbox-text').find('input[type=text]:first').focus();
-					}
-				});
-			});
-
+			enableDialpadButtons()
 		});
 
 	</script>
 <% end %>
 <div class="user-profile height100">
+	
 	<%= render :partial => "friends" %>
 
 	<div class="lightbox hidden" id="join-lightbox">

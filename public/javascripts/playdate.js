@@ -27,9 +27,9 @@ function doChangeBook(book) {
 	
 	//grandma finger
 	//listenForTap(); <-- not yet built
-	//$('#book').on('tap', function(e) {
-	//	$("#finger").offset({ top: e.pageY, left: e.pageX}).show();
-	//});
+	$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
+		$("#finger").offset({ top: e.pageY, left: e.pageX}).show();
+	});
 }
 
 //disable book nav links as appropriate
@@ -194,6 +194,15 @@ function syncToServerNoData(playdate_change) {
 	});
 }
 
+function syncToServerBeginPlaydate(friend_id) {
+	$("#friend_"+ friend_id).attr({
+		method: "POST",
+		action: "/playdate?friend_id=" + friend_id
+	});
+	console.log($("#friend_"+ friend_id));
+	$("#friend_"+ friend_id).submit();
+}
+
 // the next few fns are for REQUESTING, JOINING, DISCONNECTING from playdates (ie stuff that happens before player is in a playdate)
 
 //pings the server directly first to check for a requesting playdate; listens for pusher notification if there isn't yet a requesting playdate
@@ -230,13 +239,32 @@ function showPlaydateRequest(data) {
 // presence can be online, offline, or pressed
 function changeUserPresence(user_id, presence) {
 	$('*[data-friendid=' + user_id + '] .presence').hide();
-	$('*[data-friendid=' + user_id + ']'+ presence).show();
+	$('*[data-friendid=' + user_id + '] .'+ presence).show();
+	
+	if (presence == "online") {
+		$('*[data-friendid=' + user_id + ']').addClass("available");
+	}
+	else
+		$('*[data-friendid=' + user_id + ']').removeClass("available");
 }
 
 function enableDialpadButtons() {
-	//$('.online').on(tablet ? 'touchstart' : 'click', function() {
-	//	changeUserPresensce(, "pressed");
-	//	//syncToServerReturnData(this.getAttribute('data-playdatechange'), this.getAttribute('data-activityid'));
-	//});
+	$('.online').on(tablet ? 'touchstart' : 'mousedown', function() {
+		var friendid = $('a').has(this).data("friendid");
+		changeUserPresence(friendid, "pressed");
+		syncToServerBeginPlaydate(friendid);
+		//<%= playdate_path :friend_id => friend.id %>
+		//syncToServerBeginPlaydate(this.getAttribute('data-playdatechange'), this.getAttribute('data-activityid'));
+	});
+	
+	//add friends
+	$("#add-friend").on(tablet ? 'touchstart' : 'click', function() {
+		$('#find-lightbox').lightbox_me({
+	    	centered: true,
+			onLoad: function() {
+				$('#find-lightbox-text').find('input[type=text]:first').focus();
+			}
+		});
+	});
 	
 }
