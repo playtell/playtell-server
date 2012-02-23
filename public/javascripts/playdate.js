@@ -240,12 +240,6 @@ function showPlaydateRequest(data) {
 function changeUserPresence(user_id, presence) {
 	$('*[data-friendid=' + user_id + '] .presence').hide();
 	$('*[data-friendid=' + user_id + '] .'+ presence).show();
-	
-	if (presence == "online") {
-		$('*[data-friendid=' + user_id + ']').addClass("available");
-	}
-	else
-		$('*[data-friendid=' + user_id + ']').removeClass("available");
 }
 
 function enableDialpadButtons() {

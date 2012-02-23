@@ -274,6 +274,17 @@ label {
 	text-align: center;
 }
 
+
+/* RIBBON
+-------------------------------------------------------------------*/
+
+.ribbon p {
+	color: #88331C;
+	font-size: 20pt;
+	text-shadow: 1px 1px 1px #F9A161;
+	font-family: Comforta, sans-serif;
+}
+
 /* LAYOUT --------------------------------------------------------- */
 
 .mainContainer {
@@ -320,16 +331,42 @@ img#scientistImage {
 
 .user-profile {
 	background: url('/images/dialpad_bg.jpg') no-repeat center center; 
+	text-align: center;
+	width: 1024px;
+	height: 768px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.clouds {
+	position: absolute;
+	height: 292px;
+	width: 1124px;
+	top: 0;
+	left: 0;
+	background: url('/images/dialpad_clouds_bg.png') no-repeat center center; 	
+}
+
+.dialpad-header {
+	position: relative;
+	height: 140px;
+	text-align: center;
+}
+
+.dialpad-ribbon {
+	top: 76px;
+	text-align: center;
+	display: inline-block;
 }
 
 .friends {
-	width: 1000px;
+	width: 800px;
 	margin: 0px auto;
 }
 
 div.friend {
 	display: inline-block;
-	margin: 7px;
+	margin: 16px;
 	width: 170px;
 	height: 165px;
 	text-align: center;

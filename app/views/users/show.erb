@@ -18,8 +18,17 @@
 
 	</script>
 <% end %>
-<div class="user-profile height100">
+<div class="user-profile">
 	
+	<div class="clouds"></div>
+	<div class="dialpad-header">
+		<div><%= image_tag "playtell_dialpad_logo.png" %></div>
+		<div class="dialpad-ribbon">
+			<div class='ribbon-left'></div>
+			<div class="ribbon"><p>Who will play today?</p></div>
+			<div class='ribbon-right'></div>
+		</div>
+	</div>
 	<%= render :partial => "friends" %>
 
 	<div class="lightbox hidden" id="join-lightbox">
