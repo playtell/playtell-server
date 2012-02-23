@@ -449,7 +449,8 @@ div.friend {
 	background: url("/images/dialpad_sprite.png") no-repeat;
 }
 
-#add-friend { background-position: 0 -334px; }
+a#add-friend div { background-position: 0 -668px; width: 170px; height: 165px;}
+a:active#add-friend div { background-position: 0 0; }
 
 .no-profile { background-position: 0 -1002px; }
 
