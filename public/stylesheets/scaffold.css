@@ -440,6 +440,7 @@ div.friend {
 	width: 84px;
 	height: 82px;
 	display: inline-block;
+	border-radius: 6px;
 }
 
 /* DIALPAD SPRITE */
