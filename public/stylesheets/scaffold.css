@@ -278,12 +278,37 @@ label {
 /* RIBBON
 -------------------------------------------------------------------*/
 
-.ribbon p {
+div.ribbon {
+	display: inline-block;
+	white-space: nowrap;
+}
+
+
+.user-profile div.ribbon-left { 
+	background: url("/images/ribbon_left.png") no-repeat;
+	width: 44px; height: 66px;
+	left: 0; 
+} 
+
+.user-profile div.ribbon-middle { 
+	background: url("/images/ribbon_middle.png") repeat-x;
+	height: 66px; 
+	left: 44px;
+	vertical-align: top;
+	padding-top: 20px;
+	margin: 0px -3px;
+	
 	color: #88331C;
 	font-size: 20pt;
 	text-shadow: 1px 1px 1px #F9A161;
-	font-family: Comforta, sans-serif;
-}
+	font-family: 'Comfortaa', sans-serif;
+} 
+	
+.user-profile div.ribbon-right { 
+	background: url("/images/ribbon_right.png") no-repeat;
+	width: 37px; height: 66px;
+	right: 0; 
+	}
 
 /* LAYOUT --------------------------------------------------------- */
 
@@ -329,6 +354,8 @@ img#scientistImage {
 	float: left;
 }
 
+/* DIALPAD --------------------------------------------------------- */
+
 .user-profile {
 	background: url('/images/dialpad_bg.jpg') no-repeat center center; 
 	text-align: center;
@@ -347,21 +374,25 @@ img#scientistImage {
 	background: url('/images/dialpad_clouds_bg.png') no-repeat center center; 	
 }
 
+.dialpad {
+	width: 800px;
+	margin: 0 auto;
+}
+
 .dialpad-header {
 	position: relative;
 	height: 140px;
 	text-align: center;
+	padding-top: 26px;
 }
 
 .dialpad-ribbon {
-	top: 76px;
 	text-align: center;
-	display: inline-block;
+	margin-top: 15px;
 }
 
 .friends {
-	width: 800px;
-	margin: 0px auto;
+	margin: 40px auto;
 }
 
 div.friend {
@@ -398,7 +429,30 @@ div.friend {
 	cursor: default;
 }
 
-/* WEB APP
+.my-profile {
+	position: absolute;
+	top: 4px;
+	left: 110px;
+}
+
+.small-user {
+	padding: 0px 3px;
+	width: 84px;
+	height: 82px;
+	display: inline-block;
+}
+
+/* DIALPAD SPRITE */
+
+.user-profile .sprite {
+	background: url("/images/dialpad_sprite.png") no-repeat;
+}
+
+#add-friend { background-position: 0 -334px; }
+
+.no-profile { background-position: 0 -1002px; }
+
+/* PLAYDATE
 -------------------------------------------------------------------*/
 
 .appContainer {
@@ -483,11 +537,6 @@ div.friend {
 	right: 20px;
 }
 
-.video-controls a {
-	display: block;
-	margin-top: 12px;
-}
-
 .snapshot-controls a {
 	display: block;
 	margin-top: 12px;
@@ -498,11 +547,6 @@ div.friend {
 .video-content p a, #bottom-drawer p a, .book-nav p a {
 	background: url("/images/sprite_sheet.png") no-repeat;
 	display: block;
-}
-
-.video-controls p a {
-	height: 60px;
-	width: 51px;
 }
 
 /* ACTIVITY --------------------------------------------------------- */
@@ -524,47 +568,6 @@ div.friend {
 	height: 470px;
 	margin: 0 auto;
 }
-
-/*
-#pages section {
-	background: url("/images/paper.jpg") no-repeat;
-	display: block;
-	width: 576px;
-	height: 456px;
-	position: absolute;
-	left: 600px;
-	top: 7px;
-	overflow: hidden;
-}
-#pages section.last-page {
-	background: none;
-	width: 596px;
-}
-
-	#pages section>div {
-		display: block;
-		width: 576px;
-		height: 456px;
-		font-size: 12px;
-	}
-	#pages section p,
-	#pages section h2 {
-		padding: 3px 35px;
-		line-height: 1.4em;
-		text-align: justify;
-	}
-	#pages section h2{
-		margin: 15px 0 10px;
-	}
-
-#pageflip-canvas {
-	position: absolute;
-	z-index: 100;
-}	
-
-#pages li {
-	width: 500px;
-} */
 
 #pages {
 	width: 1000px;
@@ -718,17 +721,6 @@ p a#next-link:hover { background-position: -332px -227px; }
 #book-keepsake {
 	top: 100px;
 	left: 75px;
-}
-
-/* SLIDE DECK --------------------------------------------------------- */
-
-.slides img {
-	width: 750px;
-}
-
-.slides div {
-	position: absolute;
-	left: 1500px;
 }
 
 /* BOTTOM DRAWER --------------------------------------------------------- */

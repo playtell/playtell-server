@@ -1,4 +1,6 @@
 <% content_for :head do %>
+	<link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+
 	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
 	<%= javascript_include_tag 'pusher', 'playdate' %>
 
@@ -21,16 +23,27 @@
 <div class="user-profile">
 	
 	<div class="clouds"></div>
-	<div class="dialpad-header">
-		<div><%= image_tag "playtell_dialpad_logo.png" %></div>
-		<div class="dialpad-ribbon">
-			<div class='ribbon-left'></div>
-			<div class="ribbon"><p>Who will play today?</p></div>
-			<div class='ribbon-right'></div>
+	
+	<div class="dialpad">
+		
+		<div class="dialpad-header">
+			<div><%= image_tag "dialpad_logo.png" %></div>
+			<div class="dialpad-ribbon">
+				<div class='ribbon ribbon-left'></div>
+				<div class="ribbon ribbon-middle body-text">Who will play today?</div>
+				<div class='ribbon ribbon-right'></div>
+			</div>
 		</div>
+		
+		<%= render :partial => "friends" %>
+		
 	</div>
-	<%= render :partial => "friends" %>
-
+	
+	<div class="my-profile">
+		<%= image_tag "semira.jpeg", :class => "small-user" %>
+		<p class="small-user no-profile sprite"></p>
+	</div>
+	
 	<div class="lightbox hidden" id="join-lightbox">
 		<h1 id="player-name"></h1>
 		<h2>wants to play!</h2>

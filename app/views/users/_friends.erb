@@ -5,12 +5,12 @@
 			<%= form_tag "#", :id => "friend_" + friend.id.to_s do %>
 				<a href="#" class="friend-item" data-friendid="<%=friend.id%>">
 					<%= image_tag "semira.jpeg", :alt => friend.displayName, :class => "friend-item" %>
-					<%= image_tag "user_online.png", :class => "presence hidden online" %>
-					<%= image_tag "user_offline.png", :class => "presence offline" %>
-					<%= image_tag "user_pressed.png", :class => "presence hidden pressed" %>
+					<%= image_tag "user_online.png", :alt => friend.displayName, :class => "presence hidden online" %>
+					<%= image_tag "user_offline.png", :alt => friend.displayName, :class => "presence offline" %>
+					<%= image_tag "user_pressed.png", :alt => friend.displayName, :class => "presence hidden pressed" %>
 				</a>
 			<% end %>
 		</div>
 	<% end %>
-	<div class="friend" id="add-friend"><%= image_tag "add_person.png" %></div>
+	<div class="friend sprite" id="add-friend"></div>
 </div>
