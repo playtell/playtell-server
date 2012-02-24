@@ -281,18 +281,18 @@ label {
 div.ribbon {
 	display: inline-block;
 	white-space: nowrap;
+	height: 66px;
 }
 
 
 .user-profile div.ribbon-left { 
 	background: url("/images/ribbon_left.png") no-repeat;
-	width: 44px; height: 66px;
 	left: 0; 
+	width: 44px; 
 } 
 
 .user-profile div.ribbon-middle { 
 	background: url("/images/ribbon_middle.png") repeat-x;
-	height: 66px; 
 	left: 44px;
 	vertical-align: top;
 	padding-top: 20px;
@@ -306,9 +306,9 @@ div.ribbon {
 	
 .user-profile div.ribbon-right { 
 	background: url("/images/ribbon_right.png") no-repeat;
-	width: 44px; height: 66px;
 	right: 0; 
-	}
+	width: 44px; 
+}
 
 /* LAYOUT --------------------------------------------------------- */
 
