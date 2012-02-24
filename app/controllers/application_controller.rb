@@ -44,7 +44,10 @@ private
   end
   
   def after_sign_in_path_for(user)
-      user_path user.id
+    if params[:device_token]
+      DeviceToken.find_or_create_by_token_and_user_id({:user_id => user.id, :token => params[:device_token]})
+    end
+    user_path user.id
   end
   
   # returns the playdate if there is a playdate request for the current user. should be used only when checking for a playdate request (not to get the current playdate session)
