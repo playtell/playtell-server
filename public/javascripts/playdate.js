@@ -51,8 +51,8 @@ function updateBookNavLinks(currentPage) {
 
 //expand/collapse the toy box
 function toggleToyBox() {
-	var new_bottom_pos = ($('#bottom-drawer').css('bottom') == '0px') ?
-		-$('#bottom-drawer').outerHeight() + $('#links').outerHeight() : 0;
+	var new_bottom_pos = ($('#toybox-drawer').css('bottom') == '0px') ?
+		-$('#toybox-drawer').outerHeight() + $('#links').outerHeight() : 0;
 	
 	//youtube player can't be occluded according to their TOS, so player gets smaller when toybox is open
 	if ($('#player-container').is(':visible')) {
@@ -66,15 +66,15 @@ function toggleToyBox() {
 		}
 	}
 	
-	$('#bottom-drawer').animate({ 
+	$('#toybox-drawer').animate({ 
 		bottom: new_bottom_pos
 	});
 }
 
 function hideToyBox() {
-	var new_bottom_pos = -$('#bottom-drawer').outerHeight() + $('#links').outerHeight();
+	var new_bottom_pos = -$('#toybox-drawer').outerHeight() + $('#links').outerHeight();
 	
-	$('#bottom-drawer').animate({ 
+	$('#toybox-drawer').animate({ 
 		bottom: new_bottom_pos
 	});
 	

@@ -407,8 +407,8 @@ div.friend {
 }
 
 .friend .friend-item {
-	width: 170px;
-	height: 165px;
+	width: 171px;
+	height: 166px;
 	border-radius: 6px;
 	position: absolute;
 	top: 3px;
@@ -417,8 +417,8 @@ div.friend {
 
 .friends .presence {
 	z-index: 100;
-	width: 175px;
-	height: 170px;
+	width: 176px;
+	height: 171px;
 	border-radius: 6px;
 	position: absolute;
 	top: 0;
@@ -437,10 +437,19 @@ div.friend {
 
 .small-user {
 	padding: 0px 3px;
-	width: 84px;
-	height: 82px;
+	width: 85px;
+	height: 83px;
 	display: inline-block;
 	border-radius: 6px;
+}
+
+.my-profile div {
+	display: inline-block;
+}
+
+.friend p {
+	width: 171px;
+	height: 166px;
 }
 
 /* DIALPAD SPRITE */
@@ -449,17 +458,17 @@ div.friend {
 	background: url("/images/dialpad_sprite.png") no-repeat;
 }
 
-a#add-friend div { background-position: 0 -668px; width: 170px; height: 165px;}
-a:active#add-friend div { background-position: 0 0; }
+div#no-profile { background-position: 0 -178px; }
 
-.no-profile { background-position: 0 -1002px; }
+.friend p a#add-friend { background-position: 0 0; width: 171px;
+height: 166px;}
+.friend p a:active#add-friend { background-position: 0 -542px; }
 
 /* PLAYDATE
 -------------------------------------------------------------------*/
 
 .appContainer {
     width: 1024px;
-	width: 100%;
 	height: 100%;
     margin: 0px auto;
 	overflow: hidden;
@@ -474,11 +483,11 @@ a:active#add-friend div { background-position: 0 0; }
 
 /* VIDEO --------------------------------------------------------- */
 	
-#videos {
+#playdate-container {
 	position: absolute;
 	margin: 0px auto;
 	text-align: center;
-	width: 100%;
+	width: 1024px;
 	height: 100%;
 	overflow: hidden;
 	background-color:#d8dce1;
@@ -546,7 +555,7 @@ a:active#add-friend div { background-position: 0 0; }
 	height: 100px;
 }
 
-.video-content p a, #bottom-drawer p a, .book-nav p a {
+.video-content p a, #toybox-drawer p a, .book-nav p a {
 	background: url("/images/sprite_sheet.png") no-repeat;
 	display: block;
 }
@@ -727,14 +736,14 @@ p a#next-link:hover { background-position: -332px -227px; }
 
 /* BOTTOM DRAWER --------------------------------------------------------- */
 
-#bottom-drawer {
+#toybox-drawer {
 	text-align: center;
 	width: 1024px;
 	z-index: 1000;
 	height: 284px;
 }
 
-#bottom-drawer.row {
+#toybox-drawer.row {
 	bottom: -284px;
 }
 
@@ -814,26 +823,26 @@ p a#next-link:hover { background-position: -332px -227px; }
 
 /* SPRITES --------------------------------------------------------- */
 
-#videos p a#reconnect-link { background-position: -332px 0px; }
-#videos p a:hover#reconnect-link { background-position: -332px -60px; }
+#playdate-container p a#reconnect-link { background-position: -332px 0px; }
+#playdate p a:hover#reconnect-link { background-position: -332px -60px; }
 
-#videos p a#disconnect-link { background-position: -280px 0px; }
-#videos p a:hover#disconnect-link { background-position: -280px -60px; }
+#playdate-container p a#disconnect-link { background-position: -280px 0px; }
+#playdate-container p a:hover#disconnect-link { background-position: -280px -60px; }
 
-#videos p a#snapshot-link { background-position: -24px -496px; }
-#videos p a:active#snapshot-link { background-position: -24px -368px; }
+#playdate-container p a#snapshot-link { background-position: -24px -496px; }
+#playdate-container p a:active#snapshot-link { background-position: -24px -368px; }
 
-#videos p a#toybox-link { background-position: -9px -6px; }
-#videos p a:hover#toybox-link { background-position: -9px -50px; }
-#videos p a:active#toybox-link { background-position: -9px -95px; }
+#playdate-container p a#toybox-link { background-position: -9px -6px; }
+#playdate-container p a:hover#toybox-link { background-position: -9px -50px; }
+#playdate-container p a:active#toybox-link { background-position: -9px -95px; }
 
-#videos p a#contacts-link {	background-position: -77px -89px; }
-#videos p a:hover#contacts-link { background-position: -77px -45px; }
+#playdate-container p a#contacts-link {	background-position: -77px -89px; }
+#playdate-container p a:hover#contacts-link { background-position: -77px -45px; }
 
-#videos p a#keepsakes-link { background-position: -171px -6px; }
-#videos p a:hover#keepsakes-link { background-position: -162px -40px; }
+#playdate-container p a#keepsakes-link { background-position: -171px -6px; }
+#playdate-container p a:hover#keepsakes-link { background-position: -162px -40px; }
 
-#videos p a#audio-toggle { background-position: -700px 0px; }
+#playdate-container p a#audio-toggle { background-position: -700px 0px; }
 
 .beginning-container p a#beginning-banner { background-position: -389px -16px; }
 
