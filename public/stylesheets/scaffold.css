@@ -408,7 +408,7 @@ div.friend {
 
 .friend .friend-item {
 	width: 171px;
-	height: 166px;
+	height: 168px;
 	border-radius: 6px;
 	position: absolute;
 	top: 3px;
@@ -418,7 +418,7 @@ div.friend {
 .friends .presence {
 	z-index: 100;
 	width: 176px;
-	height: 171px;
+	height: 173px;
 	border-radius: 6px;
 	position: absolute;
 	top: 0;
@@ -456,14 +456,13 @@ div.friend {
 /* DIALPAD SPRITE */
 
 .user-profile .sprite, .user-profile p a {
-	background: url("/images/dialpad_test.jpg") no-repeat;
+	background: url("/images/dialpad_sprite.png") no-repeat;
 }
 
-div#no-profile { background-position: 0 -178px; }
+div#no-profile { background-position: 0 -270px; }
 
-.friend p a#add-friend { background-position: 0 0; width: 171px;
-height: 166px;}
-.friend p a:active#add-friend { background-position: 0 -542px; }
+.friend p a#add-friend { background-position: 0 -456px;}
+.friend p a:active#add-friend {  background-position: 0 -634px; }
 
 /* PLAYDATE
 -------------------------------------------------------------------*/
