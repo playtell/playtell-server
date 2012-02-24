@@ -306,7 +306,7 @@ div.ribbon {
 	
 .user-profile div.ribbon-right { 
 	background: url("/images/ribbon_right.png") no-repeat;
-	width: 37px; height: 66px;
+	width: 44px; height: 66px;
 	right: 0; 
 	}
 
@@ -447,22 +447,23 @@ div.friend {
 	display: inline-block;
 }
 
-.friend p a {
-	width: 171px;
-	height: 166px;
-	display: inline-block;
-}
-
 /* DIALPAD SPRITE */
 
 .user-profile .sprite, .user-profile p a {
 	background: url("/images/dialpad_sprite.png") no-repeat;
 }
 
+.friend p a {
+	width: 171px;
+	height: 166px;
+	display: inline-block;
+	height: 173px;
+}
+.friend p a#add-friend { background-position: 0 -450px;}
+.friend p a:active#add-friend {  background-position: 0 -628px; }
+
 div#no-profile { background-position: 0 -270px; }
 
-.friend p a#add-friend { background-position: 0 -456px;}
-.friend p a:active#add-friend {  background-position: 0 -634px; }
 
 /* PLAYDATE
 -------------------------------------------------------------------*/
