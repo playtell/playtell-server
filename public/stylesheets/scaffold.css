@@ -447,15 +447,16 @@ div.friend {
 	display: inline-block;
 }
 
-.friend p {
+.friend p a {
 	width: 171px;
 	height: 166px;
+	display: inline-block;
 }
 
 /* DIALPAD SPRITE */
 
-.user-profile .sprite {
-	background: url("/images/dialpad_sprite.png") no-repeat;
+.user-profile .sprite, .user-profile p a {
+	background: url("/images/dialpad_test.jpg") no-repeat;
 }
 
 div#no-profile { background-position: 0 -178px; }
