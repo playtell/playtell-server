@@ -10,12 +10,16 @@ class GamesController < ApplicationController
     if !requesting_playdate
       createPlaydate
       Pusher["presence-rendezvous-channel"].trigger('playdate_requested', @playdate.to_json(:user => current_user))
-      device_tokens = User.find(@playdate.getOtherPlayerID(current_user)).device_tokens
+      playmate = User.find(@playdate.getOtherPlayerID(current_user))
+      device_tokens = playmate.device_tokens
       if !device_tokens.blank?
          notification = {
            :schedule_for => [Time.now],
            :device_tokens => [device_tokens.first.token],
-           :aps => {:alert => "PlayTell!!"}
+           :aps => {
+             :alert => "PlayTell!!",
+             :playdate_url => "http://playtell-staging.heroku.com/playdate?playdate="+@playdate.id.to_s,
+             :playmate => playmate.username }
          }
          Urbanairship.push(notification)
        end
