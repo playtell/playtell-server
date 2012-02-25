@@ -44,8 +44,11 @@ private
   end
   
   def after_sign_in_path_for(user)
-    if params[:device_token]
-      DeviceToken.find_or_create_by_token_and_user_id({:user_id => user.id, :token => params[:device_token]})
+    if !params[:device_token].blank?
+      DeviceToken.find_or_create_by_token_and_user_id({
+        :user_id => user.id, 
+        :token => params[:device_token]})
+      Urbanairship.register_device(params[:device_token])
     end
     user_path user.id
   end
