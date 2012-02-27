@@ -50,7 +50,20 @@ private
         :token => params[:device_token]})
       Urbanairship.register_device(params[:device_token])
     end
-    user_path user.id
+    
+    sign_in_url = url_for(:action => 'new', :controller => 'devise/sessions', :only_path => false, :protocol => 'http')  
+    if session[:return_to]
+      puts "next: " + session[:return_to]
+      session[:return_to]
+    else
+      puts "next: " + sign_in_url
+      user_path user.id
+    end
+  end
+  
+  def save_path_and_authenticate_user
+    session[:return_to] = request.fullpath
+    authenticate_user!
   end
   
   # returns the playdate if there is a playdate request for the current user. should be used only when checking for a playdate request (not to get the current playdate session)

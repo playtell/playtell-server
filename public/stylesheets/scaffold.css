@@ -739,9 +739,8 @@ p a#next-link:hover { background-position: -332px -227px; }
 
 #toybox-drawer {
 	text-align: center;
-	width: 1024px;
+	/*width: 1024px;*/
 	z-index: 1000;
-	height: 284px;
 }
 
 #toybox-drawer.row {

@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_filter :initOpenTok, :pusher, :only => [:playdate]
-  before_filter :authenticate_user!
+  before_filter :save_path_and_authenticate_user
   layout :chooseLayout
       
   @@opentok = nil
