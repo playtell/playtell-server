@@ -45,7 +45,6 @@ private
   
   def save_path_and_authenticate_user
     if current_user.blank?
-      puts "in save_path_and_auth: " + request.url
       session[:user_return_to] = request.url
       authenticate_user!
     end
@@ -60,11 +59,8 @@ private
     end
     
     if session[:user_return_to]
-      puts "request after_sign_in:" + session[:user_return_to]
-      sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')  
-      if session[:user_return_to] != sign_in_url
-        session[:user_return_to]
-      end
+      sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')     
+      session[:user_return_to] if session[:user_return_to] != sign_in_url
     else
       user_path user.id
     end

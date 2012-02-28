@@ -177,9 +177,6 @@ function syncToServerReturnData(playdate_change, activityID) {
 				$('#keepsake-container').show();
 				goToPage(1, "keepsake"); 
 			}
-			//if (!tablet) {
-			//	session.signal();
-			//}
 		}
 	);
 }
