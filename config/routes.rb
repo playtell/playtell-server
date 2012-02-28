@@ -20,7 +20,7 @@ Semiralabs::Application.routes.draw do
   
   match 'feedbacks' => 'feedback#create'
     
-  devise_for :users
+  devise_for :users, :controllers => { :sessions => "sessions" }
   resources :users, :only => [:show] do
     collection do
       get 'search'
@@ -30,7 +30,11 @@ Semiralabs::Application.routes.draw do
   
   match 'pusher/auth' => 'pusher#auth'
   
-  match 'early_access' => 'application#earlyAccess'  
+  match 'early_access' => 'application#earlyAccess' 
+  
+  authenticated do
+    root :to => 'users#show'
+  end 
   root :to => 'application#index'
   
   # The priority is based upon order of creation:

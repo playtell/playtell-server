@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_filter :pusher, :only => [:show]
   
   def show
-    @user = User.find(params[:id])
+    @user = current_user
     u = current_user
     @new_friends = User.all.select { |friend| friend.id != u.id && u.isFriend?(friend).nil? }
     @users = []

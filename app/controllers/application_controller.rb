@@ -43,6 +43,14 @@ private
     @devise_mapping ||= Devise.mappings[:user]
   end
   
+  def save_path_and_authenticate_user
+    if current_user.blank?
+      puts "in save_path_and_auth: " + request.url
+      session[:user_return_to] = request.url
+      authenticate_user!
+    end
+  end
+  
   def after_sign_in_path_for(user)
     if !params[:device_token].blank?
       DeviceToken.find_or_create_by_token_and_user_id({
@@ -51,19 +59,15 @@ private
       Urbanairship.register_device(params[:device_token])
     end
     
-    sign_in_url = url_for(:action => 'new', :controller => 'devise/sessions', :only_path => false, :protocol => 'http')  
-    if session[:return_to]
-      puts "next: " + session[:return_to]
-      session[:return_to]
+    if session[:user_return_to]
+      puts "request after_sign_in:" + session[:user_return_to]
+      sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')  
+      if session[:user_return_to] != sign_in_url
+        session[:user_return_to]
+      end
     else
-      puts "next: " + sign_in_url
       user_path user.id
     end
-  end
-  
-  def save_path_and_authenticate_user
-    session[:return_to] = request.fullpath
-    authenticate_user!
   end
   
   # returns the playdate if there is a playdate request for the current user. should be used only when checking for a playdate request (not to get the current playdate session)

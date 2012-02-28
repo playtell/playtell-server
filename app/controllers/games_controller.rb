@@ -7,24 +7,11 @@ class GamesController < ApplicationController
 
   # main method to connect users with playdates. creates a new playdate, or adds user to existing playdate.
   def playdate
-    if !requesting_playdate
-      createPlaydate
-      Pusher["presence-rendezvous-channel"].trigger('playdate_requested', @playdate.to_json(:user => current_user))
-      playmate = User.find(@playdate.getOtherPlayerID(current_user))
-      device_tokens = playmate.device_tokens
-      if !device_tokens.blank?
-         notification = {
-           :schedule_for => [Time.now],
-           :device_tokens => [device_tokens.first.token],
-           :aps => {
-             :alert => "PlayTell!!",
-             :playdate_url => "http://playtell-staging.heroku.com/playdate?playdate="+@playdate.id.to_s,
-             :playmate => playmate.username }
-         }
-         Urbanairship.push(notification)
-       end
-    else
+    if params[:playdate] || requesting_playdate
       joinPlaydate
+    else
+      createPlaydate
+      sendInvite
     end
     @books = Book.all
     @feedback = Feedback.new
@@ -257,6 +244,23 @@ private
 
     @tok_token = @@opentok.generate_token :session_id => @playdate.video_session_id 
   end
+  
+  def sendInvite
+    Pusher["presence-rendezvous-channel"].trigger('playdate_requested', @playdate.to_json(:user => current_user))
+    playmate = User.find(@playdate.getOtherPlayerID(current_user))
+    device_tokens = playmate.device_tokens
+    if !device_tokens.blank?
+       notification = {
+         :schedule_for => [Time.now],
+         :device_tokens => [device_tokens.first.token],
+         :aps => {
+           :alert => "PlayTell!!",
+           :playdate_url => "http://playtell-staging.heroku.com/playdate?playdate="+@playdate.id.to_s,
+           :playmate => playmate.username }
+       }
+       Urbanairship.push(notification)
+     end
+   end
 
   # loads a book for a playdate.   
   def getBook(id)
