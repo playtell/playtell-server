@@ -71,18 +71,21 @@
 		</div>
 		
 		<div id="toybox">
-			<div class="toybox-controls-container">
-				<div class="toybox-control"><p><a href="#" id="lock-link"></a></p></div>
-				<div class="toybox-control"><p><a href="#" id="disconnect-link">End Playdate</a></p></div>
-			</div>
-			<div class="toybox-content-container">
-				<%= render :partial => "library", :locals => {:books => @books} %>
+			<div id="toybox-toggle"><p><a href="#" id="toybox-link"></a></p></div>
+			<div class="toybox-wrapper">
+				<div class="toybox-controls-container">
+					<div class="toybox-control"><p><a href="#" id="lock-link"></a></p></div>
+					<div class="toybox-control"><p><a href="#" id="disconnect-link">End Playdate</a></p></div>
+				</div>
+				<div class="toybox-content-container">
+					<%= render :partial => "library", :locals => {:books => @books} %>
+				</div>
 			</div>
 		</div>
 		
 		<div id="toybox-drawer" class="row">
 			<div id="links">
-				<p><a href="#" id="toybox-link" title="Toy Box"></a></p>
+				<p><a href="#" title="Toy Box"></a></p>
 			</div>
 			<div id="shelf">
 				<div class="playdate-controls">

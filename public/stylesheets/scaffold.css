@@ -737,18 +737,26 @@ p a#next-link:hover { background-position: -332px -227px; }
 
 /* TOYBOX  --------------------------------------------------------- */
 
-#toybox-link {
-	
-}
-
 #toybox {
 	z-index: 1000;
 	height: 100%;
-	width: 329px;
+	width: 411px;
 	position: absolute;
 	right: -329px;
 	top: 5px;
-	background: url("/images/toybox_open.png") no-repeat -78px 0;
+	background: url("/images/toybox_open.png") no-repeat 0 0;
+}
+
+#toybox-toggle {
+	display: inline-block; 
+	float: left;
+	padding: 13px 0px 10px 15px;
+}
+
+.toybox-wrapper {
+	width: 292px;
+	margin: 0 0 0 7px;	
+	display: inline-block;
 }
 
 .toybox-controls-container {
@@ -760,11 +768,10 @@ p a#next-link:hover { background-position: -332px -227px; }
 }
 
 .toybox-content-container {
-	width: 292px;
-	margin: 0 auto;
+	width: 290px;
 	padding-top: 1px;
 	background: url("/images/toybox_bg.png") no-repeat 0 0;
-	border-radius: 6px;
+	border-radius: 8px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	
@@ -815,7 +822,7 @@ p a#next-link:hover { background-position: -332px -227px; }
 
 .content-item-info {
 	display: inline-block;
-	width: 145px;
+	width: 143px;
 	color:  #356977;
 	text-shadow: #fff 0 1px 1px;
 	margin-top: 15px;
@@ -837,9 +844,18 @@ p a#next-link:hover { background-position: -332px -227px; }
 	margin-left: 3px;
 }
 
-.content-item-info .title { font-family: "Comfortaa", sans-serif; font-size: 14pt; line-height: 18pt }
+.content-item-info .title { font-family: "Comfortaa", sans-serif; font-size: 14pt; line-height: 16pt }
 .content-item-info .author { font-family: "Comfortaa", sans-serif; font-size: 10pt; }
-.content-item-info .page-count { font-family: "Comfortaa", sans-serif; font-size: 12pt; padding-top: 10px; }
+.content-item-info .page-count { font-family: "Comfortaa", sans-serif; font-size: 12pt; padding-top: 7px; }
+
+/* TOYBOX SPRITE */
+
+#toybox p a {
+	background: url("/images/playdate_sprite.png") no-repeat;
+	display: block;
+}
+
+#toybox p a#toybox-link { background-position: -181px -935px; width: 51px; height: 50px; }
 
 /* BOTTOM DRAWER OLD --------------------------------------------------------- */
 
@@ -938,10 +954,10 @@ p a#next-link:hover { background-position: -332px -227px; }
 #playdate-container p a#snapshot-link { background-position: -24px -496px; }
 #playdate-container p a:active#snapshot-link { background-position: -24px -368px; }
 
-#playdate-container p a#toybox-link { background-position: -9px -6px; }
+/*#playdate-container p a#toybox-link { background-position: -9px -6px; }
 #playdate-container p a:hover#toybox-link { background-position: -9px -50px; }
 #playdate-container p a:active#toybox-link { background-position: -9px -95px; }
-
+*/
 #playdate-container p a#contacts-link {	background-position: -77px -89px; }
 #playdate-container p a:hover#contacts-link { background-position: -77px -45px; }
 

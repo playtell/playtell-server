@@ -51,16 +51,8 @@ function updateBookNavLinks(currentPage) {
 
 //expand/collapse the toy box
 function toggleToyBox() {
-	var new_bottom_pos = ($('#toybox-drawer').css('bottom') == '0px') ?
-		-$('#toybox-drawer').outerHeight() + $('#links').outerHeight() : 0;
-	
-	$('#toybox-drawer').animate({ 
-		bottom: new_bottom_pos
-	});
-	
-	
 	var new_pos = ($('#toybox').css('right') == '0px') ?
-		-$('#toybox').outerWidth() : 0;
+		-$('#toybox').outerWidth() + $('#toybox-toggle').outerHeight() : 0;
 	
 	$('#toybox').animate({ 
 		right: new_pos
