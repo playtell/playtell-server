@@ -73,7 +73,7 @@
 		<div id="toybox">
 			<div class="toybox-controls-container">
 				<div class="toybox-control"><p><a href="#" id="lock-link"></a></p></div>
-				<div class="toybox-control"><p><a href="#" id="disconnect-link"></a></p></div>
+				<div class="toybox-control"><p><a href="#" id="disconnect-link">End Playdate</a></p></div>
 			</div>
 			<div class="toybox-content-container">
 				<%= render :partial => "library", :locals => {:books => @books} %>
@@ -86,8 +86,6 @@
 			</div>
 			<div id="shelf">
 				<div class="playdate-controls">
-					<div class="right-button"><p><a href="#" id="disconnect-link">End Playdate</a></p></div>
-					<div class="left-button"><p><a href="#" id="volume-link">Adjust Volume</a></p></div>
 				</div>
 				<div class="items">	
 					<%= render :partial => "library_old", :locals => {:books => @books} %>
