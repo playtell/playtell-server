@@ -69,6 +69,17 @@
 			<div id="keepsake-container" class="hidden"></div>
 			<div class="clear"></div>
 		</div>
+		
+		<div id="toybox">
+			<div class="toybox-controls-container">
+				<div class="toybox-control"><p><a href="#" id="lock-link"></a></p></div>
+				<div class="toybox-control"><p><a href="#" id="disconnect-link"></a></p></div>
+			</div>
+			<div class="toybox-content-container">
+				<%= render :partial => "library", :locals => {:books => @books} %>
+			</div>
+		</div>
+		
 		<div id="toybox-drawer" class="row">
 			<div id="links">
 				<p><a href="#" id="toybox-link" title="Toy Box"></a></p>
@@ -79,7 +90,7 @@
 					<div class="left-button"><p><a href="#" id="volume-link">Adjust Volume</a></p></div>
 				</div>
 				<div class="items">	
-					<%= render :partial => "library", :locals => {:books => @books} %>
+					<%= render :partial => "library_old", :locals => {:books => @books} %>
 				</div>				
 				<div class="shelf_bg shelf_left_bg inline-block"></div>
 				<div class="shelf_bg shelf_mid_bg inline-block"></div>

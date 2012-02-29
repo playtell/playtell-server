@@ -256,6 +256,7 @@ private
          :aps => {
            :alert => "PlayTell!!",
            :playdate_url => "http://playtell-staging.heroku.com/playdate?playdate="+@playdate.id.to_s,
+           :initiator => current_user.username,
            :playmate => playmate.username }
        }
        Urbanairship.push(notification)
