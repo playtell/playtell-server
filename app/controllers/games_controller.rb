@@ -246,8 +246,17 @@ private
   end
   
   def sendInvite
-    Pusher["presence-rendezvous-channel"].trigger('playdate_requested', @playdate.to_json(:user => current_user))
     playmate = User.find(@playdate.getOtherPlayerID(current_user))
+
+    Pusher["presence-rendezvous-channel"].trigger('playdate_requested', {
+    #@playdate.to_json(:user => current_user), {
+      :playdateID => @playdate.id,
+      :pusherChannelName => @playdate.pusher_channel_name,
+      :initiator => current_user.username,
+      :playmateID => playmate.id,
+      :playmateName => playmate.username }
+    )
+    
     device_tokens = playmate.device_tokens
     if !device_tokens.blank?
        notification = {

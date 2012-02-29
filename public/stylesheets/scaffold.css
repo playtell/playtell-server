@@ -746,7 +746,7 @@ p a#next-link:hover { background-position: -332px -227px; }
 	height: 100%;
 	width: 329px;
 	position: absolute;
-	right: 0;
+	right: -329px;
 	top: 5px;
 	background: url("/images/toybox_open.png") no-repeat -78px 0;
 }

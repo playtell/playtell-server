@@ -54,21 +54,18 @@ function toggleToyBox() {
 	var new_bottom_pos = ($('#toybox-drawer').css('bottom') == '0px') ?
 		-$('#toybox-drawer').outerHeight() + $('#links').outerHeight() : 0;
 	
-	//youtube player can't be occluded according to their TOS, so player gets smaller when toybox is open
-	if ($('#player-container').is(':visible')) {
-		if (new_bottom_pos == 0) {
-			$("#player-container iframe").css('width', '200px')
-	    	$("#player-container iframe").css('height', '200px')
-		}
-		else {
-			$('#player').remove();
-			createPlayer();
-		}
-	}
-	
 	$('#toybox-drawer').animate({ 
 		bottom: new_bottom_pos
 	});
+	
+	
+	var new_pos = ($('#toybox').css('right') == '0px') ?
+		-$('#toybox').outerWidth() : 0;
+	
+	$('#toybox').animate({ 
+		right: new_pos
+	});
+	
 }
 
 function hideToyBox() {
@@ -78,9 +75,11 @@ function hideToyBox() {
 		bottom: new_bottom_pos
 	});
 	
-	if ($('#player-container').is(':visible')) {
-		$('#player').remove();
-	}
+	var new_pos = -$('#toybox').outerWidth();
+	
+	$('#toybox').animate({ 
+		right: new_pos
+	});
 }
 
 function disableNavButtons() {
@@ -224,8 +223,8 @@ function checkForPlaydateRequest() {
 function showPlaydateRequest(data) {
 	//data.id is playdate id. put that in the playdate channel name field
 	$("#pusher-channel-name").html(data.pusherChannelName);
-	$('#player-name').html(data.otherPlayer);
-	$('#playdate-target').attr('href', '/playdate?playdate=' + data.id);
+	$('#player-name').html(data.playmateName);
+	$('#playdate-target').attr('href', '/playdate?playdate=' + data.playdateID);
 	$('#join-lightbox').lightbox_me({
 	    centered: true, 
 		onClose: function() { $('#join-lightbox').empty(); }
