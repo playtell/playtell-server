@@ -1,0 +1,33 @@
+<% for book in @books %>
+	<div class="library-item" data-playdatechange="<%= Playdate::CHANGE_BOOK %>" data-activityid="<%= book.id %>">
+		<%= image_tag getPageImageFilePath(book.image_directory, 0), :alt => book.title %>
+	</div>	
+<% end %>
+
+<% if false #commenting out the next few items %> 
+
+	<div class="library-item" data-playdatechange="<%= Playdate::CHANGE_VIDEO %>" data-activityid="1">
+		<%= image_tag getImageFilePath("youtube.png") %>
+	</div>
+
+	<div class="library-item">
+		<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
+			<%= image_submit_tag getImageFilePath("ispy.png") %>
+			<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_GAME %>
+		<% end %>
+	</div>
+
+	<% if @current_user.username == "semira" %>
+		<div class="library-item">
+			<%= form_tag update_page_path, :remote => true, :id => "change_activity" do %>
+				<%= image_submit_tag getImageFilePath("pitch.png") %>
+				<%= hidden_field_tag 'playdateChange', Playdate::CHANGE_SLIDE %>
+			<% end %>
+		</div>	
+	<% end %>
+<% end #end commented out items %>
+
+<div class="library-item" data-playdatechange="<%= Playdate::CHANGE_KEEPSAKE %>">
+	<%= image_tag "photo_album.png" %>
+</div>
+
