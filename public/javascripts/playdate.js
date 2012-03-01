@@ -51,9 +51,19 @@ function updateBookNavLinks(currentPage) {
 
 //expand/collapse the toy box
 function toggleToyBox() {
-	var new_pos = ($('#toybox').css('right') == '0px') ?
-		-$('#toybox').outerWidth() + $('#toybox-toggle').outerHeight() : 0;
 	
+	var new_pos, z;
+	
+	if ($('#toybox').css('right') == '0px') {
+		new_pos = -$('#toybox').outerWidth() + $('#toybox-toggle').outerWidth();
+		z = '1';
+	}
+	else {
+		new_pos = 0;
+		z = '1000';
+	} 
+	
+	$('#toybox').css('z-index', z);
 	$('#toybox').animate({ 
 		right: new_pos
 	});
@@ -61,13 +71,10 @@ function toggleToyBox() {
 }
 
 function hideToyBox() {
-	var new_bottom_pos = -$('#toybox-drawer').outerHeight() + $('#links').outerHeight();
 	
-	$('#toybox-drawer').animate({ 
-		bottom: new_bottom_pos
-	});
+	var new_pos = -$('#toybox').outerWidth() + $('#toybox-toggle').outerWidth();
 	
-	var new_pos = -$('#toybox').outerWidth();
+	$('#toybox').css('z-index', '1');
 	
 	$('#toybox').animate({ 
 		right: new_pos
@@ -114,12 +121,23 @@ function enableNavButtons(activity, playdateChange) {
 }
 
 function enableToySelectors() {
-	$('.library-item').on(tablet ? 'touchstart' : 'click', function() {
+	$('.content-item').on(tablet ? 'touchstart' : 'click', function() {
+		resetSelectedContentItem(this);
 		$('.book-container').hide();
 		hideToyBox();
 		$('.loading').show();
 		syncToServerReturnData(this.getAttribute('data-playdatechange'), this.getAttribute('data-activityid'));
 	});
+}
+
+function resetSelectedContentItem(element) {
+	$('.selected-indicator').hide();
+	$('.content-item').removeClass("selected-content-item");
+	
+	var newPos = $(element).position().top + $(element).outerHeight()/2
+	$('.selected-indicator').css("top", newPos);
+	$(element).addClass("selected-content-item");
+	$('.selected-indicator').show();
 }
 
 function enableButtons() {

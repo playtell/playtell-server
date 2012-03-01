@@ -470,7 +470,7 @@ div#no-profile { background-position: 0 -270px; }
 
 .appContainer {
     width: 1024px;
-	height: 100%;
+	min-height: 100%;
     margin: 0px auto;
 	overflow: hidden;
 }
@@ -489,7 +489,7 @@ div#no-profile { background-position: 0 -270px; }
 	margin: 0px auto;
 	text-align: center;
 	width: 1024px;
-	height: 100%;
+	min-height: 768px;
 	overflow: hidden;
 	background-color:#d8dce1;
 	background: -moz-linear-gradient(center top, #d8dce1, #a2afb7 46%, #eff0f4);
@@ -753,6 +753,20 @@ p a#next-link:hover { background-position: -332px -227px; }
 	margin-top: -2px;
 }
 
+.selected-indicator-container {
+	display: inline-block;
+	float: left;
+	width: 5px;
+	position: relative;
+}
+
+.selected-indicator {
+	background: url("/images/playdate_sprite.png") no-repeat;
+	background-position: 0 0; width: 17px; height: 31px;
+	position: absolute;
+	left: 3px;
+}
+
 .toybox-wrapper {
 	width: 292px;
 	display: inline-block;
@@ -763,7 +777,15 @@ p a#next-link:hover { background-position: -332px -227px; }
 }
 
 .toybox-control {
-	padding-top: 25px;
+	padding: 20px 7px 0 0;
+	display: inline-block;
+	position: relative;
+}
+
+#disconnect-link img {
+	position: absolute;
+	top: 17px;
+	left: -2px;
 }
 
 .toybox-content-container {
@@ -786,10 +808,14 @@ p a#next-link:hover { background-position: -332px -227px; }
 	background: url('/images/toybox_content_item_bg.png') repeat-x 0 0;
 }
 
+.content-item.selected-content-item {
+	background: url('/images/toybox_content_item_selected_bg.png') no-repeat 0 0;
+}
+
 .content-item.book img {
 	width: 121px;
 	height: 163px;
-	margin-top: -5px;
+	margin-top: -15px;
 }
 
 .content-item.game img {
@@ -801,11 +827,11 @@ p a#next-link:hover { background-position: -332px -227px; }
 	float: left;
 	padding-left: 3px;
 	
-	transform:rotate(-18deg);
-	-ms-transform:rotate(-18deg); /* IE 9 */
-	-moz-transform:rotate(-18deg); /* Firefox */
-	-webkit-transform:rotate(-18deg); /* Safari and Chrome */
-	-o-transform:rotate(-18deg); /* Opera */
+	transform: rotate(-18deg);
+	-ms-transform: rotate(-18deg); /* IE 9 */
+	-webkit-transform: rotate(-18deg); /* Safari and Chrome */
+	-moz-transform: rotate(-18deg); /* Firefox */
+	-o-transform: rotate(-18deg); /* Opera */
 }
 
 .content-item.odd img {
@@ -819,16 +845,32 @@ p a#next-link:hover { background-position: -332px -227px; }
 	-o-transform:rotate(13deg); /* Opera */
 }
 
-.content-item-info {
+.content-item.selected-content-item img {
+	transform:rotate(0deg);
+	-ms-transform:rotate(0deg); /* IE 9 */
+	-moz-transform:rotate(0deg); /* Firefox */
+	-webkit-transform:rotate(0deg); /* Safari and Chrome */
+	-o-transform:rotate(0deg); /* Opera */	
+}
+
+.content-item .content-item-info {
 	display: inline-block;
 	width: 143px;
-	color:  #356977;
-	text-shadow: #fff 0 1px 1px;
 	margin-top: 15px;
 	
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+}
+
+.content-item div.content-item-info p {
+	color:  #356977;
+	text-shadow: #fff 0 1px 1px;
+}
+
+.content-item.selected-content-item div.content-item-info p {
+	color: #88331C;
+	text-shadow: #F9A161 0 1px 1px;
 }
 
 .content-item.odd .content-item-info {
@@ -845,7 +887,7 @@ p a#next-link:hover { background-position: -332px -227px; }
 
 .content-item-info .title { font-family: "Comfortaa", sans-serif; font-size: 14pt; line-height: 16pt }
 .content-item-info .author { font-family: "Comfortaa", sans-serif; font-size: 10pt; }
-.content-item-info .page-count { font-family: "Comfortaa", sans-serif; font-size: 12pt; padding-top: 7px; }
+.content-item-info .page-count { font-family: "Comfortaa", sans-serif; font-size: 12pt; padding-top: 7px; display: inline-block; }
 
 /* TOYBOX SPRITE */
 
@@ -854,7 +896,23 @@ p a#next-link:hover { background-position: -332px -227px; }
 	display: block;
 }
 
-#toybox p a#toybox-link { background-position: -299px 0; width: 81px; height: 81px; }
+#toybox p a#toybox-link { background-position: -299px 0; width: 75px; height: 81px; }
+#toybox p a:active#toybox-link { background-position: -299px -91px; width: 75px; height: 81px; }
+
+#toybox p a#disconnect-link { background-position: 0 -1091px; width: 183px; height: 39px; }
+#toybox p a#lock-link { background: none; /*background-position: -299px -218px; */ width: 92px; height: 39px; }
+
+
+#toybox .content-item div.content-item-info p.page-count-icon { 
+	background: url("/images/playdate_sprite.png") no-repeat;
+	background-position: 0 -1574px; width: 18px; height: 18px; 
+	display: inline-block;
+	margin-right: 4px;
+}
+
+#toybox .content-item.selected-content-item div.content-item-info p.page-count-icon {
+	background-position: 0 -1602px; width: 18px; height: 16px; 	
+}
 
 /* BOTTOM DRAWER OLD --------------------------------------------------------- */
 
@@ -947,9 +1005,9 @@ p a#next-link:hover { background-position: -332px -227px; }
 #playdate-container p a#reconnect-link { background-position: -332px 0px; }
 #playdate p a:hover#reconnect-link { background-position: -332px -60px; }
 
-#playdate-container p a#disconnect-link { background-position: -280px 0px; }
+/*#playdate-container p a#disconnect-link { background-position: -280px 0px; }
 #playdate-container p a:hover#disconnect-link { background-position: -280px -60px; }
-
+*/
 #playdate-container p a#snapshot-link { background-position: -24px -496px; }
 #playdate-container p a:active#snapshot-link { background-position: -24px -368px; }
 

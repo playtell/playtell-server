@@ -42,7 +42,7 @@ input[type="radio"] {
 
 input[type="radio"]:checked {
   border: none;
-  background: url(../images/radio-bezel-selected.png) no-repeat;
+  background: url(../images/disconnect.png) no-repeat;
 }
 
 input[type="range"] {
@@ -50,6 +50,10 @@ input[type="range"] {
   -webkit-border-image: url(../images/slider-horizontal-track.png) 2 4 2 4 / 2px 4px 2px 4px repeat repeat;
   height: 5px;
   padding: 0;
+}
+
+.ui-slider-handle {
+  -webkit-border-image: url(../images/disconnect.png) no-repeat
 }
 
 input, textarea {

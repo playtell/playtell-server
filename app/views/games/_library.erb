@@ -3,7 +3,7 @@
 		<%= image_tag getPageImageFilePath(book.image_directory, 0), :alt => book.title %>
 		<div class="content-item-info">
 			<p class="title"><%= book.title %></p>
-			<p class="page-count"><%= book.pages.count %></p>
+			<p class="page-count-icon"></p><p class="page-count"><%= book.pages.count %></p>
 		</div>
 	</div>	
 <% end %>
