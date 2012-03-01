@@ -45,17 +45,23 @@
 <% end %>
 	
 	<div id="playdate-container">
-		<div class="video-content row">
-			<div class="snapshot-controls inline-block left-button">
-				<p><a href="#" id="snapshot-link" title="Say Cheese! Take a photo"></a></p>
+		
+		<div class="chat-content row">
+			<div class="camera-control">
+				<p><a href="#" id="camera-link" class="sprite"></a></p>
 			</div>
-			<div class="chat-window-container inline-block">
-				<div id="fam-camera-holder" class="inline-block"></div>
-				<div id="my-camera" class="inline-block"></div>
-				<div class="clear"></div>
+			<div class="photo-reel-container">
+				<div class="photo-pair">
+					<%= image_tag "semira.jpeg", :class => "small-user" %>
+					<%= image_tag "semira.jpeg", :class => "small-user" %>
+				</div>
+				<div class="photo-pair">
+					<%= image_tag "semira.jpeg", :class => "small-user" %>
+					<%= image_tag "semira.jpeg", :class => "small-user" %>
+				</div>
 			</div>
-			<div class="clear"></div>
 		</div>
+		
 		<div class="activity-content row">
 			<div class="loading hidden"></div>
 			<div class="instructions hidden"></div>

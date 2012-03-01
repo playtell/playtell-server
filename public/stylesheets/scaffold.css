@@ -437,7 +437,7 @@ div.friend {
 }
 
 .small-user {
-	padding: 0px 3px;
+	padding: 0px 2px;
 	width: 85px;
 	height: 83px;
 	display: inline-block;
@@ -483,8 +483,11 @@ div#no-profile { background-position: 0 -270px; }
 	right: 0;
 }
 
-/* VIDEO --------------------------------------------------------- */
-	
+.sprite {
+	background: url("/images/playdate_sprite.png") no-repeat;
+	display: block;
+}
+
 #playdate-container {
 	position: absolute;
 	margin: 0px auto;
@@ -497,65 +500,35 @@ div#no-profile { background-position: 0 -270px; }
 	background: -webkit-gradient(linear, center top, center bottom, from(#d8dce1), color-stop(46%, #a2afb7), to(#eff0f4));
 }
 
-.video-content {
-	text-align: center;
+/* TOP - CHAT AREA --------------------------------------------------------- */
+.chat-content {
+	height: 94px;
+	background: green;
 }
 
-.video-content.row {
-	height: 130px;
-	top: 0;
+.camera-control {
+	display: inline-block;
+	float: left;
+	width: 56px;
+	margin: 17px 27px;
 }
 
-.chat-window-container {
-	position: relative;
-	width: 410px;
-	min-height: 10px;
-	bottom: 0px;
+.photo-reel-container {
+	display: inline-block;
+	float: left;
+	width: 825px;
+	text-align: left;
+	background: red;
 }
 
-.chat-window-container img {
-	position: absolute;
-	top: 0px;
-	left: -200px;
-	z-index: 1;
+.photo-pair {
+	display: inline-block;
+	margin: 4px 8px 7px 8px;
 }
 
-#fam-camera-holder {
-	background: black;
-	border: 1px solid #555;
-	width: 200px;
-	height: 130px;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
+p a#camera-link { background-position: 0 -741px; width: 56px; height: 56px; }
+p a:active#camera-link {  }
 
-#my-camera {
-	background: black;
-	border: 1px solid #555;
-	width: 200px;
-	height: 130px;
-	position: absolute;
-	top: 0px;
-	left: 205px;
-}
-
-.left-button {
-	position: absolute;
-	left: 20px;	
-}
-
-.right-button {
-	position: absolute;
-	right: 20px;
-}
-
-.snapshot-controls a {
-	display: block;
-	margin-top: 12px;
-	width: 90px;
-	height: 100px;
-}
 
 .video-content p a, #toybox-drawer p a, .book-nav p a {
 	background: url("/images/sprite_sheet.png") no-repeat;
@@ -751,7 +724,7 @@ p a#next-link:hover { background-position: -332px -227px; }
 	width: 407px;
 	position: absolute;
 	right: -329px;
-	top: 5px;
+	top: 4px;
 	background: url("/images/toybox_open.png") no-repeat 0 0;
 }
 
