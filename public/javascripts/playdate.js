@@ -125,6 +125,7 @@ function enableNavButtons(activity, playdateChange) {
 function enableToySelectors() {
 	$('.content-item').on(tablet ? 'touchstart' : 'click', function() {
 		resetSelectedContentItem(this);
+		if ($('.instructions').is(":visible")) { $('.instructions').fadeOut('fast'); }
 		$('.book-container').hide();
 		hideToyBox();
 		$('.loading').show();
