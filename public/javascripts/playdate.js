@@ -1,5 +1,6 @@
 function doChangeBook(book) {
 	$('#keepsake-container').hide();
+	if ($('.instructions').is(":visible")) { $('.instructions').fadeOut('fast'); }
 	enableNavButtons("book", 101);
 	$('#total-pages').html(book.pages.length);
 	$('#page-num').html(1);
