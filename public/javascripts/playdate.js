@@ -49,12 +49,12 @@ function updateBookNavLinks(currentPage) {
 	}
 } 
 
-//expand/collapse the toy box
+//expand or collapse the toy box and bring it to the front
 function toggleToyBox() {
 	
 	var new_pos, z;
 	
-	if ($('#toybox').css('right') == '0px') {
+	if ($('#toybox').css('right') == '0px') {   //toybox is currently open
 		new_pos = -$('#toybox').outerWidth() + $('#toybox-toggle').outerWidth();
 		z = '1';
 	}
@@ -68,6 +68,8 @@ function toggleToyBox() {
 		right: new_pos
 	});
 	
+	$('#toybox-link').toggleClass("active");
+	
 }
 
 function hideToyBox() {
@@ -75,10 +77,10 @@ function hideToyBox() {
 	var new_pos = -$('#toybox').outerWidth() + $('#toybox-toggle').outerWidth();
 	
 	$('#toybox').css('z-index', '1');
-	
 	$('#toybox').animate({ 
 		right: new_pos
 	});
+	$('#toybox-link').removeClass("active");
 }
 
 function disableNavButtons() {
@@ -134,7 +136,7 @@ function resetSelectedContentItem(element) {
 	$('.selected-indicator').hide();
 	$('.content-item').removeClass("selected-content-item");
 	
-	var newPos = $(element).position().top + $(element).outerHeight()/2
+	var newPos = $(element).position().top + $(element).outerHeight()/2 - 5;
 	$('.selected-indicator').css("top", newPos);
 	$(element).addClass("selected-content-item");
 	$('.selected-indicator').show();
@@ -160,6 +162,8 @@ function initPlaydate() {
 	enableButtons();
 	enableToySelectors();
 	toggleToyBox();
+	
+	$('.instructions').fadeIn('slow');
 	
 	listenForChangeBook();
 }

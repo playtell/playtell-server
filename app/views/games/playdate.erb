@@ -2,8 +2,10 @@
 	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
 	<%= javascript_include_tag 'playdate', 'pageflip', 'pusher', 'swipe.min' %>
 
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-		<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<% if false %>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<% end %>
 	
 <script type="text/javascript">
 	
@@ -56,6 +58,7 @@
 		</div>
 		<div class="activity-content row">
 			<div class="loading hidden"></div>
+			<div class="instructions hidden"></div>
 			<div class="book-nav hidden">
 				<%= render :partial => "bookNav" %>
 			</div>

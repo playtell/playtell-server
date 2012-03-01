@@ -302,6 +302,7 @@ div.ribbon {
 	font-size: 20pt;
 	text-shadow: 1px 1px 1px #F9A161;
 	font-family: 'Comfortaa', sans-serif;
+	font-weight: 400; 
 } 
 	
 .user-profile div.ribbon-right { 
@@ -570,6 +571,13 @@ div#no-profile { background-position: 0 -270px; }
 .activity-content.row {
 	top: 150px;
 	bottom: 60px;
+}
+
+.instructions {
+	background: url("/images/toybox_instructions.png") no-repeat 0 0;
+	width: 580px;
+	height: 323px;
+	margin-left: 100px;
 }
 
 /* BOOK FLIP --------------------------------------------------------- */
@@ -885,9 +893,9 @@ p a#next-link:hover { background-position: -332px -227px; }
 	margin-left: 3px;
 }
 
-.content-item-info .title { font-family: "Comfortaa", sans-serif; font-size: 14pt; line-height: 16pt }
-.content-item-info .author { font-family: "Comfortaa", sans-serif; font-size: 10pt; }
-.content-item-info .page-count { font-family: "Comfortaa", sans-serif; font-size: 12pt; padding-top: 7px; display: inline-block; }
+.content-item-info .title { font-family: "Comfortaa", sans-serif; font-size: 14pt; font-weight: 400; line-height: 16pt }
+.content-item-info .author { font-family: "Comfortaa", sans-serif; font-size: 10pt; font-weight: 300; }
+.content-item-info .page-count { font-family: "Comfortaa", sans-serif; font-size: 12pt; font-weight: 300; padding-top: 7px; display: inline-block; }
 
 /* TOYBOX SPRITE */
 
@@ -897,7 +905,8 @@ p a#next-link:hover { background-position: -332px -227px; }
 }
 
 #toybox p a#toybox-link { background-position: -299px 0; width: 75px; height: 81px; }
-#toybox p a:active#toybox-link { background-position: -299px -91px; width: 75px; height: 81px; }
+#toybox p a:active#toybox-link, a#toybox-link.active { background-position: -299px -91px; width: 75px; height: 81px; }
+#toybox p a#toybox-link.active { background-position: 0 -1935px; width: 75px; height: 81px; }
 
 #toybox p a#disconnect-link { background-position: 0 -1091px; width: 183px; height: 39px; }
 #toybox p a#lock-link { background: none; /*background-position: -299px -218px; */ width: 92px; height: 39px; }
