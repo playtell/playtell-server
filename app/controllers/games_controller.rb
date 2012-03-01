@@ -27,16 +27,16 @@ class GamesController < ApplicationController
         format.json { render :json => {
             :playdateID => @playdate.id,
             :pusherChannelName => @playdate.pusher_channel_name,
-            :initiator => current_user.username,
-            :playmateID => playmate.id,
-            :playmateName => playmate.username } 
+            :initiator => playmate.username,
+            :playmateID => current_user.id,
+            :playmateName => current_user.username } 
           } 
         format.tablet { render :json => {
             :playdateID => @playdate.id,
             :pusherChannelName => @playdate.pusher_channel_name,
-            :initiator => current_user.username,
-            :playmateID => playmate.id,
-            :playmateName => playmate.username }
+            :initiator => playmate.username,
+            :playmateID => current_user.id,
+            :playmateName => current_user.username }
            }
       end
     else

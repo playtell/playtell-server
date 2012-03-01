@@ -237,7 +237,7 @@ function checkForPlaydateRequest() {
 function showPlaydateRequest(data) {
 	//data.id is playdate id. put that in the playdate channel name field
 	$("#pusher-channel-name").html(data.pusherChannelName);
-	$('#player-name').html(data.playmateName);
+	$('#player-name').html(data.initiator);
 	$('#playdate-target').attr('href', '/playdate?playdate=' + data.playdateID);
 	$('#join-lightbox').lightbox_me({
 	    centered: true, 
