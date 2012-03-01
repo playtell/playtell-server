@@ -510,7 +510,7 @@ div#no-profile { background-position: 0 -270px; }
 	display: inline-block;
 	float: left;
 	width: 56px;
-	margin: 17px 27px;
+	margin: 7px 17px;
 }
 
 .photo-reel-container {
@@ -525,8 +525,9 @@ div#no-profile { background-position: 0 -270px; }
 	margin: 4px 8px 7px 8px;
 }
 
-p a#camera-link { background-position: 0 -741px; width: 56px; height: 56px; }
-p a:active#camera-link {  }
+p a#camera-link { background-position: 0 -1008px; width: 86px; height: 86px; }
+p a:active#camera-link { background-position: 0 -1156px; width: 86px; height: 86px; }
+p a#camera-link.active { background-position: 0 -523px; width: 86px; height: 86px; }
 
 /* ACTIVITY --------------------------------------------------------- */
 
@@ -610,15 +611,15 @@ p a:active#camera-link {  }
 	width: 100%;
 }
 
-p a#previous-link { background-position: 0 -1310px; width: 37px; height: 51px; } 
-p a#previous-link:active { background-position: 0 -1432px; width: 37px; height: 51px; }
-p a#previous-link.disabled { background-position: 0 -1371px; width: 37px; height: 51px; } 
+p a#previous-link { background-position: 0 -740px; width: 37px; height: 51px; } 
+p a#previous-link:active { background-position: 0 -862px; width: 37px; height: 51px; }
+p a#previous-link.disabled{ background-position: 0 -801px; width: 37px; height: 51px; } 
 
-p a#next-link { background-position: 0 -1691px; width: 37px; height: 51px; } 
-p a#next-link:active { background-position: 0 -1813px; width: 37px; height: 51px; } 
-p a#next-link.disabled { background-position: 0 -1752px; width: 37px; height: 51px; } 
-.sprite-right_active-1stpg{ background-position: 0 -1630px; width: 37px; height: 51px; } 
-.sprite-right_press_1stpg{ background-position: 0 -1874px; width: 37px; height: 51px; }
+p a#next-link { background-position: 0 -1313px; width: 37px; height: 51px; } 
+p a#next-link:active { background-position: 0 -1435px; width: 37px; height: 51px; } 
+p a#next-link.disabled { background-position: 0 -1374px; width: 37px; height: 51px; } 
+.sprite-right_active-1stpg{ background-position: 0 -1252px; width: 37px; height: 51px; } 
+.sprite-right_press_1stpg{ background-position: 0 -1496px; width: 37px; height: 51px; }
 
 /* KEEPSAKE --------------------------------------------------------- */
 #slide-keepsake .keepsake {
@@ -701,7 +702,7 @@ p a#next-link.disabled { background-position: 0 -1752px; width: 37px; height: 51
 
 .selected-indicator {
 	background: url("/images/playdate_sprite.png") no-repeat;
-	background-position: 0 0; width: 17px; height: 31px;
+	background-position: 0 -288px; width: 17px; height: 31px;
 	position: absolute;
 	left: 3px;
 }
@@ -835,23 +836,25 @@ p a#next-link.disabled { background-position: 0 -1752px; width: 37px; height: 51
 	display: block;
 }
 
-#toybox p a#toybox-link { background-position: -299px 0; width: 75px; height: 81px; }
-#toybox p a:active#toybox-link, a#toybox-link.active { background-position: -299px -91px; width: 75px; height: 81px; }
-#toybox p a#toybox-link.active { background-position: 0 -1935px; width: 75px; height: 81px; }
+#toybox p a#toybox-link { background-position: 0 -1648px; width: 75px; height: 81px; } 
+#toybox p a:active#toybox-link, a#toybox-link.active { background-position: 0 -1739px; width: 75px; height: 81px; }
+#toybox p a#toybox-link.active { background-position: 0 -1557px; width: 75px; height: 81px; } 
 
-#toybox p a#disconnect-link { background-position: 0 -1091px; width: 183px; height: 39px; }
-#toybox p a#lock-link { background: none; /*background-position: -299px -218px; */ width: 92px; height: 39px; }
+#toybox p a#disconnect-link { background-position: 0 -425px; width: 183px; height: 39px; }
+#toybox p a:active#disconnect-link { background-position: 0 -474px; width: 183px; height: 39px; }
 
+#toybox p a#lock-link { background: none; /*background-position: 0 -1866px; */ width: 92px; height: 39px; }
+#toybox p a#lock-link.active { background-position: 0 -959px; width: 93px; height: 39px; } 
 
 #toybox .content-item div.content-item-info p.page-count-icon { 
 	background: url("/images/playdate_sprite.png") no-repeat;
-	background-position: 0 -1574px; width: 18px; height: 18px; 
+	background-position: 0 -1100px; width: 18px; height: 18px; 
 	display: inline-block;
 	margin-right: 4px;
 }
 
 #toybox .content-item.selected-content-item div.content-item-info p.page-count-icon {
-	background-position: 0 -1602px; width: 18px; height: 16px; 	
+	background-position: 0 -1126px; width: 18px; height: 18px; 	
 }
 
 /* SPRITES --------------------------------------------------------- */
