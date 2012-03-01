@@ -495,15 +495,15 @@ div#no-profile { background-position: 0 -270px; }
 	width: 1024px;
 	min-height: 768px;
 	overflow: hidden;
-	background-color:#d8dce1;
+	/*background-color:#d8dce1;
 	background: -moz-linear-gradient(center top, #d8dce1, #a2afb7 46%, #eff0f4);
-	background: -webkit-gradient(linear, center top, center bottom, from(#d8dce1), color-stop(46%, #a2afb7), to(#eff0f4));
+	background: -webkit-gradient(linear, center top, center bottom, from(#d8dce1), color-stop(46%, #a2afb7), to(#eff0f4));*/
+	background: url("/images/dialpad_bg.jpg") no-repeat center center;
 }
 
 /* TOP - CHAT AREA --------------------------------------------------------- */
 .chat-content {
 	height: 94px;
-	background: green;
 }
 
 .camera-control {
@@ -518,7 +518,6 @@ div#no-profile { background-position: 0 -270px; }
 	float: left;
 	width: 825px;
 	text-align: left;
-	background: red;
 }
 
 .photo-pair {
@@ -529,21 +528,12 @@ div#no-profile { background-position: 0 -270px; }
 p a#camera-link { background-position: 0 -741px; width: 56px; height: 56px; }
 p a:active#camera-link {  }
 
-
-.video-content p a, #toybox-drawer p a, .book-nav p a {
-	background: url("/images/sprite_sheet.png") no-repeat;
-	display: block;
-}
-
 /* ACTIVITY --------------------------------------------------------- */
 
 .activity-content {
 	text-align: center;	
-}
-
-.activity-content.row {
-	top: 150px;
-	bottom: 60px;
+	top: 94px;
+	height: 100%;
 }
 
 .instructions {
@@ -553,13 +543,29 @@ p a:active#camera-link {  }
 	margin-left: 100px;
 }
 
-/* BOOK FLIP --------------------------------------------------------- */
+#finger {
+	position: absolute;
+}
+
+/* BOOK  --------------------------------------------------------- */
 
 #book {
 	/*background: url("/images/book.jpg") no-repeat;*/
 	width: 1000px;
-	height: 470px;
+	height: 100%;
 	margin: 0 auto;
+	
+	background: rgb(220,232,240); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(220,232,240,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(220,232,240,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(220,232,240,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(220,232,240,1) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(220,232,240,1) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
+	background: linear-gradient(top,  rgba(220,232,240,1) 0%,rgba(255,255,255,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dce8f0', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+	
+  	-webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.2) inset;
+  	-moz-box-shadow: 2px 2px 3px rgba(0,0,0,0.2) inset;
 }
 
 #pages {
@@ -567,19 +573,27 @@ p a:active#camera-link {  }
 }
 
 .book-image {
-	text-align: center;
+	display: block;
+	margin: 40px auto 0px auto;
+	max-height: 500px;
+	max-width: 800px;
+	min-width: 350px;
+	border: 1px solid #d3d3d3;
+	background: white;
+	padding: 10px;
 }
 
-.book-image img {
-	max-height: 280px;
-	max-width: 400px;
+.bottom-shadow {
+	margin: -3px 10px;
 }
 
 .book-text {
 	text-align: justify;
-	font-size: 14px;
-	padding: 0px 15px;
-	width: 500px;
+	font-family: "Nobile", sans-serif;
+	font-size: 24pt;
+	line-height: 30pt;
+	color: black;
+	padding: 18px 65px;
 	margin: 0 auto;
 }
 
@@ -587,80 +601,24 @@ p a:active#camera-link {  }
 	color: black;
 }
 
+/* BOOK NAV --------------------------------------------------------- */
+
 .book-nav {
-	text-align: center;
-	font-size: 1.5em;
 	position: absolute;
 	top: 50%;
 	z-index: 101;
 	width: 100%;
 }
 
-.previous-container {
-	left: 15px;
-	position: absolute;
-}
+p a#previous-link { background-position: 0 -1310px; width: 37px; height: 51px; } 
+p a#previous-link:active { background-position: 0 -1432px; width: 37px; height: 51px; }
+p a#previous-link.disabled { background-position: 0 -1371px; width: 37px; height: 51px; } 
 
-.next-container {
-	right: 15px;
-	position: absolute;
-}
-
-p a#previous-link {
-	width: 48px;
-	height: 50px;
-	background-position: -285px -177px;
-}
-p a#previous-link:hover { background-position: -285px -227px; }
-
-p a#next-link {
-	width: 48px;
-	height: 50px;
-	background-position: -332px -177px;
-}
-p a#next-link:hover { background-position: -332px -227px; }
-
-.book-nav-inner {
-	position: relative; 
-	top: -50%
-}
-
-.page-num-text {
-	font-size: 14px;
-}
-
-.back-cover {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	min-height: 540px;
-	min-width: 500px;
-}
-
-.beginning-container {
-	position: absolute;
-	top: 5px;
-	left: 393px;
-}
-
-.beginning-container p a {
-	width: 200px;
-	height: 60px;
-}
-
-.beginning-text-container {
-	position: absolute;
-	top: 16px;
-	left: 20px;
-}
-
-.beginning-text-container p a {
-	height: 25px;
-}
-
-#finger {
-	position: absolute;
-}
+p a#next-link { background-position: 0 -1691px; width: 37px; height: 51px; } 
+p a#next-link:active { background-position: 0 -1813px; width: 37px; height: 51px; } 
+p a#next-link.disabled { background-position: 0 -1752px; width: 37px; height: 51px; } 
+.sprite-right_active-1stpg{ background-position: 0 -1630px; width: 37px; height: 51px; } 
+.sprite-right_press_1stpg{ background-position: 0 -1874px; width: 37px; height: 51px; }
 
 /* KEEPSAKE --------------------------------------------------------- */
 #slide-keepsake .keepsake {
@@ -771,9 +729,9 @@ p a#next-link:hover { background-position: -332px -227px; }
 
 .toybox-content-container {
 	width: 290px;
-	padding-top: 1px;
+	margin-top: -2px;
 	background: url("/images/toybox_bg.png") no-repeat 0 0;
-	border-radius: 8px;
+	border-radius: 12px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	

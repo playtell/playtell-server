@@ -2,9 +2,15 @@
   <ul>
 	<% @book.pages.each do |page| %>
 		<li>
-			<div id= "<%= "page_"+page.page_num.to_s %>">
-				<div class="book-image">
+			<div id= "<%= "page_" + page.page_num.to_s %>">
+				<div class="book-image inline-block">
 					<%= image_tag getPageImageFilePath(@book.image_directory, page.page_num) %>
+					<div class="inline-block fl">
+						<%= image_tag "photo_frame_left.png" %>
+					</div>
+					<div class="inline-block fr">
+						<%= image_tag "photo_frame_right.png" %>
+					</div>
 				</div>
 				<div class="book-text">
 					<%= simple_format (page.page_text) %> 
