@@ -150,7 +150,7 @@ function enableButtons() {
 		toggleToyBox();
 	});
 
-	$('#disconnect-link').on(tablet ? 'swipe' : 'click', function() {
+	$('#disconnect-link').on(tablet ? 'touchstart' : 'click', function() {
 		endPlaydate();
 	});
 
