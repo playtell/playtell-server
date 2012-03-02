@@ -561,6 +561,12 @@ p a#camera-link.active { background-position: 0 -523px; width: 86px; height: 86p
 	margin: 0 45px;
 }
 
+#pages .page {
+	background: url("/images/book_frame.png") no-repeat;
+	margin: 40px 35px;
+	min-height: 891px;
+}
+
 #pages ul {
 	display: table;
 	border-spacing: 10px 0px;
@@ -599,8 +605,8 @@ p a#camera-link.active { background-position: 0 -523px; width: 86px; height: 86p
 .book-text {
 	text-align: justify;
 	font-family: "Nobile", sans-serif;
-	font-size: 24pt;
-	line-height: 30pt;
+	font-size: 14pt;
+	line-height: 22pt;
 	color: black;
 	padding: 18px 65px;
 	margin: 0 auto;

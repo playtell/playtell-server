@@ -13,7 +13,7 @@ PTBook.prototype.createActivityFromJSON=function(book) {
 			displayType = "none";
 		}
 		bookMarkup += '<li style=display:' + displayType + '>'
-		 	+ '<div id="page_' + pageNum + '">'
+		 	+ '<div id="page_' + pageNum + '" class="page">'
 			+ '<div class="inline-block">'
 			+ '<img src="' + getPageImageFilePath(book.image_directory, i+1) + '" class="book-image">'
 			+ '<div class="inline-block fl bottom-shadow">'
