@@ -1,0 +1,27 @@
+
+<div id="toybox">
+	<div id="toybox-toggle"><p><a href="#" id="toybox-link"></a></p></div>
+	<div class="selected-indicator-container">
+		<div class="selected-indicator hidden"></div>
+	</div>
+	<div class="toybox-wrapper">
+		<div class="toybox-controls-container">
+			<% if @playdate.blank? %>
+				<div class="nav-control"><p><a href="#" id="dialpad-link"></a></p></div>
+				<div class="nav-control"><p><a href="#" id="timeline-link"></a></p></div>
+			<% else %>
+				<div class="toybox-control"><p><a href="#" id="lock-link"></a></p></div>
+				<div class="toybox-control">
+					<p><a href="#" id="disconnect-link">
+						<%= image_tag "disconnect.png" %>
+					</a></p>
+				</div>
+			<% end %>
+		</div>
+		<% if !@playdate.blank? %>
+			<div class="toybox-content-container">
+				<%= render :partial => "library", :locals => {:books => @books} %>
+			</div>
+		<% end %>
+	</div>
+</div>

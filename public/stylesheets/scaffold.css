@@ -364,6 +364,7 @@ img#scientistImage {
 	height: 768px;
 	margin: 0 auto;
 	position: relative;
+	overflow: hidden;
 }
 
 .clouds {
@@ -706,6 +707,11 @@ div#no-profile { background-position: 0 -270px; }
 	position: relative;
 }
 
+.nav-control {
+	padding: 15px 10px;
+	display: inline-block;
+}
+
 #disconnect-link img {
 	position: absolute;
 	top: 17px;
@@ -829,20 +835,19 @@ div#no-profile { background-position: 0 -270px; }
 }
 
 #toybox p a#toybox-link { background-position: 0 -1777px; } 
-#toybox p a:active#toybox-link, 
-a#toybox-link.active { background-position: 0 -1595px; }
+#toybox p a:active#toybox-link, a#toybox-link.active { background-position: 0 -1595px; }
 #toybox p a#toybox-link.active { background-position: 0 -1686px; } 
 
-.sprite-dialpad-depressed{ background-position: 0 -576px; width: 62px; height: 51px; } 
-.sprite-dialpad{ background-position: 0 -637px; width: 62px; height: 51px; }
+#toybox p a#dialpad-link { background-position: 0 -637px; width: 62px; height: 51px; }
+#toybox p a:active#dialpad-link, #toybox p a#dialpad-link.active { background-position: 0 -576px; width: 62px; height: 51px; } 
 
-.sprite-timeline-depressed{ background-position: 0 -1473px; width: 62px; height: 51px; } 
-.sprite-timeline{ background-position: 0 -1534px; width: 62px; height: 51px; } 
+#toybox p a#timeline-link { background-position: 0 -1534px; width: 62px; height: 51px; } 
+#toybox p a:active#timeline-link, #toybox p a#timeline-link.active { background-position: 0 -1473px; width: 62px; height: 51px; } 
 
 #toybox p a#disconnect-link { background-position: 0 -698px; width: 183px; height: 39px; } 
 #toybox p a:active#disconnect-link { background-position: 0 -747px; width: 183px; height: 39px; }
 
-#toybox p a#lock-link { background: none; /*background-position: 0 -1866px; */ width: 92px; height: 39px; }
+#toybox p a#lock-link { background: none; /*0 -1866px; */ width: 92px; height: 39px; }
 #toybox p a#lock-link.active { background-position: 0 -959px; width: 93px; height: 39px; } 
 
 .selected-indicator {

@@ -1,6 +1,0 @@
-<h1><%= @playdate.getOtherPlayerName(current_user) %></h1>
-<h2>wants to play!</h2>
-<%= form_tag playdate_path do %>
-	<%= hidden_field_tag 'playdate_id', @playdate.id, :id => 'playdate_id' %>
-	<%= submit_tag 'Join Video Playdate', :class => "default", :id => "join-playdate" %>
-<% end %>
