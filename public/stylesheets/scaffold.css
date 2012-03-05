@@ -449,7 +449,6 @@ div.friend {
 }
 
 /* DIALPAD SPRITE */
-
 .user-profile .sprite, .user-profile p a {
 	background: url("/images/dialpad_sprite.png") no-repeat;
 }
@@ -483,11 +482,6 @@ div#no-profile { background-position: 0 -270px; }
 	right: 0;
 }
 
-.sprite {
-	background: url("/images/playdate_sprite.png") no-repeat;
-	display: block;
-}
-
 #playdate-container {
 	position: absolute;
 	margin: 0px auto;
@@ -495,9 +489,6 @@ div#no-profile { background-position: 0 -270px; }
 	width: 1024px;
 	min-height: 768px;
 	overflow: hidden;
-	/*background-color:#d8dce1;
-	background: -moz-linear-gradient(center top, #d8dce1, #a2afb7 46%, #eff0f4);
-	background: -webkit-gradient(linear, center top, center bottom, from(#d8dce1), color-stop(46%, #a2afb7), to(#eff0f4));*/
 	background: url("/images/dialpad_bg.jpg") no-repeat center center;
 }
 
@@ -524,10 +515,6 @@ div#no-profile { background-position: 0 -270px; }
 	display: inline-block;
 	margin: 4px 8px 7px 8px;
 }
-
-p a#camera-link { background-position: 0 -1008px; width: 86px; height: 86px; }
-p a:active#camera-link { background-position: 0 -1156px; width: 86px; height: 86px; }
-p a#camera-link.active { background-position: 0 -523px; width: 86px; height: 86px; }
 
 /* ACTIVITY --------------------------------------------------------- */
 
@@ -625,16 +612,6 @@ p a#camera-link.active { background-position: 0 -523px; width: 86px; height: 86p
 	width: 100%;
 }
 
-p a#previous-link { background-position: 0 -740px; width: 37px; height: 51px; } 
-p a#previous-link:active { background-position: 0 -862px; width: 37px; height: 51px; }
-p a#previous-link.disabled{ background-position: 0 -801px; width: 37px; height: 51px; } 
-
-p a#next-link { background-position: 0 -1313px; width: 37px; height: 51px; } 
-p a#next-link:active { background-position: 0 -1435px; width: 37px; height: 51px; } 
-p a#next-link.disabled { background-position: 0 -1374px; width: 37px; height: 51px; } 
-.sprite-right_active-1stpg{ background-position: 0 -1252px; width: 37px; height: 51px; } 
-.sprite-right_press_1stpg{ background-position: 0 -1496px; width: 37px; height: 51px; }
-
 /* KEEPSAKE --------------------------------------------------------- */
 #slide-keepsake .keepsake {
 	left: 440px;
@@ -712,13 +689,6 @@ p a#next-link.disabled { background-position: 0 -1374px; width: 37px; height: 51
 	float: left;
 	width: 5px;
 	position: relative;
-}
-
-.selected-indicator {
-	background: url("/images/playdate_sprite.png") no-repeat;
-	background-position: 0 -288px; width: 17px; height: 31px;
-	position: absolute;
-	left: 3px;
 }
 
 .toybox-wrapper {
@@ -843,62 +813,74 @@ p a#next-link.disabled { background-position: 0 -1374px; width: 37px; height: 51
 .content-item-info .author { font-family: "Comfortaa", sans-serif; font-size: 10pt; font-weight: 300; }
 .content-item-info .page-count { font-family: "Comfortaa", sans-serif; font-size: 12pt; font-weight: 300; padding-top: 7px; display: inline-block; }
 
-/* TOYBOX SPRITE */
+/* SPRITES --------------------------------------------------------- */
 
-#toybox p a {
-	background: url("/images/playdate_sprite.png") no-repeat;
+.sprite {
+	background: url("/images/sprite.png") no-repeat;
 	display: block;
 }
 
-#toybox p a#toybox-link { background-position: 0 -1648px; width: 75px; height: 81px; } 
-#toybox p a:active#toybox-link, a#toybox-link.active { background-position: 0 -1739px; width: 75px; height: 81px; }
-#toybox p a#toybox-link.active { background-position: 0 -1557px; width: 75px; height: 81px; } 
+/* TOYBOX */
+#toybox p a {
+	background: url("/images/sprite.png") no-repeat;
+	display: block;
+	width: 75px; 
+	height: 81px;
+}
 
-#toybox p a#disconnect-link { background-position: 0 -425px; width: 183px; height: 39px; }
-#toybox p a:active#disconnect-link { background-position: 0 -474px; width: 183px; height: 39px; }
+#toybox p a#toybox-link { background-position: 0 -1777px; } 
+#toybox p a:active#toybox-link, 
+a#toybox-link.active { background-position: 0 -1595px; }
+#toybox p a#toybox-link.active { background-position: 0 -1686px; } 
+
+.sprite-dialpad-depressed{ background-position: 0 -576px; width: 62px; height: 51px; } 
+.sprite-dialpad{ background-position: 0 -637px; width: 62px; height: 51px; }
+
+.sprite-timeline-depressed{ background-position: 0 -1473px; width: 62px; height: 51px; } 
+.sprite-timeline{ background-position: 0 -1534px; width: 62px; height: 51px; } 
+
+#toybox p a#disconnect-link { background-position: 0 -698px; width: 183px; height: 39px; } 
+#toybox p a:active#disconnect-link { background-position: 0 -747px; width: 183px; height: 39px; }
 
 #toybox p a#lock-link { background: none; /*background-position: 0 -1866px; */ width: 92px; height: 39px; }
 #toybox p a#lock-link.active { background-position: 0 -959px; width: 93px; height: 39px; } 
 
+.selected-indicator {
+	background: url("/images/sprite.png") no-repeat;
+	background-position: 0 -1432px; width: 17px; height: 31px;
+	position: absolute;
+	left: 3px;
+}
+
 #toybox .content-item div.content-item-info p.page-count-icon { 
-	background: url("/images/playdate_sprite.png") no-repeat;
-	background-position: 0 -1100px; width: 18px; height: 18px; 
+	background: url("/images/sprite.png") no-repeat;
+	background-position: 0 -1197px; width: 18px; height: 18px; 
 	display: inline-block;
 	margin-right: 4px;
 }
 
 #toybox .content-item.selected-content-item div.content-item-info p.page-count-icon {
-	background-position: 0 -1126px; width: 18px; height: 18px; 	
+	background-position: 0 -1223px; width: 18px; height: 18px; 	
 }
 
-/* SPRITES --------------------------------------------------------- */
+/* CAMERA */
+p a#camera-link { background-position: 0 -480px; width: 86px; height: 86px; }
+p a:active#camera-link { background-position: 0 -288px; width: 86px; height: 86px; }
+p a#camera-link.active { background-position: 0 -384px; width: 86px; height: 86px; }
+p a#camera-link1{ background-position: 0 0; width: 86px; height: 86px; } 
+p a#camera-link2{ background-position: 0 -96px; width: 86px; height: 86px; } 
+p a#camera-link3{ background-position: 0 -192px; width: 86px; height: 86px; } 
 
-#playdate-container p a#reconnect-link { background-position: -332px 0px; }
-#playdate p a:hover#reconnect-link { background-position: -332px -60px; }
+/* BOOK NAV */
+p a#previous-link { background-position: 0 -1371px; width: 37px; height: 51px; }
+p a#previous-link:active { background-position: 0 -1249px; width: 37px; height: 51px; } 
+p a#previous-link.disabled { background-position: 0 -1310px; width: 37px; height: 51px; } 
 
-/*#playdate-container p a#disconnect-link { background-position: -280px 0px; }
-#playdate-container p a:hover#disconnect-link { background-position: -280px -60px; }
-*/
-#playdate-container p a#snapshot-link { background-position: -24px -496px; }
-#playdate-container p a:active#snapshot-link { background-position: -24px -368px; }
-
-/*#playdate-container p a#toybox-link { background-position: -9px -6px; }
-#playdate-container p a:hover#toybox-link { background-position: -9px -50px; }
-#playdate-container p a:active#toybox-link { background-position: -9px -95px; }
-*/
-#playdate-container p a#contacts-link {	background-position: -77px -89px; }
-#playdate-container p a:hover#contacts-link { background-position: -77px -45px; }
-
-#playdate-container p a#keepsakes-link { background-position: -171px -6px; }
-#playdate-container p a:hover#keepsakes-link { background-position: -162px -40px; }
-
-#playdate-container p a#audio-toggle { background-position: -700px 0px; }
-
-.beginning-container p a#beginning-banner { background-position: -389px -16px; }
-
-.beginning-container p a#beginning-link { background-position: -385px -77px; }
-.beginning-container p a:hover#beginning-link { background-position: -385px -105px; }
-
+p a#next-link { background-position: 0 -1040px; width: 37px; height: 51px; }
+p a#next-link:active { background-position: 0 -796px; width: 37px; height: 51px; } 
+p a#next-link.disabled { background-position: 0 -857px; width: 37px; height: 51px; } 
+.sprite-next-link-title-active{ background-position: 0 -918px; width: 37px; height: 51px; } 
+.sprite-next-link-title{ background-position: 0 -979px; width: 37px; height: 51px; } 
 
 /* LANDING PAGE --------------------------------------------------------- */
 
