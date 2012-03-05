@@ -26,6 +26,8 @@ function doChangeBook(book) {
 	mySwipe.setup();
 	listenForTurnPage();
 	
+	resetSelectedContentItem($('*[data-activityid=' + book.id + ']'));
+	
 	//grandma finger
 	//listenForTap(); <-- not yet built
 	$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
@@ -134,6 +136,7 @@ function enableToySelectors() {
 	});
 }
 
+// sets element as the currently selected content item in the toybox
 function resetSelectedContentItem(element) {
 	$('.selected-indicator').hide();
 	$('.content-item').removeClass("selected-content-item");
