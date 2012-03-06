@@ -3,7 +3,6 @@ function listenForPlaydateRequest() {
 	//when successfully subscribed
 	rendezvousChannel.bind('playdate_requested', function(data) {
 		if (parseInt(data.playmateID) == parseInt($('#current-user').html())) {
-			console.log (data);
 			showPlaydateRequest(data);
 			pusher.unsubscribe("presence-rendezvous-channel");
 			playdateChannel = pusher.subscribe($('#pusher-channel-name').html());
@@ -36,8 +35,8 @@ function listenForPlaydateRequest() {
 function listenForChangeBook() {
 	playdateChannel.bind('change_book', function(data) {
 		if (parseInt(data.player) != parseInt($('#current-user').html())) {
-			hideToyBox();
 			var bookData = $.parseJSON(data.data);
+			resetPlayspace($('*[data-activityid=' + bookData.book.id + ']'));
 			doChangeBook(bookData.book);
 		}
 	});
@@ -46,13 +45,8 @@ function listenForChangeBook() {
 function listenForTurnPage() {
 	playdateChannel.bind('turn_page', function(data) {
 		if (parseInt(data.player) != parseInt($('#current-user').html())) {
-			//turnBookPage(data.page); 
-			console.log("responding from player: " + data.player + ". page turning to: " + parseInt(data.page));
 			page = parseInt(data.page);
 			mySwipe.slide(parseInt(data.page), 100, true);
-		}
-		else {
-			console.log("(ignoring) heard trigger from player: " + data.player + " for: " + parseInt(data.page));
 		}
 	});
 }

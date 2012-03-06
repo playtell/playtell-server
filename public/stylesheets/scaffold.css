@@ -545,8 +545,8 @@ div#no-profile { background-position: 0 -270px; }
 }
 
 #pages {
-	width: 904px;
-	margin: 0 45px;
+	width: 900px;
+	margin: 0 58px;
 }
 
 #pages .page {
@@ -574,6 +574,22 @@ div#no-profile { background-position: 0 -270px; }
   	-moz-box-shadow:    0px -1px 3px rgba(0,0,0,.2);
   	-webkit-box-shadow: 0px -1px 3px rgba(0,0,0,.2);
   	box-shadow:         0px -1px 3px rgba(0,0,0,.2);
+
+	width: 900px;
+}
+
+#pages ul li:first-child {
+	background: none;
+	
+  	-moz-box-shadow:    none;
+  	-webkit-box-shadow: none;
+  	box-shadow:         none;
+}
+
+.title-page {
+	position: absolute;
+	top: -30px;
+	left: -60px;
 }
 
 .book-image {
@@ -884,8 +900,8 @@ p a#previous-link.disabled { background-position: 0 -1310px; width: 37px; height
 p a#next-link { background-position: 0 -1040px; width: 37px; height: 51px; }
 p a#next-link:active { background-position: 0 -796px; width: 37px; height: 51px; } 
 p a#next-link.disabled { background-position: 0 -857px; width: 37px; height: 51px; } 
-.sprite-next-link-title-active{ background-position: 0 -918px; width: 37px; height: 51px; } 
-.sprite-next-link-title{ background-position: 0 -979px; width: 37px; height: 51px; } 
+p a#next-link.title { background-position: 0 -979px; width: 37px; height: 51px; } 
+p a#next-link:active.title { background-position: 0 -918px; width: 37px; height: 51px; } 
 
 /* LANDING PAGE --------------------------------------------------------- */
 

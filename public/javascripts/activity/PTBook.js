@@ -25,7 +25,11 @@ PTBook.prototype.createActivityFromJSON=function(book) {
 			+ '</div>'
 			+ '<div class="book-text">' 
 			+ book.pages[i].page_text 
-			+ '</div></div></li>';
+			+ '</div></div>';
+		if (pageNum == 1) {
+			bookMarkup += '<div class="title-page"><img src="/images/book_title_cover.png"></div>';
+		}
+		bookMarkup += '</li>';
 	});
 	$('#pages').html("<ul>" + bookMarkup + "</ul>");
 }

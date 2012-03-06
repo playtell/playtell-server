@@ -1,56 +1,33 @@
-function doChangeBook(book) {
-	$('#keepsake-container').hide();
-	if ($('.instructions').is(":visible")) { $('.instructions').fadeOut('fast'); }
-	enableNavButtons("book", 101);
-	$('#total-pages').html(book.pages.length);
-	$('#page-num').html(1);
-	$('.book-nav').show();
-	b = new PTBook();
-	page = 0;
-	b.createActivityFromJSON(book);
-	mySwipe = new Swipe(
-	  document.getElementById('pages'), {
-		speed: 100, 
-		callback: function() {
-			console.log("in callback. responder is: " + mySwipe.getResponder());
-			if (!mySwipe.getResponder()) {
-				console.log("pushing");
-				page = mySwipe.getPos();
-				syncToServerNoData(101);
-			}
-		}
-	  }
-	);
-	$('.loading').hide();
-	$('.book-container').show();
-	mySwipe.setup();
-	listenForTurnPage();
+function initPlaydate() {
 	
-	resetSelectedContentItem($('*[data-activityid=' + book.id + ']'));
+	pusher = new Pusher($('#pusher-key').html()); 
+	playdateChannel = pusher.subscribe($('#pusher-channel-name').html());
+	listenForEndPlaydate(true);
 	
-	//grandma finger
-	//listenForTap(); <-- not yet built
-	$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
-		$("#finger").offset({ top: e.pageY, left: e.pageX}).show();
-	});
+	enableButtons();
+	enableToySelectors();
+	toggleToyBox();
+	
+	$('.instructions').fadeIn('slow');
+	
+	listenForChangeBook();
+	
 }
 
-//disable book nav links as appropriate
-function updateBookNavLinks(currentPage) {
-	if (page == 1) {
-		hideButton("previous-link");
-		showButton("next-link");
-	}
-	else if (page > 1) {
-		showButton("previous-link");
-		if (page >= parseInt($("#total-pages").html())) {
-			hideButton("next-link");
-		}
-		else if (page < parseInt($("#total-pages").html())) {
-			showButton("next-link");
-		}
-	}
-} 
+function enableButtons() {
+
+	$('#toybox-link').on(tablet ? 'touchstart' : 'click', function() {
+		toggleToyBox();
+	});
+
+	$('#disconnect-link').on(tablet ? 'touchstart' : 'click', function() {
+		endPlaydate();
+	});
+
+	$('#camera-link').on(tablet ? 'touchstart' : 'click', function() {
+	});
+
+}
 
 //expand or collapse the toy box and bring it to the front
 function toggleToyBox() {
@@ -84,60 +61,22 @@ function hideToyBox() {
 		right: new_pos
 	});
 	$('#toybox-link').removeClass("active");
-}
-
-function disableNavButtons() {
-	$("#next-link").die("click");
-	$("#previous-link").die("click");
-}
-
-function enableNavButtons(activity, playdateChange) {
-	disableNavButtons();
-	if (activity == "book") {
-		$("#next-link").live("click", function n(e) {
-			page++;
-			console.log("click to page:" + page);
-		    //turnBookPage(page+1); //page var gets updated in this fn call
-		    syncToServerNoData(playdateChange);
-			mySwipe.next();
-			return false;
-	    });
-
-		$("#previous-link").live("click", function p(e) {
-			page--;
-		    //turnBookPage(page-1); //page var gets updated in this fn call
-		    syncToServerNoData(playdateChange);
-			mySwipe.prev();
-			return false;
-	    });
-	}
-	else {
-		$("#next-link").live("click", function() {
-			goToPage(getNewPage(getCurrentPage(),"next"), activity);
-			syncToServer(getCurrentPage(), playdateChange);
-			return false;
-		});
-		$("#previous-link").live("click", function() {
-			goToPage(getNewPage(getCurrentPage(),"prev"), activity);
-			syncToServer(getCurrentPage(), playdateChange);
-			return false;
-		});
-	}
+	
 }
 
 function enableToySelectors() {
+	
 	$('.content-item').on(tablet ? 'touchstart' : 'click', function() {
-		resetSelectedContentItem(this);
-		if ($('.instructions').is(":visible")) { $('.instructions').fadeOut('fast'); }
-		$('.book-container').hide();
-		hideToyBox();
-		$('.loading').show();
-		syncToServerReturnData(this.getAttribute('data-playdatechange'), this.getAttribute('data-activityid'));
+		resetPlayspace(this);
+		syncToServerReturnData(this.getAttribute('data-playdatechange'),
+								this.getAttribute('data-activityid'));
 	});
+	
 }
 
 // sets element as the currently selected content item in the toybox
 function resetSelectedContentItem(element) {
+	
 	$('.selected-indicator').hide();
 	$('.content-item').removeClass("selected-content-item");
 	
@@ -145,37 +84,120 @@ function resetSelectedContentItem(element) {
 	$('.selected-indicator').css("top", newPos);
 	$(element).addClass("selected-content-item");
 	$('.selected-indicator').show();
+	
 }
 
-function enableButtons() {
+//replaces whatever is in the playspace with the loading icon
+function resetPlayspace(toybox_element) {
+	
+	if ($('.instructions').is(":visible")) { $('.instructions').fadeOut('fast'); }
 
-	$('#toybox-link').on(tablet ? 'touchstart' : 'click', function() {
-		toggleToyBox();
-	});
+	resetSelectedContentItem(toybox_element);
+	hideToyBox();
 
-	$('#disconnect-link').on(tablet ? 'touchstart' : 'click', function() {
-		endPlaydate();
-	});
+	$('#keepsake-container').hide();
+	$('.book-container').hide();
+	$('.book-nav').hide();
+
+	$('.loading').show();
 
 }
 
-function initPlaydate() {
-	pusher = new Pusher($('#pusher-key').html()); 
-	playdateChannel = pusher.subscribe($('#pusher-channel-name').html());
-	listenForEndPlaydate(true);
+function doChangeBook(book) {	
+	$('#total-pages').html(book.pages.length);
+	$('#page-num').html(1);
 	
-	enableButtons();
-	enableToySelectors();
-	toggleToyBox();
+	b = new PTBook();
+	page = 0;
+	b.createActivityFromJSON(book);
+	mySwipe = new Swipe(
+	  document.getElementById('pages'), {
+		speed: 100, 
+		callback: function() {
+			updateBookNavLinks()
+			if (!mySwipe.getResponder()) {
+				//page = mySwipe.getPos();
+				syncToServerNoData(101);
+			}
+		}
+	  }
+	);
 	
-	$('.instructions').fadeIn('slow');
+	$('.loading').hide();
 	
-	listenForChangeBook();
+	enableNavButtons("book", 101);
+	updateBookNavLinks()
+	$('.book-nav').show();
+	
+	$('.book-container').show();
+	mySwipe.setup();
+	listenForTurnPage();
+	
+	//grandma finger
+	//listenForTap(); <-- not yet built
+	//$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
+	//	$("#finger").offset({ top: e.pageY, left: e.pageX}).show();
+	//});
+}
+
+//disable book nav links as appropriate
+function updateBookNavLinks() {
+	
+	var page = mySwipe.getPos();
+	
+	if (page == 0) {
+		$("#previous-link").addClass("hidden");
+		$("#previous-link").addClass("disabled");
+		$("#next-link").removeClass("disabled");
+		$("#next-link").addClass("title");
+	}
+	else if (page > 0) {
+		$("#previous-link").removeClass("hidden");
+		$("#next-link").removeClass("title");
+		if (page > 1) {
+			$("#previous-link").removeClass("disabled");
+		}
+		if (page >= mySwipe.getLength()-1) {
+			$("#next-link").addClass("disabled");
+		}
+		else if (page < mySwipe.getLength()-1) {
+			$("#next-link").removeClass("disabled");
+		}
+	}
+	
+} 
+
+function disableNavButtons() {
+	
+	$("#next-link").die("click");
+	$("#previous-link").die("click");
+
+}
+
+function enableNavButtons(activity, playdateChange) {
+
+	disableNavButtons();
+
+	$("#next-link").live("click", function n(e) {
+		page++;
+	    syncToServerNoData(playdateChange);
+		mySwipe.next();
+		return false;
+    });
+
+	$("#previous-link").live("click", function p(e) {
+		page--;
+	    syncToServerNoData(playdateChange);
+		mySwipe.prev();
+		return false;
+    });
+
 }
 
 //used for changing activity. 
 //sends payload of current playdate state to server, then updates playspace with callback data
 function syncToServerReturnData(playdate_change, activityID) {
+	
 	$.getJSON(
 		"/update_playdate", 
 		{ 
@@ -197,31 +219,26 @@ function syncToServerReturnData(playdate_change, activityID) {
 			}
 		}
 	);
+	
 }
 
 //used for in-activity changes like turn page
 //sends payload of current playdate state to server
 function syncToServerNoData(playdate_change) {
+	
 	$.ajax({
 		url: "/update_playdate.js",
 		data: "playdateChange=" + playdate_change + "&newPage=" + page,
 		type: "POST"
 	});
-}
-
-function syncToServerBeginPlaydate(friend_id) {
-	$("#friend_"+ friend_id).attr({
-		method: "POST",
-		action: "/playdate?friend_id=" + friend_id
-	});
-	console.log($("#friend_"+ friend_id));
-	$("#friend_"+ friend_id).submit();
+	
 }
 
 // the next few fns are for REQUESTING, JOINING, DISCONNECTING from playdates (ie stuff that happens before player is in a playdate)
 
 //pings the server directly first to check for a requesting playdate; listens for pusher notification if there isn't yet a requesting playdate
 function checkForPlaydateRequest() {
+	
 	$.getJSON(
 		"/playdate_requested", 		
 		function(data) {
@@ -235,11 +252,13 @@ function checkForPlaydateRequest() {
 				listenForPlaydateRequest();
 			}
 		}
-	);		
+	);
+			
 }
 
 //serves up a lightbox with the playdate join request 
 function showPlaydateRequest(data) {
+	
 	//data.id is playdate id. put that in the playdate channel name field
 	$("#pusher-channel-name").html(data.pusherChannelName);
 	$('#player-name').html(data.initiator);
@@ -248,22 +267,34 @@ function showPlaydateRequest(data) {
 	    centered: true, 
 		onClose: function() { $('#join-lightbox').empty(); }
 	});	
+	
+}
+
+function syncToServerBeginPlaydate(friend_id) {
+	
+	$("#friend_"+ friend_id).attr({
+		method: "POST",
+		action: "/playdate?friend_id=" + friend_id
+	});
+	$("#friend_"+ friend_id).submit();
+	
 }
 
 // changes the visual state of a user's friend on the dialpad
 // presence can be online, offline, or pressed
 function changeUserPresence(user_id, presence) {
+	
 	$('*[data-friendid=' + user_id + '] .presence').hide();
 	$('*[data-friendid=' + user_id + '] .'+ presence).show();
+	
 }
 
 function enableDialpadButtons() {
+	
 	$('.online').on(tablet ? 'touchstart' : 'mousedown', function() {
 		var friendid = $('a').has(this).data("friendid");
 		changeUserPresence(friendid, "pressed");
 		syncToServerBeginPlaydate(friendid);
-		//<%= playdate_path :friend_id => friend.id %>
-		//syncToServerBeginPlaydate(this.getAttribute('data-playdatechange'), this.getAttribute('data-activityid'));
 	});
 	
 	//add friends
