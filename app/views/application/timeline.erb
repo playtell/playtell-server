@@ -15,6 +15,11 @@
 			pusher = new Pusher($('#pusher-key').html()); 			
 			checkForPlaydateRequest(); 
 			enableButtons();
+			
+			$('.photos-container').on(tablet ? 'touchstart' : 'click', function() {
+				$('.overlay').show();
+				$('.keepsakes-container').fadeIn();
+			});
 		});
 
 	</script>
@@ -22,14 +27,16 @@
 
 <div class="timeline-container">
 	<div class="timeline-bar">
-		<div class="inline-block fl">
-		</div>
 	</div>
-	<div class="photos-bar">
+	<div class="timeline-selector">
 	</div>
+	<div class="photos-container">
+	</div>
+	<%= render :partial => "games/toybox" %>
+	<div class="overlay hidden"></div>
+	<%= render :partial => "keepsakes" %>
 </div>
 
-<%= render :partial => "games/toybox" %>
 
 <div class="lightbox hidden" id="join-lightbox">
 	<h1 id="player-name"></h1>

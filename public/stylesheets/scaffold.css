@@ -465,6 +465,118 @@ div.friend {
 
 div#no-profile { background-position: 0 -270px; }
 
+/* TIMELINE --------------------------------------------------------- */
+
+.timeline-container {
+	background: url('/images/dialpad_bg.jpg') no-repeat center center; 
+	text-align: center;
+	width: 1024px;
+	height: 768px;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+}
+
+.timeline-bar {
+	width: 1024px;
+}
+.timeline-selector {}
+
+.photos-container {
+	margin-top: 40px;
+	min-height: 300px;
+	background: orange;
+}
+
+.overlay {
+	background: url('/images/overlay.png') no-repeat;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1024px;
+	height: 768px;
+	z-index: 1000;
+}
+
+.keepsakes-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1001;
+	width: 100%;
+}
+
+.keepsakes-header {
+	background: url('/images/keepsake_title_bar.png') repeat;
+	height: 75px;
+	text-align: left;
+}
+
+.photo-metadata {
+	margin: 1px 0px 0px 16px;
+}
+
+.photo-metadata p.date  {
+	font-family: "Nobile", sans-serif;
+	font-weight: 700;
+	font-size: 10pt;
+	color: white;
+}
+
+.photo-metadata p.separator {
+	padding: 0px 10px;
+	color: white;
+}
+
+.photo-metadata p.age {
+	font-family: "Nobile", sans-serif;
+	font-weight: 400;k
+	font-size: 10pt;
+	color: white;
+}
+
+.photo-count {
+	padding-top: 5px;
+}
+
+.photos-icon {}
+
+p.number-text {
+	font-family: "Lato", sans-serif;
+	font-weight: 300;
+	color: #123441;
+	font-size: 18pt;
+	text-shadow: 0 1px 0 #ffffff;
+}
+
+p.number-text.of {
+	font-size: 14pt;
+}
+
+.title-bar {
+	text-align: center;
+	height: 45px;
+	padding: 0px 10px;
+}
+
+.title {
+	padding-top: 10px;
+	color: #123441;
+	font-size: 18pt;
+	font-family: 'Comfortaa', sans-serif;
+}
+
+.close-link {}
+	
+.photo-viewer {
+	margin: 38px auto;
+}
+
+.photo-viewer img {
+	-moz-box-shadow:    0px 4px 6px rgba(0,0,0,.2);
+  	-webkit-box-shadow: 0px 4px 6px rgba(0,0,0,.2);
+  	box-shadow:         0px 4px 6px rgba(0,0,0,.2);
+}
 
 /* PLAYDATE
 -------------------------------------------------------------------*/
@@ -861,10 +973,6 @@ p a#next-link:active { background-position: 0 -796px; width: 37px; height: 51px;
 p a#next-link.disabled { background-position: 0 -857px; width: 37px; height: 51px; } 
 p a#next-link.title { background-position: 0 -979px; width: 37px; height: 51px; } 
 p a#next-link:active.title { background-position: 0 -918px; width: 37px; height: 51px; } 
-
-/* TIMELINE --------------------------------------------------------- */
-
-
 
 /* LANDING PAGE --------------------------------------------------------- */
 
