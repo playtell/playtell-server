@@ -545,8 +545,8 @@ div#no-profile { background-position: 0 -270px; }
 }
 
 #pages {
-	width: 900px;
-	margin: 0 58px;
+	width: 920px;
+	margin: 0 48px;
 }
 
 #pages .page {
@@ -586,10 +586,23 @@ div#no-profile { background-position: 0 -270px; }
   	box-shadow:         none;
 }
 
+#pages ul li:first-child div.page {
+	background: none;
+}
+
 .title-page {
 	position: absolute;
 	top: -30px;
 	left: -60px;
+}
+
+.title-image {
+	display: block;
+	position: absolute;
+	top: 175px;
+	left: 257px;
+	border-radius: 10px;
+	height: 390px;
 }
 
 .book-image {
@@ -627,60 +640,6 @@ div#no-profile { background-position: 0 -270px; }
 	top: 50%;
 	z-index: 101;
 	width: 100%;
-}
-
-/* KEEPSAKE --------------------------------------------------------- */
-#slide-keepsake .keepsake {
-	left: 440px;
-}
-
-#keepsake-container div {
-	left: 1500px;
-}
-
-.keepsake {
-	position: absolute;
-	min-height: 530px;
-	width: 414px;
-}
-
-.keepsake {
-	background: url("/images/frame_little-red-riding-hood.jpg") no-repeat 0 0;	
-}
-
-#keepsake-container .keepsake {
-	background: url("/images/frame_little-red-riding-hood.jpg") no-repeat 13px 52px;	
-}
-
-.keepsake img {
-	position: absolute;
-	width: 183px;
-}
-
-.myCam-keepsake {
-	top: 104px;
-	left: 29px;
-}
-
-.famCam-keepsake {
-	top: 104px;
-	left: 215px;
-}
-
-#book-keepsake .myCam-keepsake {
-	top: 52px;
-	left: 16px;
-}
-
-#book-keepsake .famCam-keepsake {
-	top: 52px;
-	left: 212px;
-}
-
-
-#book-keepsake {
-	top: 100px;
-	left: 75px;
 }
 
 /* TOYBOX  --------------------------------------------------------- */
@@ -902,6 +861,60 @@ p a#next-link:active { background-position: 0 -796px; width: 37px; height: 51px;
 p a#next-link.disabled { background-position: 0 -857px; width: 37px; height: 51px; } 
 p a#next-link.title { background-position: 0 -979px; width: 37px; height: 51px; } 
 p a#next-link:active.title { background-position: 0 -918px; width: 37px; height: 51px; } 
+
+/* KEEPSAKE --------------------------------------------------------- */
+#slide-keepsake .keepsake {
+	left: 440px;
+}
+
+#keepsake-container div {
+	left: 1500px;
+}
+
+.keepsake {
+	position: absolute;
+	min-height: 530px;
+	width: 414px;
+}
+
+.keepsake {
+	background: url("/images/frame_little-red-riding-hood.jpg") no-repeat 0 0;	
+}
+
+#keepsake-container .keepsake {
+	background: url("/images/frame_little-red-riding-hood.jpg") no-repeat 13px 52px;	
+}
+
+.keepsake img {
+	position: absolute;
+	width: 183px;
+}
+
+.myCam-keepsake {
+	top: 104px;
+	left: 29px;
+}
+
+.famCam-keepsake {
+	top: 104px;
+	left: 215px;
+}
+
+#book-keepsake .myCam-keepsake {
+	top: 52px;
+	left: 16px;
+}
+
+#book-keepsake .famCam-keepsake {
+	top: 52px;
+	left: 212px;
+}
+
+
+#book-keepsake {
+	top: 100px;
+	left: 75px;
+}
 
 /* LANDING PAGE --------------------------------------------------------- */
 
