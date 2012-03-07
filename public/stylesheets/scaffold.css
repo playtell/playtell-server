@@ -550,7 +550,7 @@ p.number-text {
 }
 
 p.number-text.of {
-	font-size: 14pt;
+	font-size: 12pt;
 }
 
 .title-bar {
@@ -560,9 +560,9 @@ p.number-text.of {
 }
 
 .title {
-	padding-top: 10px;
+	padding-top: 15px;
 	color: #123441;
-	font-size: 18pt;
+	font-size: 14pt;
 	font-family: 'Comfortaa', sans-serif;
 }
 
@@ -759,11 +759,20 @@ p.number-text.of {
 #toybox {
 	z-index: 1000;
 	height: 100%;
-	width: 407px;
 	position: absolute;
-	right: -329px;
 	top: 4px;
+}
+
+.toybox-nav {
+	background: url("/images/toybox_open_nav.png") no-repeat 0 0;	
+	width: 327px;
+	right: -252px;
+}
+
+.toybox-full {
 	background: url("/images/toybox_open.png") no-repeat 0 0;
+	width: 407px;
+	right: -329px;
 }
 
 #toybox-toggle {
@@ -772,16 +781,21 @@ p.number-text.of {
 	margin-top: -2px;
 }
 
+#toybox.toybox-full .toybox-wrapper {
+	width: 292px;
+	display: inline-block;
+}
+
+#toybox.toybox-nav .toybox-wrapper {
+	width: 250px;
+	display: inline-block;
+}
+
 .selected-indicator-container {
 	display: inline-block;
 	float: left;
 	width: 5px;
 	position: relative;
-}
-
-.toybox-wrapper {
-	width: 292px;
-	display: inline-block;
 }
 
 .toybox-controls-container {
