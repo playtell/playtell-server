@@ -7,8 +7,18 @@
 	<div class="toybox-wrapper">
 		<div class="toybox-controls-container">
 			<% if @playdate.blank? %>
-				<div class="nav-control"><p><%= link_to '', user_path(current_user), :id => "dialpad-link", :class => current_page?(:controller => 'users', :action => 'show') ? 'active' : '' %></a></p></div>
-				<div class="nav-control"><p><%= link_to '', timeline_path, :id => "timeline-link", :class => current_page?(:controller => 'application', :action => 'timeline') ? 'active' : '' %></p></div>
+				<div class="nav-control">
+					<p><%= link_to '', user_path(current_user), 
+						:id => "dialpad-link", 
+						:class => current_page?(:controller => 'users', :action => 'show') ? 
+						'active' : '' %></p>
+				</div>
+				<div class="nav-control">
+					<p><%= link_to '', timeline_path, 
+						:id => "timeline-link", 
+						:class => current_page?(:controller => 'application', :action => 'timeline') ? 
+						'active' : '' %></p>
+				</div>
 			<% else %>
 				<div class="toybox-control"><p><a href="#" id="lock-link"></a></p></div>
 				<div class="toybox-control">
