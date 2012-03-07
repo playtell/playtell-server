@@ -862,59 +862,9 @@ p a#next-link.disabled { background-position: 0 -857px; width: 37px; height: 51p
 p a#next-link.title { background-position: 0 -979px; width: 37px; height: 51px; } 
 p a#next-link:active.title { background-position: 0 -918px; width: 37px; height: 51px; } 
 
-/* KEEPSAKE --------------------------------------------------------- */
-#slide-keepsake .keepsake {
-	left: 440px;
-}
-
-#keepsake-container div {
-	left: 1500px;
-}
-
-.keepsake {
-	position: absolute;
-	min-height: 530px;
-	width: 414px;
-}
-
-.keepsake {
-	background: url("/images/frame_little-red-riding-hood.jpg") no-repeat 0 0;	
-}
-
-#keepsake-container .keepsake {
-	background: url("/images/frame_little-red-riding-hood.jpg") no-repeat 13px 52px;	
-}
-
-.keepsake img {
-	position: absolute;
-	width: 183px;
-}
-
-.myCam-keepsake {
-	top: 104px;
-	left: 29px;
-}
-
-.famCam-keepsake {
-	top: 104px;
-	left: 215px;
-}
-
-#book-keepsake .myCam-keepsake {
-	top: 52px;
-	left: 16px;
-}
-
-#book-keepsake .famCam-keepsake {
-	top: 52px;
-	left: 212px;
-}
+/* TIMELINE --------------------------------------------------------- */
 
 
-#book-keepsake {
-	top: 100px;
-	left: 75px;
-}
 
 /* LANDING PAGE --------------------------------------------------------- */
 

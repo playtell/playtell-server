@@ -19,7 +19,7 @@ Semiralabs::Application.routes.draw do
   match 'check_time' => 'games#checkTime'
   
   match 'feedbacks' => 'feedback#create'
-    
+      
   devise_for :users, :controllers => { :sessions => "sessions" }
   resources :users, :only => [:show] do
     collection do
@@ -31,6 +31,7 @@ Semiralabs::Application.routes.draw do
   match 'pusher/auth' => 'pusher#auth'
   
   match 'early_access' => 'application#earlyAccess' 
+  match 'timeline' => 'application#timeline'  
   
   authenticated do
     root :to => 'users#show'

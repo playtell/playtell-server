@@ -19,6 +19,9 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+  def timeline
+  end
     
 private  
 

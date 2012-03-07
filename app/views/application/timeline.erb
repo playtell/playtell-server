@@ -1,0 +1,40 @@
+<% content_for :head do %>
+
+	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
+	<%= javascript_include_tag 'pusher', 'playdate' %>
+
+	<script type="text/javascript">
+		var tablet = false;
+		var pusher;
+		var playdateChannel;
+		
+		$(document).ready(function() {
+			<% if tablet_device? %>
+				tablet = true;
+			<% end %>
+			pusher = new Pusher($('#pusher-key').html()); 			
+			checkForPlaydateRequest(); 
+			enableButtons();
+		});
+
+	</script>
+<% end %>
+
+<div class="timeline-container">
+	<div class="timeline-bar">
+		<div class="inline-block fl">
+		</div>
+	</div>
+	<div class="photos-bar">
+	</div>
+</div>
+
+<%= render :partial => "games/toybox" %>
+
+<div class="lightbox hidden" id="join-lightbox">
+	<h1 id="player-name"></h1>
+	<h2>wants to play!</h2>
+	<a href="#" id="playdate-target">
+		<button class="blue big-button">Join Playdate</button>
+	</a>
+</div>
