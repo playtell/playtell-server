@@ -67,7 +67,7 @@ GEM
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.3.0)
-    nokogiri (1.5.1)
+    
     orm_adapter (0.0.6)
     polyglot (0.3.3)
     pusher (0.9.2)
