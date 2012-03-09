@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   
   def create_profile_photo
     p = self.playdate_photos.create
-    p.photo = File.open('public/images/photos/default.jpg')
+    p.photo = File.open('tmp/uploads/default.jpg')
     p.save!
   end
   
