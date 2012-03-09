@@ -104,7 +104,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.31)
+    tzinfo (0.3.32)
     urbanairship (2.0.0)
       json
     warden (1.1.1)
