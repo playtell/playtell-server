@@ -5,13 +5,7 @@ class User < ActiveRecord::Base
   
   attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname
   
-  #attr_accessor :password
-  #before_save :encrypt_password, :init_settings
-  
-  #validates_confirmation_of :password
-  #validates_presence_of :password, :on => :create
-  #validates_presence_of :username
-  #validates_uniqueness_of :username  
+  after_create :create_profile_photo 
   
   has_one :playdate  
   has_many :friendships
@@ -19,27 +13,19 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   has_many :device_tokens
+  has_many :playdate_photos
   
-  def self.authenticate (username, password)
-    user = find_by_username(username)
-    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
-      user
-    else
-      nil
-    end
+  def create_profile_photo
+    p = self.playdate_photos.create
+    p.photo = File.open('public/images/photos/default.jpg')
+    p.save!
   end
   
-  def encrypt_password
-    if password.present?
-      self.password_salt = BCrypt::Engine.generate_salt
-      self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
-    end
+  def profile_photo
+    photos = self.playdate_photos
+    photos.empty? ? nil : photos.last.photo.url 
   end
-  
-  def init_settings
-    
-  end
-  
+
   def fullName
     "#{firstname} #{lastname}" 
   end

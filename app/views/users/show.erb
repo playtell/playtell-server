@@ -40,7 +40,8 @@
 	</div>
 	
 	<div class="my-profile">
-		<%= image_tag "semira.jpeg", :class => "small-user" %>
+		<%= image_tag current_user.profile_photo.blank? ? "photos/default.jpg" : current_user.profile_photo, 
+				:class => "small-user" %>
 		<div class="small-user sprite" id="no-profile"></div>
 	</div>
 	

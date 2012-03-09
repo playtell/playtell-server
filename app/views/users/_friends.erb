@@ -4,7 +4,10 @@
 		<div class="friend">
 			<%= form_tag "#", :id => "friend_" + friend.id.to_s do %>
 				<a href="#" class="friend-item" data-friendid="<%=friend.id%>">
-					<%= image_tag "semira.jpeg", :alt => friend.displayName, :class => "friend-item" %>
+					<%= image_tag friend.profile_photo.blank? ? 
+						"photos/default.jpg" : friend.profile_photo, 
+						:alt => friend.displayName, 
+						:class => "friend-item" %>					
 					<%= image_tag "user_online.png", :alt => friend.displayName, :class => "presence hidden online" %>
 					<%= image_tag "user_offline.png", :alt => friend.displayName, :class => "presence offline" %>
 					<%= image_tag "user_pressed.png", :alt => friend.displayName, :class => "presence hidden pressed" %>
