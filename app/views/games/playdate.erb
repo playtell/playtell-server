@@ -100,6 +100,7 @@
 			<div id="feedback-lightbox-text">
 				<h2>Did you enjoy your playdate?</h2>	
 				<%= render :partial => "feedback/form", :locals => {:feedback => @feedback} %>
+				<% if false %><%= render :partial => "photoform", :locals => {:photo => @photo} %><% end %>
 			</div>
 		</div>
 		<button class="close close-x blue">X</button>

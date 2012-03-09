@@ -19,6 +19,7 @@ Semiralabs::Application.routes.draw do
   match 'check_time' => 'games#checkTime'
   
   match 'feedbacks' => 'feedback#create'
+  match 'playdate_photos' => 'playdatephotos#create'
       
   devise_for :users, :controllers => { :sessions => "sessions" }
   resources :users, :only => [:show] do

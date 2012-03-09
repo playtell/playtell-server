@@ -1,0 +1,12 @@
+
+ <%= form_for @playdatePhoto, :html => {:multipart => true} do |f| %>
+	<%= f.hidden_field :user_id, :value => @current_user.id %>
+	<%= f.hidden_field :playdate_id, :value => @playdate.id %>
+
+   <p>
+     <label>A Photo</label>
+     <%= f.file_field :photo %>
+     <%= f.hidden_field :photo_cache %>
+   </p>
+	<%= submit_tag "Send to PlayTell", :class => "blue button-bottom" %>
+ <% end %>

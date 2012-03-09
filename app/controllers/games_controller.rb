@@ -15,6 +15,7 @@ class GamesController < ApplicationController
     end
     @books = Book.all
     @feedback = Feedback.new
+    @playdatePhoto = PlaydatePhoto.new
   end
   
   # checks to see if there is a playdate request for the current user, and if so, changes the current user's view to show a playdate request
