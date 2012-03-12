@@ -648,6 +648,15 @@ p.number-text.of {
 	position: absolute;
 }
 
+/* TOKBOX  --------------------------------------------------------- */
+
+#camera-container {
+	background: black;
+	width: 500px;
+	height: 500px;
+	margin: 0 auto;
+}
+
 /* BOOK  --------------------------------------------------------- */
 
 #book {
@@ -887,7 +896,7 @@ p.number-text.of {
 .content-item .content-item-info {
 	display: inline-block;
 	width: 143px;
-	margin-top: 15px;
+	/*margin-top: 15px;*/
 	
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;

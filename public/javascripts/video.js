@@ -44,7 +44,7 @@ function sessionConnectedHandler(event) {
 	for (var i = 0; i < event.streams.length; i++) {
 		addStream(event.streams[i]);
 	}
-	publish("my-camera", PUBLISHER_WIDTH, PUBLISHER_HEIGHT, "");
+	publish("camera-container", 500, 500, "");
 
 }
 

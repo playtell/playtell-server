@@ -1,18 +1,15 @@
 <% content_for :head do %>
 	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
-	<%= javascript_include_tag 'playdate', 'pageflip', 'pusher', 'swipe.min' %>
+	<%= javascript_include_tag 'playdate', 'pageflip', 'pusher', 'swipe.min', 'video' %>
 
 	<% if false %>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
 	<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<% end %>
 	
-<script type="text/javascript">
+	<script src="http://staging.tokbox.com/v0.91/js/TB.min.js"></script>
 	
-	var KEEPSAKE_WIDTH = 242;
-	var KEEPSAKE_HEIGHT = 180;
-		
-	var num_keepsakes = 0;	
+<script type="text/javascript">
 	
 	var tablet = false;
 	
@@ -20,7 +17,15 @@
 	var playdateChannel;
 	
 	var mySwipe;
+	
+	//tokbox
+	var apiKey = '<%= @api_key %>';
+	var sessionId = '<%= @playdate.video_session_id %>';
+	var token = '<%= @tok_token %>';
 			
+	var session = TB.initSession(sessionId);  
+	var publisher;    
+	
 	$(document).ready(function() {		
 		<% if tablet_device? %>
 			tablet = true;
@@ -78,6 +83,8 @@
 			</div>
 			
 			<div id="keepsake-container" class="hidden"></div>
+			
+			<div id="camera-container" class="hidden"></div>
 			<div class="clear"></div>
 		</div>
 		

@@ -25,6 +25,7 @@ function enableButtons() {
 	});
 
 	$('#camera-link').on(tablet ? 'touchstart' : 'click', function() {
+		takePhoto();
 	});
 
 }
@@ -96,6 +97,7 @@ function resetPlayspace(toybox_element) {
 	hideToyBox();
 
 	$('#keepsake-container').hide();
+	$('.camera-container').hide();
 	$('.book-container').hide();
 	$('.book-nav').hide();
 
@@ -138,6 +140,25 @@ function doChangeBook(book) {
 	//$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
 	//	$("#finger").offset({ top: e.pageY, left: e.pageX}).show();
 	//});
+}
+
+function doTurnOnCamera() {
+	$('.loading').hide();
+	$('#camera-container').show();
+	session.addEventListener('sessionConnected', sessionConnectedHandler);      
+	connect(apiKey, token);
+}
+
+function takePhoto() {
+	var imgData = publisher.getImgData();
+
+	var img = document.createElement("img");
+	img.setAttribute("src", "data:image/png;base64," + imgData);
+	var imgWin = window.open("about:blank", "Screenshot");
+	imgWin.document.write("<body></body>");
+	imgWin.document.body.appendChild(img);
+	
+	syncToServerPhoto(imgData);
 }
 
 //disable book nav links as appropriate
@@ -209,13 +230,7 @@ function syncToServerReturnData(playdate_change, activityID) {
 				doChangeBook(data.book);
 			}
 			else {
-				$('.book-container').hide();
-				enableNavButtons("keepsake", 501);
-				$('#total-pages').html(num_keepsakes.toString()); 
-				$('#page-num').html(1);
-				$('.keepsake').removeAttr("style");
-				$('#keepsake-container').show();
-				goToPage(1, "keepsake"); 
+				doTurnOnCamera();
 			}
 		}
 	);
@@ -229,6 +244,16 @@ function syncToServerNoData(playdate_change) {
 	$.ajax({
 		url: "/update_playdate.js",
 		data: "playdateChange=" + playdate_change + "&newPage=" + page,
+		type: "POST"
+	});
+	
+}
+
+function syncToServerPhoto(photo_data) {
+	
+	$.ajax({
+		url: "/playdate_photos.js",
+		data: "photo_data=" + photo_data,
 		type: "POST"
 	});
 	
