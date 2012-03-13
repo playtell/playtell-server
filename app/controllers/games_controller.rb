@@ -282,7 +282,7 @@ private
            :playmate => playmate.username }
        }
        puts "push notification send with this data: " 
-              + notification.keys.collect { |k| '#{k}=#{notification[k]} ' }
+              + notification.keys.collect { |k| '#{k}=#{notification[k]}' }.join('')
        Urbanairship.push(notification)
      end
    end
