@@ -28,6 +28,9 @@ Semiralabs::Application.routes.draw do
     end
   end
   resources :friendships
+  namespace :api do
+    resources :tokens, :only => [:create, :destroy]
+  end
   
   match 'pusher/auth' => 'pusher#auth'
   
