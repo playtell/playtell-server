@@ -213,10 +213,10 @@ label {
 }
 
 ::-webkit-scrollbar-track-piece:vertical:start {
-margin-top:6px;
+	margin-top:0px;
 }
 ::-webkit-scrollbar-track-piece:vertical:end {
-margin-bottom:-6px;
+	margin-bottom:-5px;
 }
 
 /* LIGHTBOX
@@ -857,7 +857,7 @@ p.number-text.of {
 	width: 305px;
 	height: 700px;
 	margin-top: -2px;
-	margin-right: 5px;
+	margin-right: 7px;
 	background: url("/images/toybox_bg.png") no-repeat 0 0;
 	border-radius: 12px;
 	overflow-y: scroll;
