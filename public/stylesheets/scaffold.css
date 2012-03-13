@@ -195,6 +195,30 @@ label {
 	left: 50%;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+    height: 13px;
+}
+
+/* Track below and above */
+::-webkit-scrollbar-track-piece {
+	display: none;
+}
+
+/* The thumb itself */
+::-webkit-scrollbar-thumb:vertical {
+    height: 50px;
+	background: url('/images/scrollbar.png') repeat;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-track-piece:vertical:start {
+margin-top:6px;
+}
+::-webkit-scrollbar-track-piece:vertical:end {
+margin-bottom:-6px;
+}
+
 /* LIGHTBOX
 -------------------------------------------------------------------*/
 
@@ -767,7 +791,7 @@ p.number-text.of {
 
 #toybox {
 	z-index: 1000;
-	height: 100%;
+	height: 764px;
 	position: absolute;
 	top: 4px;
 }
@@ -792,6 +816,7 @@ p.number-text.of {
 
 #toybox.toybox-full .toybox-wrapper {
 	width: 312px;
+	height: 100%;
 	display: inline-block;
 }
 
@@ -829,8 +854,10 @@ p.number-text.of {
 }
 
 .toybox-content-container {
-	width: 310px;
+	width: 305px;
+	height: 700px;
 	margin-top: -2px;
+	margin-right: 5px;
 	background: url("/images/toybox_bg.png") no-repeat 0 0;
 	border-radius: 12px;
 	overflow-y: scroll;
@@ -844,6 +871,7 @@ p.number-text.of {
 .content-item {
 	display: block;
 	height: 138px;
+	width: 289px;
 	margin-top: 25px;
 	background: url('/images/toybox_content_item_bg.png') repeat-x 0 0;
 }
