@@ -791,7 +791,7 @@ p.number-text.of {
 }
 
 #toybox.toybox-full .toybox-wrapper {
-	width: 292px;
+	width: 312px;
 	display: inline-block;
 }
 
@@ -829,7 +829,7 @@ p.number-text.of {
 }
 
 .toybox-content-container {
-	width: 290px;
+	width: 310px;
 	margin-top: -2px;
 	background: url("/images/toybox_bg.png") no-repeat 0 0;
 	border-radius: 12px;
@@ -944,58 +944,58 @@ p.number-text.of {
 	height: 81px;
 }
 
-#toybox p a#toybox-link { background-position: 0 -1777px; } 
-#toybox p a:active#toybox-link, a#toybox-link.active { background-position: 0 -1595px; }
-#toybox p a#toybox-link.active { background-position: 0 -1686px; } 
+#toybox p a#toybox-link { background-position: -193px -91px; } 
+#toybox p a:active#toybox-link, a#toybox-link.active { background-position:  0 -1941px; }
+#toybox p a#toybox-link.active { background-position: -193px 0; } 
 
-#toybox p a#dialpad-link { background-position: 0 -637px; width: 62px; height: 51px; }
-#toybox p a:active#dialpad-link, #toybox p a#dialpad-link.active { background-position: 0 -576px; width: 62px; height: 51px; } 
+#toybox p a#dialpad-link { background-position: 0 -861px; width: 62px; height: 51px; }
+#toybox p a:active#dialpad-link, #toybox p a#dialpad-link.active { background-position: 0 -800px; width: 62px; height: 51px; } 
 
-#toybox p a#timeline-link { background-position: 0 -1534px; width: 62px; height: 51px; } 
-#toybox p a:active#timeline-link, #toybox p a#timeline-link.active { background-position: 0 -1473px; width: 62px; height: 51px; } 
+#toybox p a#timeline-link { background-position: 0 -1880px; width: 62px; height: 51px; } 
+#toybox p a:active#timeline-link, #toybox p a#timeline-link.active { background-position: 0 -1819px; width: 62px; height: 51px; } 
 
-#toybox p a#disconnect-link { background-position: 0 -698px; width: 183px; height: 39px; } 
-#toybox p a:active#disconnect-link { background-position: 0 -747px; width: 183px; height: 39px; }
+#toybox p a#disconnect-link { background-position: 0 -922px; width: 183px; height: 39px; } 
+#toybox p a:active#disconnect-link { background-position: 0 -971px; width: 183px; height: 39px; }
 
 #toybox p a#lock-link { background: none; /*0 -1866px; */ width: 92px; height: 39px; }
 #toybox p a#lock-link.active { background-position: 0 -959px; width: 93px; height: 39px; } 
 
 .selected-indicator {
 	background: url("/images/sprite.png") no-repeat;
-	background-position: 0 -1432px; width: 17px; height: 31px;
+	background-position: 0 -1778px; width: 17px; height: 31px;
 	position: absolute;
 	left: 3px;
 }
 
 #toybox .content-item div.content-item-info p.page-count-icon { 
 	background: url("/images/sprite.png") no-repeat;
-	background-position: 0 -1197px; width: 18px; height: 18px; 
+	background-position: 0 -1540px; width: 18px; height: 18px; 
 	display: inline-block;
 	margin-right: 4px;
 }
 
 #toybox .content-item.selected-content-item div.content-item-info p.page-count-icon {
-	background-position: 0 -1223px; width: 18px; height: 18px; 	
+	background-position: 0 -1566px; width: 18px; height: 18px; 	
 }
 
 /* CAMERA */
-p a#camera-link { background-position: 0 -480px; width: 86px; height: 86px; }
-p a:active#camera-link { background-position: 0 -288px; width: 86px; height: 86px; }
-p a#camera-link.active { background-position: 0 -384px; width: 86px; height: 86px; }
-p a#camera-link1{ background-position: 0 0; width: 86px; height: 86px; } 
-p a#camera-link2{ background-position: 0 -96px; width: 86px; height: 86px; } 
-p a#camera-link3{ background-position: 0 -192px; width: 86px; height: 86px; } 
+p a#camera-link { background-position: 0 -602px; width: 86px; height: 86px; }
+p a:active#camera-link { background-position: 0 -410px; width: 86px; height: 86px; }
+p a#camera-link.active { background-position: 0 -506px; width: 86px; height: 86px; }
+p a#camera-link1{ background-position: 0 -122px; width: 86px; height: 86px; } 
+p a#camera-link2{ background-position: 0 -218px; width: 86px; height: 86px; } 
+p a#camera-link3{ background-position: 0 -314px; width: 86px; height: 86px; } 
 
 /* BOOK NAV */
-p a#previous-link { background-position: 0 -1371px; width: 37px; height: 51px; }
-p a#previous-link:active { background-position: 0 -1249px; width: 37px; height: 51px; } 
-p a#previous-link.disabled { background-position: 0 -1310px; width: 37px; height: 51px; } 
+p a#previous-link { background-position: 0 -1717px; width: 37px; height: 51px; }
+p a#previous-link:active { background-position: 0 -1595px; width: 37px; height: 51px; } 
+p a#previous-link.disabled { background-position: 0 -1656px; width: 37px; height: 51px; } 
 
-p a#next-link { background-position: 0 -1040px; width: 37px; height: 51px; }
-p a#next-link:active { background-position: 0 -796px; width: 37px; height: 51px; } 
-p a#next-link.disabled { background-position: 0 -857px; width: 37px; height: 51px; } 
-p a#next-link.title { background-position: 0 -979px; width: 37px; height: 51px; } 
-p a#next-link:active.title { background-position: 0 -918px; width: 37px; height: 51px; } 
+p a#next-link { background-position: 0 -1386px; width: 37px; height: 51px; }
+p a#next-link:active { background-position: 0 -1142px; width: 37px; height: 51px; } 
+p a#next-link.disabled { background-position: 0 -1203px; width: 37px; height: 51px; } 
+p a#next-link.title { background-position: 0 -1325px; width: 37px; height: 51px; } 
+p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height: 51px; } 
 
 /* LANDING PAGE --------------------------------------------------------- */
 

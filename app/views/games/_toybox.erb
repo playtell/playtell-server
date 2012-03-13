@@ -1,10 +1,10 @@
 
 <div id="toybox" class='<%= @playdate.blank? ? 'toybox-nav' : 'toybox-full' %>'>
 	<div id="toybox-toggle"><p><a href="#" id="toybox-link"></a></p></div>
-	<div class="selected-indicator-container">
+	<!--<div class="selected-indicator-container">
 		<div class="selected-indicator hidden"></div>
-	</div>
-	<div class="toybox-wrapper">
+	</div>-->
+	<div class="toybox-wrapper fr">
 		<div class="toybox-controls-container">
 			<% if @playdate.blank? %>
 				<div class="nav-control">
@@ -29,7 +29,7 @@
 			<% end %>
 		</div>
 		<% if !@playdate.blank? %>
-			<div class="toybox-content-container">
+			<div class="toybox-content-container fr">
 				<%= render :partial => "library", :locals => {:books => @books} %>
 			</div>
 		<% end %>
