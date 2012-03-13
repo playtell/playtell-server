@@ -8,8 +8,8 @@
 						"photos/default.jpg" : friend.profile_photo, 
 						:alt => friend.displayName, 
 						:class => "friend-item" %>					
-					<%= image_tag "user_online.png", :alt => friend.displayName, :class => "presence hidden online" %>
-					<%= image_tag "user_offline.png", :alt => friend.displayName, :class => "presence offline" %>
+					<%= image_tag "user_online.png", :alt => friend.displayName, :class => "presence online" %>
+					<%= image_tag "user_offline.png", :alt => friend.displayName, :class => "presence hidden offline" %>
 					<%= image_tag "user_pressed.png", :alt => friend.displayName, :class => "presence hidden pressed" %>
 				</a>
 			<% end %>

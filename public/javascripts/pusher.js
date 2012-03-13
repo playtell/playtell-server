@@ -10,14 +10,14 @@ function listenForPlaydateRequest() {
 		}
 	});	
 
-	rendezvousChannel.bind('pusher:subscription_succeeded', function(members){
+/*	rendezvousChannel.bind('pusher:subscription_succeeded', function(members){
 		members.each(function(member) {
 			if ($('*[data-friendid=' + member.id + ']').length != 0) {
 				changeUserPresence(member.id, "online");
 			}
 		  });
 	})
-	
+
 	rendezvousChannel.bind('pusher:member_removed', function(member){
 	    if ($('*[data-friendid=' + member.id + ']').length != 0) {
 			changeUserPresence(member.id, "offline");
@@ -29,6 +29,7 @@ function listenForPlaydateRequest() {
 			changeUserPresence(member.id, "online");
 		}
   })
+*/
 }
 
 //should be listenForChangeActivity
