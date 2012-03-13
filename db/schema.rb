@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120309035847) do
+ActiveRecord::Schema.define(:version => 20120313010619) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20120309035847) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.boolean  "temporary"
+    t.string   "authentication_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

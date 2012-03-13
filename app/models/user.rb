@@ -4,9 +4,10 @@ class User < ActiveRecord::Base
            :token_authenticatable
            #:confirmable, :lockable, :timeoutable
   
-  attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname
+  attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname, :authentication_token  
   
-  after_create :create_profile_photo 
+  after_create :create_profile_photo
+  before_save :ensure_authentication_token! 
   
   has_one :playdate  
   has_many :friendships
