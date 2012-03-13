@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
            :recoverable, :rememberable, :trackable, :validatable
-  #         :token_authenticatable, :confirmable, :lockable, :timeoutable
+           :token_authenticatable
+           #:confirmable, :lockable, :timeoutable
   
   attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname
   
@@ -15,6 +16,10 @@ class User < ActiveRecord::Base
   has_many :device_tokens
   has_many :playdate_photos
   
+  def ensure_authentication_token!   
+      reset_authentication_token! if authentication_token.blank?   
+    end
+    
   def create_profile_photo
     p = self.playdate_photos.create
     p.remote_photo_url = 'http://ragatzi.s3.amazonaws.com/default.jpg'

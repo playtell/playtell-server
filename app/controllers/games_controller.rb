@@ -274,7 +274,7 @@ private
     if !device_tokens.blank?
        notification = {
          :schedule_for => [Time.now],
-         :device_tokens => [device_tokens.first.token],
+         :device_tokens => [device_tokens.last.token],
          :aps => {
            :alert => "PlayTell!!",
            :playdate_url => "http://playtell-staging.heroku.com/playdate?playdate="+@playdate.id.to_s,

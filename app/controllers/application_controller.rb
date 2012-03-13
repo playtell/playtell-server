@@ -30,7 +30,7 @@ private
   end
   
   def prepare_for_tablet
-    request.format = :tablet if tablet_device?
+    #request.format = :tablet if tablet_device?
   end
 
   # for use with devise
