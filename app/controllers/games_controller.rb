@@ -281,7 +281,8 @@ private
            :initiator => current_user.username,
            :playmate => playmate.username }
        }
-       puts "push notification send with this data: " + notification
+       puts "push notification send with this data: " 
+              + notification.keys.collect { |k| '#{k}=#{notification[k]} ' }
        Urbanairship.push(notification)
      end
    end
