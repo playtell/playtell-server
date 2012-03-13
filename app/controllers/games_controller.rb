@@ -281,8 +281,7 @@ private
            :initiator => current_user.username,
            :playmate => playmate.username }
        }
-       puts "push notification send with this data: " 
-              + notification.keys.collect { |k| '#{k}=#{notification[k]}' }.join('')
+       puts "push notification sent with this data: " + "device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate]
        Urbanairship.push(notification)
      end
    end
