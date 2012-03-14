@@ -57,7 +57,7 @@ private
     if !params[:device_token].blank?
       d = DeviceToken.find_or_create_by_user_id({ :user_id => user.id })
       if d.token != params[:device_token]
-        d.token => params[:device_token]}) 
+        d.token = params[:device_token] 
         d.save!
         Urbanairship.register_device(params[:device_token])
       end
