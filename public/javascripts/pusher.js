@@ -55,8 +55,10 @@ function listenForTurnPage() {
 function listenForEndPlaydate(in_playdate) {
 	playdateChannel.bind('end_playdate', function(data) {
 		if (!in_playdate) {
-			$('#join-lightbox').trigger('close');
-			pusher.unsubscribe($('#pusher-channel-name').html());
+			removePlaydateRequest(data.player);
+			if (pusher.channel($('#pusher-channel-name'))) {
+				pusher.unsubscribe($('#pusher-channel-name').html());
+			}
 			listenForPlaydateRequest();
 		}
 		else if (data.player != $('#current-user').html())

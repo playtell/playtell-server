@@ -14,6 +14,20 @@ function initPlaydate() {
 	
 }
 
+function endPlaydate() {
+	pusher.unsubscribe($("#pusher-channel-name").html()); //disconnect on pusher
+	$.get("/disconnect_playdate"); //disconnect on playtell 
+	
+	// prompt for feedback:
+	$('#feedback-lightbox').lightbox_me({
+	    centered: true, 
+		closeClick: false,
+		onClose: function () {
+			document.location.href='/users/' + $('#current-user').html();
+		}
+	});
+}
+
 function enableButtons() {
 
 	$('#toybox-link').on(tablet ? 'touchstart' : 'click', function() {
@@ -286,13 +300,33 @@ function showPlaydateRequest(data) {
 	
 	//data.id is playdate id. put that in the playdate channel name field
 	$("#pusher-channel-name").html(data.pusherChannelName);
-	$('#player-name').html(data.initiator);
-	$('#playdate-target').attr('href', '/playdate?playdate=' + data.playdateID);
-	$('#join-lightbox').lightbox_me({
-	    centered: true, 
-		onClose: function() { $('#join-lightbox').empty(); }
-	});	
+	//$('#player-name').html(data.initiator);
 	
+	var friend_div = 'div.*[data-friendid=' + data.initiatorID + ']'
+	
+	$(friend_div + ' #accept-link').attr('href', '/playdate?playdate=' + data.playdateID);	
+	$(friend_div + ' #reject-link').on(tablet ? 'touchstart' : 'click', function() { 
+		console.log("removing" + data.initiatorID);
+		removePlaydateRequest(data.initiatorID);
+		endPlaydate();
+	});
+	
+	$(friend_div).css("z-index", 1000);
+	$(friend_div + ' .call-button').fadeIn();
+	$(friend_div).addClass("calling");
+	
+}
+
+//serves up a lightbox with the playdate join request 
+function removePlaydateRequest(playmateID) {
+	//data.id is playdate id. put that in the playdate channel name field
+	$("#pusher-channel-name").html('');
+	$('#player-name').html('');
+	$('#playdate-target').attr('');	
+	
+	$('div.*[data-friendid=' + playmateID + ']').css("z-index", 1);
+	$('div.*[data-friendid=' + playmateID + ']').removeClass("calling");
+	$('div.*[data-friendid=' + playmateID + ']  .call-button').fadeOut();	
 }
 
 function syncToServerBeginPlaydate(friend_id) {
@@ -309,8 +343,8 @@ function syncToServerBeginPlaydate(friend_id) {
 // presence can be online, offline, or pressed
 function changeUserPresence(user_id, presence) {
 	
-	$('*[data-friendid=' + user_id + '] .presence').hide();
-	$('*[data-friendid=' + user_id + '] .'+ presence).show();
+	$('a.*[data-friendid=' + user_id + '] .presence').hide();
+	$('a.*[data-friendid=' + user_id + '] .'+ presence).show();
 	
 }
 

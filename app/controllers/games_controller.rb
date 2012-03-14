@@ -30,6 +30,7 @@ class GamesController < ApplicationController
             :playdateID => @playdate.id,
             :pusherChannelName => @playdate.pusher_channel_name,
             :initiator => playmate.username,
+            :initiatorID => playmate.id,
             :playmateID => current_user.id,
             :playmateName => current_user.username } 
           } 
@@ -37,6 +38,7 @@ class GamesController < ApplicationController
             :playdateID => @playdate.id,
             :pusherChannelName => @playdate.pusher_channel_name,
             :initiator => playmate.username,
+            :initiatorID => playmate.id,
             :playmateID => current_user.id,
             :playmateName => current_user.username }
            }
@@ -53,7 +55,6 @@ class GamesController < ApplicationController
   def disconnectPlaydate
     if !current_playdate.disconnected?
       Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:player => current_user.id})
-      #Pusher["disconnect-channel"].trigger('playdate_disconnected', current_playdate.as_json(:user => current_user))
       current_playdate.disconnect 
     end
     session[:playdate] = nil
@@ -267,6 +268,7 @@ private
       :playdateID => @playdate.id,
       :pusherChannelName => @playdate.pusher_channel_name,
       :initiator => current_user.username,
+      :initiatorID => current_user.id,
       :playmateID => playmate.id,
       :playmateName => playmate.username }
     )

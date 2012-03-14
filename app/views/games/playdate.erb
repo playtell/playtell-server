@@ -32,19 +32,6 @@
 		<% end %>
 		initPlaydate();
 	});
-	
-	function endPlaydate() {
-		pusher.unsubscribe("<%= @playdate.pusher_channel_name %>"); //disconnect on pusher
-		$.get("<%= disconnect_playdate_path %>"); //disconnect on playtell 
-		// prompt for feedback:
-		$('#feedback-lightbox').lightbox_me({
-		    centered: true, 
-			closeClick: false,
-			onClose: function () {
-				document.location.href='<%= user_path @current_user %>';
-			}
-		});
-	}
 			
 </script>
 <% end %>

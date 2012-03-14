@@ -16,12 +16,7 @@
 			checkForPlaydateRequest(); 
 			enableDialpadButtons();
 			enableButtons();
-		
-			$('#test').click(function() {
-				//$('.test').effect("scale", { percent: 200, origin: ['middle','center'] }, 1000);
-				$('.test_3').css("z-index", 1);
-				$('.test_3').addClass("turning");
-			});
+
 		});
 		
 
@@ -42,8 +37,6 @@
 			</div>
 		</div>
 		
-		<div id="test"></div>
-		
 		<%= render :partial => "friends" %>
 		
 	</div>
@@ -51,18 +44,10 @@
 	<div class="my-profile">
 		<%= image_tag current_user.profile_photo.blank? ? "photos/default.jpg" : current_user.profile_photo, 
 				:class => "small-user" %>
-		<div class="small-user sprite" id="no-profile"></div>
+		<div class="small-user dialpadsprite" id="no-profile"></div>
 	</div>
 	
 	<%= render :partial => "games/toybox" %>
-	
-	<div class="lightbox hidden" id="join-lightbox">
-		<h1 id="player-name"></h1>
-		<h2>wants to play!</h2>
-		<a href="#" id="playdate-target">
-			<button class="blue big-button">Join Playdate</button>
-		</a>
-	</div>
 
 	<div class="lightbox hidden" id="find-lightbox">
 		<div id="find-lightbox-text">
