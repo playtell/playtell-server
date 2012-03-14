@@ -16,7 +16,12 @@
 			checkForPlaydateRequest(); 
 			enableDialpadButtons();
 			enableButtons();
+		
+			$('#test').click(function() {
+				$('.test').effect("scale", { percent: 200, origin: ['middle','center'] }, 1000);
+			});
 		});
+		
 
 	</script>
 <% end %>
@@ -34,6 +39,8 @@
 				<div class='ribbon ribbon-right'></div>
 			</div>
 		</div>
+		
+		<div id="test"></div>
 		
 		<%= render :partial => "friends" %>
 		
