@@ -408,6 +408,9 @@ img#scientistImage {
 	position: absolute;
 	top: 75px;
 	display: inline-block;
+	
+	-webkit-transition: -webkit-transform 1s linear;
+    -webkit-transform: translateX(0%);
 }
 
 .test {
@@ -417,6 +420,9 @@ img#scientistImage {
 	display: inline-block;
 }
 
+#test{
+
+}
 
 .dialpad {
 	width: 850px;

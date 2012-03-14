@@ -5,6 +5,7 @@ class Api::TokensController  < ApplicationController
   def create
     username = params[:username]
     password = params[:password]
+    device_token = params[:device_token]
     
     if request.format != :json
         render :status=>406, :json=>{:message=>"The request must be json"}
@@ -31,6 +32,13 @@ class Api::TokensController  < ApplicationController
       logger.info("User #{username} failed signin, password \"#{password}\" is invalid")
       render :status=>401, :json=>{:message=>"Invalid username or passoword."} 
     else
+      d = DeviceToken.find_or_create_by_user_id({ :user_id => @user.id })
+      if d.token != device_token
+        d.token = device_token
+        d.save!
+        Urbanairship.register_device(params[:device_token])
+      end
+      
       render :status=>200, :json=>{:token=>@user.authentication_token, :user_id=>@user.id} 
     end
   end
