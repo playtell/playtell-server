@@ -9,6 +9,7 @@ class GamesController < ApplicationController
   def playdate
     if params[:playdate] || requesting_playdate
       joinPlaydate
+      sendJoinNotification 
     else
       createPlaydate
       sendInvite
@@ -284,6 +285,19 @@ private
        puts "push notification sent with this data: " + "device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate]
        Urbanairship.push(notification)
      end
+   end
+   
+   # to hook up audio chat, the ipad client needs to know that the playmate has accepted the join request
+   def sendJoinNotification
+     playmate = User.find(@playdate.getOtherPlayerID(current_user))
+
+     Pusher["presence-rendezvous-channel"].trigger('playdate_joined', {
+       :playdateID => @playdate.id,
+       :pusherChannelName => @playdate.pusher_channel_name,
+       :initiator => playmate.username,
+       :playmateID => current_user.id,
+       :playmateName => current_user.username }
+     )
    end
 
   # loads a book for a playdate.   

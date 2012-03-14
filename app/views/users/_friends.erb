@@ -4,7 +4,7 @@
 		<div class="friend">
 			<%= form_tag "#", :id => "friend_" + friend.id.to_s do %>
 				<a href="#" class="friend-item" data-friendid="<%=friend.id%>">
-					<div class="test"></div>
+					<div class="test_<%= friend.id.to_s %> test"></div>
 					<%= image_tag friend.profile_photo.blank? ? 
 						"photos/default.jpg" : friend.profile_photo, 
 						:alt => friend.displayName, 

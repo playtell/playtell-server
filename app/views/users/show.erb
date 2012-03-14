@@ -18,7 +18,9 @@
 			enableButtons();
 		
 			$('#test').click(function() {
-				$('.test').effect("scale", { percent: 200, origin: ['middle','center'] }, 1000);
+				//$('.test').effect("scale", { percent: 200, origin: ['middle','center'] }, 1000);
+				$('.test_3').css("z-index", 1);
+				$('.test_3').addClass("turning");
 			});
 		});
 		

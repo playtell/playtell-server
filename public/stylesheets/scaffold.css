@@ -408,21 +408,28 @@ img#scientistImage {
 	position: absolute;
 	top: 75px;
 	display: inline-block;
-	
-	-webkit-transition: -webkit-transform 1s linear;
-    -webkit-transform: translateX(0%);
 }
 
 .test {
 	background: green;
-	width: 50px;
-	height: 50px;
+	width: 108px;
+	height: 135px;
 	display: inline-block;
+	margin-top: 35px;
 }
 
-#test{
-
+.turning {
+    -webkit-animation-name: growThis;
+    -webkit-animation-duration:.3s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+	-webkit-animation-fill-mode: forwards;
 }
+@-webkit-keyframes growThis {
+    0% { -webkit-transform:scale(1); }
+    100% {-webkit-transform:scale(2); }
+}
+
 
 .dialpad {
 	width: 850px;
