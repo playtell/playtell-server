@@ -29,14 +29,14 @@ class PlaydatephotosController < ApplicationController
       #}
       #puts img.write('public/images/photos/test.png', 'png')
       
-      data = StringIO.new(Base64.decode64(params[:photo_data]))
-      data.class.class_eval { attr_accessor :original_filename, :content_type }
-      data.original_filename = "cover.png"
-      data.content_type = "image/png"
+      #data = StringIO.new(Base64.decode64(params[:photo_data]))
+      #data.class.class_eval { attr_accessor :original_filename, :content_type }
+      #data.original_filename = "cover.png"
+      #data.content_type = "image/png"
       
-      @playdatePhoto = current_user.playdate_photos.new()
-      @playdatePhoto.photo = data
-      @playdatePhoto.save
+      #@playdatePhoto = current_user.playdate_photos.new()
+      #@playdatePhoto.photo = data
+      #@playdatePhoto.save
     end
     render :nothing => true
   end

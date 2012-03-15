@@ -41,11 +41,14 @@ function enableButtons() {
 	$('#disconnect-link img').draggable({
 		axis:'x', 
 		containment:'parent', 
-		revert:true, 
+		revert:'invalid', 
 		revertDuration:200,
 	});
 	$('#ended').droppable({
-		drop: function() { endPlaydate(); },
+		drop: function() { 
+			$('#disconnect-link').addClass('active');
+			endPlaydate(); 
+		},
 		tolerance: 'touch'
 	});
 

@@ -1048,7 +1048,7 @@ div#no-profile { background-position: 0 -270px; }
 #toybox p a:active#timeline-link, #toybox p a#timeline-link.active { background-position: 0 -1819px; width: 62px; height: 51px; } 
 
 #toybox p a#disconnect-link { background-position: 0 -922px; width: 183px; height: 39px; } 
-#toybox p a:active#disconnect-link { background-position: 0 -971px; width: 183px; height: 39px; }
+#toybox p a:active#disconnect-link, #toybox p a#disconnect-link.active { background-position: 0 -971px; width: 183px; height: 39px; }
 
 #toybox p a#lock-link { background: none; /*0 -1866px; */ width: 92px; height: 39px; }
 #toybox p a#lock-link.active { background-position: 0 -959px; width: 93px; height: 39px; } 
