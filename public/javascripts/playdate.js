@@ -314,7 +314,9 @@ function showPlaydateRequest(data) {
 	$('.overlay').show(1000, function() {
 		$(friend_div).css("z-index", 1001);
 		$(friend_div + ' .friend-image-wrapper').addClass("calling");
-		$(friend_div + ' .call-button').fadeIn('slow');
+		window.setTimeout(function() {
+			$(friend_div + ' .call-button').fadeIn('slow');
+		}, 100, true);
 	});
 	
 }
