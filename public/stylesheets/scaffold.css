@@ -882,6 +882,14 @@ p.number-text.of {
 	left: -2px;
 }
 
+#ended {
+	height: 30px;
+	width: 30px;
+	position: absolute;
+	top: 23px;
+	right: 0px;
+}
+
 .toybox-content-container {
 	width: 305px;
 	height: 700px;

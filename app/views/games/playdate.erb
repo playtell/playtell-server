@@ -1,6 +1,6 @@
 <% content_for :head do %>
 	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
-	<%= javascript_include_tag 'playdate', 'pageflip', 'pusher', 'swipe.min', 'video' %>
+	<%= javascript_include_tag 'playdate', 'pageflip', 'pusher', 'swipe.min', 'video', 'jquery.ui.touch-punch.min' %>
 
 	<% if false %>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
@@ -31,6 +31,7 @@
 			tablet = true;
 		<% end %>
 		initPlaydate();
+		
 	});
 			
 </script>

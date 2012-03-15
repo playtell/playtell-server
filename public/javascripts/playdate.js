@@ -34,8 +34,19 @@ function enableButtons() {
 		toggleToyBox();
 	});
 
-	$('#disconnect-link').on(tablet ? 'touchstart' : 'click', function() {
+	/*$('#disconnect-link').on(tablet ? 'touchstart' : 'click', function() {
 		endPlaydate();
+	});*/
+
+	$('#disconnect-link img').draggable({
+		axis:'x', 
+		containment:'parent', 
+		revert:true, 
+		revertDuration:200,
+	});
+	$('#ended').droppable({
+		drop: function() { endPlaydate(); },
+		tolerance: 'touch'
 	});
 
 	$('#camera-link').on(tablet ? 'touchstart' : 'click', function() {
