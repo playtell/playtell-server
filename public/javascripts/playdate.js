@@ -311,9 +311,11 @@ function showPlaydateRequest(data) {
 		endPlaydate();
 	});
 	
-	$(friend_div).css("z-index", 1000);
-	$(friend_div + ' .call-button').fadeIn();
-	$(friend_div).addClass("calling");
+	$('.overlay').show(1000, function() {
+		$(friend_div).css("z-index", 1001);
+		$(friend_div + ' .friend-image-wrapper').addClass("calling");
+		$(friend_div + ' .call-button').fadeIn('slow');
+	});
 	
 }
 
@@ -324,9 +326,12 @@ function removePlaydateRequest(playmateID) {
 	$('#player-name').html('');
 	$('#playdate-target').attr('');	
 	
-	$('div.*[data-friendid=' + playmateID + ']').css("z-index", 1);
-	$('div.*[data-friendid=' + playmateID + ']').removeClass("calling");
-	$('div.*[data-friendid=' + playmateID + ']  .call-button').fadeOut();	
+	var friend_div = 'div.*[data-friendid=' + playmateID + ']'
+	
+	$(friend_div).css("z-index", 1);
+	$(friend_div + ' .friend-image-wrapper').removeClass("calling");
+	$(friend_div + ' .call-button').fadeOut();
+	$('.overlay').hide();	
 }
 
 function syncToServerBeginPlaydate(friend_id) {

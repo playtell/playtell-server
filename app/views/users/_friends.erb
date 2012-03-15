@@ -7,26 +7,29 @@
 					<p class="inline-block left"><a href="#" id="accept-link" class="sprite"></a></p>
 					<p class="inline-block right"><a href="#" id="reject-link" class="sprite"></a></p>
 				</div>
-				<a href="#" class="friend-item" data-friendid="<%=friend.id%>">
-
-				<%= image_tag friend.profile_photo.blank? ? 
-					"photos/default.jpg" : friend.profile_photo, 
-					:alt => friend.displayName, 
-					:class => "friend-item" %>					
-				<%= image_tag "user_online.png", 
-					:alt => friend.displayName, 
-					:class => "presence online" %>
-				<%= image_tag "user_offline.png", 
-					:alt => friend.displayName, 
-					:class => "presence hidden offline" %>
-				<%= image_tag "user_pressed.png", 
-					:alt => friend.displayName, 
-					:class => "presence hidden pressed" %>
-				</a>
+				<div class="friend-image-wrapper">
+					<a href="#" class="friend-item" data-friendid="<%=friend.id%>">
+					<%= image_tag friend.profile_photo.blank? ? 
+						"photos/default.jpg" : friend.profile_photo, 
+						:alt => friend.displayName, 
+						:class => "friend-item" %>					
+					<%= image_tag "user_online.png", 
+						:alt => friend.displayName, 
+						:class => "presence online" %>
+					<%= image_tag "user_offline.png", 
+						:alt => friend.displayName, 
+						:class => "presence hidden offline" %>
+					<%= image_tag "user_pressed.png", 
+						:alt => friend.displayName, 
+						:class => "presence hidden pressed" %>
+					</a>
+				</div>
 
 			<% end %>
 		</div>
 	<% end %>
+	
+	<div class="overlay hidden"></div>
 	
 	<div class="friend">
 		<p><a href="#" class="dialpadsprite" id="add-friend">

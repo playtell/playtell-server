@@ -402,22 +402,28 @@ img#scientistImage {
 
 .calling {		
     -webkit-animation-name: growThis;
-    -webkit-animation-duration:.3s;
+    -webkit-animation-duration:.1s;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-timing-function: linear;
 	-webkit-animation-fill-mode: forwards;
+	
+	background: white;
+	border-radius: 6px;
+	-moz-box-shadow:    0px 4px 6px rgba(0,0,0,.2);
+  	-webkit-box-shadow: 0px 4px 6px rgba(0,0,0,.2);
+  	box-shadow:         0px 4px 6px rgba(0,0,0,.2);
 }
 @-webkit-keyframes growThis {
     100% {-webkit-transform:scale(1.4); }
 }
 
 .call-button {
-	z-index: -1;
-	height: 235px;
-	width: 180px;
+	/*z-index: -1;*/
+	height: 75px;
+	width: 240px;
 	position: absolute;
-	top: 0px;
-	left: 1px;
+	top: 234px;
+	left: -30px;
 	
 	background: white;
 	border-radius: 6px;
@@ -428,15 +434,15 @@ img#scientistImage {
 
 .call-button p {
 	position: absolute;
-	top: 175px;
+	top: 15px;
 }
 
 .call-button p.left {
-	left: 5px;
+	left: 35px;
 }
 
 .call-button p.right {
-	right: 5px;
+	right: 35px;
 }
 
 .dialpad {
