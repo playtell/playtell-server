@@ -325,12 +325,12 @@ function showPlaydateRequest(data) {
 		endPlaydate();
 	});
 	
-	$('.overlay').show(1000, function() {
+	$('a.*[data-friendid=' + data.initiatorID + '] img.online').hide('fast');
+	$('.overlay').show(500, function() {
 		$(friend_div).css("z-index", 1001);
-		$('a.*[data-friendid=' + data.initiatorID + ']').removeClass('online');
-		$(friend_div + ' .friend-image-wrapper img.online').hide();
+		$(friend_div + ' .friend-image-wrapper').addClass("calling");
 		window.setTimeout(function() {
-			$(friend_div + ' .call-button').fadeIn('slow');
+			$(friend_div + ' .call-button').fadeIn('fast');
 		}, 100, true);
 	});
 	
@@ -380,10 +380,14 @@ function enableDialpadButtons() {
 	
 	//add friends
 	$("#add-friend").on(tablet ? 'touchstart' : 'click', function() {
+		$('.friend.add-friend p a').addClass('active');
 		$('#find-lightbox').lightbox_me({
 	    	centered: true,
 			onLoad: function() {
 				$('#find-lightbox-text').find('input[type=text]:first').focus();
+			},
+			onClose: function() {
+				$('.friend.add-friend p a').removeClass('active');
 			}
 		});
 	});

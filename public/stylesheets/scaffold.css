@@ -501,6 +501,21 @@ div.friend {
 	left: 0;
 }
 
+.friend.add-friend {
+	width: 140px;
+	height: 140px;
+	margin-bottom: 25px;
+	margin-left: 16px;
+}
+
+.friend p a#add-friend {
+	width: 171px;
+	height: 173px;
+	display: inline-block;
+}
+.friend p a#add-friend { background: url('/images/user_add.png') no-repeat; }
+.friend p a:active#add-friend, .friend p a#add-friend.active {  background: url('/images/user_add_active.png') no-repeat; }
+
 .offline {
 	cursor: default;
 }
@@ -1033,14 +1048,6 @@ p a:active#reject-link { background-position: 0 -1020px; }
 .dialpadsprite {
 	background: url("/images/dialpad_sprite.png") no-repeat;
 }
-
-.friend p a#add-friend {
-	width: 171px;
-	height: 173px;
-	display: inline-block;
-}
-.friend p a#add-friend { background-position: 0 -450px;}
-.friend p a:active#add-friend {  background-position: 0 -628px; }
 
 div#no-profile { background-position: 0 -270px; }
 
