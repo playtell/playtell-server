@@ -1,5 +1,6 @@
 class Api::PlaydatephotosController < ApplicationController
   skip_before_filter :verify_authenticity_token
+  #before_filter :authenticate_user!
   respond_to :json
   
   def new
@@ -9,10 +10,10 @@ class Api::PlaydatephotosController < ApplicationController
   # photo will come in with user_id, playdate_id, photo, and counter (num photo taken in the playdate) 
   # [:playdate_photo]
   def create
-    user_id = params[:playdate_photo][:user_id]
-    playdate_id = params[:playdate_photo][:playdate_id] 
+    user_id = params[:user_id]
+    playdate_id = params[:playdate_id] 
     #counter = params[:playdate_photo][:counter] #not yet added to the model
-    photo = params[:playdate_photo][:photo]
+    photo = params[:photo]
     
 #    if request.format != :json
 #        render :status=>406, :json=>{:message=>"The request must be json"}

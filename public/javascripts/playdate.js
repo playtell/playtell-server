@@ -327,7 +327,8 @@ function showPlaydateRequest(data) {
 	
 	$('.overlay').show(1000, function() {
 		$(friend_div).css("z-index", 1001);
-		$(friend_div + ' .friend-image-wrapper').addClass("calling");
+		$('a.*[data-friendid=' + data.initiatorID + ']').removeClass('online');
+		$(friend_div + ' .friend-image-wrapper img.online').hide();
 		window.setTimeout(function() {
 			$(friend_div + ' .call-button').fadeIn('slow');
 		}, 100, true);

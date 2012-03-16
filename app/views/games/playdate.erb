@@ -44,12 +44,9 @@
 			</div>
 			<div class="photo-reel-container">
 				<div class="photo-pair">
-					<%= image_tag "photos/semira.jpg", :class => "small-user" %>
-					<%= image_tag "photos/semira.jpg", :class => "small-user" %>
 				</div>
-				<div class="photo-pair">
-					<%= image_tag "photos/semira.jpg", :class => "small-user" %>
-					<%= image_tag "photos/semira.jpg", :class => "small-user" %>
+				<div class="photo-reel-temp-text">
+					<p><%= @current_user.username %> & <%= @playdate.getOtherPlayerName(@current_user) %>
 				</div>
 			</div>
 		</div>

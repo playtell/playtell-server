@@ -424,12 +424,11 @@ img#scientistImage {
 }
 
 .call-button {
-	/*z-index: -1;*/
 	height: 75px;
-	width: 240px;
+	width: 231px;
 	position: absolute;
-	top: 234px;
-	left: -30px;
+	top: 227px;
+	left: -19px;
 	
 	background: white;
 	border-radius: 6px;
@@ -686,6 +685,16 @@ p.number-text.of {
 .photo-pair {
 	display: inline-block;
 	margin: 4px 8px 7px 8px;
+}
+
+.photo-reel-temp-text {
+	margin: 12px 0px 0px 10px;
+}
+
+.photo-reel-temp-text p {
+	font-family: "Comfortaa", sans-serif;
+	font-size: 36px;
+	text-shadow: #fff 0px 2px 1px;
 }
 
 /* ACTIVITY --------------------------------------------------------- */
