@@ -58,7 +58,7 @@ form, fieldset, label, input, .checkbox, textarea, select, option, form div {
 }
 
 
-* {
+.user-profile *, .appContainer * {
     -webkit-touch-callout: none;
     -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
 }

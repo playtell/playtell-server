@@ -1,20 +1,39 @@
-class PlaydatephotosController < ApplicationController
- 
+class Api::PlaydatephotosController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+  respond_to :json
+  
   def new
     @playdatePhoto = PlaydatePhoto.new
   end
 
-  def create_old
-    unless params[:playdate_photo][:photo].blank? 
-      @playdatePhoto = current_user.playdate_photos.build(params[:playdate_photo])
-      @playdatePhoto.save
+  # photo will come in with user_id, playdate_id, photo, and counter (num photo taken in the playdate)
+  def create
+    user_id = params[:user_id]
+    #playdate = params[:playdate_photo][playdate_id] #not yet added to the model
+    #counter = params[:playdate_photo][:counter]
+    photo = params[:photo]
+    
+    if request.format != :json
+        render :status=>406, :json=>{:message=>"The request must be json"}
+        return
     end
-    respond_to do |format|
-      format.js 
+    
+    if user_id.nil? or photo.blank? 
+      render :status=>400, :json=>{:message=>"The request must contain the user_id and photo."}
+      return
+    end
+    
+    user = User.find(user_id)
+    
+    @playdatePhoto = user.playdate_photos.build(photo)
+    if @playdatePhoto.save
+      render :status=>200, :json=>{:photo=>@playdatePhoto} 
+    else
+      render :status=>400, :json=>{:message=>"error :/"}
     end
   end
 
-  def create
+  def create_old
     unless params[:photo_data].blank? 
       #kit = IMGKit.new(params[:photo_data])
       #file = kit.to_file('tmp/uploads/test.png') 
