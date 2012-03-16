@@ -13,23 +13,30 @@ class Api::PlaydatephotosController < ApplicationController
     #counter = params[:playdate_photo][:counter]
     photo = params[:photo]
     
-    if request.format != :json
-        render :status=>406, :json=>{:message=>"The request must be json"}
-        return
-    end
+#    if request.format != :json
+#        render :status=>406, :json=>{:message=>"The request must be json"}
+#        return
+#    end
     
     if user_id.nil? or photo.blank? 
       render :status=>400, :json=>{:message=>"The request must contain the user_id and photo."}
       return
     end
     
-    user = User.find(user_id)
+    #user = User.find(user_id)
     
-    @playdatePhoto = user.playdate_photos.build(photo)
-    if @playdatePhoto.save
-      render :status=>200, :json=>{:photo=>@playdatePhoto} 
-    else
-      render :status=>400, :json=>{:message=>"error :/"}
+    @playdatePhoto = PlaydatePhoto.new
+    @playdatePhoto.user_id = user_id
+    @playdatePhoto.photo = photo
+    
+    respond_to do |format|
+      if @playdatePhoto.save
+        format.html { redirect_to user_path current_user, flash[:notice] = "Successfully created photo." }
+        format.json { render :json => {:photo=>@playdatePhoto}  }
+      else
+        format.html { redirect_to user_path current_user, flash[:notice] = "Failed to create photo." }
+        format.json { render :json => {:message=>"error"}  }
+      end
     end
   end
 
