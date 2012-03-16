@@ -33,6 +33,8 @@
 <%= form_for @playdatePhoto, :url => api_playdatephotos_path, :html => {:multipart => true} do |f| %>
 	<p><%= f.file_field :photo %></p>
 	<%= f.hidden_field :user_id, :value => @current_user.id %>
+	<%= f.hidden_field :playdate_id, :value => @playdate.id %>
+	
 	<%= submit_tag "Send to PlayTell", :class => "blue button-bottom" %>
 	
 <% end %>

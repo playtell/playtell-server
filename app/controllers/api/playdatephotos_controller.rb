@@ -6,12 +6,13 @@ class Api::PlaydatephotosController < ApplicationController
     @playdatePhoto = PlaydatePhoto.new
   end
 
-  # photo will come in with user_id, playdate_id, photo, and counter (num photo taken in the playdate)
+  # photo will come in with user_id, playdate_id, photo, and counter (num photo taken in the playdate) 
+  # [:playdate_photo]
   def create
-    user_id = params[:user_id]
-    #playdate = params[:playdate_photo][playdate_id] #not yet added to the model
-    #counter = params[:playdate_photo][:counter]
-    photo = params[:photo]
+    user_id = params[:playdate_photo][:user_id]
+    playdate_id = params[:playdate_photo][:playdate_id] 
+    #counter = params[:playdate_photo][:counter] #not yet added to the model
+    photo = params[:playdate_photo][:photo]
     
 #    if request.format != :json
 #        render :status=>406, :json=>{:message=>"The request must be json"}
@@ -25,8 +26,7 @@ class Api::PlaydatephotosController < ApplicationController
     
     #user = User.find(user_id)
     
-    @playdatePhoto = PlaydatePhoto.new
-    @playdatePhoto.user_id = user_id
+    @playdatePhoto = PlaydatePhoto.new(:user_id => user_id, :playdate_id => playdate_id )
     @playdatePhoto.photo = photo
     
     respond_to do |format|
