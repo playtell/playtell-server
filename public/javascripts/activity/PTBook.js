@@ -8,18 +8,15 @@ PTBook.prototype.createActivityFromJSON=function(book) {
 	var displayType = "block";
 
 	$.each(book.pages, function(i, page) {
-		pageNum = i+1;
+		pageNum = i;
 		if (pageNum > 1) {
 			displayType = "none";
 		}
-		if (pageNum == 1) {
+		if (pageNum == 0) {
 			bookMarkup += '<li style=display:' + displayType + '>'
 			 	+ '<div id="page_' + pageNum + '" class="page">'
-				+ '<div class="inline-block">'
-				+ '<img src="' + getPageImageFilePath(book.image_directory, i+1) + '" class="title-image">'
 				+ '</div>'
-				+ '</div>'
-				+ '<div class="title-page"><img src="/images/book_title_cover.png"></div></li>';
+				+ '<div class="title-page"><img src="' + getPageImageFilePath(book.image_directory, pageNum) + '" class="title-image"></div></li>';
 		}
 		else {
 			bookMarkup += '<li style=display:' + displayType + '>'

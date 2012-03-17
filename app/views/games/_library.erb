@@ -1,6 +1,6 @@
 <% @books.each_with_index do |book, index| %>
 	<div class="content-item book <%= index % 2 != 0 ? "odd" : "even" %>" data-playdatechange="<%= Playdate::CHANGE_BOOK %>" data-activityid="<%= book.id %>">
-		<%= image_tag getPageImageFilePath(book.image_directory, 0), :alt => book.title %>
+		<%= image_tag getPageImageFilePath(book.image_directory, -1), :alt => book.title %>
 		<div class="content-item-info">
 			<p class="title"><%= book.title %></p>
 			<p class="page-count-icon"></p><p class="page-count"><%= book.pages.count %></p>

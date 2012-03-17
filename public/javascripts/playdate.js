@@ -193,7 +193,6 @@ function takePhoto() {
 function updateBookNavLinks() {
 	
 	var page = mySwipe.getPos();
-	console.log(page);
 	
 	if (page == 0) {
 		$("#previous-link").addClass("hidden");

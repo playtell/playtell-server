@@ -12,7 +12,7 @@ class Api::PlaydatephotosController < ApplicationController
   def create
     user_id = params[:user_id]
     playdate_id = params[:playdate_id] 
-    #counter = params[:playdate_photo][:counter] #not yet added to the model
+    count = params[:count] 
     photo = params[:photo]
     
 #    if request.format != :json
@@ -27,7 +27,7 @@ class Api::PlaydatephotosController < ApplicationController
     
     #user = User.find(user_id)
     
-    @playdatePhoto = PlaydatePhoto.new(:user_id => user_id, :playdate_id => playdate_id )
+    @playdatePhoto = PlaydatePhoto.new(:user_id => user_id, :playdate_id => playdate_id, :count => count )
     @playdatePhoto.photo = photo
     
     respond_to do |format|
