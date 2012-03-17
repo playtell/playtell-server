@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   
   attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname, :authentication_token  
   
-  #after_create :create_profile_photo
+  after_create :create_profile_photo
   before_save :ensure_authentication_token! 
   
   has_one :playdate  
@@ -21,8 +21,10 @@ class User < ActiveRecord::Base
     end
     
   def create_profile_photo
+    randomPhotoIndex = 1 + rand(4)
+    
     p = self.playdate_photos.create
-    p.remote_photo_url = 'http://ragatzi.s3.amazonaws.com/default.jpg'
+    p.remote_photo_url = 'http://ragatzi.s3.amazonaws.com/uploads/profile_default_' + randomPhotoIndex.to_s + '.png'
     p.save!
   end
   
