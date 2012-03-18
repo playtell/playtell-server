@@ -320,6 +320,7 @@ function showPlaydateRequest(data) {
 	var friend_div = 'div.*[data-friendid=' + data.initiatorID + ']'
 	
 	$(friend_div + ' p.left a').attr('href', '/playdate?playdate=' + data.playdateID);	
+	$(friend_div + ' a.friend-item').attr('href', '/playdate?playdate=' + data.playdateID);	
 	$(friend_div + ' p.right a').on(tablet ? 'touchstart' : 'click', function() { 
 		console.log("removing" + data.initiatorID);
 		removePlaydateRequest(data.initiatorID);
