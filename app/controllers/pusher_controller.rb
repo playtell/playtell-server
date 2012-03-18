@@ -1,5 +1,6 @@
 class PusherController < ApplicationController
   protect_from_forgery :except => :auth # stop rails CSRF protection for this action
+  before_filter :authenticate_user!
 
   def auth
     response = nil;

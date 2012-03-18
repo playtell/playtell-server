@@ -819,10 +819,7 @@ p.number-text.of {
 .title-image {
 	display: block;
 	position: absolute;
-	top: 175px;
-	left: 257px;
 	border-radius: 10px;
-	height: 390px;
 }
 
 .book-image {
