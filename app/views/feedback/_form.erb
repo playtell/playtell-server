@@ -1,4 +1,3 @@
-<% if false%>
 <%= form_for @feedback, :remote => true do |f| %>
 	<% if @feedback.errors.any? %>
 		<div class="error-messages">
@@ -24,17 +23,19 @@
 	<p> <%= f.label :comment, "What can we do to make your playdates even better?" %></p>
 	<p><%= f.text_area :comment, :size => "40x4" %></p>	
 	
+	<%= submit_tag "Send to PlayTell", :class => "blue button-bottom" %>
+	
 <% end %>	
 
-<% end %>
 
 
+<% if false%>
 	
 <%= form_for @playdatePhoto, :url => api_playdatephotos_path, :html => {:multipart => true} do |f| %>
 	<p><%= f.file_field :photo %></p>
 	<%= f.hidden_field :user_id, :value => @current_user.id %>
 	<%= f.hidden_field :playdate_id, :value => @playdate.id %>
 	
-	<%= submit_tag "Send to PlayTell", :class => "blue button-bottom" %>
 	
+<% end %>
 <% end %>

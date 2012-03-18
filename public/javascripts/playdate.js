@@ -316,10 +316,11 @@ function showPlaydateRequest(data) {
 	$("#pusher-channel-name").html(data.pusherChannelName);
 	//$('#player-name').html(data.initiator);
 	
+	console.log($('div.*[data-friendid=' + data.initiatorID + '] p.left a').attr("href"));
 	var friend_div = 'div.*[data-friendid=' + data.initiatorID + ']'
 	
-	$(friend_div + ' #accept-link').attr('href', '/playdate?playdate=' + data.playdateID);	
-	$(friend_div + ' #reject-link').on(tablet ? 'touchstart' : 'click', function() { 
+	$(friend_div + ' p.left a').attr('href', '/playdate?playdate=' + data.playdateID);	
+	$(friend_div + ' p.right a').on(tablet ? 'touchstart' : 'click', function() { 
 		console.log("removing" + data.initiatorID);
 		removePlaydateRequest(data.initiatorID);
 		endPlaydate();
@@ -353,11 +354,7 @@ function removePlaydateRequest(playmateID) {
 
 function syncToServerBeginPlaydate(friend_id) {
 	
-	$("#friend_"+ friend_id).attr({
-		method: "POST",
-		action: "/playdate?friend_id=" + friend_id
-	});
-	$("#friend_"+ friend_id).submit();
+	document.location.href="/playdate?friend_id=" + friend_id;
 	
 }
 

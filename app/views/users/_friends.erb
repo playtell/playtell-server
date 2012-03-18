@@ -2,31 +2,28 @@
 <div class="friends">
 	<% for friend in @current_user.allFriends %>
 		<div class="friend" data-friendid="<%=friend.id%>">
-			<%= form_tag "#", :id => "friend_" + friend.id.to_s do %>
-				<div class="call-button hidden">
-					<p class="inline-block left"><a href="#" id="accept-link" class="sprite"></a></p>
-					<p class="inline-block right"><a href="#" id="reject-link" class="sprite"></a></p>
+			<div class="call-button hidden">
+				<p class="inline-block left"><a href="#" id="accept-link" class="sprite"></a></p>
+				<p class="inline-block right"><a href="#" id="reject-link" class="sprite"></a></p>
+			</div>
+			<div class="friend-image-wrapper">
+				<a href="#" class="friend-item" data-friendid="<%=friend.id%>">
+				<%= image_tag friend.profile_photo.blank? ? 
+					"photos/default.jpg" : friend.profile_photo, 
+					:alt => friend.displayName, 
+					:class => "friend-item" %>
+				<div class="friend-name"><%= friend.username %></div>					
+				<%= image_tag "user_online.png", 
+					:alt => friend.displayName, 
+					:class => "presence online" %>
+				<%= image_tag "user_offline.png", 
+					:alt => friend.displayName, 
+					:class => "presence hidden offline" %>
+				<%= image_tag "user_pressed.png", 
+					:alt => friend.displayName, 
+					:class => "presence hidden pressed" %>
+				</a>
 				</div>
-				<div class="friend-image-wrapper">
-					<a href="#" class="friend-item" data-friendid="<%=friend.id%>">
-					<%= image_tag friend.profile_photo.blank? ? 
-						"photos/default.jpg" : friend.profile_photo, 
-						:alt => friend.displayName, 
-						:class => "friend-item" %>
-					<div class="friend-name"><%= friend.username %></div>					
-					<%= image_tag "user_online.png", 
-						:alt => friend.displayName, 
-						:class => "presence online" %>
-					<%= image_tag "user_offline.png", 
-						:alt => friend.displayName, 
-						:class => "presence hidden offline" %>
-					<%= image_tag "user_pressed.png", 
-						:alt => friend.displayName, 
-						:class => "presence hidden pressed" %>
-					</a>
-				</div>
-
-			<% end %>
 		</div>
 	<% end %>
 	
