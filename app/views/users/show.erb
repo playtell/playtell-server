@@ -11,6 +11,7 @@
 		$(document).ready(function() {
 			<% if tablet_device? %>
 				tablet = true;
+				document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
 			<% end %>
 			pusher = new Pusher($('#pusher-key').html()); 			
 			checkForPlaydateRequest(); 
