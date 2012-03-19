@@ -21,9 +21,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 html, body {
 	height: 100%;
-}
-
-body {
 	overflow: hidden;
 }
 
