@@ -322,7 +322,6 @@ function showPlaydateRequest(data) {
 	$(friend_div + ' p.left a').attr('href', '/playdate?playdate=' + data.playdateID);	
 	$(friend_div + ' a.friend-item').attr('href', '/playdate?playdate=' + data.playdateID);	
 	$(friend_div + ' p.right a').on(tablet ? 'touchstart' : 'click', function() { 
-		console.log("removing" + data.initiatorID);
 		removePlaydateRequest(data.initiatorID);
 		endPlaydate();
 	});
@@ -330,9 +329,10 @@ function showPlaydateRequest(data) {
 	$('a.*[data-friendid=' + data.initiatorID + '] img.online').hide('fast');
 	$('.overlay').show(500, function() {
 		$(friend_div).css("z-index", 1001);
+		$(friend_div + ' a.friend-item img.friend-item').addClass('shadow');	
 		$(friend_div + ' .friend-image-wrapper').addClass("calling");
 		window.setTimeout(function() {
-			$(friend_div + ' .call-button').fadeIn('fast');
+			$(friend_div + ' .call-button').slideDown('fast');
 		}, 100, true);
 	});
 	
