@@ -279,7 +279,7 @@ private
          :schedule_for => [Time.now],
          :device_tokens => [device_tokens.last.token],
          :aps => {
-           :alert => "PlayTell!!",
+           :alert => "#{current_user.username} wants to play!",
            :playdate_url => "http://playtell-staging.heroku.com/playdate?playdate="+@playdate.id.to_s,
            :initiator => current_user.username,
            :playmate => playmate.username }
