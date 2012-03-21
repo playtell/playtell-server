@@ -10,6 +10,36 @@
 				event.preventDefault();
 				return false;
 			});
+			
+			//early access
+			$('#early-access-submit').click(function() {
+				if ($('#email').val() != '') {
+					$('#alpha-lightbox').lightbox_me({
+				    	centered: true,
+						onLoad: function() {
+							$('#alpha-lightbox-text').find('input:first').focus();
+						}
+					});
+				}
+			});
+
+			$('#alpha-form-submit').click(function() {
+				$('#ext-sign-up-form').hide();
+				$('#loader').show();
+				$.ajax({
+					url: "/early_access.json",
+					data: {
+						email: $('#email').val(), 
+						email2: $('#email2').val()
+					},
+					type: "POST",
+					success: function() {
+						$('#loader').hide();
+						$('#thank-you').show();
+					}
+				});		
+			});
+			
 		  });
 	
 		//size the splash image to the window height
@@ -33,21 +63,6 @@
 		    .attr('style', 'height: ' + h + 'px');
 		});	
 		
-		//early access
-		$('#early-access-submit').live("click", function() {
-			$('#sign-up-form').hide();
-			$('#loader').show();
-			$.ajax({
-				url: "/early_access.js",
-				data: "email=" + $('#email').val(),
-				type: "POST",
-				success: function() {
-					$('#loader').hide();
-					$('#thank-you').show();
-				}
-			});		
-		});
-	
 	 </script>
 	
 <% end %>
@@ -71,18 +86,29 @@
 	</div>
 	<div id="block-sign-up">
 		<div class="alpha-sign-up" id="sign-up">
-			<h3>Request an Invitation</h3>
 			<div id="sign-up-form">
-				<input type="email" placeholder="Enter your email address"><br />
+				<h3>Request an Invitation</h3>
+				<input type="email" id="email" placeholder="Enter your email address">
 				<button class="blue big-button" id="early-access-submit">Sign me up!</button>
-			</div>
-			<div id="loader" class="hidden loading"></div>
-			</div>
-			<div id="thank-you" class="hidden">
-				<p>Thanks! You're on the list.</p>
-				<p>We'll be in touch soon.</p> 
 			</div>
 		</div>
 	</div>
+	
+	<div class="lightbox hidden" id="alpha-lightbox">
+		<div id="alpha-lightbox-text">
+			<div id="ext-sign-up-form">
+				<h2>Want to take PlayTell for a test drive?</h2>
+				<input type="email" id="email2" placeholder="Enter email address">
+				<p><button class="blue big-button" id="alpha-form-submit">Send to PlayTell</button></p>
+			</div>
+			<div id="thank-you" class="hidden">
+				<h3>Thanks! You're on the list.</h3>
+				<p>We'll be in touch soon.</p> 
+			</div>	
+			<div id="loader" class="hidden loading"></div>
+		</div>
+		<button class="close close-x blue">X</button>	
+	</div>
+	
 </div>
 

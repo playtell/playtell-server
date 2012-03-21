@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
            :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
            #:confirmable, :lockable, :timeoutable
   
-  attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname, :authentication_token  
+  attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname, :authentication_token, :status 
   
   after_create :create_profile_photo, :add_first_friend
-  before_save :ensure_authentication_token! 
+  before_save :ensure_authentication_token!, :update_status
   
   has_one :playdate  
   has_many :friendships
@@ -16,6 +16,13 @@ class User < ActiveRecord::Base
   has_many :device_tokens
   has_many :playdate_photos
 
+  #status
+  WAITING_FOR_UDID = -2
+  WAITING_FOR_DOWNLOAD = -1
+  CONFIRMED = 0
+  #DONE_FIRST_PLAYDATE
+  #DONE_SECOND_PLAYDATE
+
   # auto-adds Test as this user's first friend
   def add_first_friend
     self.friendships.create!(:friend_id => User.find_by_username(DEFAULT_FRIEND_NAME).id)
@@ -24,7 +31,6 @@ class User < ActiveRecord::Base
   # assigns one of the default balloon photos to the user as their first profile photo  
   def create_profile_photo
     randomPhotoIndex = 1 + rand(4)
-    
     p = self.playdate_photos.create
     p.remote_photo_url = 'http://ragatzi.s3.amazonaws.com/uploads/profile_default_' + randomPhotoIndex.to_s + '.png'
     p.save!
@@ -70,6 +76,29 @@ class User < ActiveRecord::Base
   
   def isFriend? (user)
     return allFriends.index(user)
+  end
+  
+  #getter for whether status is confirmed
+  def confirmed?
+    self.status >= 0
+  end
+  
+  def waiting_for_udid
+    self.status = WAITING_FOR_UDID
+  end
+
+  def waiting_for_download
+    self.status = WAITING_FOR_DOWNLOAD
+  end
+
+  def confirmed
+    self.status = CONFIRMED
+  end
+  
+  def update_status
+    unless self.status.blank? or self.status.confirmed?
+      self.waiting_for_download if self.udid_changed?
+    end
   end
   
   # used for token authentication, for the apis. assigns the user a token that the api can use to auth, rather than having the user sign in

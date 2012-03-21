@@ -3,6 +3,8 @@ class Api::PlaydatephotosController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
   
+  s3_access_policy :public_read,:authenticated_read_write
+  
   def new
     @playdatePhoto = PlaydatePhoto.new
   end

@@ -10,14 +10,25 @@ class ApplicationController < ActionController::Base
   end
   
   def earlyAccess
-    if !params[:email].blank?
-      earlyUser = EarlyUser.new(:email => params[:email])
-      earlyUser.save
-      respond_to do |format|
-        format.json { head :ok } 
-        format.tablet { head :ok }
+    unless params[:email].blank?
+      if params[:email2].blank?
+        earlyUser = EarlyUser.new(:email => params[:email])
+        if earlyUser.save
+          render :json => true 
+          return
+        end
+      else
+        user1 = User.create!(:email => params[:email], :password => "rg")
+        user2 = User.create!(:email => params[:email2], :password => "rg")
+        user1.waiting_for_udid
+        user2.waiting_for_udid
+        user1.friendships.create!(:friend_id => user2.id)
+        #send emails
+        render :json => true
+        return
       end
     end
+    render :json => false
   end
   
   def timeline
