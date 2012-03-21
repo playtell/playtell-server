@@ -1,0 +1,1 @@
+DEFAULT_FRIEND_NAME = "semira"

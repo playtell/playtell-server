@@ -64,7 +64,7 @@ private
     end
     
     if session[:user_return_to]
-      sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')     
+      sign_in_url = url_for(:action => 'new', :controller => '/sessions', :only_path => false, :protocol => 'http')     
       session[:user_return_to] if session[:user_return_to] != sign_in_url
     else
       user_path user.id
