@@ -83,20 +83,23 @@ class User < ActiveRecord::Base
     self.status >= 0
   end
   
+  def confirmed
+    self.status = CONFIRMED
+    save!
+  end
+
   def waiting_for_udid
     self.status = WAITING_FOR_UDID
+    save!
   end
 
   def waiting_for_download
     self.status = WAITING_FOR_DOWNLOAD
-  end
-
-  def confirmed
-    self.status = CONFIRMED
+    save!
   end
   
   def update_status
-    unless self.status.blank? or self.status.confirmed?
+    unless self.status.blank? or self.confirmed?
       self.waiting_for_download if self.udid_changed?
     end
   end

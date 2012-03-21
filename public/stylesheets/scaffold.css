@@ -196,6 +196,10 @@ label {
 	margin: 0 auto;
 }
 
+.disabled {
+	opacity: .5;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
     height: 13px;

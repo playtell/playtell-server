@@ -18,8 +18,8 @@ class ApplicationController < ActionController::Base
           return
         end
       else
-        user1 = User.create!(:email => params[:email], :password => "rg")
-        user2 = User.create!(:email => params[:email2], :password => "rg")
+        user1 = User.create!(:email => params[:email], :password => "rg", :status => User::WAITING_FOR_UDID)
+        user2 = User.create!(:email => params[:email2], :password => "rg", :status => User::WAITING_FOR_UDID)
         user1.waiting_for_udid
         user2.waiting_for_udid
         user1.friendships.create!(:friend_id => user2.id)
