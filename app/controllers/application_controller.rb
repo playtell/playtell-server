@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       if params[:email2].blank?
         earlyUser = EarlyUser.new(:email => params[:email])
         if earlyUser.save
-          render :json => true 
+          render :json => {:message=>"early_user"} 
           return
         end
       else
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
         user2.waiting_for_udid
         user1.friendships.create!(:friend_id => user2.id)
         #send emails
-        render :json => true
+        render :json => {:message=>"active_user"}
         return
       end
     end
