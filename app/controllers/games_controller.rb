@@ -276,7 +276,6 @@ private
     device_tokens = playmate.device_tokens
     if !device_tokens.blank?
        notification = {
-         :schedule_for => [Time.now],
          :device_tokens => [device_tokens.last.token],
          :aps => {
            :alert => "#{current_user.username} wants to play!",
