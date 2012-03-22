@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   end
   
   def displayName
-    return !firstname.blank? ? firstname : username 
+    username or firstname 
   end
   
   #searches users whose name matches the search parameter 

@@ -15,7 +15,7 @@ class Api::SettingsController < ApplicationController
       render :status=>200, :json=>{:message=>"bam!"}
     else
       puts @user.errors.full_messages.as_json
-      render :status=>401, :json=>{:message=>@user.errors.full_messages.as_json}
+      render :status=>401, :json=>{:errors=>@user.errors.full_messages.as_json, :keys=>@user.errors.keys.as_json}
     end
   end
 end

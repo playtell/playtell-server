@@ -30,7 +30,7 @@ Semiralabs::Application.routes.draw do
   namespace :api do
     resources :tokens, :only => [:create, :destroy]
     resources :playdatephotos, :only => [:create]
-    match 'update' => 'settings#update'
+    match 'update_settings' => 'settings#update'
     #resources :settings, :only => [:update]
   end
   
