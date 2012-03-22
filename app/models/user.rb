@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   
   attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname, :authentication_token, :status 
   
+  before_create :set_defaults
   after_create :create_profile_photo, :add_first_friend
   before_save :ensure_authentication_token!, :update_status
   
@@ -22,6 +23,10 @@ class User < ActiveRecord::Base
   CONFIRMED = 0
   #DONE_FIRST_PLAYDATE
   #DONE_SECOND_PLAYDATE
+
+  def set_defaults
+    self.status = WAITING_FOR_UDID
+  end
 
   # auto-adds Test as this user's first friend
   def add_first_friend

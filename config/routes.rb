@@ -30,6 +30,9 @@ Semiralabs::Application.routes.draw do
   namespace :api do
     resources :tokens, :only => [:create, :destroy]
     resources :playdatephotos, :only => [:create]
+    resources :settings do
+      post 'change_password'
+    end
   end
   
   match 'pusher/auth' => 'pusher#auth'
