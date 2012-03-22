@@ -7,14 +7,15 @@ class Api::SettingsController < ApplicationController
     @user = current_user
   end
 
-  def change_password
+  def update
     @user = User.find(current_user.id)
     if @user.update_attributes(params[:user])
       # Sign in the user by passing validation in case his password changed
       sign_in @user, :bypass => true
-      redirect_to root_path
+      render :status=>200, :json=>{:message=>"bam!"}
     else
-      render "edit"
+      puts @user.errors.full_messages.as_json
+      render :status=>401, :json=>{:message=>@user.errors.full_messages.as_json}
     end
   end
 end

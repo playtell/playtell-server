@@ -18,6 +18,27 @@
 			enableDialpadButtons();
 			enableButtons();
 
+			/*$('#password-submit').click(function() {
+				$.ajax({
+					url: "/api/change_password", 
+					dataType: 'json',
+					data: {
+						user: {
+							password: $('#password').val(), 
+					  		password_confirmation: $('#password_confirmation').val() 
+						},
+						authorization_token: "NF9pqmqzmfwhfqo6jLas"
+					},		
+					success: function(data) {
+						console.log(data.message);
+						alert("yay");
+					},
+					error: function(request, status, error) {
+						console.log(request.responseText["message"]);
+					}
+				});
+			});	*/
+
 		});
 		
 
@@ -39,6 +60,10 @@
 		</div>
 		
 		<%= render :partial => "friends" %>
+		
+		<% #New Password: <input type="password" id="password"></input><br /> %>
+		<% #Confirm Password: <input type="password" id="password_confirmation"></input><br /> %>
+		<% #<button class="blue big-button" id="password-submit">Change It!</button> %>
 		
 	</div>
 	
