@@ -3,7 +3,7 @@ class Api::TokensController  < ApplicationController
   respond_to :json
   
   def create
-    username = params[:username]
+    email = params[:email]
     password = params[:password]
     device_token = params[:device_token] if params[:device_token]
     
@@ -12,25 +12,24 @@ class Api::TokensController  < ApplicationController
         return
     end
     
-    if username.nil? or password.nil? 
-      render :status=>400, :json=>{:message=>"The request must contain the username and password."}
+    if email.nil? or password.nil? 
+      render :status=>400, :json=>{:message=>"The request must contain the user's email and password."}
       return
     end
     
-    @user=User.find_by_username(username.downcase)
+    @user=User.find_by_email(email.downcase)
     
     if @user.nil?
-      logger.info("User #{username} failed signin, user cannot be found.")
-      render :status=>401, :json=>{:message=>"Invalid username or passoword."}
+      logger.info("User with email #{email} failed signin: user cannot be found.")
+      render :status=>401, :json=>{:message=>"Invalid email or passoword."}
       return
     end
     
     @user.ensure_authentication_token!
-    #@user.save!
     
     if not @user.valid_password?(password) 
-      logger.info("User #{username} failed signin, password \"#{password}\" is invalid")
-      render :status=>401, :json=>{:message=>"Invalid username or passoword."} 
+      logger.info("User with email #{email} failed signin: password \"#{password}\" is invalid")
+      render :status=>401, :json=>{:message=>"Invalid email or password."} 
     else
       if !device_token.blank?
         d = DeviceToken.find_or_create_by_user_id({ :user_id => @user.id })
