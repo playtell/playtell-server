@@ -18,13 +18,18 @@
 				    	centered: true,
 						onLoad: function() {
 							$('#alpha-lightbox-text').find('input:first').focus();
+						},
+						onClose: function() {
+							$('#thank-you-active').hide();
+							$('#thank-you-early').hide();
+							$('#ext-sign-up-form').show();
 						}
 					});
 				}
 			});
 
 			$('#alpha-form-submit').click(function() {
-				$('#ext-sign-up-form').hide();
+				$('#alpha-form-submit').hide();
 				$('#loader').show();
 				$.ajax({
 					url: "/early_access.json",

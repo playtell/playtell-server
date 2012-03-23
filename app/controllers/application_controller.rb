@@ -10,18 +10,16 @@ class ApplicationController < ActionController::Base
   end
   
   def earlyAccess
-    unless params[:email].blank?
-      if params[:email2].blank?
-        earlyUser = EarlyUser.new(:email => params[:email])
+    unless params[:early_user][:email].blank?
+      earlyUser = EarlyUser.create(params[:early_user])
+      if params[:user2][:email2].blank? #and other criteria
         if earlyUser.save
           render :json => {:message=>"early_user"} 
           return
         end
       else
-        user1 = User.create!(:email => params[:email], :password => "rg", :status => User::WAITING_FOR_UDID)
-        user2 = User.create!(:email => params[:email2], :password => "rg", :status => User::WAITING_FOR_UDID)
-        user1.waiting_for_udid
-        user2.waiting_for_udid
+        user1 = User.create!(:email => params[:early_user][:email], :password => "rg", :status => User::WAITING_FOR_UDID)
+        user2 = User.create!(:email => params[:user2][:email2], :password => "rg", :username => params[:user2][:username], :status => User::WAITING_FOR_UDID)
         user1.friendships.create!(:friend_id => user2.id)
         #send emails
         render :json => {:message=>"active_user"}
