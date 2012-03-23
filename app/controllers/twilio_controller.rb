@@ -5,7 +5,7 @@ class TwilioController < ApplicationController
   def incoming
     response = Twilio::TwiML.build do |res|
       res.dial do |g|
-        g.client twilio_name
+        g.client current_user.username + current_user.id.to_s
       end
     end
     render :text => response
