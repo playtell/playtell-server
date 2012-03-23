@@ -1195,7 +1195,7 @@ button.green2, input[type="submit"].green2 {
   text-shadow: 0 1px 1px #C9DBB4; 
 }
 
-.login input[type="text"], input[type="email"] {
+.login input[type="text"], .login input[type="email"] {
   width: 185px;
   margin: 8px 8px 8px 31px;	
 }
@@ -1279,7 +1279,18 @@ button.green2, input[type="submit"].green2 {
 	font-family: 'Lato', sans-serif;
 }
 
+#ext-sign-up-form input[type="text"],
+#ext-sign-up-form input[type="email"] {
+	width: 200px;
+}
 
+#ext-sign-up-form .answer {
+	margin-left: 10px;
+}
+
+#ext-sign-up-form .question {
+	margin-top: 10px;
+}
 
 /* I-SPY --------------------------------------------------------- */
 

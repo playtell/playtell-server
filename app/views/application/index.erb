@@ -29,8 +29,11 @@
 				$.ajax({
 					url: "/early_access.json",
 					data: {
-						email: $('#email').val(), 
-						email2: $('#email2').val()
+						early_user: { email: $('#email').val(), 
+									  owns_iPad: $("input[@name=owns_iPad]:checked").val(),
+									  has_kids: $("input[@name=has_kids]:checked").val() },
+						user2: { username2: $('#username2').val(),
+								 email2: $('#email2').val() }
 					},
 					type: "POST",
 					success: function(data) {
@@ -93,7 +96,7 @@
 		<div class="alpha-sign-up" id="sign-up">
 			<div id="sign-up-form">
 				<h3>Request an Invitation</h3>
-				<input type="email" id="email" placeholder="Enter your email address">
+				<input type="email" id="email" placeholder="Enter your email address"></input>
 				<button class="blue big-button" id="early-access-submit">Sign me up!</button>
 			</div>
 		</div>
@@ -101,20 +104,7 @@
 	
 	<div class="lightbox hidden" id="alpha-lightbox">
 		<div id="alpha-lightbox-text">
-			<div id="ext-sign-up-form">
-				<h2>Want to take PlayTell for a test drive?</h2>
-				<input type="email" id="email2" placeholder="Enter email address">
-				<p><button class="blue big-button" id="alpha-form-submit">Send to PlayTell</button></p>
-			</div>
-			<div id="thank-you-early" class="hidden">
-				<h3>Thanks! You're on the list.</h3>
-				<p>We'll be in touch soon.</p> 
-			</div>	
-			<div id="thank-you-active" class="hidden">
-				<h3>You're in!</h3>
-				<p>Further instructions are on their way to your email inbox. Get ready to play!</p> 
-			</div>	
-			<div id="loader" class="hidden loading"></div>
+			<%= render :partial => 'survey' %>
 		</div>
 		<button class="close close-x blue">X</button>	
 	</div>
