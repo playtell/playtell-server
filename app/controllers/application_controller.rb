@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   def incoming
     response = Twilio::TwiML.build do |res|
       res.dial do |g|
-        g.client current_user.username + current_user.id.to_s
+        g.client request.request_parameters.clientName
       end
     end
     render :text => response
