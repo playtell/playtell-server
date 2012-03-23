@@ -1,5 +1,7 @@
 Semiralabs::Application.routes.draw do
 
+  post "twilio/incoming"
+
   match 'playdate' => 'games#playdate'
   match 'update_playdate' => 'games#updatePlaydate'
 

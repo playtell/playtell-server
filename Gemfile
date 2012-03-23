@@ -32,8 +32,8 @@ gem 'urbanairship'
 gem 'rmagick', :require => 'RMagick'
 gem 'carrierwave'
 gem "fog", "~> 1.1.2"
-gem 'imgkit'\
-# gem 'twilio-ruby'
+gem 'imgkit'
+gem 'twilio-rb'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
