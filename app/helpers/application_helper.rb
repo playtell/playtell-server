@@ -7,8 +7,12 @@ module ApplicationHelper
     Twilio::CapabilityToken.create \
       account_sid:    Twilio::ACCOUNT_SID,
       auth_token:     Twilio::AUTH_TOKEN,
-      allow_incoming: current_user.email,
-      allow_outgoing: Twilio::ACCOUNT_SID
+      allow_incoming: twilio_name,
+      allow_outgoing: 'AP53bc8a48b98b4da0a5ba8c4b83f5bc69'
+  end
+  
+  def twilio_name
+    @current_user.username + @current_user.id.to_s
   end
   
 end
