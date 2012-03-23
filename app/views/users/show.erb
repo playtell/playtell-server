@@ -18,13 +18,13 @@
 			enableDialpadButtons();
 			enableButtons();
 
-			/*$('#password-submit').click(function() {
+			$('#password-submit').click(function() {
 				$.ajax({
 					url: "/api/update_settings", 
 					dataType: 'json',
 					data: {
 						user: {
-							username: $('#username').val(),
+							email: $('#email').val(),
 							password: $('#password').val(), 
 					  		password_confirmation: $('#password_confirmation').val() 
 						},
@@ -38,7 +38,7 @@
 						console.log(request.responseText);
 					}
 				});
-			});	*/
+			});	
 
 		});
 		
@@ -62,10 +62,10 @@
 		
 		<%= render :partial => "friends" %>
 		
-		<!--Nickname: <input type="text" id="username"></input><br />		
+		Nickname: <input type="email" id="email"></input><br />		
 		New Password: <input type="password" id="password"></input><br />
 		Confirm Password: <input type="password" id="password_confirmation"></input><br />
-		<button class="blue big-button" id="password-submit">Change It!</button>-->
+		<button class="blue big-button" id="password-submit">Change It!</button>
 		
 	</div>
 	

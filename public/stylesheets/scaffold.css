@@ -54,11 +54,11 @@ form, fieldset, label, input, .checkbox, textarea, select, option, form div {
     padding: 0;
 }
 
-/* Disable selection/Copy of UIWebView */
+/* Disable selection/Copy of UIWebView 
 .user-profile *, .appContainer * {
     -webkit-touch-callout: none;
     -webkit-user-select: none; 
-}
+}*/
 
 /* SCAFFOLD 
 -------------------------------------------------------------------------  */
