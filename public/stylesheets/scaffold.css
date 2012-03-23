@@ -1125,7 +1125,92 @@ p a#next-link.disabled { background-position: 0 -1203px; width: 37px; height: 51
 p a#next-link.title { background-position: 0 -1325px; width: 37px; height: 51px; } 
 p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height: 51px; } 
 
-/* LANDING PAGE --------------------------------------------------------- */
+/* OLD LANDING PAGE + LOGIN --------------------------------------------------------- */
+
+.landingpage {
+	background: url("/images/grey.jpg") no-repeat;
+	background-repeat:repeat;
+	overflow: auto;
+	min-width:1024px;
+	min-height:100%;
+	width:100%;
+	text-align: center;
+}
+
+
+.landingpage p {
+	text-align:center;
+	font-size:1.3em;
+	line-height:150%;
+	font-style:normal;
+	font-family:Delius, Helvetica, sans-serif;
+}
+
+.family img {
+	width: 656px;
+	height: 497px;
+	margin: 10px 20px 0px 0px;
+	vertical-align:top;
+	border: solid 15px #8E8E8E;
+}
+
+.survey-form {
+	height: 728px;
+	width: 310px;
+	margin: 10px 0px 0px 0px;
+	vertical-align:top;
+	padding: 5px;
+	background-color:#FFD100;
+	border: solid 15px #B29201;
+}
+
+.bottom-box {
+	height: 180px;
+	width: 282px;
+	border: solid 15px;
+	vertical-align:top;
+	margin: 20px 20px 0px 0px;
+	padding: 10px 10px;
+}
+
+.sign-up {
+	background-color: #38BAE3;
+	border-color: #27829E;
+}
+
+.login {
+	background-color:#A5BE02;
+	border-color: #738501;	
+}
+
+button.green2, input[type="submit"].green2 {
+  color: #515902;
+  background: #A5BE02;
+  font-size:16px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#738501), to(#C0D24D));
+  background: -moz-linear-gradient(top, #738501, #C0D24D);
+  border-color: #738501 #738501 #738501 #738501;
+  -webkit-box-shadow: inset 0 1px 1px #CDE2B2;
+  -moz-box-shadow: inset 0 1px 1px #CDE2B2;
+  text-shadow: 0 1px 1px #C9DBB4; 
+}
+
+.login input[type="text"], .login input[type="email"] {
+  width: 185px;
+  margin: 8px 8px 8px 31px;	
+}
+
+.login input[type="password"] {
+  width: 185px;
+  margin: 8px;	
+}
+
+.sign-up input[type="email"] {
+	width: 250px;
+  	margin: 8px;
+}
+
+/* NEW LANDING PAGE --------------------------------------------------------- */
 
 .landing-page {
 	overflow: auto;
