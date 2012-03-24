@@ -1,7 +1,4 @@
-Semiralabs::Application.routes.draw do
-
-  match 'twilio/incoming' => 'twilio#incoming' 
-  match 'twilio/get_token' => 'twilio#capability_token' 
+Semiralabs::Application.routes.draw do 
 
   match 'playdate' => 'games#playdate'
   match 'update_playdate' => 'games#updatePlaydate'
@@ -34,6 +31,8 @@ Semiralabs::Application.routes.draw do
     resources :tokens, :only => [:create, :destroy]
     resources :playdatephotos, :only => [:create]
     match 'update_settings' => 'settings#update'
+    match 'twilio_incoming' => 'twilio#incoming' 
+    match 'twilio_token' => 'twilio#capability_token'
     #resources :settings, :only => [:update]
   end
   

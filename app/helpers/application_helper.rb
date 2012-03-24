@@ -12,7 +12,7 @@ module ApplicationHelper
   end
   
   def twilio_name
-    @current_user.username + @current_user.id.to_s
+    @current_user.id.to_s
   end
   
 end
