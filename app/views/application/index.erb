@@ -58,6 +58,7 @@
 		//size the splash image to the window height
 		$(function () {
 		  var h = $(window).height();
+		  $('.splash-container').height(h);
 		  $('#block-splash').height(h);
 	
 		  var img = new Image();
@@ -84,7 +85,9 @@
 	<a href="#"><%= image_tag 'logo.png' %></a>
 </div>
 <div class="landing-page" id="landingpage">
-	<div id="block-splash">
+	<div class="splash-container">
+		<div id="block-splash">
+		</div>
 	</div>
 	<div id="block-product">
 	</div>

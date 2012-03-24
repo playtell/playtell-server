@@ -1257,17 +1257,13 @@ button.green2, input[type="submit"].green2 {
 #block-splash {
 	overflow: hidden;
 	
-	background: #1e5799; /* Old browsers */
-	background: -moz-radial-gradient(left, ellipse cover, #1e5799 0%, #2989d8 57%, #207cca 81%, #7db9e8 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, left center, 0px, left center, 100%, color-stop(0%,#1e5799), color-stop(57%,#2989d8), color-stop(81%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(left, ellipse cover, #1e5799 0%,#2989d8 57%,#207cca 81%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(left, ellipse cover, #1e5799 0%,#2989d8 57%,#207cca 81%,#7db9e8 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(left, ellipse cover, #1e5799 0%,#2989d8 57%,#207cca 81%,#7db9e8 100%); /* IE10+ */
-	background: radial-gradient(left, ellipse cover, #1e5799 0%,#2989d8 57%,#207cca 81%,#7db9e8 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 #block-splash img {
+}
+
+.splash-container {
+	background: url("/images/splash_ipad_bg.jpg") repeat;
 }
 
 .landing-page .alpha-sign-up {

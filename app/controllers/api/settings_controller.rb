@@ -8,7 +8,6 @@ class Api::SettingsController < ApplicationController
   end
 
   def update
-    puts params
     @user = User.find_by_email(params[:user][:email])
     if @user.update_attributes(params[:user])
       # Sign in the user by passing validation in case his password changed
