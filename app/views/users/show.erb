@@ -3,8 +3,6 @@
 	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
 	<%= javascript_include_tag 'pusher', 'playdate' %>
 	
-	<%= javascript_include_tag "http://static.twilio.com/libs/twiliojs/1.0/twilio.min.js" %> 
-
 	<script type="text/javascript">
 		var tablet = false;
 		var pusher;
@@ -19,79 +17,7 @@
 			checkForPlaydateRequest(); 
 			enableDialpadButtons();
 			enableButtons();
-
-			/*$('#password-submit').click(function() {
-				$.ajax({
-					url: "/api/update_settings", 
-					dataType: 'json',
-					data: {
-						user: {
-							email: $('#email').val(),
-							password: $('#password').val(), 
-					  		password_confirmation: $('#password_confirmation').val() 
-						},
-						authorization_token: "NF9pqmqzmfwhfqo6jLas"
-					},		
-					success: function(data) {
-						console.log(data.message);
-						alert("yay");
-					},
-					error: function(request, status, error) {
-						console.log(request.responseText);
-					}
-				});
-			});	*/
-		
-			/* Twilio sandbox */
-
-		  /*Twilio.Device.setup("<%= twilio_token %>");
-
-		  Twilio.Device.ready(function (device) {
-		    $("#log").text("Ready");
-		    $("#name").text("<%= twilio_name %>");
-		  });
-
-		  Twilio.Device.error(function (error) {
-		    $("#log").text("Error: " + error.message);
-		  });
-
-		  Twilio.Device.connect(function (conn) {
-		    $("#log").text("Successfully established call");
-		  });
-		
-		  Twilio.Device.disconnect(function (conn) {
-		    $("#log").text("Call ended");
-		  });
-		
-		 Twilio.Device.incoming(function (conn) {
-		    $("#log").text("Incoming connection from " + conn.parameters.From);
-		    // accept the incoming connection and start two-way audio
-		    conn.accept();
-		  });
-		
-		Twilio.Device.presence(function (pres) {
-	        if (pres.available) {
-	          // create an item for the client that became available
-	          $("<li>", {id: pres.from, text: pres.from}).click(function () {
-	            $("#number").val(pres.from);
-	            call();
-	          }).prependTo("#people");
-	        }
-	        else {
-	          // find the item by client name and remove it
-	          $("#" + pres.from).remove();
-	        }
-	      });
-
 		});
-		
-		function call() {
-		  Twilio.Device.connect({"clientName": "jason17"});
-		}
-
-		function hangup() {
-		  Twilio.Device.disconnectAll();
-		}*/
 		
 	</script>
 <% end %>
