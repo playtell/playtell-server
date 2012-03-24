@@ -174,97 +174,36 @@ Page.create({:book_id => t.id,
             :page_num => 23, 
             :page_text => "And now, every time Thomas passes a signal, he checks it twice, just to be safe. Gordon likes to tease him. \"Fussy little Thomas certainly is fussy about signals.\"\n\"Peep, peep!\" says Thomas. \"Safety is our first concern.\""
             })
-            
-t = Book.create( {:title => "Goldilocks and the Three Bears", :image_directory => "the-three-bears"} )
-Page.create({:book_id => t.id, 
+                        
+b = Book.create( {:title => "This Old Man", :image_directory => "this-old-man"} )
+
+Page.create({:book_id => b.id, 
              :page_num => 1, 
              :page_text => ""})
-Page.create({:book_id => t.id, 
-            :page_num => 2, 
-            :page_text => "Once upon a time there were three bears -- a great big papa bear, a middle-sized mama bear, and a wee little baby bear.\nThey lived in a little house in the forest."
-            })
-Page.create({:book_id => t.id, 
+Page.create({:book_id => b.id, 
+             :page_num => 2, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
              :page_num => 3, 
-             :page_text => "And they had three chairs -- a great big chair for the papa bear, a middle-sized chair for the mama bear, and a wee little chair for the baby bear."
-             })
-Page.create({:book_id => t.id, 
-            :page_num => 4, 
-            :page_text => "And upstairs there were three beds -- a great big bed for the papa bear, a middle-sized bed for the mama bear, and a wee little bed for the baby bear."
-            })
-Page.create({:book_id => t.id, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 4, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
              :page_num => 5, 
-             :page_text => "One morning the mama bear made some porridge for breakfast."
-             })
-Page.create({:book_id => t.id, 
-            :page_num => 6, 
-            :page_text => "She filled a greet big bowl for the papa bear, a middle-sized bowl for the mama bear, and a wee little bowl for the baby bear."
-            })
-Page.create({:book_id => t.id, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 6, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
              :page_num => 7, 
-             :page_text => "But the porridge was too hot to eat, so the three bears went out for a walk in the forest."
-             })
-Page.create({:book_id => t.id, 
-            :page_num => 8, 
-            :page_text => "That same morning a little girl called Goldilocks was walking through the woods.\nShe came to the three bears\' house. And she knocked on the door, but nobody called, \"Come in.\" So she opened the door and went in."
-            })
-Page.create({:book_id => t.id, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 8, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
              :page_num => 9, 
-             :page_text => "Goldilocks saw the three chairs. She sat in the great big chair. It was too hard. The middle-sized chair was too soft. The baby chair was just right -- but it broke when she sat on it."
-             })
-Page.create({:book_id => t.id, 
-           :page_num => 10, 
-           :page_text => "Now Goldilocks spied the porridge.\n\"I am hungry,\" she said.\nSo she tasted the porridge."
-           })
-Page.create({:book_id => t.id, 
-            :page_num => 11, 
-            :page_text => "The porridge in the big bowl was too hot.\n The porridge in the middle-sized bowl was too cold.\n The porridge in the wee little bowl was just right, so she ate it all up."
-            })
-Page.create({:book_id => t.id, 
-           :page_num => 12, 
-           :page_text => "Then Goldilocks went upstairs and tried the beds."
-           })
-Page.create({:book_id => t.id, 
-            :page_num => 13, 
-            :page_text => "The great big bed was too hard.\nThe middle-sized bed was too soft."
-            })
-Page.create({:book_id => t.id, 
-           :page_num => 14, 
-           :page_text => "But the wee little bed was oh, so nice! So Goldilocks lay down and went to sleep."
-           })
-Page.create({:book_id => t.id, 
-            :page_num => 15, 
-            :page_text => "Then home through the forest and back to their house came the three bears -- the great big bear, the middle-sized bear, and the wee little baby bear."
-            })
-Page.create({:book_id => t.id, 
-           :page_num => 16, 
-           :page_text => "The moment they stepped into the house they saw that someone had been there.\n\"Humph!\" said the papa bear in his great big voice. \"Someone has been sitting in my chair!\""
-           })
-Page.create({:book_id => t.id, 
-            :page_num => 17, 
-            :page_text => "\"Land sakes!\" said the mama bear in her middle-sized voice. \"Someone has been sitting in my chair.\"\n\"Oh dear!\" cried the baby bear in his wee little voice. \"Someone has been sitting in my chair, and has broken it all to bits.\""
-            })
-Page.create({:book_id => t.id, 
-           :page_num => 18, 
-           :page_text => "Then they all looked at the table.\n\"Humph,\" said the papa bear in his great big voice. \"Someone has been tasting my porridge.\"\n\"And someone has been tasting my porridge,\" said the mama bear."
-           })
-Page.create({:book_id => t.id, 
-            :page_num => 19, 
-            :page_text => "\"Someone has eaten my porridge all up,\" said the baby bear sadly. \nThen up the stairs went the three bears..."
-            })
-Page.create({:book_id => t.id, 
-           :page_num => 20, 
-           :page_text => "...with a thump thump thump...\n...and a trot trot trot...\n ...and a skippity-skip-skip. (That was the wee little tiny bear.)"
-           })
-Page.create({:book_id => t.id, 
-            :page_num => 21, 
-            :page_text => "\"Humph,\" said the papa bear in his great big voice. \"Someone has been sleeping in my bed!\"\n\"And someone has been sleeping in my bed,\" said the mama bear.\n\"Oh dear!\" cried the baby bear in his wee little voice. \"Someone has been sleeping in my bed, and here she is right now!\"" 
-            })
-Page.create({:book_id => t.id, 
-           :page_num => 22, 
-           :page_text => "Goldilocks opened her eyes and she saw the three bears.\n\"Oh!\" said Goldilocks."
-           })
-Page.create({:book_id => t.id, 
-            :page_num => 23, 
-            :page_text => "She was so surprised that she jumped right out of the window and she ran all the way home. \nAnd she never saw the house in the forest again."
-            })
-            
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 10, 
+             :page_text => ""})
