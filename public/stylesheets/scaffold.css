@@ -1256,11 +1256,22 @@ button.green2, input[type="submit"].green2 {
 
 #block-splash {
 	overflow: hidden;
-	
+	background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(167,199,204,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(167,199,204,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(167,199,204,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(167,199,204,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(167,199,204,1) 100%); /* IE10+ */
+	background: linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(167,199,204,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#a7c7cc',GradientType=0 ); /* IE6-9 */
 }
 
 .splash-container {
 	background: url("/images/splash_ipad_bg.jpg") repeat;
+}
+
+#block-sign-up {
+	position: absolute;
+	bottom: 0px;
 }
 
 .landing-page .alpha-sign-up {

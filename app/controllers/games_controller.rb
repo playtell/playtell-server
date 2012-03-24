@@ -281,7 +281,9 @@ private
            :alert => "#{current_user.username} wants to play!",
            :playdate_url => "http://playtell-staging.heroku.com/playdate?playdate="+@playdate.id.to_s,
            :initiator => current_user.username,
-           :playmate => playmate.username }
+           :initiatorID => current_user.id,
+           :playmate => playmate.username,
+           :playmateID => playmate.id }
        }
        puts "push notification sent with this data: " + "device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate]
        Urbanairship.push(notification)

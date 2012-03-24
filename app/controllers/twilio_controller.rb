@@ -10,5 +10,9 @@ class TwilioController < ApplicationController
     end
     render :text => response
   end
+  
+  def capability_token
+    twilio_token
+  end
 
 end

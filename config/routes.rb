@@ -1,6 +1,7 @@
 Semiralabs::Application.routes.draw do
 
   match 'twilio/incoming' => 'twilio#incoming' 
+  match 'twilio/get_token' => 'twilio#capability_token' 
 
   match 'playdate' => 'games#playdate'
   match 'update_playdate' => 'games#updatePlaydate'
