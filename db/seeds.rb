@@ -9,7 +9,7 @@
 Book.delete_all
 Page.delete_all
 
-b = Book.create( {:title => "Little Red Riding Hood", :image_directory => "little-red-riding-hood"} )
+b = Book.create({ :title => "Little Red Riding Hood", :image_directory => "little-red-riding-hood" })
 
 Page.create({:book_id => b.id, 
              :page_num => 1, 
@@ -175,7 +175,7 @@ Page.create({:book_id => t.id,
             :page_text => "And now, every time Thomas passes a signal, he checks it twice, just to be safe. Gordon likes to tease him. \"Fussy little Thomas certainly is fussy about signals.\"\n\"Peep, peep!\" says Thomas. \"Safety is our first concern.\""
             })
                         
-b = Book.create( {:title => "This Old Man", :image_directory => "this-old-man"} )
+b = Book.create( {:title => "This Old Man", :image_directory => "this-old-man", :image_only => 1} )
 
 Page.create({:book_id => b.id, 
              :page_num => 1, 
