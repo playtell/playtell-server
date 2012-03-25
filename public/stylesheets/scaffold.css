@@ -1271,6 +1271,7 @@ button.green2, input[type="submit"].green2 {
 
 .splash-container {
 	background: url("/images/splash_ipad_bg.jpg") repeat;
+	position: relative;
 }
 
 #block-sign-up {
