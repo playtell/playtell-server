@@ -292,16 +292,17 @@ private
    
    # to hook up audio chat, the ipad client needs to know that the playmate has accepted the join request
    def sendJoinNotification
-     playmate = User.find(@playdate.getOtherPlayerID(current_user))
+     initiator = User.find(@playdate.getOtherPlayerID(current_user))
 
      Pusher["presence-rendezvous-channel"].trigger('playdate_joined', {
        :playdateID => @playdate.id,
        :pusherChannelName => @playdate.pusher_channel_name,
-       :initiatorID => playmate.id,
-       :initiator => playmate.username,
+       :initiatorID => initiator.id,
+       :initiator => initiator.username,
        :playmateID => current_user.id,
        :playmateName => current_user.username }
      )
+     puts "playdate_joined. initiator: " + initiator.username + ", playmate: " + current_user.username
    end
 
   # loads a book for a playdate.   

@@ -233,7 +233,7 @@ label {
         -webkit-border-radius: 6px;
         border: 1px solid #536376;
         -webkit-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;
-        -moz-box-shadow:  rgba(0,0,0,.6) 0px 2px 12px;;
+        -moz-box-shadow:  rgba(0,0,0,.6) 0px 2px 12px;
         padding: 14px 22px;
         width: 400px;
 		min-height: 50px;
@@ -1287,6 +1287,16 @@ button.green2, input[type="submit"].green2 {
 	width: 450px;
 }
 
+.name {
+	border-radius: 6px 6px 0px 0px;
+	margin-top: 10px 0px 0px 0px;
+}
+.email {
+	margin: -10px 0px 10px 0px;
+	border-radius: 0px 0px 6px 6px;
+	border-top: dotted white !important;
+}
+
 #block-sign-up input[type="text"],
 #block-sign-up input[type="email"],
 #ext-sign-up-form input[type="text"],
@@ -1297,18 +1307,8 @@ button.green2, input[type="submit"].green2 {
 	font-weight: normal;
 	color: #397684;
 	padding: 10px;
-	margin: 0px;
 	background: lightgrey;
 	border: none;
-}
-
-.name {
-	border-radius: 6px 6px 0px 0px;
-}
-.email {
-	margin-top: -10px;
-	border-radius: 0px 0px 6px 6px;
-	border-top: dotted white !important;
 }
 
 #early-access-submit {

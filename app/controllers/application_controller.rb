@@ -13,11 +13,9 @@ class ApplicationController < ActionController::Base
     user2 = params[:user2]
     
     unless params[:early_user][:email].blank? 
-      puts "creating early user" 
       earlyUser = EarlyUser.create(params[:early_user])
 
       if earlyUser.qualifies? and !user2[:email2].blank?
-        puts "qualifies"
         user1 = User.create!(:email => params[:early_user][:email], 
                              :password => "rg", 
                              :username => params[:early_user][:name],
@@ -35,12 +33,12 @@ class ApplicationController < ActionController::Base
       else      
         puts "attempting to save"
         if earlyUser.save
-          puts "emailing and saving early user"
           UserMailer.earlyuser_confirmation(earlyUser).deliver
           render :json => {:message=>"early_user"} 
           return
         else 
           puts earlyUser.errors
+          #return errors
         end
       end   
     end
