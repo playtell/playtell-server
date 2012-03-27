@@ -1277,14 +1277,14 @@ button.green2, input[type="submit"].green2 {
 #block-sign-up {
 	position: absolute;
 	/*bottom: 0px;*/
-	padding: 5px 15px 15px 15px;
+	padding: 15px 30px;
 	border: lightgrey solid 1px;
 	border-bottom-style: none;
 	border-radius: 10px;
 	background: white;
 	-webkit-box-shadow: rgba(0,0,0,.2) 0px -1px 10px;
     -moz-box-shadow:  rgba(0,0,0,.2) 0px -1px 10px;
-	width: 400px;
+	width: 450px;
 }
 
 #block-sign-up input[type="text"],
@@ -1309,6 +1309,10 @@ button.green2, input[type="submit"].green2 {
 	margin-top: -10px;
 	border-radius: 0px 0px 6px 6px;
 	border-top: dotted white !important;
+}
+
+#early-access-submit {
+	margin-top: 15px;
 }
 
 #ext-sign-up-form h3, 
