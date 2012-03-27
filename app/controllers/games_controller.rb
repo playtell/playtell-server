@@ -297,6 +297,7 @@ private
      Pusher["presence-rendezvous-channel"].trigger('playdate_joined', {
        :playdateID => @playdate.id,
        :pusherChannelName => @playdate.pusher_channel_name,
+       :initiatorID => playmate.id,
        :initiator => playmate.username,
        :playmateID => current_user.id,
        :playmateName => current_user.username }

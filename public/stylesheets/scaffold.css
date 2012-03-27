@@ -1276,62 +1276,89 @@ button.green2, input[type="submit"].green2 {
 
 #block-sign-up {
 	position: absolute;
-	bottom: 0px;
+	/*bottom: 0px;*/
+	padding: 5px 15px 15px 15px;
+	border: lightgrey solid 1px;
+	border-bottom-style: none;
+	border-radius: 10px;
+	background: white;
+	-webkit-box-shadow: rgba(0,0,0,.2) 0px -1px 10px;
+    -moz-box-shadow:  rgba(0,0,0,.2) 0px -1px 10px;
+	width: 400px;
 }
 
-#block-splash img {
-}
-
-.landing-page .alpha-sign-up {
-	
-}
-
-.alpha-sign-up input[type="email"] {
-	width: 250px;
-  	margin: 8px;
-	font-family: 'Lato', sans-serif;
-	font-size:16px;
-}
-
+#block-sign-up input[type="text"],
+#block-sign-up input[type="email"],
 #ext-sign-up-form input[type="text"],
 #ext-sign-up-form input[type="email"] {
-	width: 200px;
+	width: 250px;
+	font-family: 'Lato', sans-serif;
+	font-size:16pt;
+	font-weight: normal;
+	color: #397684;
+	padding: 10px;
+	margin: 0px;
+	background: lightgrey;
+	border: none;
 }
 
-#ext-sign-up-form .answer {
-	margin-left: 10px;
+.name {
+	border-radius: 6px 6px 0px 0px;
+}
+.email {
+	margin-top: -10px;
+	border-radius: 0px 0px 6px 6px;
+	border-top: dotted white !important;
+}
+
+#ext-sign-up-form h3, 
+#block-sign-up h3 {
+	text-align: center;
+	font-size: 30px;
+	font-family: "Comfortaa", sans-serif;
+}
+#alpha-lightbox {
+	width: 500px;
+	background: white;
+}
+
+#ext-sign-up-form hr, 
+#block-sign-up hr {
+	border-style:solid;
+	border-width:1px;
+	border-color:#123441;
+	margin: 15px 0px 20px 0px;
 }
 
 #ext-sign-up-form .question {
 	font-size: 20px;
 	margin-top: 10px;
-	margin-bottom: 10px;
 	font-weight: bold;
 }
 
-#ext-sign-up-form .hr {
-	border-style:solid;
-	border-width:1px;
-	border-color:#123441;
-
+#ext-sign-up-form .answer {
+	margin-left: 10px;
 }
-
-#ext-sign-up-form h3, #ext-sign-up-form h2 {
-	text-align: center;
-	font-size: 30px;
-	font-family: comfortaa;
-
+#ext-sign-up-form .answer-text {
+	font-size: 12pt;
+	display: inline;
 }
-
-
-#ext-sign-up-form input[type="text"], #ext-sign-up-form input[type="email"] {
-	font-weight: normal;
-	margin-top: 10px;
-	color: #397684;
-}
-
 
 #ext-sign-up-form input[type="radio"] {
 	margin-top: 8px;
 	padding: 0px 20px 26px 0px;
 }
+
+#username2 {
+	margin-top: 8px;
+}
+
+/*#ext-sign-up-form input[type="text"],
+#ext-sign-up-form input[type="email"] {
+	width: 200px;
+	margin: 10px 8px 8px 8px;
+	font-family: 'Lato', sans-serif;
+	font-size:16px;
+	font-weight: normal;
+	color: #397684;
+}*/

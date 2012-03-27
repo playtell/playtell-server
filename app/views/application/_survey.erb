@@ -2,22 +2,23 @@
 	<h3>SIGN UP</h3>
 	<hr />
 	<p class="question" id="owns_iPad">Do you own an iPad?</p> 
-	<input type="radio" name="owns_iPad" value="1" class="answer">Yes<br />
-	<input type="radio" name="owns_iPad" value="0" class="answer">No
+	<input type="radio" name="owns_iPad" value="1" class="answer"><p class="answer-text">Yes</p><br />
+	<input type="radio" name="owns_iPad" value="0" class="answer"><p class="answer-text">No</p>
 
 	<p class="question">Which of the following describes you?</p>
 	<input type="radio" name="has_kids" value="1" class="answer">
-		I have children younger than 8 years old
+		<p class="answer-text">I have children younger than 8 years old</p>
 	<br />
 	<input type="radio" name="has_kids" value="2" class="answer">
-		I video chat with children that are younger than 8 years old
+		<p class="answer-text">I video chat with children that are younger than 8 years old</p>
 	<br />
 	<input type="radio" name="has_kids" value="0" class="answer">
-		None of the above
+		<p class="answer-text">None of the above</p>
 
 	<p class="question">With whom will you use PlayTell?</p> 
-	<p>Adult name or nickname</p> <input type="text" id="username2">
-	<p>Email </p><input type="email" id="email2"></input>
+
+	<input type="text" class="answer name" id="username2" placeholder="name or nickname"><br />
+	<input type="email" class="answer email" id="email2" placeholder="email"><br />
 
 	<p><button class="blue big-button" id="alpha-form-submit">Send</button></p>
 </div>

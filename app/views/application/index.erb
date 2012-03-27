@@ -13,7 +13,10 @@
 			
 			//early access
 			$('#early-access-submit').click(function() {
-				if ($('#email').val() != '') {
+				if ($('#email').val() == '' || $('#name').val() == '') {
+					alert("pls enter your name and valid email address");
+				}
+				else {
 					$('#alpha-lightbox').lightbox_me({
 				    	centered: true,
 						onLoad: function() {
@@ -29,52 +32,57 @@
 			});
 
 			$('#alpha-form-submit').click(function() {
-				$('#alpha-form-submit').hide();
-				$('#loader').show();
-				$.ajax({
-					url: "/early_access.json",
-					data: {
-						early_user: { email: $('#email').val(), 
-									  owns_iPad: $("input[@name=owns_iPad]:checked").val(),
-									  has_kids: $("input[@name=has_kids]:checked").val() },
-						user2: { username2: $('#username2').val(),
-								 email2: $('#email2').val() }
-					},
-					type: "POST",
-					success: function(data) {
-						$('#loader').hide();
-						if (data.message == "active_user") {
-							$('#thank-you-active').show();
+				if ($("input[@name=owns_iPad]").is(":empty")) {
+					alert("true");
+				}
+				else {
+					$('#alpha-form-submit').hide();
+					$('#loader').show();
+					$.ajax({
+						url: "/early_access.json",
+						data: {
+							early_user: { username: $('#name').val(),
+										  email: $('#email').val(), 
+										  owns_iPad: $("input[@name=owns_iPad]:checked").val(),
+										  has_kids: $("input[@name=has_kids]:checked").val() },
+							user2: { username2: $('#username2').val(),
+									 email2: $('#email2').val() }
+						},
+						type: "POST",
+						success: function(data) {
+							$('#loader').hide();
+							if (data.message == "active_user") {
+								$('#thank-you-active').show();
+							}
+							else {
+								$('#thank-you-early').show();
+							}
 						}
-						else {
-							$('#thank-you-early').show();
-						}
-					}
-				});		
+					});		
+				}
 			});
 			
 		  });
 	
 		//size the splash image to the window height
 		$(function () {
-		  var h = $(window).height();
-		  $('.splash-container').height(h);
-		  $('#block-splash').height(h);
+			var h = $(window).height();
 	
-		  var img = new Image();
-		  $(img)
-		    .load(function () {
-		      $(this).hide();
-			  $(this).appendTo('#block-splash');
-		      $(this).show();
-		    })
+			var imgH = h / 7 * 5;
+			var signupH = imgH - 40;
+			var signupW = ($(window).width() - $('#block-sign-up').outerWidth()) / 2
+			$('#block-sign-up').offset({top: signupH, left: signupW});
+		
+		  	var img = new Image();
+		  	$(img)
+		    	.load(function () {
+		      		$(this).hide();
+			  		$(this).appendTo('#block-splash');
+		      		$(this).show();
+		    	})
 
-		    .error(function () {
-		      // notify the user that the image could not be loaded
-		    })
-
-		    .attr('src', '/images/splash_ipad.png')
-		    .attr('style', 'height: ' + h + 'px');
+		    	.attr('src', '/images/splash_ipad.png')
+		    	.attr('style', 'height: ' + imgH + 'px');
 		});	
 		
 	 </script>
@@ -87,18 +95,15 @@
 		<div id="block-sign-up">
 			<div class="alpha-sign-up" id="sign-up">
 				<div id="sign-up-form">
-					<h3>Request an Invitation</h3>
-					<input type="email" id="email" placeholder="Enter your email address"></input>
+					<h3>REQUEST INVITE</h3>
+					<hr />
+					<input type="text" class="name" id="name" placeholder="name"><br />
+					<input type="email" class="email" id="email" placeholder="email"><br />
 					<button class="blue big-button" id="early-access-submit">Sign me up!</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="block-product">
-	</div>
-	<div id="block-team">
-	</div>
-	
 	<div class="lightbox hidden" id="alpha-lightbox">
 		<div id="alpha-lightbox-text">
 			<%= render :partial => 'survey' %>

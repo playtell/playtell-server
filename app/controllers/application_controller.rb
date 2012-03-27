@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
         puts "qualifies"
         user1 = User.create!(:email => params[:early_user][:email], 
                              :password => "rg", 
+                             :username => params[:early_user][:name],
                              :status => User::WAITING_FOR_UDID)
         user2 = User.create!(:email => user2[:email2], 
                              :password => "rg", 
