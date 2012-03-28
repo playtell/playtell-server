@@ -19,7 +19,7 @@ class Api::TwilioController < ApplicationController
               account_sid:    Twilio::ACCOUNT_SID,
               auth_token:     Twilio::AUTH_TOKEN,
               allow_incoming: twilio_name,
-              allow_outgoing: 'AP53bc8a48b98b4da0a5ba8c4b83f5bc69' 
+              allow_outgoing: 'AP92e3d968c81a438db687a2ca5f7839b2' 
     render :json=>{:token=>token} 
   end
   
