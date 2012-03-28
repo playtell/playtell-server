@@ -23,9 +23,11 @@
 							$('#alpha-lightbox-text').find('input:first').focus();
 						},
 						onClose: function() {
+							$('#loader').hide();
 							$('#thank-you-active').hide();
 							$('#thank-you-early').hide();
 							$('#alpha-form-submit').show();
+							
 						}
 					});
 				}
