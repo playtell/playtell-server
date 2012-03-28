@@ -20,10 +20,11 @@
 </head>
 <body>
 	<div class="mainContainer">
-		<p class="block fr"><%= render 'devise/menu/login_items' %></p>
-	
-		<p class="notice"><%= notice %></p>
-		<p class="alert"><%= alert %></p>
+		<% if !tablet_device? %>
+			<p class="block fr"><%= render 'devise/menu/login_items' %></p>
+			<p class="notice"><%= notice %></p>
+			<p class="alert"><%= alert %></p>
+		<% end %>
 	
 		<%= yield %>
 	</div>
