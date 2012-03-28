@@ -4,7 +4,6 @@ class PusherController < ApplicationController
 
   def auth
     response = nil;
-    puts "user: " + current_user.blank?.to_s
     if params[:channel_name].split("-")[1] == "rendezvous" && !current_user.blank? #presence-rendezvous-channel
       response = Pusher[params[:channel_name]].authenticate(params[:socket_id], {
                   :user_id => current_user.id,

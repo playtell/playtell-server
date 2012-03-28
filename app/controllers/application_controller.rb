@@ -18,14 +18,17 @@ class ApplicationController < ActionController::Base
       if earlyUser.qualifies? and !user2[:email2].blank?
         user1 = User.create!(:email => params[:early_user][:email], 
                              :password => "rg", 
-                             :username => params[:early_user][:name],
+                             :username => params[:early_user][:username],
                              :status => User::WAITING_FOR_UDID)
         user2 = User.create!(:email => user2[:email2], 
                              :password => "rg", 
-                             :username => user2[:username], 
+                             :username => user2[:username2], 
                              :status => User::WAITING_FOR_UDID)
         user1.friendships.create!(:friend_id => user2.id)
-        #send emails
+
+        UserMailer.betauser_welcome(user1).deliver
+        UserMailer.betainvitee_welcome(user1, user2).deliver
+
         render :json => {:message=>"active_user"}
         return
       #elsif !user2[:email2].blank?
@@ -33,7 +36,7 @@ class ApplicationController < ActionController::Base
       else      
         puts "attempting to save"
         if earlyUser.save
-          UserMailer.earlyuser_confirmation(earlyUser).deliver
+          UserMailer.earlyuser_welcome(earlyUser).deliver
           render :json => {:message=>"early_user"} 
           return
         else 
