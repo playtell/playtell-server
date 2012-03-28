@@ -11,7 +11,7 @@
 				return false;
 			});
 			
-			//early access
+			//brings up the survey lightbox
 			$('#early-access-submit').click(function() {
 				if ($('#email').val() == '' || $('#name').val() == '') {
 					alert("pls enter your name and valid email address");
@@ -26,19 +26,20 @@
 							$('#loader').hide();
 							$('#thank-you-active').hide();
 							$('#thank-you-early').hide();
-							$('#alpha-form-submit').show();
+							$('#ext-sign-up-form').show();
 							
 						}
 					});
 				}
 			});
-
+			
+			//submits the survey and shows either errors or balloon thank you message
 			$('#alpha-form-submit').click(function() {
 				if (false) {
 					alert("true");
 				}
 				else {
-					$('#alpha-form-submit').hide();
+					$('#ext-sign-up-form').hide();
 					$('#loader').show();
 					$.ajax({
 						url: "/early_access.json",
