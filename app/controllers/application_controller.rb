@@ -34,14 +34,13 @@ class ApplicationController < ActionController::Base
       #elsif !user2[:email2].blank?
         #create earlyUser for user2
       else      
-        puts "attempting to save"
         if earlyUser.save
           UserMailer.earlyuser_welcome(earlyUser).deliver
           render :json => {:message=>"early_user"} 
           return
         else 
-          puts earlyUser.errors
-          #return errors
+          render :status=>401, :json=>{:message=>"Invalid"} 
+          return
         end
       end   
     end

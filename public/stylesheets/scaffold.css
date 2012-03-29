@@ -1321,9 +1321,14 @@ button.green2, input[type="submit"].green2 {
 	font-size: 30px;
 	font-family: "Comfortaa", sans-serif;
 }
+
 #alpha-lightbox {
 	width: 500px;
 	background: white;
+}
+
+#alpha-lightbox-text {
+	padding: 0px 15px;
 }
 
 #ext-sign-up-form hr, 
@@ -1338,6 +1343,7 @@ button.green2, input[type="submit"].green2 {
 	font-size: 20px;
 	margin-top: 10px;
 	font-weight: bold;
+	display: inline-block;
 }
 
 #ext-sign-up-form .answer {
@@ -1359,4 +1365,33 @@ button.green2, input[type="submit"].green2 {
 
 #thank-you-early, #thank-you-active {
 	text-align: center;
+}
+
+.chunk {
+	position: relative;
+	display: inline-block;
+}
+
+.error {
+	height: 38px;
+	background: url('/images/error_banner.png') no-repeat;
+	font-size: 16pt;
+	color: #88331C;
+	text-shadow: rgba(255,255,255,.4) 0px 1px 1px;
+	text-align: left;
+	padding: 9px 0px 0px 55px;
+}
+
+.errow {
+	position: absolute;
+	bottom: 20px;
+	left: -25px;
+}
+
+.errow-survey {
+	left: -15px !important;
+}
+
+.errow-ext-survey {
+	top: 14px !important;
 }

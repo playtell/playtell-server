@@ -1,11 +1,21 @@
 <div id="ext-sign-up-form">
+	<div class="errors-container">
+		<div class="error error-ext-survey">Please answer all the questions</div>
+	</div>
 	<h3>SIGN UP</h3>
 	<hr />
-	<p class="question" id="owns_iPad">Do you own an iPad?</p> 
+	<div class="chunk">
+		<%= image_tag 'error_arrow_right.png', :class=>"errow errow-ext-survey "%>
+		<p class="question" id="owns_iPad">Do you own an iPad?</p> 
+	</div><br />
 	<input type="radio" name="owns_iPad" value="1" class="answer"><p class="answer-text">Yes</p><br />
 	<input type="radio" name="owns_iPad" value="0" class="answer"><p class="answer-text">No</p>
-
-	<p class="question">Which of the following describes you?</p>
+	<br />
+	
+	<div class="chunk">
+		<%= image_tag 'error_arrow_right.png', :class=>"errow errow-ext-survey "%>
+		<p class="question">Which of the following describes you?</p>
+	</div></br>
 	<input type="radio" name="has_kids" value="1" class="answer">
 		<p class="answer-text">I have children younger than 8 years old</p>
 	<br />
@@ -14,11 +24,15 @@
 	<br />
 	<input type="radio" name="has_kids" value="0" class="answer">
 		<p class="answer-text">None of the above</p>
-
-	<p class="question">With whom will you use PlayTell?</p> 
-
-	<input type="text" class="answer name" id="username2" placeholder="name or nickname"><br />
-	<input type="email" class="answer email" id="email2" placeholder="email"><br />
+	<br />
+	<div class="chunk">
+		<%= image_tag 'error_arrow_right.png', :class=>"errow errow-ext-survey "%>
+		<p class="question">With whom will you use PlayTell?</p> 
+	</div><br />
+		<input type="text" class="answer name" id="username2" placeholder="name or nickname">
+	<br />
+		<input type="email" class="answer email" id="email2" placeholder="email">
+	<br />
 
 	<p><button class="blue big-button" id="alpha-form-submit">Send</button></p>
 </div>
