@@ -6,7 +6,7 @@ class EarlyUser < ActiveRecord::Base
             :email_format => true  
             
   def qualifies?
-    has_kids and owns_iPad
+    has_kids>0 and owns_iPad>0
   end
   
 end
