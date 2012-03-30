@@ -773,7 +773,7 @@ p.number-text.of {
 	background: url("/images/book_frame.png") no-repeat;
 	margin: 40px 35px;
 	height: 591px;
-	overflow: scroll;
+	overflow: hidden;
 	-webkit-overflow-scrolling: touch;
 }
 
@@ -845,6 +845,16 @@ p.number-text.of {
 	text-align: justify;
 	font-family: "Nobile", sans-serif;
 	font-size: 14pt;
+	line-height: 22pt;
+	color: black;
+	padding: 18px 65px 7px 65px;
+	margin: 0 auto;
+}
+
+.book-text-small {
+	text-align: justify;
+	font-family: "Nobile", sans-serif;
+	font-size: 12pt;
 	line-height: 22pt;
 	color: black;
 	padding: 18px 65px 7px 65px;

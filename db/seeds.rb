@@ -42,47 +42,99 @@ Page.create({:book_id => b.id,
              :page_num => 10, 
              :page_text => ""})
              
-pigs = Book.create( {:title => "Three Little Pigs", :image_directory => "three-little-pigs"} )
-Page.create({:book_id => pigs.id, 
-             :page_num => 1, 
-             :page_text => ""})
-Page.create({:book_id => pigs.id, 
-             :page_num => 2, 
-             :page_text => "Once upon a time there was an old pig with three little pigs, and one day she said to them: \"My children, it is time for you to go out in the world and seek your fortunes.\"\nSo, bidding their mother good-bye, the three little pigs set out to earn their living.\nThe first little pig, whose name was Whitey, met a man with a bundle of straw and said to him: \"Please, mister, will you give me that straw to build a house with?\" \nThe man gave Whitey the straw, and he built himself a house with it."})
-Page.create({:book_id => pigs.id, 
-             :page_num => 3, 
-             :page_text => "Presently a wolf came along and knocked at the door of White\'s house.\n \"Little pig, little pig, let me come in!\" he said.\n But, of course, Whitey didn\'t want the wolf to come in, so he said: \"Not by the hair of my chinny-chin-chin!\"\nThis made the wolf angry, and he said:\n\"Then I\'ll huff and I\'ll puff, and I\'ll blow your house in.\"\nSo he huffed and he puffed and he blew the house in. And then he carried poor little Whitey away to his home in the forest.\n"})
-Page.create({:book_id => pigs.id, 
-             :page_num => 4, 
-             :page_text => "The second little pig, whose name was Blackey, met a man carrying some wood, and he said to him, \"Please mister, will you give me that wood to build a house with?\"\nThe man gave Blackey the wood and he built himself a house with it.\nBut along came the wolf and knocked at the door of Blackey\'s house."})
-Page.create({:book_id => pigs.id, 
-             :page_num => 5, 
-             :page_text => "\"Little pig, little pig, let me come in!\" he said.\n\"No, no,\" replied Blackey in great fright. \"Not by the hair of my chinny-chin-chin.\"\n\"Then I\'ll huff and I\'ll puff and I\'ll blow your house in.\"\nSo the wolf huffed and he puffed and at last he blew the house in. And away he went with Blackey to his home in the forest."})
-Page.create({:book_id => pigs.id, 
-             :page_num => 6, 
-             :page_text => "Now the third little pig, whose name was Brownie, met a man with a load of bricks and he said to him: \"Please, mister, will you give me those bricks to build a house with?\"\nThe man gave him the bricks, and Brownie built himself a very snug little house with them.\nHe had just finished his house when the wolf came along.\n\"Little pig, little pig, let me come in!\" he said.\n \"Not by the hair of my chinny-chin-chin!\"\n\"Then I\'ll huff and I\'ll puff and I\'ll blow your house in.\""})
-Page.create({:book_id => pigs.id, 
-             :page_num => 7, 
-             :page_text => "But though the wolf huffed and puffed, and he puffed and he huffed, he could not blow down Brownie\'s house made of bricks. So he said: \"Little pig, I know where there is a nice field of turnips.\"\n\"Where?\" asked Brownie.\n\"Over in Mr. Smith\'s field. If you will be ready tomorrow morning, I will call for you and we will go together to get some for dinner.\"\n\"Very well,\" answered Brownie. \"I will be ready. What time do you want to go?\"\n\"Around six o\'clock,\" answered the wolf."})
-Page.create({:book_id => pigs.id, 
-             :page_num => 8, 
-             :page_text => "Well, do you know, that smart little pig got up at five o\'clock and went out and got the turnips and was back home before the wolf came at six o\'clock. When the wolf found that Brownie had been to Mr Smith\'s field before him, he was very angry, and wondered how he could catch him. So he said: \"Little pig, I know here there is a nice apple orchard.\"\n\"Where?\" asked Brownie.\n\"Down at Merry Garden,\" replied the wolf. \"I will go with you tomorrow morning at five o\'clock and we will get some apples.\"\nBut Brownie hustled and bustled around, and went the next morning at four o\'clock to the apple orchard."})
-Page.create({:book_id => pigs.id, 
-             :page_num => 9, 
-             :page_text => "This time he had farther to go and had to climb the tree, so that just as he was getting down with the apples in a basket, he saw the wolf coming. Of course he was frightened.\nWhen the wolf came up to the tree, he said to Brownie: \"Ah, I see you are here before me. Are they very nice apples?\"\n\"Yes, indeed,\" replied Brownie. \"Here, I will throw one down to you.\" And he threw the apple so far that while the wolf was running to pick it up, the little pig jumped down from the tree and ran home."})
-Page.create({:book_id => pigs.id, 
-             :page_num => 10, 
-             :page_text => "Now the wolf was very, very angry, and he thought and thought and finally thought of a plan to catch the little pig.\nComing to his house the next morning, he said, \"Little pig, there is a fair in town this afternoon. Will you go?\"\n\"Oh yes,\" replied Brownie. \"I will be very glad to go. What time will you want me to be ready?\"\n\"At three o\'clock,\" said the wolf."})
-Page.create({:book_id => pigs.id, 
-             :page_num => 11, 
-             :page_text => "But Brownie went off to the fair at one o\'clock and bought a great big copper kettle. Alas! On the way home with the kettle, he saw the wolf coming up the hill.\nPoor little Brownie. He didn\'t know what to do. And then suddenly he jumped into the copper kettle and gave himself a push. And the kettle went rolling over and over down the hill, with the little pig in it.\nWhen the wolf saw the kettle coming rolling toward him, he was so frightened that he turned and ran back home without going to the fair."})
-Page.create({:book_id => pigs.id, 
-             :page_num => 12, 
-             :page_text => "The next day he stopped at the little pig\'s house and told him how frightened he had been by a great, shining thing that had rolled down the hill toward him.\nThen Brownie laughed and laughed, and said to the wolf: \"Ha! I frightened you, Mister Wolf. I had been to the fair and cought a copper kettle, and when I saw you coming I got into it and rolled down the hill.\"\nThis made the wolf so very angry that he jumped up on to the roof of the little pig\'s house and started to climb down the chimney.\nWhen Brownie saw this, he made a blazing fire in the fireplace and hung the copper kettle over it full of scalding hot water. And just as the wolf came down the chimney, the little pig pulled off the cover of the kettle and plop! into the scalding water fell the wolf."})
-Page.create({:book_id => pigs.id, 
-             :page_num => 13, 
-             :page_text => "So Brownie boiled the wolf for supper and then went out and rescued his two brothers, Whitey and Blackey, from the woods where the wolf had been keeping them.\nAnd they all lived happily ever after in the little brick house together."})
-             
+t = Book.create( {:title => "Goldilocks and the Three Bears", :image_directory => "the-three-bears"} )
+Page.create({:book_id => t.id,
+                          :page_num => 1,
+                          :page_text => ""})
+Page.create({:book_id => t.id,
+                         :page_num => 2,
+                         :page_text => "Once upon a time there were three bears -- a great big papa bear, a middle-sized mama bear, and a wee little baby bear.\nThey lived in a little house in the forest."
+                         })
+Page.create({:book_id => t.id,
+                          :page_num => 3,
+                          :page_text => "And they had three chairs -- a great big chair for the papa bear, a middle-sized chair for the mama bear, and a wee little chair for the baby bear."
+                          })
+Page.create({:book_id => t.id,
+                         :page_num => 4,
+                         :page_text => "And upstairs there were three beds -- a great big bed for the papa bear, a middle-sized bed for the mama bear, and a wee little bed for the baby bear."
+                         })
+Page.create({:book_id => t.id,
+                          :page_num => 5,
+                          :page_text => "One morning the mama bear made some porridge for breakfast."
+                          })
+Page.create({:book_id => t.id,
+                         :page_num => 6,
+                         :page_text => "She filled a greet big bowl for the papa bear, a middle-sized bowl for the mama bear, and a wee little bowl for the baby bear."
+                         })
+Page.create({:book_id => t.id,
+                          :page_num => 7,
+                          :page_text => "But the porridge was too hot to eat, so the three bears went out for a walk in the forest."
+                          })
+Page.create({:book_id => t.id,
+                         :page_num => 8,
+                         :page_text => "That same morning a little girl called Goldilocks was walking through the woods.\nShe came to the three bears\' house. And she knocked on the door, but nobody called, \"Come in.\" So she opened the door and went in."
+                         })
+Page.create({:book_id => t.id,
+                          :page_num => 9,
+                          :page_text => "Goldilocks saw the three chairs. She sat in the great big chair. It was too hard. The middle-sized chair was too soft. The baby chair was just right -- but it broke when she sat on it."
+                          })
+Page.create({:book_id => t.id,
+                        :page_num => 10,
+                        :page_text => "Now Goldilocks spied the porridge.\n\"I am hungry,\" she said.\nSo she tasted the porridge."
+                        })
+Page.create({:book_id => t.id,
+                         :page_num => 11,
+                         :page_text => "The porridge in the big bowl was too hot.\n The porridge in the middle-sized bowl was too cold.\n The porridge in the wee little bowl was just right, so she ate it all up."
+                         })
+Page.create({:book_id => t.id,
+                        :page_num => 12,
+                        :page_text => "Then Goldilocks went upstairs and tried the beds."
+                        })
+Page.create({:book_id => t.id,
+                         :page_num => 13,
+                         :page_text => "The great big bed was too hard.\nThe middle-sized bed was too soft."
+                         })
+Page.create({:book_id => t.id,
+                        :page_num => 14,
+                        :page_text => "But the wee little bed was oh, so nice! So Goldilocks lay down and went to sleep."
+                        })
+Page.create({:book_id => t.id,
+                         :page_num => 15,
+                         :page_text => "Then home through the forest and back to their house came the three bears -- the great big bear, the middle-sized bear, and the wee little baby bear."
+                         })
+Page.create({:book_id => t.id,
+                        :page_num => 16,
+                        :page_text => "The moment they stepped into the house they saw that someone had been there.\n\"Humph!\" said the papa bear in his great big voice. \"Someone has been sitting in my chair!\""
+                        })
+Page.create({:book_id => t.id,
+                         :page_num => 17,
+                         :page_text => "\"Land sakes!\" said the mama bear in her middle-sized voice. \"Someone has been sitting in my chair.\"\n\"Oh dear!\" cried the baby bear in his wee little voice. \"Someone has been sitting in my chair, and has broken it all to bits.\""
+                         })
+Page.create({:book_id => t.id,
+                        :page_num => 18,
+                        :page_text => "Then they all looked at the table.\n\"Humph,\" said the papa bear in his great big voice. \"Someone has been tasting my porridge.\"\n\"And someone has been tasting my porridge,\" said the mama bear."
+                        })
+Page.create({:book_id => t.id,
+                         :page_num => 19,
+                         :page_text => "\"Someone has eaten my porridge all up,\" said the baby bear sadly. \nThen up the stairs went the three bears..."
+                         })
+Page.create({:book_id => t.id,
+                        :page_num => 20,
+                        :page_text => "...with a thump thump thump...\n...and a trot trot trot...\n ...and a skippity-skip-skip. (That was the wee little tiny bear.)"
+                        })
+Page.create({:book_id => t.id,
+                         :page_num => 21,
+                         :page_text => "\"Humph,\" said the papa bear in his great big voice. \"Someone has been sleeping in my bed!\"\n\"And someone has been sleeping in my bed,\" said the mama bear.\n\"Oh dear!\" cried the baby bear in his wee little voice. \"Someone has been sleeping in my bed, and here she is right now!\""
+                         })
+Page.create({:book_id => t.id,
+                        :page_num => 22,
+                        :page_text => "Goldilocks opened her eyes and she saw the three bears.\n\"Oh!\" said Goldilocks."
+                        })
+Page.create({:book_id => t.id,
+                         :page_num => 23,
+                         :page_text => "She was so surprised that she jumped right out of the window and she ran all the way home. \nAnd she never saw the house in the forest again."
+                         })
+ 
 t = Book.create( {:title => "Thomas Breaks a Promise", :image_directory => "thomas-breaks-a-promise"} )
 Page.create({:book_id => t.id, 
              :page_num => 1, 
@@ -196,10 +248,10 @@ Page.create({:book_id => b.id,
                          :page_text => "The wolf let out a satisfied burp, and then poked through Granny's wardrobe to find a nightgown that he liked.  He added a frilly sleeping cap, and for good measure, dabbed some of Granny's perfume behind his pointy ears.\nA few minutes later, Red Riding Hood knocked on the door.  The wolf jumped into bed and pulled the covers over his nose.  \"Who is it?\" he called in a cackly voice.\n\"It's me, Little Red Riding Hood.\"\n\"Oh how lovely!  Do come in, my dear,\" croaked the wolf."}) 
 Page.create({:book_id => b.id, 
                          :page_num => 7, 
-                         :page_text => "When Little Red Riding Hood entered the little cottage, she could scarcely recognize her Grandmother.\n\"Grandmother!  Your voice sounds so odd.  Is something the matter?\" she asked.\n\"Oh, I just have touch of a cold,\" squeaked the wolf adding a cough at the end to prove the point."})
+                         :page_text => "When Little Red Riding Hood entered the little cottage, she could scarcely recognize her Grandmother.\n\"Grandmother!  Your voice sounds so odd.  Is something the matter?\" she asked.\n\"Oh, I just have touch of a cold,\" squeaked the wolf adding a cough at the end to prove the point.\n\"But Grandmother!  What big ears you have,\" said Little Red Riding Hood as she edged closer to the bed.\"The better to hear you with, my dear,\" replied the wolf."})
 Page.create({:book_id => b.id, 
                          :page_num => 8, 
-                         :page_text => "\"But Grandmother!  What big ears you have,\" said Little Red Riding Hood as she edged closer to the bed.\"The better to hear you with, my dear,\" replied the wolf.\n\"But Grandmother!  What big eyes you have,\" said Little Red Riding Hood.\n\"The better to see you with, my dear,\" replied the wolf.\n\"But Grandmother!  What big teeth you have,\" said Little Red Riding Hood her voice quivering slightly.\n\"The better to eat you with, my dear,\" roared the wolf and he leapt out of the bed and began to chase the little girl."})
+                         :page_text => "\"But Grandmother!  What big eyes you have,\" said Little Red Riding Hood.\n\"The better to see you with, my dear,\" replied the wolf.\n\"But Grandmother!  What big teeth you have,\" said Little Red Riding Hood her voice quivering slightly.\n\"The better to eat you with, my dear,\" roared the wolf and he leapt out of the bed and began to chase the little girl."})
 Page.create({:book_id => b.id, 
                          :page_num => 9, 
                          :page_text => "Almost too late, Little Red Riding Hood realized that the person in the bed was not her Grandmother, but a hungry wolf.\nShe ran across the room and through the door, shouting, \"Help!  Wolf!\" as loudly as she could.\nA woodsman who was chopping logs nearby heard her cry and ran towards the cottage as fast as he could.\nHe grabbed the wolf and made him spit out the poor Grandmother who was a bit frazzled by the whole experience, but still in one piece."})

@@ -29,8 +29,14 @@ PTBook.prototype.createActivityFromJSON=function(book) {
 			+ '</div>'
 			+ '</div>';
 		if (!book.image_only) {
-			bookMarkup += '<div class="book-text">' 
-							+ book.pages[i].page_text 
+			console.log(book.pages[i].page_text.length);
+			if (book.pages[i].page_text.length > 400) {
+				bookMarkup += '<div class="book-text-small">';
+			}
+			else {
+				bookMarkup += '<div class="book-text">';	
+			} 
+			bookMarkup += book.pages[i].page_text 
 							+ '</div>';
 		}
 		bookMarkup += '</div></li>';
