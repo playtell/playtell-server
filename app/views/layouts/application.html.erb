@@ -19,7 +19,6 @@
 
 </head>
 <body>
-	<div class="mainContainer">
 		<% if !tablet_device? %>
 			<p class="block fr"><%= render 'devise/menu/login_items' %></p>
 			<p class="notice"><%= notice %></p>
@@ -27,7 +26,6 @@
 		<% end %>
 	
 		<%= yield %>
-	</div>
 	<%= render 'application/values' %>
 </body>
 </html>
