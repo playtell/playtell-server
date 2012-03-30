@@ -8,8 +8,12 @@ class GamesController < ApplicationController
   # main method to connect users with playdates. creates a new playdate, or adds user to existing playdate.
   def playdate
     if params[:playdate] || requesting_playdate
-      joinPlaydate
-      sendJoinNotification 
+      if joinPlaydate
+        sendJoinNotification 
+      else
+        redirect_to user_path current_user
+        return
+      end
     else
       createPlaydate
       sendInvite
@@ -254,11 +258,15 @@ private
     else
       @playdate = requesting_playdate
     end
-    session[:playdate] = params[:playdate]
-    @playdate.connected
-    getBook(@playdate.book_id) if @playdate.book_id
+    if !@playdate.blank? and !@playdate.disconnected? 
+      session[:playdate] = params[:playdate]
+      @playdate.connected
+      getBook(@playdate.book_id) if @playdate.book_id
 
-    @tok_token = @@opentok.generate_token :session_id => @playdate.video_session_id 
+      @tok_token = @@opentok.generate_token :session_id => @playdate.video_session_id 
+    else
+      return false
+    end
   end
   
   def sendInvite
@@ -283,7 +291,8 @@ private
            :initiator => current_user.username,
            :initiatorID => current_user.id,
            :playmate => playmate.username,
-           :playmateID => playmate.id }
+           :playmateID => playmate.id,
+           :sound => "music-box.wav" }
        }
        puts "push notification sent with this data: " + "device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate]
        Urbanairship.push(notification)
