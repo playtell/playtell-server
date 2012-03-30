@@ -15,28 +15,31 @@ class ApplicationController < ActionController::Base
     unless params[:early_user][:email].blank? 
       earlyUser = EarlyUser.find_or_create_by_email(params[:early_user])
 
-      if earlyUser.qualifies? and !user2[:email2].blank?
-        user1 = User.create(:email => params[:early_user][:email], 
-                             :password => "rg", 
-                             :username => params[:early_user][:username],
-                             :status => User::WAITING_FOR_UDID)
-        user2 = User.create(:email => user2[:email2], 
-                             :password => "rg", 
-                             :username => user2[:username2], 
-                             :status => User::WAITING_FOR_UDID)
-        if user1.save and user2.save                   
-          user1.friendships.create!(:friend_id => user2.id)
-          UserMailer.betauser_welcome(user1).deliver
-          UserMailer.betainvitee_welcome(user1, user2).deliver
-
-          render :json => {:message=>"active_user"}
-          return
-        else
+      if earlyUser.qualifies? and !user2[:email2].blank? 
+        if user2[:email2] == params[:early_user][:email]
           render :json => {:message=>"error-email"}
           return
+        else
+          user1 = User.new(:email => params[:early_user][:email], 
+                               :password => "rg", 
+                               :username => params[:early_user][:username],
+                               :status => User::WAITING_FOR_UDID)
+          user2 = User.new(:email => user2[:email2], 
+                               :password => "rg", 
+                               :username => user2[:username2], 
+                               :status => User::WAITING_FOR_UDID)
+          if user2.save and user1.save                 
+            user1.friendships.create!(:friend_id => user2.id)
+            UserMailer.betauser_welcome(user1).deliver
+            UserMailer.betainvitee_welcome(user1, user2).deliver
+
+            render :json => {:message=>"active_user"}
+            return
+          else
+            render :json => {:message=>"error-email"}
+            return
+          end
         end
-      #elsif !user2[:email2].blank?
-        #create earlyUser for user2
       else      
         if earlyUser.save
           UserMailer.earlyuser_welcome(earlyUser).deliver
