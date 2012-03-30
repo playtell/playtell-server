@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
     randomPhotoIndex = 1 + rand(4)
     p = self.playdate_photos.create
     p.remote_photo_url = 'http://ragatzi.s3.amazonaws.com/uploads/profile_default_' + randomPhotoIndex.to_s + '.png'
-    p.save!
+    p.save!    
   end
   
   # uses the most recently taken photo as this user's profile photo

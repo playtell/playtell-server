@@ -16,21 +16,25 @@ class ApplicationController < ActionController::Base
       earlyUser = EarlyUser.create(params[:early_user])
 
       if earlyUser.qualifies? and !user2[:email2].blank?
-        user1 = User.create!(:email => params[:early_user][:email], 
+        user1 = User.create(:email => params[:early_user][:email], 
                              :password => "rg", 
                              :username => params[:early_user][:username],
                              :status => User::WAITING_FOR_UDID)
-        user2 = User.create!(:email => user2[:email2], 
+        user2 = User.create(:email => user2[:email2], 
                              :password => "rg", 
                              :username => user2[:username2], 
                              :status => User::WAITING_FOR_UDID)
-        user1.friendships.create!(:friend_id => user2.id)
+        if user1.save and user2.save                   
+          user1.friendships.create!(:friend_id => user2.id)
+          UserMailer.betauser_welcome(user1).deliver
+          UserMailer.betainvitee_welcome(user1, user2).deliver
 
-        UserMailer.betauser_welcome(user1).deliver
-        UserMailer.betainvitee_welcome(user1, user2).deliver
-
-        render :json => {:message=>"active_user"}
-        return
+          render :json => {:message=>"active_user"}
+          return
+        else
+          render :json => {:message=>"error"}
+          return
+        end
       #elsif !user2[:email2].blank?
         #create earlyUser for user2
       else      
@@ -39,7 +43,7 @@ class ApplicationController < ActionController::Base
           render :json => {:message=>"early_user"} 
           return
         else 
-          render :status=>401, :json=>{:message=>"Invalid"} 
+          render :json => {:message=>"error"}
           return
         end
       end   

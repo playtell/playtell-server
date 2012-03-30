@@ -773,7 +773,8 @@ p.number-text.of {
 	background: url("/images/book_frame.png") no-repeat;
 	margin: 40px 35px;
 	height: 591px;
-	overflow-x: hidden;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 
 #pages ul {

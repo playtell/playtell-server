@@ -31,7 +31,7 @@
 					$('.errow').hide();
 					$('.error').hide();
 					$('#alpha-lightbox').lightbox_me({
-				    	centered: true,
+				    	centered: false,
 						onLoad: function() {
 							$('#alpha-lightbox-text').find('input:first').focus();
 						},
@@ -59,8 +59,8 @@
 						data: {
 							early_user: { username: $('#name').val(),
 										  email: $('#email').val(), 
-										  owns_iPad: $("input[@name=owns_iPad]:checked").val(),
-										  has_kids: $("input[@name=has_kids]:checked").val() },
+										  owns_iPad: $("input[name=owns_iPad]:checked").val(),
+										  has_kids: $("input[name=has_kids]:checked").val() },
 							user2: { username2: $('#username2').val(),
 									 email2: $('#email2').val() }
 						},
@@ -70,13 +70,15 @@
 							if (data.message == "active_user") {
 								$('#thank-you-active').show();
 							}
-							else {
+							else if (data.message == "early_user") {
 								$('#thank-you-early').show();
 							}
+							else {
+								$('#loader').hide();
+								$('#ext-sign-up-form').show();
+								$('.error-ext-survey').show();								
+							}
 						},
-						failure: function(data) {
-							$('.error-ext-survey').show();
-						}
 					});		
 				}
 			});
