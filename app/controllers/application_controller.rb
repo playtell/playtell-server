@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     user2 = params[:user2]
     
     unless params[:early_user][:email].blank? 
-      earlyUser = EarlyUser.create(params[:early_user])
+      earlyUser = EarlyUser.find_or_create_by_email(params[:early_user])
 
       if earlyUser.qualifies? and !user2[:email2].blank?
         user1 = User.create(:email => params[:early_user][:email], 
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
           render :json => {:message=>"active_user"}
           return
         else
-          render :json => {:message=>"error"}
+          render :json => {:message=>"error-email"}
           return
         end
       #elsif !user2[:email2].blank?
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
           render :json => {:message=>"early_user"} 
           return
         else 
-          render :json => {:message=>"error"}
+          render :json => {:message=>"error-fields"}
           return
         end
       end   

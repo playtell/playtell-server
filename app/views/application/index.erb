@@ -48,10 +48,6 @@
 			
 			//submits the survey and shows either errors or balloon thank you message
 			$('#alpha-form-submit').click(function() {
-				if (false) {
-					alert("true");
-				}
-				else {
 					$('#ext-sign-up-form').hide();
 					$('#loader').show();
 					$.ajax({
@@ -67,20 +63,23 @@
 						type: "POST",
 						success: function(data) {
 							$('#loader').hide();
+							$('.error').hide();
 							if (data.message == "active_user") {
 								$('#thank-you-active').show();
 							}
 							else if (data.message == "early_user") {
 								$('#thank-you-early').show();
 							}
-							else {
-								$('#loader').hide();
+							else if (data.message == "error-email") {
 								$('#ext-sign-up-form').show();
-								$('.error-ext-survey').show();								
+								$('.error-ext-survey-email').show();								
+							}
+							else if (data.message == "error-fields") {
+								$('#ext-sign-up-form').show();
+								$('.error-ext-survey-fields').show();								
 							}
 						},
 					});		
-				}
 			});
 			
 		  });
