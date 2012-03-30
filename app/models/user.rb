@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   # uses the most recently taken photo as this user's profile photo
   def profile_photo
     photos = self.playdate_photos
-    photos.empty? ? nil : photos.last.photo.url 
+    photos.empty? ? nil : photos.first.photo.url 
   end
 
   def fullName
