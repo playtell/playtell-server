@@ -320,7 +320,10 @@ private
        :initiatorID => initiator.id,
        :initiator => initiator.username,
        :playmateID => current_user.id,
-       :playmateName => current_user.username }
+       :playmateName => current_user.username,
+       :tokboxSessionID => @playdate.video_session_id,
+       :tokboxInitiatorToken => @tok_token1,
+       :tokboxPlaymateToken => @tok_token2 }
      )
      puts "playdate_joined. initiator: " + initiator.username + ", playmate: " + current_user.username
    end
