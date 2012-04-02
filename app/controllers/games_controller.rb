@@ -278,7 +278,8 @@ private
       :initiator => current_user.username,
       :initiatorID => current_user.id,
       :playmateID => playmate.id,
-      :playmateName => playmate.username }
+      :playmateName => playmate.username,
+      :tokboxSessionID => @playdate.video_session_id }
     )
     
     device_tokens = playmate.device_tokens
@@ -292,7 +293,8 @@ private
            :initiatorID => current_user.id,
            :playmate => playmate.username,
            :playmateID => playmate.id,
-           :sound => "music-box.wav" }
+           :sound => "music-box.wav",
+           :tokboxSessionID => @playdate.video_session_id }
        }
        puts "push notification sent with this data: " + "device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate]
        Urbanairship.push(notification)
