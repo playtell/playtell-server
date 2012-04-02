@@ -8,6 +8,7 @@ class GamesController < ApplicationController
   # main method to connect users with playdates. creates a new playdate, or adds user to existing playdate.
   def playdate
     if params[:playdate] || requesting_playdate
+      puts "joining"
       if joinPlaydate
         sendJoinNotification 
       else
@@ -256,16 +257,19 @@ private
   def joinPlaydate
     if params[:playdate]
       @playdate = Playdate.find_by_id(params[:playdate])
+      puts "found playdate"
     else
       @playdate = requesting_playdate
     end
     if !@playdate.blank? and !@playdate.disconnected? 
+      puts "continuing"
       session[:playdate] = params[:playdate]
-      @playdate.connected
       getBook(@playdate.book_id) if @playdate.book_id
+      @playdate.connected
 
       #@tok_token = @@opentok.generate_token :session_id => @playdate.video_session_id 
     else
+      puts "problem"
       return false
     end
   end
@@ -291,7 +295,7 @@ private
          :device_tokens => [device_tokens.last.token],
          :aps => {
            :alert => "#{current_user.username} wants to play!",
-           :playdate_url => "http://playtell.com/playdate?playdate="+@playdate.id.to_s,
+           :playdate_url => "http://www.playtell.com/playdate?playdate="+@playdate.id.to_s,
            :initiator => current_user.username,
            :initiatorID => current_user.id,
            :playmate => playmate.username,
