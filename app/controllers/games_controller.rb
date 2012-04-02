@@ -240,15 +240,18 @@ private
   def createPlaydate
     # set up the opentok video session and get a token for this user
     video_session = @@opentok.create_session '127.0.0.1'  
-    tok_session_id = video_session.session_id
-    @tok_token1 = @@opentok.generate_token :session_id => tok_session_id    
-    @tok_token2 = @@opentok.generate_token :session_id => tok_session_id    
+    tok_session_id = video_session.session_id   
 
     # put the playdate in the db and its id in the session
     @playdate = Playdate.find_or_create_by_player1_id_and_player2_id_and_video_session_id(
       :player1_id => current_user.id, 
       :player2_id => params[:friend_id],
-      :video_session_id => tok_session_id)
+      :video_session_id => tok_session_id,
+      :tokbox_initiator_token => @@opentok.generate_token(:session_id => tok_session_id),
+      :tokbox_playmate_token => @@opentok.generate_token(:session_id => tok_session_id))
+      
+#      @tok_token1 = @@opentok.generate_token :session_id => tok_session_id    
+#      @tok_token2 = @@opentok.generate_token :session_id => tok_session_id
     
     session[:playdate] = @playdate.id
   end
@@ -285,8 +288,8 @@ private
       :playmateID => playmate.id,
       :playmateName => playmate.username,
       :tokboxSessionID => @playdate.video_session_id,
-      :tokboxInitiatorToken => @tok_token1,
-      :tokboxPlaymateToken => @tok_token2 }
+      :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+      :tokboxPlaymateToken => @playdate.tokbox_playmate_token }
     )
     
     device_tokens = playmate.device_tokens
@@ -322,8 +325,8 @@ private
        :playmateID => current_user.id,
        :playmateName => current_user.username,
        :tokboxSessionID => @playdate.video_session_id,
-       :tokboxInitiatorToken => @tok_token1,
-       :tokboxPlaymateToken => @tok_token2 }
+       :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+       :tokboxPlaymateToken => @playdate.tokbox_playmate_token }
      )
      puts "playdate_joined. initiator: " + initiator.username + ", playmate: " + current_user.username
    end
