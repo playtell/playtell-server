@@ -296,8 +296,8 @@ private
            :initiatorID => current_user.id,
            :playmate => playmate.username,
            :playmateID => playmate.id,
-           :sound => "music-box.wav",
-           :tokboxSessionID => @playdate.video_session_id }
+           :sound => "music-box.wav" }
+#           :tokboxSessionID => @playdate.video_session_id, 
 #           :tokboxInitiatorToken => @tok_token1,
 #           :tokboxPlaymateToken => @tok_token2 }
        }
