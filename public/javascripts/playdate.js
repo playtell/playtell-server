@@ -258,7 +258,7 @@ function syncToServerReturnData(playdate_change, activityID) {
 				doChangeBook(data.book);
 			}
 			else {
-				doTurnOnCamera();
+				//doTurnOnCamera();
 			}
 		}
 	);

@@ -240,7 +240,8 @@ private
     # set up the opentok video session and get a token for this user
     video_session = @@opentok.create_session '127.0.0.1'  
     tok_session_id = video_session.session_id
-    @tok_token = @@opentok.generate_token :session_id => tok_session_id    
+    @tok_token1 = @@opentok.generate_token :session_id => tok_session_id    
+    @tok_token2 = @@opentok.generate_token :session_id => tok_session_id    
 
     # put the playdate in the db and its id in the session
     @playdate = Playdate.find_or_create_by_player1_id_and_player2_id_and_video_session_id(
@@ -263,7 +264,7 @@ private
       @playdate.connected
       getBook(@playdate.book_id) if @playdate.book_id
 
-      @tok_token = @@opentok.generate_token :session_id => @playdate.video_session_id 
+      #@tok_token = @@opentok.generate_token :session_id => @playdate.video_session_id 
     else
       return false
     end
@@ -279,7 +280,9 @@ private
       :initiatorID => current_user.id,
       :playmateID => playmate.id,
       :playmateName => playmate.username,
-      :tokboxSessionID => @playdate.video_session_id }
+      :tokboxSessionID => @playdate.video_session_id,
+      :tokboxInitiatorToken => @tok_token1,
+      :tokboxPlaymateToken => @tok_token2 }
     )
     
     device_tokens = playmate.device_tokens
@@ -294,7 +297,9 @@ private
            :playmate => playmate.username,
            :playmateID => playmate.id,
            :sound => "music-box.wav",
-           :tokboxSessionID => @playdate.video_session_id }
+           :tokboxSessionID => @playdate.video_session_id,
+           :tokboxInitiatorToken => @tok_token1,
+           :tokboxPlaymateToken => @tok_token2 }
        }
        puts "push notification sent with this data: " + "device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate]
        Urbanairship.push(notification)
