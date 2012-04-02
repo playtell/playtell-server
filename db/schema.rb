@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120402204821) do
+ActiveRecord::Schema.define(:version => 20120402210232) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(:version => 20120402204821) do
     t.integer  "duration"
     t.boolean  "correct"
     t.string   "pusher_channel_name"
-    t.string   "tokbox_initiator_token"
-    t.string   "tokbox_playmate_token"
+    t.text     "tokbox_initiator_token"
+    t.text     "tokbox_playmate_token"
   end
 
   create_table "sessions", :force => true do |t|
