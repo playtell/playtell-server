@@ -1149,6 +1149,10 @@ p a#next-link.title { background-position: 0 -1325px; width: 37px; height: 51px;
 p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height: 51px; } 
 
 /* ADMIN PAGE --------------------------------------------------------- */
+.admin {
+	overflow: scroll !important;
+	height: 98%;
+}
 .user-container {
 	margin: 0px 100px;
 }

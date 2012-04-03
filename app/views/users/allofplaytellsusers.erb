@@ -12,7 +12,7 @@
 	</script>
 
 <% end %>
-
+<div class="admin">
 	<div class="user-container inline-block">
 		<h1>PlayTell Users (<%= @peeps.count %>)</h1>
 		<% for user in @peeps %>
@@ -38,6 +38,5 @@
 			<h3><%= user.username %></h3><p><%= user.email %></p>
 		<% end %>
 	</div>
-
-
+</div>
 
