@@ -14,14 +14,15 @@
 <% end %>
 
 	<div class="user-container inline-block">
-		<h1>PlayTell Users</h1>
+		<h1>PlayTell Users (<%= @peeps.count %>)</h1>
 		<% for user in @peeps %>
-			<h3><%= user.displayName %></h3><p>[<%= user.id %>] <%= user.email %></p>
+			<h3>[<%= user.id %>] <%= user.displayName %></h3><p><%= user.email %></p>
 			<ul>
 			<% for friend in user.allFriends %>
-				<li><%= friend.displayName %></li>
+				<li><%= friend.displayName %>
+				</li>
 			<% end %>
-			<%= form_tag add_friendships_path, :remote => true, :method => 'post' do %>
+			<%= form_tag add_friendships_path, :method => 'post' do %>
 			  <p>
 			    <%= text_field_tag :friend_id, nil, :placeholder => 'Enter friend ID' %>
 			    <%= hidden_field_tag :user_id, user.id %>
@@ -32,7 +33,7 @@
 		<% end %>
 	</div>
 	<div class="early-user-container inline-block">
-		<h1>Early User Signups</h1>
+		<h1>Early User Signups (<%= @earlypeeps.count %>)</h1>
 		<% for user in @earlypeeps %>
 			<h3><%= user.username %></h3><p><%= user.email %></p>
 		<% end %>

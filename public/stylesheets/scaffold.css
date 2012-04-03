@@ -1158,9 +1158,13 @@ p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height
 	vertical-align: top;
 }
 
-.user-container p, .early-user-container p {
-	font-size: 12pt;
+.user-container p, .early-user-container p, .user-container li, .early-user-container li {
+	font-size: 10pt;
 }	
+
+.user-container ul, .early-user-container ul {
+	padding-left: 15px;
+}
 
 /* OLD LANDING PAGE + LOGIN --------------------------------------------------------- */
 
