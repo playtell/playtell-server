@@ -1148,6 +1148,20 @@ p a#next-link.disabled { background-position: 0 -1203px; width: 37px; height: 51
 p a#next-link.title { background-position: 0 -1325px; width: 37px; height: 51px; } 
 p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height: 51px; } 
 
+/* ADMIN PAGE --------------------------------------------------------- */
+.user-container {
+	margin: 0px 100px;
+}
+
+.early-user-container {
+	margin: 0px 100px;
+	vertical-align: top;
+}
+
+.user-container p, .early-user-container p {
+	font-size: 12pt;
+}	
+
 /* OLD LANDING PAGE + LOGIN --------------------------------------------------------- */
 
 .landingpage {

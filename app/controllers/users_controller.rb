@@ -13,5 +13,10 @@ class UsersController < ApplicationController
   def search
     @users = User.search(params[:search])
   end
+  
+  def allofplaytellsusers
+    @peeps = User.all
+    @earlypeeps = EarlyUser.all
+  end
 
 end

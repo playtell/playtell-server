@@ -24,9 +24,14 @@ Semiralabs::Application.routes.draw do
   resources :users, :only => [:show] do
     collection do
       get 'search'
+      get 'allofplaytellsusers'
     end
   end
-  resources :friendships
+  resources :friendships do
+    collection do
+      post 'add'
+    end
+  end
   namespace :api do
     resources :tokens, :only => [:create, :destroy]
     resources :playdatephotos, :only => [:create]

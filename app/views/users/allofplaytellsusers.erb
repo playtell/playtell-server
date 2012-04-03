@@ -1,0 +1,42 @@
+<% content_for :head do %>
+	<%= javascript_include_tag 'playdate' %>
+	
+	<script type="text/javascript">
+		var tablet;
+		$(document).ready(function() {
+			<% if tablet_device? %>
+				tablet = true;
+			<% end %>
+		});
+
+	</script>
+
+<% end %>
+
+	<div class="user-container inline-block">
+		<h1>PlayTell Users</h1>
+		<% for user in @peeps %>
+			<h3><%= user.displayName %></h3><p>[<%= user.id %>] <%= user.email %></p>
+			<ul>
+			<% for friend in user.allFriends %>
+				<li><%= friend.displayName %></li>
+			<% end %>
+			<%= form_tag add_friendships_path, :remote => true, :method => 'post' do %>
+			  <p>
+			    <%= text_field_tag :friend_id, nil, :placeholder => 'Enter friend ID' %>
+			    <%= hidden_field_tag :user_id, user.id %>
+			    <%= submit_tag "Create Friendship", :name => nil %>
+			  </p>	
+			<% end %>
+			</ul>
+		<% end %>
+	</div>
+	<div class="early-user-container inline-block">
+		<h1>Early User Signups</h1>
+		<% for user in @earlypeeps %>
+			<h3><%= user.username %></h3><p><%= user.email %></p>
+		<% end %>
+	</div>
+
+
+
