@@ -32,6 +32,7 @@ Semiralabs::Application.routes.draw do
       post 'add'
     end
   end
+  match "remove_friendship" => 'friendships#remove'
   namespace :api do
     resources :tokens, :only => [:create, :destroy]
     resources :playdatephotos, :only => [:create]

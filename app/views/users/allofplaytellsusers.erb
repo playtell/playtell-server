@@ -19,7 +19,9 @@
 			<h3>[<%= user.id %>] <%= user.displayName %></h3><p><%= user.email %></p>
 			<ul>
 			<% for friend in user.allFriends %>
-				<li><%= friend.displayName %>
+				<li>
+					<%= friend.displayName %>
+					<%= link_to 'Delete Friendship', remove_friendship_path(:user_id => user.id, :friend_id => friend.id) %>
 				</li>
 			<% end %>
 			<%= form_tag add_friendships_path, :method => 'post' do %>

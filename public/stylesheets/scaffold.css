@@ -1150,21 +1150,38 @@ p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height
 
 /* ADMIN PAGE --------------------------------------------------------- */
 .admin {
-	overflow: scroll !important;
-	height: 98%;
 }
+
 .user-container {
 	margin: 0px 100px;
+	overflow: scroll !important;
+	height: 98%;
 }
 
 .early-user-container {
 	margin: 0px 100px;
 	vertical-align: top;
+	overflow: scroll !important;
+	height: 98%;
 }
 
-.user-container p, .early-user-container p, .user-container li, .early-user-container li {
-	font-size: 10pt;
+.user-container h3, .early-user-container h3 {
+	font-weight: bold;
+}
+
+.user-container p, .early-user-container p {
+	font-size: 12pt;
 }	
+
+.user-container li, .early-user-container li {
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+.user-container li a, .early-user-container li a {
+	font-size: 10pt;
+	font-weight: normal;
+}
 
 .user-container ul, .early-user-container ul {
 	padding-left: 15px;
