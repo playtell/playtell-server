@@ -27,5 +27,12 @@ class UsersController < ApplicationController
     redirect_to allofplaytellsusers_users_path
   end
   
+  #for admin
+  def remove_earlyuser
+    @user = EarlyUser.find(params[:user_id])
+    @user.delete unless @user.blank?
+    redirect_to allofplaytellsusers_users_path
+  end
+  
 
 end

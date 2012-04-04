@@ -16,7 +16,8 @@
 	<div class="user-container inline-block">
 		<h1>PlayTell Users (<%= @peeps.count %>)</h1>
 		<% for user in @peeps %>
-			<h3>[<%= user.id %>] <%= user.displayName %></h3> <%= link_to 'Delete User', remove_user_path(:user_id => user.id) %>
+			<h3>[<%= user.id %>] <%= user.displayName %></h3> 
+			<%= link_to 'Delete User', remove_user_path(:user_id => user.id) %>
 			<p><%= user.email %></p>
 			<ul>
 			<% for friend in user.allFriends %>
@@ -38,7 +39,9 @@
 	<div class="early-user-container inline-block">
 		<h1>Early User Signups (<%= @earlypeeps.count %>)</h1>
 		<% for user in @earlypeeps %>
-			<h3><%= user.username %></h3><p><%= user.email %></p>
+			<h3><%= user.username %></h3>
+			<%= link_to 'Delete User', remove_earlyuser_path(:user_id => user.id) %>
+			<p><%= user.email %></p>
 		<% end %>
 	</div>
 </div>
