@@ -1188,6 +1188,10 @@ p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height
 	padding-left: 15px;
 }
 
+.user-container input[type="text"] {
+	width: 150px;
+}
+
 /* OLD LANDING PAGE + LOGIN --------------------------------------------------------- */
 
 .landingpage {
