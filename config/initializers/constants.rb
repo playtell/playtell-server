@@ -1,1 +1,1 @@
-DEFAULT_FRIEND_NAME = "semira"
+DEFAULT_FRIEND_NAME = "jason"
