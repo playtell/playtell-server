@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   def allofplaytellsusers
     @peeps = User.all
     @earlypeeps = EarlyUser.all
+    @playdates = Playdate.all
   end
   
   #for admin

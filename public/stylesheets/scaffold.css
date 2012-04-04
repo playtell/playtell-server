@@ -1152,43 +1152,44 @@ p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height
 .admin {
 }
 
-.user-container {
-	margin: 0px 100px;
+.admin-div {
+	margin: 0px 25px;
 	overflow: scroll !important;
 	height: 98%;
+	max-width: 450px;
+	vertical-align: top;	
+}
+
+.user-container {
 }
 
 .early-user-container {
-	margin: 0px 50px;
-	vertical-align: top;
-	overflow: scroll !important;
-	height: 98%;
 }
 
-.user-container h3, .early-user-container h3 {
+.admin-div h3 {
 	font-weight: bold;
 	display: inline-block;
 }
 
-.user-container p, .early-user-container p {
+.admin-div p {
 	font-size: 12pt;
 }	
 
-.user-container li, .early-user-container li {
+.admin-div li {
 	font-size: 12pt;
 	font-weight: bold;
 }
 
-.user-container li a, .early-user-container li a {
+.admin-div li a {
 	font-size: 8pt;
 	font-weight: normal;
 }
 
-.user-container ul, .early-user-container ul {
+.admin-div ul {
 	padding-left: 15px;
 }
 
-.user-container input[type="text"] {
+.admin-div input[type="text"] {
 	width: 150px;
 }
 

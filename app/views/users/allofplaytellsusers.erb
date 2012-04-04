@@ -13,12 +13,13 @@
 
 <% end %>
 <div class="admin">
-	<div class="user-container inline-block">
+	<div class="user-container inline-block admin-div">
 		<h1>PlayTell Users (<%= @peeps.count %>)</h1>
 		<% for user in @peeps %>
 			<h3>[<%= user.id %>] <%= user.displayName %></h3> 
 			<%= link_to 'Delete User', remove_user_path(:user_id => user.id) %>
 			<p><%= user.email %></p>
+			<p>Token: <%= user.device_tokens.blank? ? 'none' : user.device_tokens.first.token %></p>
 			<ul>
 			<% for friend in user.allFriends %>
 				<li>
@@ -36,12 +37,24 @@
 			</ul>
 		<% end %>
 	</div>
-	<div class="early-user-container inline-block">
+	<div class="early-user-container inline-block admin-div">
 		<h1>Early User Signups (<%= @earlypeeps.count %>)</h1>
+		<p>Key: </p>
+		<p>Owns iPad (0=no, 1=yes)</p>
+		<p>Has kidz (0=no, 1=has kidz, 2=vid chats w/ kidz)
 		<% for user in @earlypeeps %>
 			<h3><%= user.username %></h3>
 			<%= link_to 'Delete User', remove_earlyuser_path(:user_id => user.id) %>
 			<p><%= user.email %></p>
+			<p>Owns iPad: <%= user.owns_iPad %></p>
+			<p>Had kidz: <%= user.has_kids %></p>
+		<% end %>
+	</div>
+	<div class="playdates-container inline-block admin-div">
+		<h1>Playdates (<%= @playdates.count %>)</h1>
+		<% for playdate in @playdates %>
+			<h3>#<%= playdate.id %> on <%= playdate.created_at %></h3>
+			<p>Player IDs: <%= playdate.player1_id %>, <%= playdate.player2_id %></p>
 		<% end %>
 	</div>
 </div>
