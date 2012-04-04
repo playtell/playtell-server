@@ -142,7 +142,7 @@ function doChangeBook(book) {
 	b.createActivityFromJSON(book);
 	mySwipe = new Swipe(
 	  document.getElementById('pages'), {
-		speed: 100, 
+		speed: 500, 
 		callback: function() {
 			updateBookNavLinks()
 			if (!mySwipe.getResponder()) {
