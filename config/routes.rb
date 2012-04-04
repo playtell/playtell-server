@@ -27,6 +27,7 @@ Semiralabs::Application.routes.draw do
       get 'allofplaytellsusers'
     end
   end
+  match 'remove_user' => 'users#remove'
   resources :friendships do
     collection do
       post 'add'

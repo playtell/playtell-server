@@ -9,14 +9,23 @@ class UsersController < ApplicationController
     @new_friends = User.all.select { |friend| friend.id != u.id && u.isFriend?(friend).nil? }
     @users = []
   end
-  
+    
   def search
     @users = User.search(params[:search])
   end
   
+  # for admin
   def allofplaytellsusers
     @peeps = User.all
     @earlypeeps = EarlyUser.all
   end
+  
+  #for admin
+  def remove
+    @user = User.find(params[:user_id])
+    @user.delete unless @user.blank?
+    redirect_to allofplaytellsusers_users_path
+  end
+  
 
 end

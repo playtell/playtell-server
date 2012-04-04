@@ -1159,7 +1159,7 @@ p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height
 }
 
 .early-user-container {
-	margin: 0px 100px;
+	margin: 0px 50px;
 	vertical-align: top;
 	overflow: scroll !important;
 	height: 98%;
@@ -1167,6 +1167,7 @@ p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height
 
 .user-container h3, .early-user-container h3 {
 	font-weight: bold;
+	display: inline-block;
 }
 
 .user-container p, .early-user-container p {

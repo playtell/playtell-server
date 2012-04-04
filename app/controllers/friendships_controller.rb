@@ -12,6 +12,7 @@ class FriendshipsController < ApplicationController
     end
   end
   
+  #for admin
   def add
     @friendship = Friendship.new(:friend_id => params[:friend_id], :user_id => params[:user_id])
     if @friendship.save
@@ -26,6 +27,7 @@ class FriendshipsController < ApplicationController
   def destroy
   end
   
+  #for admin
   def remove 
     @friendship = Friendship.find_by_user_id_and_friend_id(params[:user_id], params[:friend_id])
     @friendship.delete unless @friendship.blank?
