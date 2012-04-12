@@ -41,6 +41,7 @@ Semiralabs::Application.routes.draw do
     match 'update_settings' => 'settings#update'
     match 'twilio_incoming' => 'twilio#incoming' 
     match 'twilio_token' => 'twilio#capability_token'
+    match 'tokbox_tokens' => 'tokbox#tokbox_tokens'
     #resources :settings, :only => [:update]
   end
   
