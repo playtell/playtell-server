@@ -11,7 +11,9 @@ class Api::TokboxController < ApplicationController
       return
     else
       render :json=>{:session_id=>@playdate.video_session_id,
+                   :initiator_id=>@playdate.player1_id,
                    :initiator_token=>@playdate.tokbox_initiator_token,
+                   :playmate_id=>@playdate.player2_id,                   
                    :playmate_token=>@playdate.tokbox_playmate_token} 
     end
   end
