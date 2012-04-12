@@ -64,7 +64,7 @@ Page.create({:book_id => t.id,
                           })
 Page.create({:book_id => t.id,
                          :page_num => 6,
-                         :page_text => "She filled a greet big bowl for the papa bear, a middle-sized bowl for the mama bear, and a wee little bowl for the baby bear."
+                         :page_text => "She filled a great big bowl for the papa bear, a middle-sized bowl for the mama bear, and a wee little bowl for the baby bear."
                          })
 Page.create({:book_id => t.id,
                           :page_num => 7,
