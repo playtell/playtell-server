@@ -14,7 +14,8 @@ class Api::TokboxController < ApplicationController
                    :initiator_id=>@playdate.player1_id,
                    :initiator_token=>@playdate.tokbox_initiator_token,
                    :playmate_id=>@playdate.player2_id,                   
-                   :playmate_token=>@playdate.tokbox_playmate_token} 
+                   :playmate_token=>@playdate.tokbox_playmate_token, 
+                   :test=>Rails.root.to_s + '/playdate'} 
     end
   end
 
