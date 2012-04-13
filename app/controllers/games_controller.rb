@@ -298,7 +298,7 @@ private
          :device_tokens => [device_tokens.last.token],
          :aps => {
            :alert => "#{current_user.username} wants to play!",
-           :playdate_url => root_url.to_s + 'playdate?playdate='+@playdate.id.to_s', #"http://www.playtell.com/playdate?playdate="+@playdate.id.to_s,
+           :playdate_url => root_url.to_s + 'playdate?playdate='+@playdate.id.to_s, #"http://www.playtell.com/playdate?playdate="+@playdate.id.to_s,
            :initiator => current_user.username,
            :initiatorID => current_user.id,
            :playmate => playmate.username,
