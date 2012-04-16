@@ -163,6 +163,10 @@ button.jumbo-button, input[type="submit"].jumbo-button {
 	font-size: 2em;
 }
 
+button.extra-jumbo-button, input[type="submit"].extra-jumbo-button {
+	font-size: 3em;
+}
+
 button.mini-button, input[type="submit"].mini-button {
 	font-size: .5em;
 }
