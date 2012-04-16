@@ -1460,3 +1460,9 @@ button.green2, input[type="submit"].green2 {
 	top: 14px !important;
 }
 
+.ipad-button {
+	text-align: center;
+	margin-top: 200px;
+	font-size: 3em;
+	
+}
