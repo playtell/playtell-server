@@ -2,22 +2,6 @@ Semiralabs::Application.routes.draw do
 
   match 'playdate' => 'games#playdate'
   match 'update_playdate' => 'games#updatePlaydate'
-
-  #deprecated
-  match 'update_page' => 'games#updatePage'
-  match 'update_from_playdate' => 'games#updateFromPlaydate'
-  match 'clear_playdate' => 'games#clearPlaydate'
-  match 'disconnect_playdate' => 'games#disconnectPlaydate'
-  match 'playdate_requested' => 'games#playdateRequested'
-  match 'playdate_disconnected' => 'games#playdateDisconnected'
-  
-  #currently not used
-  match 'memory' => 'games#memory'
-  match 'update_game' => 'games#updateGame'
-  match 'update_game_from_session' => 'games#updateGameFromSession'
-  match 'set_time' => 'games#setTime' #for youtube videos
-  match 'check_time' => 'games#checkTime'
-  
   match 'feedbacks' => 'feedback#create'
       
   devise_for :users, :controllers => { :sessions => "sessions" }
@@ -35,6 +19,7 @@ Semiralabs::Application.routes.draw do
     end
   end
   match "remove_friendship" => 'friendships#remove'
+
   namespace :api do
     resources :tokens, :only => [:create, :destroy]
     resources :playdatephotos, :only => [:create]
@@ -46,6 +31,7 @@ Semiralabs::Application.routes.draw do
   end
   
   match 'pusher/auth' => 'pusher#auth'
+  match '/ipad' => 'ipad#index'
   
   match 'early_access' => 'application#earlyAccess' 
   match 'timeline' => 'application#timeline'  
@@ -54,6 +40,21 @@ Semiralabs::Application.routes.draw do
     root :to => 'users#show'
   end 
   root :to => 'application#index'
+  
+  #deprecated
+  match 'update_page' => 'games#updatePage'
+  match 'update_from_playdate' => 'games#updateFromPlaydate'
+  match 'clear_playdate' => 'games#clearPlaydate'
+  match 'disconnect_playdate' => 'games#disconnectPlaydate'
+  match 'playdate_requested' => 'games#playdateRequested'
+  match 'playdate_disconnected' => 'games#playdateDisconnected'
+  
+  #currently not used
+  match 'memory' => 'games#memory'
+  match 'update_game' => 'games#updateGame'
+  match 'update_game_from_session' => 'games#updateGameFromSession'
+  match 'set_time' => 'games#setTime' #for youtube videos
+  match 'check_time' => 'games#checkTime'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
