@@ -50,9 +50,11 @@
 			<div class="photo-reel-container">
 				<div class="photo-pair">
 				</div>
-				<div class="photo-reel-temp-text">
-					<p><%= @current_user.username %> & <%= @playdate.getOtherPlayerName(@current_user) %>
-				</div>
+				<% if false %>
+					<div class="photo-reel-temp-text">
+						<p><%= @current_user.username %> & <%= @playdate.getOtherPlayerName(@current_user) %>
+					</div>
+				<% end %>
 			</div>
 		</div>
 		
