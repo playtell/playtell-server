@@ -292,7 +292,7 @@ private
       :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
       :tokboxPlaymateToken => @playdate.tokbox_playmate_token }
     )
-    puts "PUSHER: playdate_requested on presence-rendezvous-channel. playdate: " + @playdate.id.to_s + ", initiator: " + initiator.username + ", playmate: " + current_user.username
+    puts "PUSHER: playdate_requested on presence-rendezvous-channel. playdate: " + @playdate.id.to_s + ", initiator: " + current_user.displayName + ", playmate: " + playmate.displayName
     
     device_tokens = playmate.device_tokens
     if !device_tokens.blank?
@@ -330,7 +330,7 @@ private
        :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
        :tokboxPlaymateToken => @playdate.tokbox_playmate_token }
      )
-     puts "PUSHER: playdate_joined on presence-rendezvous-channel. playdate: " + @playdate.id.to_s + ", initiator: " + initiator.username + ", playmate: " + current_user.username
+     puts "PUSHER: playdate_joined on presence-rendezvous-channel. playdate: " + @playdate.id.to_s + ", initiator: " + initiator.displayName + ", playmate: " + current_user.displayName
    end
 
   # loads a book for a playdate.   
