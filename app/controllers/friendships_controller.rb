@@ -29,7 +29,7 @@ class FriendshipsController < ApplicationController
   
   #for admin
   def remove 
-    @friendship = Friendship.find_by_user_id_and_friend_id(params[:user_id], params[:friend_id])
+    @friendship = Friendship.find_by_user_id_and_friend_id(params[:user_id], params[:friend_id]) || Friendship.find_by_user_id_and_friend_id(params[:friend_id], params[:user_id])
     @friendship.delete unless @friendship.blank?
     redirect_to allofplaytellsusers_users_path
   end

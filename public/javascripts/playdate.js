@@ -338,7 +338,7 @@ function showPlaydateRequest(data) {
 	
 }
 
-//serves up a lightbox with the playdate join request 
+//removes lightbox with the playdate join request 
 function removePlaydateRequest(playmateID) {
 	//data.id is playdate id. put that in the playdate channel name field
 	$("#pusher-channel-name").html('');
