@@ -60,6 +60,7 @@ class GamesController < ApplicationController
   def disconnectPlaydate
     if !current_playdate.disconnected?
       Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:player => current_user.id})
+      puts 'PUSHER: end_playdate on ' + @playdate.pusher_channel_name + '.'      
       current_playdate.disconnect 
     end
     session[:playdate] = nil
@@ -291,6 +292,7 @@ private
       :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
       :tokboxPlaymateToken => @playdate.tokbox_playmate_token }
     )
+    puts "PUSHER: playdate_requested on presence-rendezvous-channel. playdate: " + @playdate.id.to_s + ", initiator: " + initiator.username + ", playmate: " + current_user.username
     
     device_tokens = playmate.device_tokens
     if !device_tokens.blank?
@@ -328,7 +330,7 @@ private
        :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
        :tokboxPlaymateToken => @playdate.tokbox_playmate_token }
      )
-     puts "playdate_joined. initiator: " + initiator.username + ", playmate: " + current_user.username
+     puts "PUSHER: playdate_joined on presence-rendezvous-channel. playdate: " + @playdate.id.to_s + ", initiator: " + initiator.username + ", playmate: " + current_user.username
    end
 
   # loads a book for a playdate.   

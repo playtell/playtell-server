@@ -18,6 +18,7 @@ class PusherController < ApplicationController
     end
 
     if response  
+      puts 'PUSHER: ' + current_user.displayName + '[' + current_user.id.to_s + '] subscribing to ' + params[:channel_name] 
       render :json => response 
     else
       render :text => "Not authorized", :status => '403'
