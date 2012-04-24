@@ -55,6 +55,7 @@
 		<% for playdate in @playdates %>
 			<h3>#<%= playdate.id %> on <%= playdate.created_at %></h3>
 			<p>Player IDs: <%= playdate.player1_id %>, <%= playdate.player2_id %></p>
+			<p>Duration: <%= playdate.duration %> min</p>
 		<% end %>
 	</div>
 </div>

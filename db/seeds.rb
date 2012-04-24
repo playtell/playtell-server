@@ -259,6 +259,7 @@ Page.create({:book_id => b.id,
                          :page_num => 10, 
                          :page_text => "\"Oh Grandma, I was so scared!\"  sobbed Little Red Riding Hood, \"I'll never speak to strangers or dawdle in the forest again.\"\n\"There, there, child.  You've learned an important lesson.  Thank goodness you shouted loud enough for this kind woodsman to hear you!\"\nThe woodsman knocked out the wolf and carried him deep into the forest where he wouldn't bother people any longer.\nLittle Red Riding Hood and her Grandmother had a nice lunch and a long chat."}) 
 
+=begin
 b = Book.create( {:title => "Pinboard-safari", :image_directory => "Pinboard-safari", :image_only => 1} )
 Page.create({:book_id => b.id, 
              :page_num => 1, 
@@ -290,3 +291,4 @@ Page.create({:book_id => b.id,
 Page.create({:book_id => b.id, 
              :page_num => 10, 
              :page_text => ""})
+=end
