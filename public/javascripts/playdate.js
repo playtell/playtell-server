@@ -34,10 +34,6 @@ function enableButtons() {
 		toggleToyBox();
 	});
 
-	/*$('#disconnect-link').on(tablet ? 'touchstart' : 'click', function() {
-		endPlaydate();
-	});*/
-
 	$('#disconnect-link img').draggable({
 		axis:'x', 
 		containment:'parent', 
