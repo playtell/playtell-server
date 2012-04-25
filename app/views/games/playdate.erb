@@ -41,15 +41,6 @@
 			<!--<div class="camera-control">
 				<p><a href="#" id="camera-link" class="sprite"></a></p>
 			</div>-->
-			<div class="photo-reel-container">
-				<div class="photo-pair">
-				</div>
-				<% if false %>
-					<div class="photo-reel-temp-text">
-						<p><%= @current_user.username %> & <%= @playdate.getOtherPlayerName(@current_user) %>
-					</div>
-				<% end %>
-			</div>
 		</div>
 		
 		<div class="activity-content row">
@@ -66,10 +57,6 @@
 					<div id='pages'></div>
 				</div>
 			</div>
-			
-			<div id="keepsake-container" class="hidden"></div>
-			
-			<div id="camera-container" class="hidden"></div>
 			<div class="clear"></div>
 		</div>
 		
@@ -92,7 +79,6 @@
 			<div id="feedback-lightbox-text">
 				<h2>Did you enjoy your playdate?</h2>	
 				<%= render :partial => "feedback/form", :locals => {:feedback => @feedback} %>
-				<% if false %><%= render :partial => "photoform", :locals => {:photo => @photo} %><% end %>
 			</div>
 		</div>
 		<button class="close close-x blue">X</button>
