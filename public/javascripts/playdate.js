@@ -1,14 +1,15 @@
-function initPlaydate() {
+function initPlaydate(playdate) {
 	
-	pusher = new Pusher($('#pusher-key').html()); 
-	playdateChannel = pusher.subscribe($('#pusher-channel-name').html());
-	listenForEndPlaydate(true);
+	inPlaydate = true;
+	$('#pusher-channel-name').html(playdate.pusher_channel_name);	
+	playdateChannel = pusher.subscribe(playdate.pusher_channel_name);
+	listenForEndPlaydate();
 	
 	enableButtons();
 	enableToySelectors();
 	toggleToyBox();
 	
-	$('.instructions').fadeIn('slow');
+	$('.instructions').fadeIn('fast');
 	
 	listenForChangeBook();
 	
@@ -353,7 +354,15 @@ function syncToServerBeginPlaydate(friend_id) {
 	
 	//document.location.href="/playdate?friend_id=" + friend_id;
 	$('.mainContainer').hide();
-	$('.playdateContainer').show();
+	$('.appContainer').show();
+	$.ajax({
+		url: "/playdate.json",
+		data: "friend_id=" + friend_id,
+		type: "POST",
+		success: function(data) {
+			initPlaydate(data.playdate);	
+		}
+	});
 }
 
 // changes the visual state of a user's friend on the dialpad

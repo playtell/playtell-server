@@ -5,6 +5,7 @@
 	
 	<script type="text/javascript">
 		var tablet = false;
+		var inPlaydate = false;
 		var pusher;
 		var playdateChannel;
 		
@@ -69,4 +70,6 @@
 	</div>
 </div>
 
-<div class="playdateContainer">Hello Playdate!</div>
+<div class="appContainer">
+	<%= render :partial => "games/playdate" %>
+</div>

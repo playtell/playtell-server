@@ -11,6 +11,8 @@ class UsersController < ApplicationController
 
     #for playdate
     @feedback = Feedback.new
+    @books = Book.all
+  
   end
     
   def search

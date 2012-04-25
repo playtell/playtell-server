@@ -1,38 +1,18 @@
 
-<div id="toybox" class='<%= @playdate.blank? ? 'toybox-nav' : 'toybox-full' %>'>
+<div id="toybox" class='toybox-full'>
 	<div id="toybox-toggle"><p><a href="#" id="toybox-link"></a></p></div>
-	<!--<div class="selected-indicator-container">
-		<div class="selected-indicator hidden"></div>
-	</div>-->
 	<div class="toybox-wrapper fr">
 		<div class="toybox-controls-container">
-			<% if @playdate.blank? %>
-				<div class="nav-control">
-					<p><%= link_to '', user_path(current_user), 
-						:id => "dialpad-link", 
-						:class => current_page?(:controller => 'users', :action => 'show') ? 
-						'active' : '' %></p>
-				</div>
-				<div class="nav-control">
-					<p><%= link_to '', timeline_path, 
-						:id => "timeline-link", 
-						:class => current_page?(:controller => 'application', :action => 'timeline') ? 
-						'active' : '' %></p>
-				</div>
-			<% else %>
-				<div class="toybox-control hidden"><p><a href="#" id="lock-link"></a></p></div>
-				<div class="toybox-control">
-					<p><a href="#" id="disconnect-link">
-						<%= image_tag "disconnect.png" %>
-						<div id="ended"></div>
-					</a></p>
-				</div>
-			<% end %>
-		</div>
-		<% if !@playdate.blank? %>
-			<div class="toybox-content-container fr">
-				<%= render :partial => "library", :locals => {:books => @books} %>
+			<div class="toybox-control hidden"><p><a href="#" id="lock-link"></a></p></div>
+			<div class="toybox-control">
+				<p><a href="#" id="disconnect-link">
+					<%= image_tag "disconnect.png" %>
+					<div id="ended"></div>
+				</a></p>
 			</div>
-		<% end %>
+		</div>
+		<div class="toybox-content-container fr">
+			<%= render :partial => "games/library", :locals => {:books => @books} %>
+		</div>
 	</div>
 </div>

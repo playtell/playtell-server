@@ -1,29 +1,11 @@
 <% content_for :head do %>
-	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
-	<%= javascript_include_tag 'playdate', 'pageflip', 'pusher', 'swipe.min', 'video', 'jquery.ui.touch-punch.min' %>
+	<%= javascript_include_tag 'pageflip', 'swipe.min', 'jquery.ui.touch-punch.min', 'activity/PTActivity', 'activity/PTBook' %>	
 	
-	<script src="http://staging.tokbox.com/v0.91/js/TB.min.js"></script>
-	<%= javascript_include_tag "http://static.twilio.com/libs/twiliojs/1.0/twilio.min.js" %>
-	
-	
-<script type="text/javascript">
-	
-	var tablet = false;
-	
-	var pusher;
-	var playdateChannel;
-	
-	var mySwipe;   
-	
-	$(document).ready(function() {		
-		<% if tablet_device? %>
-			tablet = true;
-			document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
-		<% end %>
-		initPlaydate();
-	});
+	<script type="text/javascript">
+		
+		var mySwipe;   
 			
-</script>
+	</script>
 <% end %>
 	
 	<div id="playdateContainer">
@@ -40,7 +22,7 @@
 			<div class="instructions hidden"></div>
 			
 			<div class="book-nav hidden">
-				<%= render :partial => "bookNav" %>
+				<%= render :partial => "games/bookNav" %>
 			</div>
 			
 			<div class="book-container hidden">	
@@ -51,8 +33,8 @@
 			<div class="clear"></div>
 		</div>
 		
-		<%= render :partial => "toybox", :locals => {:playdate => @playdate, :books => @books} %>
-
+		<%= render :partial => "games/toybox" %>
+		
 		<div class="clear"></div>
 		<div class="hidden" id="finger">***</div>
 	</div>

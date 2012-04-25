@@ -20,7 +20,12 @@ class GamesController < ApplicationController
       sendInvite
     end
     @books = Book.all
-    @feedback = Feedback.new
+    #@feedback = Feedback.new
+
+    respond_to do |format|
+      format.json { render :json => @playdate.as_json }
+    end
+
   end
   
   # checks to see if there is a playdate request for the current user, and if so, changes the current user's view to show a playdate request
