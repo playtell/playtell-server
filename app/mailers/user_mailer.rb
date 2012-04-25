@@ -8,7 +8,7 @@ class UserMailer < ActionMailer::Base
   
   def betauser_welcome(betauser)
       @user = betauser
-      mail(:to => @user.email, :subject => "PlayTell Beta - how to get the app")
+      mail(:to => @user.email, :subject => "PlayTell Alpha - how to get the app")
   end
   
   def betainvitee_welcome(betauser, invitee)
