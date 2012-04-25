@@ -13,16 +13,7 @@
 	var pusher;
 	var playdateChannel;
 	
-	var mySwipe;
-	
-	//tokbox
-	var apiKey = '<%= @api_key %>';
-	var sessionId = '<%= @playdate.video_session_id %>';
-	var token = '<%= @tok_token1 %>';
-			
-	var session = TB.initSession(sessionId);  
-	var publisher;   
-	
+	var mySwipe;   
 	
 	$(document).ready(function() {		
 		<% if tablet_device? %>
@@ -35,7 +26,7 @@
 </script>
 <% end %>
 	
-	<div id="playdate-container">
+	<div id="playdateContainer">
 		
 		<div class="chat-content row">
 			<!--<div class="camera-control">

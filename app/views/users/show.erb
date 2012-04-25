@@ -23,48 +23,50 @@
 <% end %>
 <div class="mainContainer">
 
-<div class="user-profile">
+	<div class="user-profile">
 	
-	<div class="clouds"></div>
+		<div class="clouds"></div>
 	
-	<div class="dialpad">
-		
-		<div class="dialpad-header">
-			<div><%= image_tag "dialpad_logo.png" %></div>
-			<div class="dialpad-ribbon">
-				<div class='ribbon ribbon-left'></div>
-				<div class="ribbon ribbon-middle body-text">Who will play today?&nbsp</div>
-				<div class='ribbon ribbon-right'></div>
+		<div class="dialpad">
+			<div class="dialpad-header">
+				<div><%= image_tag "dialpad_logo.png" %></div>
+				<div class="dialpad-ribbon">
+					<div class='ribbon ribbon-left'></div>
+					<div class="ribbon ribbon-middle body-text">Who will play today?&nbsp</div>
+					<div class='ribbon ribbon-right'></div>
+				</div>
 			</div>
+		
+			<%= render :partial => "friends" %>
 		</div>
-		
-		<%= render :partial => "friends" %>
-		
-	</div>
 	
-	<div class="my-profile">
-		<%= image_tag current_user.profile_photo.blank? ? "photos/default.jpg" : current_user.profile_photo, 
-				:class => "small-user" %>
-		<div class="small-user dialpadsprite" id="no-profile"></div>
-	</div>
+		<div class="my-profile">
+			<%= image_tag current_user.profile_photo.blank? ? "photos/default.jpg" : current_user.profile_photo, 
+					:class => "small-user" %>
+			<div class="small-user dialpadsprite" id="no-profile"></div>
+		</div>
 	
-	<% if false %><%= render :partial => "games/toybox" %><% end %>
-	<div class="overlay hidden"></div>
+		<% if false %><%= render :partial => "games/toybox" %><% end %>
 
-	<div class="lightbox hidden" id="find-lightbox">
-		<div id="find-lightbox-text">
-			<h2>Find Playmates</h2>
-			<%= form_tag search_users_path, :remote => true, :method => 'get', :id => "playmate-search" do %>
-			  <p>
-			    <%= text_field_tag :search, params[:search] %>
-			    <%= submit_tag "Search", :name => nil %>
-			  </p>	
-			<% end %>
-			<div id="users">
-				<%= render "users" %>
+		<div class="overlay hidden"></div>
+
+		<div class="lightbox hidden" id="find-lightbox">
+			<div id="find-lightbox-text">
+				<h2>Find Playmates</h2>
+				<%= form_tag search_users_path, :remote => true, :method => 'get', :id => "playmate-search" do %>
+				  <p>
+				    <%= text_field_tag :search, params[:search] %>
+				    <%= submit_tag "Search", :name => nil %>
+				  </p>	
+				<% end %>
+				<div id="users">
+					<%= render "users" %>
+				</div>
 			</div>
+			<button class="close close-x blue">X</button>	
 		</div>
-		<button class="close close-x blue">X</button>	
+		
 	</div>
 </div>
-</div>
+
+<div class="playdateContainer">Hello Playdate!</div>

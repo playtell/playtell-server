@@ -351,8 +351,9 @@ function removePlaydateRequest(playmateID) {
 
 function syncToServerBeginPlaydate(friend_id) {
 	
-	document.location.href="/playdate?friend_id=" + friend_id;
-	
+	//document.location.href="/playdate?friend_id=" + friend_id;
+	$('.mainContainer').hide();
+	$('.playdateContainer').show();
 }
 
 // changes the visual state of a user's friend on the dialpad
