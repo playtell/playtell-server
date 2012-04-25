@@ -17,6 +17,7 @@ function initPlaydate(playdate) {
 
 function endPlaydate() {
 	pusher.unsubscribe($("#pusher-channel-name").html()); //disconnect on pusher
+	inPlaydate = false;
 	$.get("/disconnect_playdate"); //disconnect on playtell 
 	
 	// prompt for feedback:
