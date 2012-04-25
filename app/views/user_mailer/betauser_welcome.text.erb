@@ -1,15 +1,18 @@
 Hi <%= @user.username.capitalize %>, 
 
-Welcome to the PlayTell Beta! 
+Welcome to the PlayTell Alpha! 
 
-To get you the PlayTell app we need some information about your iPad. Guess what, there is an app for that! 
+Here are the 3 easy steps to get the PlayTell iPad app: 
 
-Step #1: From your iPad, click on the link below and install and then run the app (it's free).
-<%= url_for 'http://itunes.apple.com/app/ad-hoc-helper/id285691333?mt=8' %>
+1. On your iPad, open Safari and go to <%= url_for 'www.playtell.com/ipad' %>
 
-Step #2: This app will create an email. Please send it to jason@playtell.com
+2. Login with your new account (if you see a login screen):
+Email: <%= @user.email %>
+Password: rg
 
-Once we've received that email, we'll send you a link to download the PlayTell app. 
+3. Click the first button and follow the steps to install; then click the second button to install the app.
+
+Once you've done your first PlayTell playdate, we'd love to hear what you think. 
 
 Thanks!
 Semira & Jason
