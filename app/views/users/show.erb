@@ -1,27 +1,17 @@
 <% content_for :head do %>
-
-	<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
-	<%= javascript_include_tag 'pusher', 'playdate' %>
 	
 	<script type="text/javascript">
-		var tablet = false;
-		var inPlaydate = false;
-		var pusher;
-		var playdateChannel;
 		
-		$(document).ready(function() {
-			<% if tablet_device? %>
-				tablet = true;
-				document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
-			<% end %>
-			pusher = new Pusher($('#pusher-key').html()); 			
+		$(document).ready(function() { 			
 			checkForPlaydateRequest(); 
 			enableDialpadButtons();
 			enableButtons();
 		});
 		
 	</script>
+	
 <% end %>
+
 <div class="mainContainer">
 
 	<div class="user-profile">
