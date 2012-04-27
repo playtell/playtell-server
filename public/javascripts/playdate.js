@@ -4,14 +4,10 @@ function initPlaydate(pusher_channel_name) {
 	$('#pusher-channel-name').html(pusher_channel_name);	
 	playdateChannel = pusher.subscribe(pusher_channel_name);
 	listenForEndPlaydate();
+	listenForChangeBook();
 	
 	enableButtons();
 	enableToySelectors();
-	toggleToyBox();
-	
-	$('.instructions').fadeIn('fast');
-	
-	listenForChangeBook();
 	
 }
 
@@ -365,8 +361,14 @@ function removePlaydateRequest(playmateID) {
 function syncToServerBeginPlaydate(params) {
 	
 	//document.location.href="/playdate?friend_id=" + friend_id;
-	$('.mainContainer').hide();
+	$('.mainContainer').fadeOut('medium');
 	$('.appContainer').show();
+	
+	setTimeout(function() { 
+		toggleToyBox(); 
+		setTimeout(function() { $('.instructions').fadeIn('fast'); }, 500);
+	}, 1000);
+	
 	$.ajax({
 		url: "/playdate.json",
 		data: params,
