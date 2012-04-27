@@ -16,18 +16,22 @@
   <%= javascript_include_tag "jquery.lightbox_me.js", 'jquery.easing.1.3', 'activity/PTActivity', 'activity/PTBook' %>
 
   <%= csrf_meta_tag %>
+
   <link rel="shortcut icon" href="/favicon.ico" />
 
   <%= yield :head %>
 
 </head>
+
 <body>
-	<% flash.each do |name, msg| %>
-  		<%= content_tag :div, msg, :id => "flash_#{name}" %>
-  	<% end %>
-	<div class="appContainer">
-			<%= yield %>
-	</div>
+	<% if !tablet_device? %>
+		<p class="block fr"><%= render 'devise/menu/login_items' %></p>
+		<p class="notice"><%= notice %></p>
+		<p class="alert"><%= alert %></p>
+	<% end %>
+
+	<%= yield %>
+	
 	<%= render 'application/values' %>
 
 </body>
