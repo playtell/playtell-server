@@ -20,10 +20,11 @@ class GamesController < ApplicationController
       sendInvite
     end
     @books = Book.all
-    #@feedback = Feedback.new
+    @feedback = Feedback.new
 
     respond_to do |format|
       format.json { render :json => @playdate.as_json }
+      format.html
     end
 
   end

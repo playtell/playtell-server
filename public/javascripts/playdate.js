@@ -1,8 +1,8 @@
-function initPlaydate(playdate) {
+function initPlaydate(pusher_channel_name) {
 	
 	inPlaydate = true;
-	$('#pusher-channel-name').html(playdate.pusher_channel_name);	
-	playdateChannel = pusher.subscribe(playdate.pusher_channel_name);
+	$('#pusher-channel-name').html(pusher_channel_name);	
+	playdateChannel = pusher.subscribe(pusher_channel_name);
 	listenForEndPlaydate();
 	
 	enableButtons();
@@ -370,7 +370,7 @@ function syncToServerBeginPlaydate(params) {
 		data: params,
 		type: "POST",
 		success: function(data) {
-			initPlaydate(data.playdate);	
+			initPlaydate(data.playdate.pusher_channel_name);	
 		}
 	});
 }
