@@ -17,17 +17,19 @@ function initPlaydate(pusher_channel_name) {
 
 function endPlaydate() {
 	pusher.unsubscribe($("#pusher-channel-name").html()); //disconnect on pusher
-	inPlaydate = false;
 	$.get("/disconnect_playdate"); //disconnect on playtell 
 	
 	// prompt for feedback:
-	$('#feedback-lightbox').lightbox_me({
-	    centered: true, 
-		closeClick: false,
-		onClose: function () {
-			document.location.href='/users/' + $('#current-user').html();
-		}
-	});
+	if (inPlaydate) {
+		$('#feedback-lightbox').lightbox_me({
+		    centered: true, 
+			closeClick: false,
+			onClose: function () {
+				document.location.href='/users/' + $('#current-user').html();
+			}
+		});
+	}
+	inPlaydate = false;
 }
 
 function enableButtons() {
