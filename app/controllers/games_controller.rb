@@ -63,10 +63,10 @@ class GamesController < ApplicationController
   
   # ends the current playdate session (i.e. disconnects)
   def disconnectPlaydate
-    if !current_playdate.disconnected?
+    if !current_playdate.blank? and !current_playdate.disconnected?
       Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:player => current_user.id})
       puts 'PUSHER: end_playdate on ' + @playdate.pusher_channel_name + '.'      
-      current_playdate.disconnect 
+      @playdate.disconnect 
     end
     session[:playdate] = nil
     render :nothing => true
@@ -75,7 +75,7 @@ class GamesController < ApplicationController
   # deprecated
   # checks to see if the playdate has ended, and if so, changes the current user's view accordingly
   def playdateDisconnected
-    if Playdate.find(params[:playdate]).disconnected? #current_playdate.disconnected?
+    if Playdate.find(params[:playdate]).disconnected? 
         respond_to do |format|
           format.json { render :json => true } 
           format.tablet { render :json => true }
@@ -345,8 +345,8 @@ private
     @book = Book.find(id)
   end
   
-  # homepage & users -> application layout
-  # playdates -> playdate layout
+  # homepage -> application layout
+  # playdates & dialpad -> playdate layout
   # card games -> games layout (not really used right now)
   def chooseLayout 
     case action_name

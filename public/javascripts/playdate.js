@@ -349,8 +349,8 @@ function showPlaydateRequest(data) {
 function removePlaydateRequest(playmateID) {
 	//data.id is playdate id. put that in the playdate channel name field
 	$("#pusher-channel-name").html('');
-	$('#player-name').html('');
-	$('#playdate-target').attr('');	
+	//$('#player-name').html('');
+	//$('#playdate-target').attr('');	
 	
 	var friend_div = 'div.*[data-friendid=' + playmateID + ']'
 	

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   layout 'playdates'
   before_filter :authenticate_user!
   before_filter :pusher, :only => [:show]
+  layout :chooseLayout
   
   def show
     @user = current_user
@@ -40,5 +41,12 @@ class UsersController < ApplicationController
     redirect_to allofplaytellsusers_users_path
   end
   
-
+  def chooseLayout 
+    case action_name
+    when 'show'
+      'playdates'
+    else
+      'application'
+    end
+  end
 end

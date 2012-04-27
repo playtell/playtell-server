@@ -55,6 +55,7 @@ function listenForTurnPage() {
 function listenForEndPlaydate() {
 	playdateChannel.bind('end_playdate', function(data) {
 		if (!inPlaydate) {
+			console.log("here");
 			removePlaydateRequest(data.player);
 			if (pusher.channel($('#pusher-channel-name'))) {
 				pusher.unsubscribe($('#pusher-channel-name').html());
