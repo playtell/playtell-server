@@ -317,8 +317,17 @@ function showPlaydateRequest(data) {
 	console.log($('div.*[data-friendid=' + data.initiatorID + '] p.left a').attr("href"));
 	var friend_div = 'div.*[data-friendid=' + data.initiatorID + ']'
 	
-	$(friend_div + ' p.left a').attr('href', '/playdate?playdate=' + data.playdateID);	
-	$(friend_div + ' a.friend-item').attr('href', '/playdate?playdate=' + data.playdateID);	
+	//$(friend_div + ' p.left a').attr('href', '/playdate?playdate=' + data.playdateID);	
+	//$(friend_div + ' a.friend-item').attr('href', '/playdate?playdate=' + data.playdateID);	
+	
+	$(friend_div + ' p.left a').on(tablet ? 'touchstart' : 'click', function() { 
+		syncToServerBeginPlaydate('playdate=' + data.playdateID);
+	});
+	
+	$(friend_div + ' a.friend-item').on(tablet ? 'touchstart' : 'click', function() { 
+		syncToServerBeginPlaydate('playdate=' + data.playdateID);
+	});	
+	
 	$(friend_div + ' p.right a').on(tablet ? 'touchstart' : 'click', function() { 
 		removePlaydateRequest(data.initiatorID);
 		endPlaydate();
@@ -351,14 +360,14 @@ function removePlaydateRequest(playmateID) {
 	$('.overlay').hide();	
 }
 
-function syncToServerBeginPlaydate(friend_id) {
+function syncToServerBeginPlaydate(params) {
 	
 	//document.location.href="/playdate?friend_id=" + friend_id;
 	$('.mainContainer').hide();
 	$('.appContainer').show();
 	$.ajax({
 		url: "/playdate.json",
-		data: "friend_id=" + friend_id,
+		data: params,
 		type: "POST",
 		success: function(data) {
 			initPlaydate(data.playdate);	
@@ -380,7 +389,7 @@ function enableDialpadButtons() {
 	$('.online').on(tablet ? 'touchstart' : 'mousedown', function() {
 		var friendid = $('a').has(this).data("friendid");
 		changeUserPresence(friendid, "pressed");
-		syncToServerBeginPlaydate(friendid);
+		syncToServerBeginPlaydate("friend_id=" + friendid);
 	});
 	
 	//add friends
