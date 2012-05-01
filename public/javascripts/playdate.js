@@ -383,8 +383,16 @@ function syncToServerBeginPlaydate(params) {
 // presence can be online, offline, or pressed
 function changeUserPresence(user_id, presence) {
 	
-	$('a.*[data-friendid=' + user_id + '] .presence').hide();
-	$('a.*[data-friendid=' + user_id + '] .'+ presence).show();
+	if (presence == "pressed") {
+		$('a.*[data-friendid=' + user_id + '] .presence').hide();
+		$('a.*[data-friendid=' + user_id + '] .'+ presence).show();
+	}
+	else if (presence == "disabled") {
+		$('a.*[data-friendid=' + user_id + ']').addClass(presence);
+	}
+	else {		
+		$('a.*[data-friendid=' + user_id + ']').removeClass("disabled");
+	}
 	
 }
 

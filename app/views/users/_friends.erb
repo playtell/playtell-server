@@ -7,7 +7,7 @@
 				<p class="inline-block right"><a href="#" id="reject-link" class="sprite"></a></p>
 			</div>
 			<div class="friend-image-wrapper">
-				<a href="#" class="friend-item <%= 'disabled' unless friend.confirmed? %>" data-friendid="<%=friend.id%>">
+				<a href="#" class="friend-item" data-friendid="<%=friend.id%>">
 				<%= image_tag friend.profile_photo.blank? ? 
 					"photos/default.jpg" : friend.profile_photo, 
 					:alt => friend.displayName, 

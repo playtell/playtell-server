@@ -8,28 +8,36 @@ function listenForPlaydateRequest() {
 			playdateChannel = pusher.subscribe($('#pusher-channel-name').html());
 			listenForEndPlaydate(false);
 		}
+		else { 
+			if ($('*[data-friendid=' + parseInt(data.playmateID) + ']').length != 0) {
+				changeUserPresence(parseInt(data.playmateID), "disabled");
+			}
+			if ($('*[data-friendid=' + parseInt(data.initiatorID) + ']').length != 0) {
+				changeUserPresence(parseInt(data.initiatorID), "disabled");
+			}
+		}
 	});	
 
-/*	rendezvousChannel.bind('pusher:subscription_succeeded', function(members){
+	rendezvousChannel.bind('pusher:subscription_succeeded', function(members){
 		members.each(function(member) {
 			if ($('*[data-friendid=' + member.id + ']').length != 0) {
-				changeUserPresence(member.id, "online");
+				changeUserPresence(member.id, "enabled");
 			}
-		  });
+		 });
 	})
 
 	rendezvousChannel.bind('pusher:member_removed', function(member){
 	    if ($('*[data-friendid=' + member.id + ']').length != 0) {
-			changeUserPresence(member.id, "offline");
+			changeUserPresence(member.id, "disabled");
 		}
   })
 
   	rendezvousChannel.bind('pusher:member_added', function(member){
-	    if ($('*[data-friendid=' + member.id + ']').length != 0) {
-			changeUserPresence(member.id, "online");
+		if ($('*[data-friendid=' + member.id + ']').length != 0 && $('*[data-friendid=' + member.id + ']').hasClass("disabled")) {
+			changeUserPresence(member.id, "enabled");
 		}
-  })
-*/
+  	})
+
 }
 
 //should be listenForChangeActivity
@@ -55,7 +63,6 @@ function listenForTurnPage() {
 function listenForEndPlaydate() {
 	playdateChannel.bind('end_playdate', function(data) {
 		if (!inPlaydate) {
-			console.log("here");
 			removePlaydateRequest(data.player);
 			if (pusher.channel($('#pusher-channel-name'))) {
 				pusher.unsubscribe($('#pusher-channel-name').html());
