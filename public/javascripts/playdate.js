@@ -152,7 +152,7 @@ function doChangeBook(book) {
 	$('.loading').hide();
 	
 	enableNavButtons("book", 101);
-	updateBookNavLinks()
+	updateBookNavLinks();
 	$('.book-nav').show();
 	
 	$('.book-container').show();
@@ -383,17 +383,9 @@ function syncToServerBeginPlaydate(params) {
 // presence can be online, offline, or pressed
 function changeUserPresence(user_id, presence) {
 	
-	if (presence == "pressed") {
-		$('a.*[data-friendid=' + user_id + '] .presence').hide();
-		$('a.*[data-friendid=' + user_id + '] .'+ presence).show();
-	}
-	else if (presence == "disabled") {
-		$('a.*[data-friendid=' + user_id + ']').addClass(presence);
-	}
-	else {		
-		$('a.*[data-friendid=' + user_id + ']').removeClass("disabled");
-	}
-	
+	$('a.*[data-friendid=' + user_id + '] .presence').hide();
+	$('a.*[data-friendid=' + user_id + '] .'+ presence).show();
+
 }
 
 function enableDialpadButtons() {

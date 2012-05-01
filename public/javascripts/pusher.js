@@ -10,10 +10,10 @@ function listenForPlaydateRequest() {
 		}
 		else { 
 			if ($('*[data-friendid=' + parseInt(data.playmateID) + ']').length != 0) {
-				changeUserPresence(parseInt(data.playmateID), "disabled");
+				changeUserPresence(parseInt(data.playmateID), "offline");
 			}
 			if ($('*[data-friendid=' + parseInt(data.initiatorID) + ']').length != 0) {
-				changeUserPresence(parseInt(data.initiatorID), "disabled");
+				changeUserPresence(parseInt(data.initiatorID), "offline");
 			}
 		}
 	});	
@@ -21,20 +21,20 @@ function listenForPlaydateRequest() {
 	rendezvousChannel.bind('pusher:subscription_succeeded', function(members){
 		members.each(function(member) {
 			if ($('*[data-friendid=' + member.id + ']').length != 0) {
-				changeUserPresence(member.id, "enabled");
+				changeUserPresence(member.id, "online");
 			}
 		 });
 	})
 
 	rendezvousChannel.bind('pusher:member_removed', function(member){
 	    if ($('*[data-friendid=' + member.id + ']').length != 0) {
-			changeUserPresence(member.id, "disabled");
+			changeUserPresence(member.id, "offline");
 		}
   })
 
   	rendezvousChannel.bind('pusher:member_added', function(member){
-		if ($('*[data-friendid=' + member.id + ']').length != 0 && $('*[data-friendid=' + member.id + ']').hasClass("disabled")) {
-			changeUserPresence(member.id, "enabled");
+		if ($('*[data-friendid=' + member.id + ']').length != 0) {
+			changeUserPresence(member.id, "online");
 		}
   	})
 
