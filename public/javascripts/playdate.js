@@ -427,16 +427,3 @@ function preloader() {
 		img4.src = "https://ragatzi.s3.amazonaws.com/the-three-bears-page0.png";
 	}
 }
-function addLoadEvent(func) {	
-	var oldonload = window.onload;
-	if (typeof window.onload != 'function') {
-		window.onload = func;
-	} else {
-		window.onload = function() {
-			if (oldonload) {
-				oldonload();
-			}
-			func();
-		}
-	}
-}

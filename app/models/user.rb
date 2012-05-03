@@ -114,5 +114,14 @@ class User < ActiveRecord::Base
       reset_authentication_token! if authentication_token.blank?   
     end
   
+  #overriding to add the display name and profile pic
+  def as_json()
+    u = {
+      :id => self.id, 
+      :email => self.email,
+      :displayName => self.displayName,
+      :fullName => self.fullName,
+      :profilePhoto => self.profile_photo }      
+  end
   
 end
