@@ -896,6 +896,9 @@ p.number-text.of {
 	height: 764px;
 	position: absolute;
 	top: 4px;
+	
+	-webkit-transform: translateZ(0);
+	
 }
 
 .toybox-nav {

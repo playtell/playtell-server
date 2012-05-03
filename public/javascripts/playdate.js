@@ -151,12 +151,12 @@ function doChangeBook(book) {
 	
 	$('.loading').hide();
 	
-	$('.book-container').show();
+	$('.book-container').fadeIn('fast');
 	mySwipe.setup();
 	
 	enableNavButtons("book", 101);
 	updateBookNavLinks();
-	$('.book-nav').fadeIn('fast');
+	$('.book-nav').show();
 	listenForTurnPage();
 	
 	//grandma finger
