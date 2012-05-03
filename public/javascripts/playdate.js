@@ -151,7 +151,7 @@ function doChangeBook(book) {
 	
 	$('.loading').hide();
 	
-	$('.book-container').fadeIn('fast');
+	$('.book-container').show();
 	mySwipe.setup();
 	
 	enableNavButtons("book", 101);
@@ -369,6 +369,8 @@ function syncToServerBeginPlaydate(params) {
 		setTimeout(function() { $('.instructions').fadeIn('fast'); }, 500);
 	}, 1000);
 	
+	preloader();
+	
 	$.ajax({
 		url: "/playdate.json",
 		data: params,
@@ -414,6 +416,7 @@ function enableDialpadButtons() {
 
 function preloader() {
 	if (document.images) {
+		alert("loading images...");
 		var img1 = new Image();
 		var img2 = new Image();
 		var img3 = new Image();
