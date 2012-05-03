@@ -7,9 +7,11 @@ PTBook.prototype.createActivityFromJSON=function(book) {
 
 	bookMarkup += '<li style=display:block>'
 	 	+ '<div id="page_0" class="page">'
-		+ '<div class="title-page"><img src="' 
+		+ '<div class="title-page">'
+		+ '<img src="' 
 		+ getPageImageFilePath(book.image_directory, 0) 
-		+ '" class="title-image"></div></li>';
+		+ '" class="title-image">'
+		+ '</div></li>';
 		
 	$.each(book.pages, function(i, page) {
 		bookMarkup += '<li style=display:none>'
@@ -40,5 +42,7 @@ PTBook.prototype.createActivityFromJSON=function(book) {
 		}
 		bookMarkup += '</div></li>';
 	});
+	
 	$('#pages').html("<ul>" + bookMarkup + "</ul>");
+
 }
