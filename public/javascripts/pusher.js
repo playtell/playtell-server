@@ -15,8 +15,8 @@ function listenForPlaydateRequest() {
 			if ($('*[data-friendid=' + parseInt(data.initiatorID) + ']').length != 0) {
 				changeUserPresence(parseInt(data.initiatorID), "offline");
 			}
-*/		}
-	});	
+		}
+*/	});	
 /*
 	rendezvousChannel.bind('pusher:subscription_succeeded', function(members){
 		members.each(function(member) {
