@@ -416,21 +416,13 @@ function enableDialpadButtons() {
 
 function preloader() {
 	if (document.images) {
-		alert("loading images...");
 		var img1 = new Image();
 		var img2 = new Image();
 		var img3 = new Image();
 
-		$(img1)
-			.load(function () {
-	      		$(this).hide();
-				$(this).appendTo('.appContainer');
-	    	})
-	    	.attr('src', 'http://ragatzi.s3.amazonaws.com/thomas-breaks-a-promise-page0.png')
-	    	.attr('class', 'thomas-title-image');
-
-		img2.src = "http://ragatzi.s3.amazonaws.com/little-red-riding-hood-page0.png";
-		img3.src = "http://ragatzi.s3.amazonaws.com/this-old-man-page0.png";
+		img1.src = "https://ragatzi.s3.amazonaws.com/thomas-breaks-a-promise-page0.png";
+		img2.src = "https://ragatzi.s3.amazonaws.com/little-red-riding-hood-page0.png";
+		img3.src = "https://ragatzi.s3.amazonaws.com/this-old-man-page0.png";
 	}
 }
 function addLoadEvent(func) {	
