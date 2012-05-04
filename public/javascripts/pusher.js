@@ -34,6 +34,7 @@ function listenForPlaydateRequest() {
 */
   	rendezvousChannel.bind('pusher:member_added', function(member){
 		if ($('*[data-friendid=' + member.id + ']').length != 0) {
+			console.log("member added: " + member.id);
 			changeUserPresence(member.id, "online");
 		}
   	})
