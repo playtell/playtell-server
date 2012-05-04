@@ -1,5 +1,6 @@
 function listenForPlaydateRequest() {
 	var rendezvousChannel = pusher.subscribe("presence-rendezvous-channel");
+	alert("subscribed");
 	//when successfully subscribed
 	rendezvousChannel.bind('playdate_requested', function(data) {
 		if (parseInt(data.playmateID) == parseInt($('#current-user').html())) {
