@@ -27,12 +27,13 @@ function listenForPlaydateRequest() {
 		 });
 	})
 
-/*	rendezvousChannel.bind('pusher:member_removed', function(member){
-	    if ($('*[data-friendid=' + member.id + ']').length != 0) {
+	rendezvousChannel.bind('pusher:member_removed', function(member){
+	console.log("member removed: " + member.id);
+/*	    if ($('*[data-friendid=' + member.id + ']').length != 0) {
 			changeUserPresence(member.id, "offline");
 		}
-  })
-*/
+*/  })
+
   	rendezvousChannel.bind('pusher:member_added', function(member){
 		console.log("member added: " + member.id);
 		if ($('*[data-friendid=' + member.id + ']').length != 0) {
