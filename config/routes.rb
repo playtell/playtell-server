@@ -28,6 +28,7 @@ Semiralabs::Application.routes.draw do
     match 'twilio_token' => 'twilio#capability_token'
     match 'tokbox_tokens' => 'tokbox#tokbox_tokens'
     match 'playdate_players' => 'playdate#playdate_players'
+    match 'redial' => 'playdate#redial'
     #resources :settings, :only => [:update]
   end
   
