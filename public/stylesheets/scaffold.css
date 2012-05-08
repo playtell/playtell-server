@@ -709,6 +709,8 @@ p.number-text.of {
 /* TOP - CHAT AREA --------------------------------------------------------- */
 .chat-content {
 	height: 94px;
+	overflow: visible;
+	z-index: 1;
 }
 
 .camera-control {
@@ -723,14 +725,13 @@ p.number-text.of {
 }
 
 .cam {
-	height: 148px;
-	width: 138px;
+	width: 132px;
+	height: 130px;
 	margin-right: 1px;
 }
 
 .cam img {
-	height: 148px;
-	width: 138px;
+	width: 132px;
 }
 
 /* ACTIVITY --------------------------------------------------------- */
