@@ -718,27 +718,19 @@ p.number-text.of {
 	margin: 7px 17px;
 }
 
-.photo-reel-container {
-	display: inline-block;
+.cam-container {
 	float: left;
-	width: 825px;
-	text-align: left;
 }
 
-.photo-pair {
-	display: inline-block;
-	margin: 4px 8px 7px 8px;
+.cam {
+	height: 148px;
+	width: 138px;
+	margin-right: 1px;
 }
 
-.photo-reel-temp-text {
-	margin: 12px 0px 0px 10px;
-	text-align: center;
-}
-
-.photo-reel-temp-text p {
-	font-family: "Comfortaa", sans-serif;
-	font-size: 36px;
-	text-shadow: #fff 0px 2px 1px;
+.cam img {
+	height: 148px;
+	width: 138px;
 }
 
 /* ACTIVITY --------------------------------------------------------- */

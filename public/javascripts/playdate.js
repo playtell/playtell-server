@@ -28,6 +28,12 @@ function endPlaydate() {
 	inPlaydate = false;
 }
 
+function setPlaymatePhoto(playmate_id, photo_url) {
+	var src = playmate_id ? $('a.*[data-friendid=' + playmate_id + '] img.friend-item').attr("src") : photo_url
+	$('.playmate-cam-container').html('<img src=' + src + '>');	
+	
+}
+
 function enableButtons() {
 
 	$('#toybox-link').on(tablet ? 'touchstart' : 'click', function() {
@@ -312,18 +318,17 @@ function showPlaydateRequest(data) {
 	$("#pusher-channel-name").html(data.pusherChannelName);
 	//$('#player-name').html(data.initiator);
 	
-	console.log($('div.*[data-friendid=' + data.initiatorID + '] p.left a').attr("href"));
 	var friend_div = 'div.*[data-friendid=' + data.initiatorID + ']'
 	
 	//$(friend_div + ' p.left a').attr('href', '/playdate?playdate=' + data.playdateID);	
 	//$(friend_div + ' a.friend-item').attr('href', '/playdate?playdate=' + data.playdateID);	
 	
 	$(friend_div + ' p.left a').on(tablet ? 'touchstart' : 'click', function() { 
-		syncToServerBeginPlaydate('playdate=' + data.playdateID);
+		syncToServerBeginPlaydate('playdate', data.playdateID, data.initiatorID);
 	});
 	
 	$(friend_div + ' a.friend-item').on(tablet ? 'touchstart' : 'click', function() { 
-		syncToServerBeginPlaydate('playdate=' + data.playdateID);
+		syncToServerBeginPlaydate('playdate', data.playdateID, data.initiatorID);
 	});	
 	
 	$(friend_div + ' p.right a').on(tablet ? 'touchstart' : 'click', function() { 
@@ -358,10 +363,11 @@ function removePlaydateRequest(playmateID) {
 	$('.overlay').hide();	
 }
 
-function syncToServerBeginPlaydate(params) {
+function syncToServerBeginPlaydate(paramKey, playdateID, friendID) {
 	
 	//document.location.href="/playdate?friend_id=" + friend_id;
 	$('.mainContainer').fadeOut('medium');
+	setPlaymatePhoto(friendID, null);
 	$('.appContainer').show();
 	
 	setTimeout(function() { 
@@ -371,6 +377,7 @@ function syncToServerBeginPlaydate(params) {
 	
 	preloader();
 	
+	var params = paramKey + '=' + (paramKey == 'playdate' ? playdateID : friendID)
 	$.ajax({
 		url: "/playdate.json",
 		data: params,
@@ -395,7 +402,7 @@ function enableDialpadButtons() {
 	$('.online').on(tablet ? 'touchstart' : 'mousedown', function() {
 		var friendid = $('a').has(this).data("friendid");
 		changeUserPresence(friendid, "pressed");
-		syncToServerBeginPlaydate("friend_id=" + friendid);
+		syncToServerBeginPlaydate("friend_id", null, friendid);
 	});
 	
 	//add friends

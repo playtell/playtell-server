@@ -2,6 +2,7 @@
 	<script type="text/javascript">
 		
 		$(document).ready(function() {
+			setPlaymatePhoto(null, '<%= @playdate.getOtherPlayer(@current_user).profile_photo %>');
 			toggleToyBox();
 			setTimeout(function() { $('.instructions').fadeIn('fast'); }, 500);			
 			initPlaydate('<%= @playdate.pusher_channel_name %>');

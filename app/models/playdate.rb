@@ -51,6 +51,13 @@ class Playdate < ActiveRecord::Base
     user.id == player1_id ? player2_id : player1_id
   end
   
+  def getOtherPlayer(user)
+    if user.id == player1_id
+      return User.find(player2_id)
+    end
+    User.find(player1_id)
+  end
+  
   #overriding to add the other player's name to the json payload if needed
   def as_json(options = {})
     j = super
