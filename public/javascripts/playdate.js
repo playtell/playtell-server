@@ -140,9 +140,11 @@ function doChangeBook(book) {
 	$('#total-pages').html(book.pages.length);
 	$('#page-num').html(1);
 	
-	b = new PTBook();
-	page = 0;
-	b.createActivityFromJSON(book);
+	if (!$('#pages-' + book.id).hasClass("full")) {
+		b = new PTBook();
+		page = 0;
+		b.createActivityFromJSON(book);
+	}
 	mySwipe = new Swipe(
 	  document.getElementById('pages-'+ book.id), {
 		speed: 500, 
