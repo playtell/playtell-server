@@ -19,10 +19,10 @@
 				<p><a href="#" id="camera-link" class="sprite"></a></p>
 			</div>-->
 			<div class="cam-container">
+				<div class="playmate-cam-container inline-block cam"></div>		
 				<div class="my-cam-container inline-block cam">
 					<%= image_tag current_user.profile_photo %>
 				</div>
-				<div class="playmate-cam-container inline-block cam"></div>		
 			</div>
 		</div>
 		
@@ -37,7 +37,17 @@
 			
 			<div class="book-container hidden">	
 				<div id="book">
-					<div id='pages'></div>
+					<div id='pages'>
+						<ul class="page-list this-old-man">
+							<li style=display:block>
+							 	<div id="page_0" class="page">
+								<div class="title-page">
+									<img src=' 'class="title-image">
+								</div>
+							</li>
+						</ul>
+
+					</div>
 				</div>
 			</div>
 			<div class="clear"></div>
