@@ -11,7 +11,7 @@ PTBook.prototype.createActivityFromJSON=function(book) {
 		+ '<img src="' 
 		+ getPageImageFilePath(book.image_directory, 0) 
 		+ '" class="title-image">'
-		+ '</div></li>';
+		+ '</div></div></li>';
 		
 	$.each(book.pages, function(i, page) {
 		bookMarkup += '<li style=display:none>'

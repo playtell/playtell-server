@@ -821,8 +821,8 @@ p.number-text.of {
 
 .title-page {
 	position: absolute;
-	top: -25px;
-	left: 0px;
+	top: 0px;
+	left: -25px;
 }
 
 .title-image {
