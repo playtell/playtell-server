@@ -771,12 +771,12 @@ p.number-text.of {
 	margin: 5px auto;
 }
 
-#pages {
+.pages {
 	width: 920px;
 	margin: 0 48px;
 }
 
-#pages .page {
+.pages .page {
 	background: url("/images/book_frame.png") no-repeat;
 	margin: 40px 35px;
 	height: 591px;
@@ -784,12 +784,12 @@ p.number-text.of {
 	-webkit-overflow-scrolling: touch;
 }
 
-#pages ul {
+.pages ul {
 	display: table;
 	border-spacing: 10px 0px;
 }
 
-#pages ul li {		
+.pages ul li {		
 	background: rgb(220,232,240); /* Old browsers */
 	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(220,232,240,1) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(220,232,240,1))); /* Chrome,Safari4+ */
@@ -808,7 +808,7 @@ p.number-text.of {
 	width: 900px;
 }
 
-#pages ul li:first-child {
+.pages ul li:first-child {
 	background: none;
 	
   	-moz-box-shadow:    none;
@@ -816,7 +816,7 @@ p.number-text.of {
   	box-shadow:         none;
 }
 
-#pages ul li:first-child div.page {
+.pages ul li:first-child div.page {
 	background: none;
 }
 

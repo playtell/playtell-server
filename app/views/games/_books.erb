@@ -1,0 +1,13 @@
+<% @books.each do |book| %>
+	<div id="<%= 'pages-'+book.id.to_s %>" class="pages">
+		<ul class="page-list" data-bookID='<%= book.id.to_s %>'>
+			<li style=display:block>
+			 	<div id="page_0" class="page">
+					<div class="title-page">
+						<%= image_tag getPageImageFilePath(book.image_directory, 0.to_s), :alt => "title-image" %>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+<% end %>

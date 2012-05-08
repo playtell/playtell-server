@@ -37,17 +37,7 @@
 			
 			<div class="book-container hidden">	
 				<div id="book">
-					<div id='pages'>
-						<ul class="page-list this-old-man">
-							<li style=display:block>
-							 	<div id="page_0" class="page">
-								<div class="title-page">
-									<img src=' 'class="title-image">
-								</div>
-							</li>
-						</ul>
-
-					</div>
+					<%= render :partial => "games/books", :locals => {:books => @books} %>
 				</div>
 			</div>
 			<div class="clear"></div>

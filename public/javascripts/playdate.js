@@ -136,6 +136,7 @@ function resetPlayspace(toybox_element) {
 }
 
 function doChangeBook(book) {	
+	$('.page-list').hide();
 	$('#total-pages').html(book.pages.length);
 	$('#page-num').html(1);
 	
@@ -143,7 +144,7 @@ function doChangeBook(book) {
 	page = 0;
 	b.createActivityFromJSON(book);
 	mySwipe = new Swipe(
-	  document.getElementById('pages'), {
+	  document.getElementById('pages-'+ book.id), {
 		speed: 500, 
 		callback: function() {
 			updateBookNavLinks()
@@ -156,6 +157,8 @@ function doChangeBook(book) {
 	);
 	
 	$('.loading').hide();
+	
+	$('ul.*[data-bookID=' + book.id + ']').show(); 
 	
 	$('.book-container').show();
 	mySwipe.setup();
