@@ -732,6 +732,7 @@ p.number-text.of {
 
 .cam img {
 	width: 132px;
+	vertical-align: top;
 }
 
 /* ACTIVITY --------------------------------------------------------- */
