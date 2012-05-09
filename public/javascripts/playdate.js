@@ -130,6 +130,7 @@ function resetPlayspace(toybox_element) {
 	$('.camera-container').hide();
 	$('.book-container').hide();
 	$('.pages').hide();
+	page = 0;
 	$('.book-nav').hide();
 
 	$('.loading').show();
