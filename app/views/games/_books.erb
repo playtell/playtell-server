@@ -1,5 +1,5 @@
 <% @books.each do |book| %>
-	<div id="<%= 'pages-'+book.id.to_s %>" class="pages">
+	<div id="<%= 'pages-'+book.id.to_s %>" class="pages hidden">
 		<ul class="page-list" data-bookID='<%= book.id.to_s %>'>
 			<li style=display:block>
 			 	<div id="page_0" class="page">

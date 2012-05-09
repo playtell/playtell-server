@@ -129,6 +129,7 @@ function resetPlayspace(toybox_element) {
 	$('#keepsake-container').hide();
 	$('.camera-container').hide();
 	$('.book-container').hide();
+	$('.pages').hide();
 	$('.book-nav').hide();
 
 	$('.loading').show();
@@ -136,7 +137,6 @@ function resetPlayspace(toybox_element) {
 }
 
 function doChangeBook(book) {	
-	$('.page-list').hide();
 	$('#total-pages').html(book.pages.length);
 	$('#page-num').html(1);
 	
@@ -160,7 +160,7 @@ function doChangeBook(book) {
 	
 	$('.loading').hide();
 	
-	$('ul.*[data-bookID=' + book.id + ']').show(); 
+	$('#pages-' + book.id).show(); 
 	
 	$('.book-container').show();
 	mySwipe.setup();
