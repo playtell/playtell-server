@@ -6,8 +6,12 @@ class UsersController < ApplicationController
   
   def show
     @user = current_user
+    if !@user.confirmed?
+      redirect_to ipad_path
+    end
     u = current_user
     @new_friends = User.all.select { |friend| friend.id != u.id && u.isFriend?(friend).nil? }
+    
     @users = []
 
     #for playdate

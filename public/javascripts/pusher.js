@@ -8,14 +8,14 @@ function listenForPlaydateRequest() {
 			playdateChannel = pusher.subscribe($('#pusher-channel-name').html());
 			listenForEndPlaydate(false);
 		}
-		else { 
+		/*else { 
 			if ($('*[data-friendid=' + parseInt(data.playmateID) + ']').length != 0) {
 				changeUserPresence(parseInt(data.playmateID), "offline");
 			}
 			if ($('*[data-friendid=' + parseInt(data.initiatorID) + ']').length != 0) {
 				changeUserPresence(parseInt(data.initiatorID), "offline");
 			}
-		}
+		}*/
 	});	
 
 	rendezvousChannel.bind('pusher:subscription_succeeded', function(members){
@@ -28,10 +28,10 @@ function listenForPlaydateRequest() {
 
 	rendezvousChannel.bind('pusher:member_removed', function(member){
 	console.log("member removed: " + member.id);
-	    if ($('*[data-friendid=' + member.id + ']').length != 0) {
+/*	    if ($('*[data-friendid=' + member.id + ']').length != 0) {
 			changeUserPresence(member.id, "offline");
 		}
-  })
+*/  })
 
   	rendezvousChannel.bind('pusher:member_added', function(member){
 		console.log("member added: " + member.id);

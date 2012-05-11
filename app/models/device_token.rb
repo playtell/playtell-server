@@ -3,6 +3,6 @@ class DeviceToken < ActiveRecord::Base
   after_save :confirm_user
   
   def confirm_user
-    User.find(self.user_id).confirmed
+    User.find(user_id).confirmed
   end
 end
