@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   #DONE_SECOND_PLAYDATE
 
   def set_defaults
-    self.status = WAITING_FOR_UDID if self.status.blank?
+    self.status = WAITING_FOR_DOWNLOAD if self.status.blank?
   end
 
   # auto-adds Test as this user's first friend
