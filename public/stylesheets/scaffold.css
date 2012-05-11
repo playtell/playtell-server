@@ -1468,3 +1468,11 @@ button.green2, input[type="submit"].green2 {
 	text-align: center;
 	margin-top: 200px;	
 }
+
+.ipad-button .errors-container {
+	text-align: center;
+}
+.ipad-button .error {
+	width: 410px;
+	margin-bottom: 20px;
+}

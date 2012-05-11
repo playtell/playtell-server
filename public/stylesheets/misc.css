@@ -19,6 +19,8 @@
 .inline { display: inline; }
 .block { display: block; }
 .inline-block { display: inline-block; }
+.invisible { visibility: hidden; }
+
 .clear { clear: both; }
 
 .brown-color { color: #b76f53;}
@@ -30,3 +32,4 @@
 .height100 { height: 100%; }
 
 .alert { color: red; }
+
