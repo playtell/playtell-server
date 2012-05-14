@@ -724,6 +724,14 @@ p.number-text.of {
 	float: left;
 }
 
+.playmate-cam-container {
+	border-radius: 6px 0px 6px 0px;
+}
+
+.my-cam-container {
+	border-radius: 0px 6px 0px 6px;
+}
+
 .cam {
 	width: 132px;
 	height: 130px;
