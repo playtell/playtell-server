@@ -495,8 +495,8 @@ div.friend {
 }
 
 .friend .friend-item {
-	width: 165px;
-	height: 163px;
+	width: 189px;
+	height: 140px;
 	border-radius: 6px;
 	position: absolute;
 	top: 3px;
@@ -505,8 +505,8 @@ div.friend {
 
 .friends .presence {
 	z-index: 100;
-	width: 176px;
-	height: 173px;
+	width: 200px;
+	height: 150px;
 	border-radius: 6px;
 	position: absolute;
 	top: 0;
@@ -515,7 +515,7 @@ div.friend {
 
 .friend-name {
 	z-index: 99;
-	width: 165px;
+	width: 190px;
 	height: 25px;
 	position: absolute;
 	bottom: -3px;
@@ -733,13 +733,14 @@ p.number-text.of {
 }
 
 .cam {
-	width: 132px;
-	height: 130px;
+	width: 200px;
+	height: 150px;
 	margin-right: -3px;
 }
 
 .cam img {
-	width: 132px;
+	width: 200px;
+	height: 150px;
 	vertical-align: top;
 }
 
@@ -760,6 +761,7 @@ p.number-text.of {
 
 #finger {
 	position: absolute;
+	z-index: 1000;
 }
 
 /* TOKBOX  --------------------------------------------------------- */

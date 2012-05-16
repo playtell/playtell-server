@@ -171,11 +171,7 @@ function doChangeBook(book) {
 	$('.book-nav').show();
 	listenForTurnPage();
 	
-	//grandma finger
-	//listenForTap(); <-- not yet built
-	//$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
-	//	$("#finger").offset({ top: e.pageY, left: e.pageX}).show();
-	//});
+	listenForFinger();
 }
 
 function doTurnOnCamera() {

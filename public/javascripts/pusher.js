@@ -62,6 +62,14 @@ function listenForTurnPage() {
 	});
 }
 
+function listenForFinger() {
+	$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
+		$("#finger").offset({ top: e.pageY, left: e.pageX }).removeClass('invisible');
+		console.log(e.pageY + ", " + e.pageX);
+		setTimeout(function() { $("#finger").addClass('invisible'); }, 1000);
+	});
+}
+
 function listenForEndPlaydate() {
 	playdateChannel.bind('end_playdate', function(data) {
 		if (!inPlaydate) {
