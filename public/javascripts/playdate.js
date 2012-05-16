@@ -153,7 +153,7 @@ function doChangeBook(book) {
 			updateBookNavLinks()
 			if (!mySwipe.getResponder()) {
 				//page = mySwipe.getPos();
-				syncToServerNoData(101);
+				syncToServerNoData(101, "newPage=" + page);
 			}
 		}
 	  }
@@ -171,7 +171,7 @@ function doChangeBook(book) {
 	$('.book-nav').show();
 	listenForTurnPage();
 	
-	//listenForFinger();
+	listenForFinger();
 }
 
 function doTurnOnCamera() {
@@ -218,6 +218,10 @@ function updateBookNavLinks() {
 		}
 	}
 	
+	$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
+		syncToServerNoData(1, "x=" + e.pageX + "&y=" + e.pageY);
+	});
+	
 } 
 
 function disableNavButtons() {
@@ -233,14 +237,14 @@ function enableNavButtons(activity, playdateChange) {
 
 	$("#next-link").live("click", function n(e) {
 		page++;
-	    syncToServerNoData(playdateChange);
+	    syncToServerNoData(playdateChange, "newPage=" + page);
 		mySwipe.next();
 		return false;
     });
 
 	$("#previous-link").live("click", function p(e) {
 		page--;
-	    syncToServerNoData(playdateChange);
+	    syncToServerNoData(playdateChange, "newPage=" + page);
 		mySwipe.prev();
 		return false;
     });
@@ -271,11 +275,15 @@ function syncToServerReturnData(playdate_change, activityID) {
 
 //used for in-activity changes like turn page
 //sends payload of current playdate state to server
-function syncToServerNoData(playdate_change) {
+function syncToServerNoData(playdate_change, params) {
 	
+	var data = "playdateChange=" + playdate_change;
+	if (params) {
+		data += "&" + params;
+	}
 	$.ajax({
 		url: "/update_playdate.js",
-		data: "playdateChange=" + playdate_change + "&newPage=" + page,
+		data: data,
 		type: "POST"
 	});
 	

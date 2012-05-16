@@ -63,10 +63,12 @@ function listenForTurnPage() {
 }
 
 function listenForFinger() {
-	$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
-		$("#finger").offset({ top: e.pageY, left: e.pageX }).removeClass('invisible');
-		console.log(e.pageY + ", " + e.pageX);
-		setTimeout(function() { $("#finger").addClass('invisible'); }, 1000);
+	playdateChannel.bind('grandma_finger', function(data) {
+		if (parseInt(data.player) != parseInt($('#current-user').html())) {
+			$("#finger").offset({ top: data.y, left: data.x }).removeClass('invisible');
+			console.log(data.y + ", " + data.x);
+			setTimeout(function() { $("#finger").addClass('invisible'); }, 1000);
+		}
 	});
 }
 

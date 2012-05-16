@@ -9,6 +9,7 @@ class Playdate < ActiveRecord::Base
   CONNECTED=2
   
   NONE=0
+  GRANDMA_FINGER=1
   TOGGLE_VIDEO=99 #hack for our audio-only tests. hides the video windows
   CHANGE_BOOK=100
   TURN_PAGE=101

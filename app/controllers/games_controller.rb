@@ -118,6 +118,9 @@ class GamesController < ApplicationController
         @playdate.save
         Pusher[@playdate.pusher_channel_name].trigger('turn_page', {:player => current_user.id, :page => params[:newPage]})
         render :nothing => true
+      when Playdate::GRANDMA_FINGER
+        Pusher[@playdate.pusher_channel_name].trigger('grandma_finger', {:player => current_user.id, :x => params[:x], :y => params[:y]})
+        render :nothing => true
       when Playdate::CHANGE_KEEPSAKE
         respond_to do |format|
           format.json { render :json => true }
