@@ -218,9 +218,9 @@ function updateBookNavLinks() {
 		}
 	}
 	
-	//$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
-	//	syncToServerNoData(1, "x=" + e.pageX + "&y=" + e.pageY);
-	//});
+	$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
+		syncToServerNoData(1, "x=" + e.pageX + "&y=" + e.pageY);
+	});
 	
 } 
 
