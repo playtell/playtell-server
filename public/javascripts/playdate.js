@@ -171,7 +171,7 @@ function doChangeBook(book) {
 	$('.book-nav').show();
 	listenForTurnPage();
 	
-	listenForFinger();
+	//listenForFinger();
 }
 
 function doTurnOnCamera() {
