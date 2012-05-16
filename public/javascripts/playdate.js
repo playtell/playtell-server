@@ -423,7 +423,7 @@ function enableDialpadButtons() {
 	$('.online').on(tablet ? 'touchstart' : 'mousedown', function() {
 		var friendid = $('a').has(this).data("friendid");
 		changeUserPresence(friendid, "pressed");
-		syncToServerBeginPlaydate("friend_id", null, friendid);
+		//syncToServerBeginPlaydate("friend_id", null, friendid);
 	});
 	
 	//add friends

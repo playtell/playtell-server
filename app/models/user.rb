@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   
   # assigns one of the default balloon photos to the user as their first profile photo  
   def create_profile_photo
-    randomPhotoIndex = 1 + rand(4)
+    randomPhotoIndex = 1 + rand(10)
     p = self.playdate_photos.create
     p.remote_photo_url = 'http://ragatzi.s3.amazonaws.com/uploads/profile_default_' + randomPhotoIndex.to_s + '.png'
     p.save!    
