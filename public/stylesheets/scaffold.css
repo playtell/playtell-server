@@ -485,9 +485,9 @@ img#scientistImage {
 
 div.friend {
 	display: inline-block;
-	margin: 8px;
-	width: 180px;
-	height: 180px;
+	margin: 3px;
+	width: 200px;
+	height: 150px;
 	text-align: center;
 	border-radius: 6px;
 	-moz-border-radius: 6px;
