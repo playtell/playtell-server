@@ -63,14 +63,14 @@ function listenForTurnPage() {
 }
 
 function listenForFinger() {
-	playdateChannel.bind('grandma_finger', function(data) {
+/*	playdateChannel.bind('grandma_finger', function(data) {
 		if (parseInt(data.player) != parseInt($('#current-user').html())) {
 			$("#finger").offset({ top: data.y, left: data.x }).removeClass('invisible');
 			console.log(data.y + ", " + data.x);
 			setTimeout(function() { $("#finger").addClass('invisible'); }, 1000);
 		}
 	});
-}
+*/}
 
 function listenForEndPlaydate() {
 	playdateChannel.bind('end_playdate', function(data) {

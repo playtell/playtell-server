@@ -218,9 +218,20 @@ function updateBookNavLinks() {
 		}
 	}
 	
-	$('#book').on(tablet ? 'touchstart' : 'click', function(e) {
-		syncToServerNoData(1, "x=" + e.pageX + "&y=" + e.pageY);
-	});
+	var x,y;
+	if (tablet) {
+		$('#book').on('touchstart', function(e) {
+			x = event.touches[0].pageX;
+			y = event.touches[0].pageY;
+		});
+	}
+	else {
+		$('#book').on('click', function(e) {
+			x = e.pageX;
+			y = e.pageY;
+		});
+	}
+	syncToServerNoData(1, "x=" + x + "&y=" + y);
 	
 } 
 

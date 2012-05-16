@@ -524,7 +524,7 @@ div.friend {
 	font-size: 16pt;
 	font-weight: 400;
 	color: #fff;
-	background: ;-webkit-linear-gradient(top, transparent, rgba(0, 0, 0, .2));
+	background: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, .2));
 	border-radius: 0px 0px 6px 6px;
 }
 
