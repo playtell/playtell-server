@@ -228,21 +228,6 @@ function updateBookNavLinks() {
 		}
 	}
 	
-	var x,y;
-	if (tablet) {
-		$('#book').on('touchstart', function(e) {
-			x = event.touches[0].pageX;
-			y = event.touches[0].pageY;
-		});
-	}
-	else {
-		$('#book').on('click', function(e) {
-			x = e.pageX;
-			y = e.pageY;
-		});
-	}
-	syncToServerNoData(1, "x=" + x + "&y=" + y);
-	
 } 
 
 function disableNavButtons() {
@@ -269,6 +254,23 @@ function enableNavButtons(activity, playdateChange) {
 		mySwipe.prev();
 		return false;
     });
+
+	var x,y;
+	if (tablet) {
+		$('#book').on('touchstart', function(e) {
+			x = event.touches[0].pageX;
+			y = event.touches[0].pageY;
+			syncToServerNoData(1, "x=" + x + "&y=" + y);
+		});
+	}
+	else {
+		$('#book').live('click', function b(e) {
+			x = e.pageX;
+			y = e.pageY;
+			syncToServerNoData(1, "x=" + x + "&y=" + y);
+		});
+	}
+	
 
 }
 
@@ -396,7 +398,6 @@ function removePlaydateRequest(playmateID) {
 
 function syncToServerBeginPlaydate(paramKey, playdateID, friendID) {
 	
-	//document.location.href="/playdate?friend_id=" + friend_id;
 	$('.user-profile').fadeOut('medium');
 	setPlaymatePhoto(friendID, null);
 	animatePhotos();
