@@ -768,6 +768,7 @@ p.number-text.of {
 #finger {
 	position: absolute;
 	z-index: 1000;
+	text-align: center;
 }
 
 /* TOKBOX  --------------------------------------------------------- */

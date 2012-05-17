@@ -258,15 +258,15 @@ function enableNavButtons(activity, playdateChange) {
 	var x,y;
 	if (tablet) {
 		$('#book').on('touchstart', function(e) {
-			x = event.touches[0].pageX;
-			y = event.touches[0].pageY;
+			x = event.touches[0].pageX - $('#finger').outerWidth()/2;
+			y = event.touches[0].pageY - $('#finger').outerHeight()/2;
 			syncToServerNoData(1, "x=" + x + "&y=" + y);
 		});
 	}
 	else {
 		$('#book').live('click', function b(e) {
-			x = e.pageX;
-			y = e.pageY;
+			x = e.pageX - $('#finger').outerWidth()/2;
+			y = e.pageY - $('#finger').outerHeight()/2;
 			syncToServerNoData(1, "x=" + x + "&y=" + y);
 		});
 	}
