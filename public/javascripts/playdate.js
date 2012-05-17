@@ -28,10 +28,20 @@ function endPlaydate() {
 	inPlaydate = false;
 }
 
+//expects either the id of the user or a direct link to the user's profile photo
+//sets the user's profile pic in the container that will eventually be replaced by the video chat window top left
 function setPlaymatePhoto(playmate_id, photo_url) {
+	
 	var src = playmate_id ? $('a.*[data-friendid=' + playmate_id + '] img.friend-item').attr("src") : photo_url
+	
 	$('.playmate-cam-container').html('<img src=' + src + '>');	
 	
+}
+
+function animatePhotos() {
+	$('.cam-container').animate({
+		left: 0
+	});
 }
 
 function enableButtons() {
@@ -387,8 +397,9 @@ function removePlaydateRequest(playmateID) {
 function syncToServerBeginPlaydate(paramKey, playdateID, friendID) {
 	
 	//document.location.href="/playdate?friend_id=" + friend_id;
-	$('.mainContainer').fadeOut('medium');
+	$('.user-profile').fadeOut('medium');
 	setPlaymatePhoto(friendID, null);
+	animatePhotos();
 	$('.appContainer').show();
 	
 	setTimeout(function() { 
@@ -423,7 +434,7 @@ function enableDialpadButtons() {
 	$('.online').on(tablet ? 'touchstart' : 'mousedown', function() {
 		var friendid = $('a').has(this).data("friendid");
 		changeUserPresence(friendid, "pressed");
-		//syncToServerBeginPlaydate("friend_id", null, friendid);
+		syncToServerBeginPlaydate("friend_id", null, friendid);
 	});
 	
 	//add friends

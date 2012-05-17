@@ -356,9 +356,8 @@ div.ribbon {
 }
 
 .mainContainer {
+	background: url('/images/dialpad_bg.jpg') no-repeat center center; 
     width: 1024px;
-	width: 100%;
-    margin: 0px auto;
 	overflow: auto;
 }
 
@@ -399,7 +398,6 @@ img#scientistImage {
 /* DIALPAD --------------------------------------------------------- */
 
 .user-profile {
-	background: url('/images/dialpad_bg.jpg') no-repeat center center; 
 	text-align: center;
 	width: 1024px;
 	height: 768px;
@@ -439,7 +437,7 @@ img#scientistImage {
 	height: 63px;
 	width: 185px;
 	position: absolute;
-	top: 204px;
+	top: 210px;
 	left: 17px;
 	
 	background: white;
@@ -468,19 +466,18 @@ img#scientistImage {
 }
 
 .dialpad-header {
-	position: relative;
-	height: 140px;
-	text-align: center;
-	padding-top: 26px;
+	padding-top: 170px;
 }
 
-.dialpad-ribbon {
-	text-align: center;
-	margin-top: 15px;
+.dialpad-header p {
+	color: #88331C;
+	font-size: 20pt;
+	font-family: 'Comfortaa', sans-serif;
+	font-weight: 400;
 }
 
 .friends {
-	margin: 30px auto;
+	margin: 0px auto;
 }
 
 div.friend {
@@ -562,6 +559,15 @@ div.friend {
 
 .my-profile div {
 	display: inline-block;
+}
+
+.dialpad-logo-container {
+	position: absolute;
+	bottom: 50px;
+	left: 25px;
+}
+.dialpad-logo-container img {
+	width: 100px;
 }
 
 /* TIMELINE --------------------------------------------------------- */
@@ -719,7 +725,9 @@ p.number-text.of {
 }
 
 .cam-container {
-	float: left;
+	position: absolute;
+	top: 0px;
+	left: -200px;
 }
 
 .playmate-cam-container {
@@ -732,7 +740,6 @@ p.number-text.of {
 
 .cam {
 	width: 200px;
-	height: 150px;
 	margin-right: -3px;
 }
 
