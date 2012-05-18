@@ -416,14 +416,14 @@ img#scientistImage {
 }
 
 .calling {		
-    -webkit-animation-name: growThis;
+    -webkit-animation-name: growFriend;
     -webkit-animation-duration:.1s;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-timing-function: linear;
 	-webkit-animation-fill-mode: forwards;
 	
 }
-@-webkit-keyframes growThis {
+@-webkit-keyframes growFriend {
     100% {-webkit-transform:scale(1.4); }
 }
 
@@ -769,6 +769,19 @@ p.number-text.of {
 	position: absolute;
 	z-index: 1000;
 	text-align: center;
+}
+
+.fingered {		
+    -webkit-animation-name: growFinger;
+    -webkit-animation-duration:.5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease;
+	-webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes growFinger {
+	0% { -webkit-transform:scale(0); opacity:1; }
+	75% { -webkit-transform:scale(1.4); opacity:1; }
+	100% { -webkit-transform:scale(1.4); opacity:0; }
 }
 
 /* TOKBOX  --------------------------------------------------------- */

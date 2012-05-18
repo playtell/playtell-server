@@ -66,8 +66,11 @@ function listenForFinger() {
 	playdateChannel.bind('grandma_finger', function(data) {
 		if (parseInt(data.player) != parseInt($('#current-user').html())) {
 			$("#finger").offset({ top: data.y, left: data.x }).removeClass('invisible');
-			console.log(data.x + ", " + data.y);
-			setTimeout(function() { $("#finger").addClass('invisible'); }, 1000);
+			$("#finger").addClass("fingered");
+			setTimeout(function() { 
+				$("#finger").addClass('invisible'); 
+				$("#finger").removeClass("fingered");
+			}, 1000);
 		}
 	});
 }
