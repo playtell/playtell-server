@@ -175,12 +175,12 @@ function doChangeBook(book) {
 	
 	$('.book-container').show();
 	mySwipe.setup();
-	
+		
 	enableNavButtons("book", 101);
 	updateBookNavLinks();
 	$('.book-nav').show();
-	listenForTurnPage();
 	
+	listenForTurnPage();
 	listenForFinger();
 }
 
@@ -408,7 +408,7 @@ function syncToServerBeginPlaydate(paramKey, playdateID, friendID) {
 		setTimeout(function() { $('.instructions').fadeIn('fast'); }, 500);
 	}, 1000);
 	
-	preloader();
+	//preloader();
 	
 	var params = paramKey + '=' + (paramKey == 'playdate' ? playdateID : friendID)
 	$.ajax({
