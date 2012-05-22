@@ -53,7 +53,7 @@
 	<div class="playdates-container inline-block admin-div">
 		<h1>Playdates (<%= @playdates.count %>)</h1>
 		<% for playdate in @playdates %>
-			<h3>#<%= playdate.id %> on <%= playdate.created_at %></h3>
+			<h3>#<%= playdate.id %> on <%= l playdate.created_at.in_time_zone('Pacific Time (US & Canada)'), :format => :short %></h3>
 			<p>Player IDs: <%= playdate.player1_id %>, <%= playdate.player2_id %></p>
 			<p>Duration: <%= playdate.duration %> min</p>
 			<% if !playdate.disconnected? %>
