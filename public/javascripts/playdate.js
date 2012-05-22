@@ -222,9 +222,11 @@ function updateBookNavLinks() {
 		}
 		if (page >= mySwipe.getLength()-1) {
 			$("#next-link").addClass("disabled");
+			$("#next-link").addClass("hidden");
 		}
 		else if (page < mySwipe.getLength()-1) {
 			$("#next-link").removeClass("disabled");
+			$("#next-link").removeClass("hidden");
 		}
 	}
 	
