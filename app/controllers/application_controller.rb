@@ -146,7 +146,12 @@ private
     end
     @playdate.page_num = params[:page_num]
     @playdate.save
-    Pusher[@playdate.pusher_channel_name].trigger('change_book', {:data => @book.to_json(:include => :pages), :player => current_user.id})
+    Pusher[@playdate.pusher_channel_name].trigger('change_book', {
+      :data => @book.to_json(:include => :pages),
+      :book => @book.id,
+      :player => current_user.id,
+      :page => params[:new_page_num]
+    })
   end
   
   # expected params: new_page_num
@@ -154,7 +159,10 @@ private
   def turnPage
     @playdate.page_num = params[:new_page_num]
     @playdate.save
-    Pusher[@playdate.pusher_channel_name].trigger('turn_page', {:player => current_user.id, :page => params[:new_page_num]})
+    Pusher[@playdate.pusher_channel_name].trigger('turn_page', {
+      :player => current_user.id,
+      :page => params[:new_page_num]
+    })
   end
   
 end

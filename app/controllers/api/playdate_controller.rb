@@ -15,6 +15,8 @@ class Api::PlaydateController < ApplicationController
     # Verify friend
     playmate = User.find(params[:friend_id].to_i)
     return render :status=>110, :json=>{:message=>"Playmate not found."} if playmate.nil?
+    
+    # TODO: Check if friends
 
     # put the playdate in the db and its id in the session
     @playdate = Playdate.find_or_create_by_player1_id_and_player2_id_and_video_session_id(
@@ -58,7 +60,7 @@ class Api::PlaydateController < ApplicationController
      end
      
      # Notify
-     render :status=>200, :json=>{:msg=>'Success', :playdate_id=>@playdate.id, :initiator=>current_user.as_json, :playmate=>playmate.as_json}
+     render :status=>200, :json=>{:playdate_id=>@playdate.id, :initiator_id=>current_user.id, :playmate_id=>playmate.id}
   end
   
   #request params expected: playdate_id

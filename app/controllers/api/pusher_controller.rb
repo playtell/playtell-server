@@ -1,10 +1,10 @@
 class Api::PusherController < ApplicationController
   
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!, :except => [:close_book]
+  before_filter :authenticate_user!
   respond_to :json
   
-  # required params: playdate_id, activity_id, new_page_num
+  # required params: playdate_id, new_page_num
   def turn_page
     @playdate = Playdate.find(params[:playdate_id])
     if !@playdate or @playdate.blank?
@@ -21,7 +21,7 @@ class Api::PusherController < ApplicationController
     end
   end
   
-  # required params: playdate_id, activity_id, page_num
+  # required params: playdate_id, book_id, page_num
   def change_book
     @playdate = Playdate.find(params[:playdate_id])
     if !@playdate or @playdate.blank?
@@ -41,6 +41,7 @@ class Api::PusherController < ApplicationController
     end
   end
   
+  # TODO: Implement this
   def close_book
     render :status=>200, :json=>{:message => 'close_book called'}
   end

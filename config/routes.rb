@@ -48,6 +48,11 @@ Semiralabs::Application.routes.draw do
   end 
   root :to => 'application#index'
   
+  # Books
+  resources :books do
+    resources :pages
+  end
+  
   #deprecated
   match 'update_page' => 'games#updatePage'
   match 'update_from_playdate' => 'games#updateFromPlaydate'
