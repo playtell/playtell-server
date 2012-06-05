@@ -1,7 +1,7 @@
 class Api::PusherController < ApplicationController
   
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!, :except => [:change_book]
+  before_filter :authenticate_user!, :except => [:close_book]
   respond_to :json
   
   # required params: playdate_id, activity_id, new_page_num
@@ -41,8 +41,8 @@ class Api::PusherController < ApplicationController
     end
   end
   
-  def change_book
-    render :status=>200, :json=>{:message => 'Test'}
+  def close_book
+    render :status=>200, :json=>{:message => 'close_book called'}
   end
 
 end
