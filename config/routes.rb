@@ -29,6 +29,7 @@ Semiralabs::Application.routes.draw do
     match 'tokbox_tokens' => 'tokbox#tokbox_tokens'
     match 'playdate_players' => 'playdate#playdate_players'
     match 'redial' => 'playdate#redial'
+    match 'playdate/turn_page' => 'pusher#turn_page'
     #resources :settings, :only => [:update]
   end
   

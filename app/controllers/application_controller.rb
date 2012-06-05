@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_filter :prepare_for_tablet
   helper_method :resource, :resource_name, :devise_mapping, :tablet_device?
     
+  before_filter :pusher, :only => [:turnPage]
+  
   def index 
      @earlyUser = EarlyUser.new
   end
@@ -121,6 +123,14 @@ private
     if !@pusher_key
       @pusher_key = Pusher.key
     end
+  end
+  
+  # PLAYDATE SHARED METHODS
+  
+  def turnPage
+    @playdate.page_num = params[:new_page_num]
+    @playdate.save
+    Pusher[@playdate.pusher_channel_name].trigger('turn_page', {:player => current_user.id, :page => params[:new_page_num]})
   end
   
 end

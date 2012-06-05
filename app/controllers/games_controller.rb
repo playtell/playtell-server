@@ -114,9 +114,10 @@ class GamesController < ApplicationController
           format.tablet { render :json => b.to_json(:include => :pages) }
         end
       when Playdate::TURN_PAGE
-        @playdate.page_num = params[:newPage]
-        @playdate.save
-        Pusher[@playdate.pusher_channel_name].trigger('turn_page', {:player => current_user.id, :page => params[:newPage]})
+        #@playdate.page_num = params[:newPage]
+        #@playdate.save
+        #Pusher[@playdate.pusher_channel_name].trigger('turn_page', {:player => current_user.id, :page => params[:newPage]})
+        turnPage
         render :nothing => true
       when Playdate::GRANDMA_FINGER
         Pusher[@playdate.pusher_channel_name].trigger('grandma_finger', {:player => current_user.id, :x => params[:x], :y => params[:y]})

@@ -163,7 +163,7 @@ function doChangeBook(book) {
 			updateBookNavLinks()
 			if (!mySwipe.getResponder()) {
 				//page = mySwipe.getPos();
-				syncToServerNoData(101, "newPage=" + page);
+				syncToServerNoData(101, "new_page_num=" + page);
 			}
 		}
 	  }
@@ -245,14 +245,14 @@ function enableNavButtons(activity, playdateChange) {
 
 	$("#next-link").live("click", function n(e) {
 		page++;
-	    syncToServerNoData(playdateChange, "newPage=" + page);
+	    syncToServerNoData(playdateChange, "new_page_num=" + page);
 		mySwipe.next();
 		return false;
     });
 
 	$("#previous-link").live("click", function p(e) {
 		page--;
-	    syncToServerNoData(playdateChange, "newPage=" + page);
+	    syncToServerNoData(playdateChange, "new_page_num=" + page);
 		mySwipe.prev();
 		return false;
     });
