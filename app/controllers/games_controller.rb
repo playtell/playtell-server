@@ -105,13 +105,10 @@ class GamesController < ApplicationController
     
     case @playdate.change
       when Playdate::CHANGE_BOOK
-        b = getBook(params[:activityID])
-        @playdate.page_num = 1
-        @playdate.save
-        Pusher[@playdate.pusher_channel_name].trigger('change_book', {:data => b.to_json(:include => :pages), :player => current_user.id})
+        changeBook
         respond_to do |format|
-          format.json { render :json => b.to_json(:include => :pages) } 
-          format.tablet { render :json => b.to_json(:include => :pages) }
+          format.json { render :json => @book.to_json(:include => :pages) } 
+          format.tablet { render :json => @book.to_json(:include => :pages) }
         end
       when Playdate::TURN_PAGE
         #@playdate.page_num = params[:newPage]
@@ -341,13 +338,6 @@ private
      )
      puts "PUSHER: playdate_joined on presence-rendezvous-channel. playdate: " + @playdate.id.to_s + ", initiator: " + initiator.displayName + ", playmate: " + current_user.displayName
    end
-
-  # loads a book for a playdate.   
-  def getBook(id)
-    @playdate.book_id = id
-    @playdate.save
-    @book = Book.find(id)
-  end
   
   # homepage -> application layout
   # playdates & dialpad -> playdate layout

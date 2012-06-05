@@ -47,6 +47,7 @@ function listenForChangeBook() {
 	playdateChannel.bind('change_book', function(data) {
 		if (parseInt(data.player) != parseInt($('#current-user').html())) {
 			var bookData = $.parseJSON(data.data);
+			console.log(data);
 			resetPlayspace($('*[data-activityid=' + bookData.book.id + ']'));
 			doChangeBook(bookData.book);
 		}

@@ -127,6 +127,30 @@ private
   
   # PLAYDATE SHARED METHODS
   
+  # loads a book for a playdate.   
+  def getBook(id)
+    @book = Book.find(id)
+    if !@book
+      return false
+    end
+    @playdate.book_id = id
+    @playdate.save
+  end
+  
+  # expected params: book_id, page_num
+  # sends change_book pusher event
+  def changeBook
+    @book = getBook(params[:book_id])
+    if !@book 
+      return false;
+    end
+    @playdate.page_num = params[:page_num]
+    @playdate.save
+    Pusher[@playdate.pusher_channel_name].trigger('change_book', {:data => @book.to_json(:include => :pages), :player => current_user.id})
+  end
+  
+  # expected params: new_page_num
+  # sends a pusher event to turn to new_page_num
   def turnPage
     @playdate.page_num = params[:new_page_num]
     @playdate.save
