@@ -17,7 +17,7 @@ class Api::PlaydateController < ApplicationController
     return render :status=>110, :json=>{:message=>"Playmate not found."} if playmate.nil?
 
     # put the playdate in the db and its id in the session
-    @playdate = Playdate.create_by_player1_id_and_player2_id_and_video_session_id(
+    @playdate = Playdate.find_or_create_by_player1_id_and_player2_id_and_video_session_id(
       :player1_id => current_user.id, 
       :player2_id => playmate.id,
       :video_session_id => tok_session_id,
