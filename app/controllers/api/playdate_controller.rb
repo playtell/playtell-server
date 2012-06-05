@@ -3,6 +3,61 @@ class Api::PlaydateController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
   
+  #request params expected: friend_id
+  def create
+    # Create new Playdate
+    video_session = @@opentok.create_session '127.0.0.1'  
+    tok_session_id = video_session.session_id
+    
+    # Verify friend
+    playmate = User.find(params[:friend_id].to_i)
+    return render :status=>110, :json=>{:message=>"Playmate not found."} if playmate.nil?
+
+    # put the playdate in the db and its id in the session
+    @playdate = Playdate.create_by_player1_id_and_player2_id_and_video_session_id(
+      :player1_id => current_user.id, 
+      :player2_id => playmate.id,
+      :video_session_id => tok_session_id,
+      :tokbox_initiator_token => @@opentok.generate_token(:session_id => tok_session_id),
+      :tokbox_playmate_token => @@opentok.generate_token(:session_id => tok_session_id))
+      
+    session[:playdate] = @playdate.id # TODO: Needed?
+    
+    # Send the invite
+    Pusher["presence-rendezvous-channel"].trigger('playdate_requested', {
+      :playdateID => @playdate.id,
+      :pusherChannelName => @playdate.pusher_channel_name,
+      :initiator => current_user.username,
+      :initiatorID => current_user.id,
+      :playmateID => playmate.id,
+      :playmateName => playmate.username,
+      :tokboxSessionID => @playdate.video_session_id,
+      :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+      :tokboxPlaymateToken => @playdate.tokbox_playmate_token }
+    )
+    
+    device_tokens = playmate.device_tokens
+    if !device_tokens.blank?
+       notification = {
+         :device_tokens => [device_tokens.last.token],
+         :aps => {
+           :alert => "#{current_user.username} wants to play!",
+           :playdate_url => root_url.to_s + 'playdate?playdate='+@playdate.id.to_s, #"http://www.playtell.com/playdate?playdate="+@playdate.id.to_s,
+           :initiator => current_user.username,
+           :initiatorID => current_user.id,
+           :playmate => playmate.username,
+           :playmateID => playmate.id,
+           :sound => "music-box.wav"
+         }
+       }
+       # puts "push notification sent with this data: " + "device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate]
+       Urbanairship.push(notification)
+     end
+     
+     # Notify
+     render :status=>200, :json=>{:msg=>'Success', :playdate_id=>@playdate.id, :initiator=>current_user.as_json, :playmate=>playmate.as_json}
+  end
+  
   #request params expected: playdate_id
   def playdate_players
     p = Playdate.find(params[:playdate_id])
