@@ -12,7 +12,7 @@ class Api::BooksController < ApplicationController
         :id           => book.id,
         :current_page => 1,
         :cover_front  => url_for(book_url(book)),
-        :pages        => [],
+        :pages        => book.pages.map{|page| url_for(book_page_url(book, page))},
         :total_pages  => book.pages.size
       }
     end
