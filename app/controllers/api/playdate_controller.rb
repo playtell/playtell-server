@@ -1,7 +1,10 @@
 class Api::PlaydateController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_filter :authenticate_user!
+  before_filter :initOpenTok, :only => [:create]
   respond_to :json
+  
+  @@opentok = nil
   
   #request params expected: friend_id
   def create
@@ -97,6 +100,15 @@ class Api::PlaydateController < ApplicationController
        else
          render :status=>401, :json=>{:message=>"No device token for user #{playmate.id.to_s}"}
        end
+    end
+  end
+  
+  private
+  def initOpenTok
+    @api_key = "4f5e85254a3c12ae46a8fe32ba01ff8c8008e55d"
+    if @@opentok.nil?
+      @@opentok = OpenTok::OpenTokSDK.new 335312, @api_key
+      @@opentok.api_url = 'https://staging.tokbox.com/hl'
     end
   end
   
