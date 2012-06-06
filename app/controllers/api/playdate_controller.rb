@@ -63,14 +63,19 @@ class Api::PlaydateController < ApplicationController
      render :status=>200, :json=>{:playdate_id=>@playdate.id, :initiator_id=>current_user.id, :playmate_id=>playmate.id}
   end
   
-  #request params expected: playdate_id
-  def playdate_players
-    p = Playdate.find(params[:playdate_id])
-    if p
-      render :status=>200, :json=>{:initiator=>User.find(p.player1_id).as_json, :playmate=>User.find(p.player2_id).as_json}
+  # required params: playdate_id
+  def disconnect
+    @playdate = Playdate.find(params[:playdate_id])
+    if !@playdate or @playdate.blank?
+      render :status=>100, :json=>{ :message => "Playdate not found." }
+      return
+    elsif @playdate.disconnected?
+      render :status=>101, :json=>{ :message=> "Playdate has ended." }
+      return
     else
-      render :status=>401, :json=>{:message=>"Playdate not found."}
+      endPlaydate
     end
+    render :status=>200, :json=>{:message => 'End playdate sent via pusher on '+ @playdate.pusher_channel_name}
   end
   
   #request params expected: playdate_id and initiator_id
@@ -103,6 +108,58 @@ class Api::PlaydateController < ApplicationController
          render :status=>401, :json=>{:message=>"No device token for user #{playmate.id.to_s}"}
        end
     end
+  end
+  
+  #request params expected: playdate_id
+  def playdate_players
+    p = Playdate.find(params[:playdate_id])
+    if p
+      render :status=>200, :json=>{:initiator=>User.find(p.player1_id).as_json, :playmate=>User.find(p.player2_id).as_json}
+    else
+      render :status=>401, :json=>{:message=>"Playdate not found."}
+    end
+  end
+  
+  # required params: playdate_id, book_id, page_num
+  def change_book
+    @playdate = Playdate.find(params[:playdate_id])
+    if !@playdate or @playdate.blank?
+      render :status=>100, :json=>{ :message => "Playdate not found." }
+      return
+    elsif @playdate.disconnected?
+      render :status=>103, :json=>{ :message=> "Playdate has ended." }
+      return
+    else
+      @playdate.change = Playdate::CHANGE_BOOK
+      @playdate.save
+      if !changeBook
+        render :status=>120, :json=>{ :message=> "Book not found." }
+        return
+      end
+      render :status=>200, :json=>{:message => 'Change book sent via pusher on '+ @playdate.pusher_channel_name }           
+    end
+  end
+  
+  # required params: playdate_id, new_page_num
+  def turn_page
+    @playdate = Playdate.find(params[:playdate_id])
+    if !@playdate or @playdate.blank?
+      render :status=>100, :json=>{ :message => "Playdate not found." }
+      return
+    elsif @playdate.disconnected?
+      render :status=>101, :json=>{ :message=> "Playdate has ended." }
+      return
+    else
+      @playdate.change = Playdate::TURN_PAGE
+      @playdate.save
+      turnPage
+      render :status=>200, :json=>{ :message => 'Turn page sent via pusher on ' + @playdate.pusher_channel_name } 
+    end
+  end
+  
+  # required params: book_id
+  def close_book
+    render :status=>200, :json=>{:message => 'close_book called'}
   end
   
   private

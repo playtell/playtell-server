@@ -29,11 +29,11 @@ Semiralabs::Application.routes.draw do
     match 'tokbox_tokens' => 'tokbox#tokbox_tokens'
     match 'playdate_players' => 'playdate#playdate_players'
     match 'redial' => 'playdate#redial'
-    match 'playdate/turn_page' => 'pusher#turn_page'
-    match 'playdate/change_book' => 'pusher#change_book'
-    match 'playdate/close_book' => 'pusher#close_book'
+    match 'playdate/turn_page' => 'playdate#turn_page'
+    match 'playdate/change_book' => 'playdate#change_book'
+    match 'playdate/close_book' => 'playdate#close_book'
     match 'playdate/create' => 'playdate#create'
-    match 'playdate/disconnect' => 'pusher#disconnect'
+    match 'playdate/disconnect' => 'playdate#disconnect'
     match 'books/list' => 'books#list'
     #resources :settings, :only => [:update]
   end

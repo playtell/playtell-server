@@ -127,16 +127,6 @@ private
   
   # PLAYDATE SHARED METHODS
   
-  # loads a book for a playdate.   
-  def getBook(id)
-    @book = Book.find(id)
-    if @book.blank?
-      return false
-    end
-    @playdate.book_id = id
-    @playdate.save
-  end
-  
   # expected params: book_id, page_num
   # sends change_book pusher event
   def changeBook
@@ -150,8 +140,18 @@ private
       :data => @book.to_json(:include => :pages),
       :book => @book.id,
       :player => current_user.id,
-      :page => params[:new_page_num]
+      :page => params[:page_num]
     })
+  end
+  
+  # loads a book for a playdate.   
+  def getBook(id)
+    @book = Book.find(id)
+    if @book.blank?
+      return false
+    end
+    @playdate.book_id = id
+    @playdate.save
   end
   
   # expected params: new_page_num
