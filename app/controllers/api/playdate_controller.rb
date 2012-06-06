@@ -170,7 +170,8 @@ class Api::PlaydateController < ApplicationController
       @playdate.change = Playdate::CLOSE_BOOK
       @playdate.save
       closeBook
-    render :status=>200, :json=>{:message => 'Close_book sent via pusher on ' + @playdate.pusher_channel_name}
+      render :status=>200, :json=>{:message => 'Close_book sent via pusher on ' + @playdate.pusher_channel_name}
+    end
   end
   
   private
