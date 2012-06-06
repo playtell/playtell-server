@@ -169,6 +169,7 @@ private
   def closeBook
     Pusher[@playdate.pusher_channel_name].trigger('close_book', {
       :player => current_user.id,
+      :book => params[:book_id],
     })
   end
   
