@@ -1,2 +1,1 @@
-<h1><%= @book.title %></h1>
-<p>This is a cover page</p>
+<%= image_tag getPageImageFilePath(@book.image_directory, 0.to_s), :alt => "title-image" %>
