@@ -47,7 +47,7 @@ class Api::PusherController < ApplicationController
   end
   
   # required params: playdate_id
-  def end
+  def disconnect
     @playdate = Playdate.find(params[:playdate_id])
     if !@playdate or @playdate.blank?
       render :status=>100, :json=>{ :message => "Playdate not found." }
