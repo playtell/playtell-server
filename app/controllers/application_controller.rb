@@ -165,6 +165,13 @@ private
     })
   end
   
+  # sends a pusher event to close book
+  def closeBook
+    Pusher[@playdate.pusher_channel_name].trigger('close_book', {
+      :player => current_user.id,
+    })
+  end
+  
   # sends a pusher event on playdate channel to end playdate
   def endPlaydate
     Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:player => current_user.id})

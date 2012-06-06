@@ -75,7 +75,7 @@ class Api::PlaydateController < ApplicationController
     else
       endPlaydate
     end
-    render :status=>200, :json=>{:message => 'End playdate sent via pusher on '+ @playdate.pusher_channel_name}
+    render :status=>200, :json=>{:message => 'End_playdate sent via pusher on '+ @playdate.pusher_channel_name}
   end
   
   #request params expected: playdate_id and initiator_id
@@ -136,7 +136,7 @@ class Api::PlaydateController < ApplicationController
         render :status=>120, :json=>{ :message=> "Book not found." }
         return
       end
-      render :status=>200, :json=>{:message => 'Change book sent via pusher on '+ @playdate.pusher_channel_name }           
+      render :status=>200, :json=>{:message => 'Change_book sent via pusher on '+ @playdate.pusher_channel_name }           
     end
   end
   
@@ -153,13 +153,24 @@ class Api::PlaydateController < ApplicationController
       @playdate.change = Playdate::TURN_PAGE
       @playdate.save
       turnPage
-      render :status=>200, :json=>{ :message => 'Turn page sent via pusher on ' + @playdate.pusher_channel_name } 
+      render :status=>200, :json=>{ :message => 'Turn_page sent via pusher on ' + @playdate.pusher_channel_name } 
     end
   end
   
-  # required params: book_id
+  # required params: playdate_id, book_id
   def close_book
-    render :status=>200, :json=>{:message => 'close_book called'}
+    @playdate = Playdate.find(params[:playdate_id])
+    if !@playdate or @playdate.blank?
+      render :status=>100, :json=>{ :message => "Playdate not found." }
+      return
+    elsif @playdate.disconnected?
+      render :status=>101, :json=>{ :message=> "Playdate has ended." }
+      return
+    else
+      @playdate.change = Playdate::CLOSE_BOOK
+      @playdate.save
+      closeBook
+    render :status=>200, :json=>{:message => 'Close_book sent via pusher on ' + @playdate.pusher_channel_name}
   end
   
   private

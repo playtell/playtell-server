@@ -13,6 +13,7 @@ class Playdate < ActiveRecord::Base
   TOGGLE_VIDEO=99 #hack for our audio-only tests. hides the video windows
   CHANGE_BOOK=100
   TURN_PAGE=101
+  CLOSE_BOOK=102
 
   CHANGE_VIDEO=300
   PLAY_VIDEO=301
