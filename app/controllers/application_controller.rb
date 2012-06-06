@@ -130,7 +130,7 @@ private
   # loads a book for a playdate.   
   def getBook(id)
     @book = Book.find(id)
-    if !@book
+    if @book.blank?
       return false
     end
     @playdate.book_id = id
@@ -140,8 +140,8 @@ private
   # expected params: book_id, page_num
   # sends change_book pusher event
   def changeBook
-    @book = getBook(params[:book_id])
-    if !@book 
+    getBook(params[:book_id])
+    if @book.blank? 
       return false;
     end
     @playdate.page_num = params[:page_num]
@@ -163,6 +163,12 @@ private
       :player => current_user.id,
       :page => params[:new_page_num]
     })
+  end
+  
+  # sends a pusher event on playdate channel to end playdate
+  def endPlaydate
+    Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:player => current_user.id})
+    @playdate.disconnect 
   end
   
 end

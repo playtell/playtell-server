@@ -284,7 +284,8 @@ function syncToServerReturnData(playdate_change, activityID) {
 		"/update_playdate", 
 		{ 
 			playdateChange: playdate_change, 
-		  	book_id: activityID 
+		  	book_id: activityID, 
+			page_num: 0
 		},		
 		function(data) {
 			if (data.book) {

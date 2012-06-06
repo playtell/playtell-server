@@ -41,8 +41,18 @@ class Api::PusherController < ApplicationController
     end
   end
   
-  # TODO: Implement this
+  # required params: playdate_id
   def close_book
+    @playdate = Playdate.find(params[:playdate_id])
+    if !@playdate or @playdate.blank?
+      render :status=>100, :json=>{ :message => "Playdate not found." }
+      return
+    elsif @playdate.disconnected?
+      render :status=>101, :json=>{ :message=> "Playdate has ended." }
+      return
+    else
+      endPlaydate
+    end
     render :status=>200, :json=>{:message => 'close_book called'}
   end
 
