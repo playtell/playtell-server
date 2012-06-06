@@ -41,8 +41,13 @@ class Api::PusherController < ApplicationController
     end
   end
   
-  # required params: playdate_id
+  # required params: book_id
   def close_book
+    render :status=>200, :json=>{:message => 'close_book called'}
+  end
+  
+  # required params: playdate_id
+  def end
     @playdate = Playdate.find(params[:playdate_id])
     if !@playdate or @playdate.blank?
       render :status=>100, :json=>{ :message => "Playdate not found." }
@@ -53,7 +58,7 @@ class Api::PusherController < ApplicationController
     else
       endPlaydate
     end
-    render :status=>200, :json=>{:message => 'close_book called'}
+    render :status=>200, :json=>{:message => 'End playdate sent via pusher on '+ @playdate.pusher_channel_name}
   end
-
+  
 end

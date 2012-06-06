@@ -33,6 +33,7 @@ Semiralabs::Application.routes.draw do
     match 'playdate/change_book' => 'pusher#change_book'
     match 'playdate/close_book' => 'pusher#close_book'
     match 'playdate/create' => 'playdate#create'
+    match 'playdate/end' => 'playdate#end'
     match 'books/list' => 'books#list'
     #resources :settings, :only => [:update]
   end
