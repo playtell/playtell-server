@@ -11,7 +11,7 @@
 <script type="text/javascript" charset="utf-8">
 	var readyCheck = setInterval(function () {
 		if (document.readyState === "complete") {
-			document.location.href = 'playtell:coverLoadFinished';
+			document.location.href = 'playtell:coverLoadFinished:<%= @book.id.to_s %>';
 			clearInterval(readyCheck);
 		}
 	}, 10);
