@@ -60,7 +60,12 @@ class Api::PlaydateController < ApplicationController
      end
      
      # Notify
-     render :status=>200, :json=>{:playdate_id=>@playdate.id, :initiator_id=>current_user.id, :playmate_id=>playmate.id}
+     render :status=>200, :json=>{:playdate_id => @playdate.id,
+       :initiator_id => current_user.id,
+       :playmate_id => playmate.id,
+       :tokboxSessionID => @playdate.video_session_id,
+       :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+       :tokboxPlaymateToken => @playdate.tokbox_playmate_token}
   end
 
   # required params: playdate_id
