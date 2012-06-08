@@ -68,10 +68,6 @@ class User < ActiveRecord::Base
     self.friends + self.inverse_friends
   end
   
-  def allFriendsAsJ
-    self.friends.to_json + self.inverse_friends.to_json
-  end
-  
   def allFriendships
     all_ids = []
     for f in self.friendships 
