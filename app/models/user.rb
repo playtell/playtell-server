@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
     end
   
   #overriding to add the display name and profile pic
-  def as_json()
+  def as_json(options={})
     u = {
       :id => self.id, 
       :email => self.email,
