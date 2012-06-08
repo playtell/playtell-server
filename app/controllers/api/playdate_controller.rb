@@ -61,6 +61,7 @@ class Api::PlaydateController < ApplicationController
      
      # Notify
      render :status=>200, :json=>{:playdate_id => @playdate.id,
+       :pusherChannelName => @playdate.pusher_channel_name,
        :initiator_id => current_user.id,
        :playmate_id => playmate.id,
        :tokboxSessionID => @playdate.video_session_id,
