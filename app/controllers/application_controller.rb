@@ -175,7 +175,7 @@ private
   
   # sends a pusher event on playdate channel to end playdate
   def endPlaydate
-    Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:player => current_user.id})
+    Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:playdate => @playdate.id, :player => current_user.id})
     @playdate.disconnect 
   end
   
