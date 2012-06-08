@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
       render :status=>150, :json=>{ :message => "User not found." }
       return
     else
-      response = u.allFriends.to_json
+      response = u.allFriends
     end
     puts response    
     render :status=>200, :json=>{:friends => response}
