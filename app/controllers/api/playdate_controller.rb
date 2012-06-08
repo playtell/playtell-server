@@ -60,7 +60,45 @@ class Api::PlaydateController < ApplicationController
      end
      
      # Notify
-     render :status=>200, :json=>{:playdate_id=>@playdate.id, :initiator_id=>current_user.id, :playmate_id=>playmate.id}
+     render :status=>200, :json=>{:playdateID => @playdate.id,
+       :pusherChannelName => @playdate.pusher_channel_name,
+       :initiatorID => current_user.id,
+       :playmateID => playmate.id,
+       :tokboxSessionID => @playdate.video_session_id,
+       :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+       :tokboxPlaymateToken => @playdate.tokbox_playmate_token}
+  end
+
+  # required params: playdate_id
+  def join
+    @playdate = Playdate.find(params[:playdate_id])
+    if !@playdate or @playdate.blank?
+      return render :status=>100, :json=>{ :message => "Playdate not found." }
+    elsif @playdate.disconnected?
+      return render :status=>101, :json=>{ :message=> "Playdate has ended." }
+    end
+    
+    # Mark playdate as connected
+    @playdate.connected
+    
+    # Find playmate and notify via pusher
+    initiator = @playdate.getOtherPlayer(current_user)
+    
+    # Send pusher notification
+    Pusher["presence-rendezvous-channel"].trigger('playdate_joined', {
+      :playdateID => @playdate.id,
+      :pusherChannelName => @playdate.pusher_channel_name,
+      :initiatorID => initiator.id,
+      :initiator => initiator.username,
+      :playmateID => current_user.id,
+      :playmateName => current_user.username,
+      :tokboxSessionID => @playdate.video_session_id,
+      :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+      :tokboxPlaymateToken => @playdate.tokbox_playmate_token }
+    )
+    
+    # JSON reply
+    render :status=>200, :json=>{:message => "Playdate connected. Sent join notification to playmate '#{initiator.username}' via pusher on #{@playdate.pusher_channel_name}"}
   end
   
   # required params: playdate_id
@@ -170,7 +208,8 @@ class Api::PlaydateController < ApplicationController
       @playdate.change = Playdate::CLOSE_BOOK
       @playdate.save
       closeBook
-    render :status=>200, :json=>{:message => 'Close_book sent via pusher on ' + @playdate.pusher_channel_name}
+      render :status=>200, :json=>{:message => 'Close_book sent via pusher on ' + @playdate.pusher_channel_name}
+    end
   end
   
   private
