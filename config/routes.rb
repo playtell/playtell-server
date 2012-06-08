@@ -28,13 +28,14 @@ Semiralabs::Application.routes.draw do
     match 'twilio_token' => 'twilio#capability_token'
     match 'tokbox_tokens' => 'tokbox#tokbox_tokens'
     match 'playdate_players' => 'playdate#playdate_players'
-    match 'redial' => 'playdate#redial'
+    match 'playdate/redial' => 'playdate#redial'
     match 'playdate/turn_page' => 'playdate#turn_page'
     match 'playdate/change_book' => 'playdate#change_book'
     match 'playdate/close_book' => 'playdate#close_book'
     match 'playdate/create' => 'playdate#create'
     match 'playdate/disconnect' => 'playdate#disconnect'
     match 'books/list' => 'books#list'
+    match 'users/all_friends' => 'users#all_friends'
     #resources :settings, :only => [:update]
   end
   
