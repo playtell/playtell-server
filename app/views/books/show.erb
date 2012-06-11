@@ -1,1 +1,9 @@
-<%= image_tag getPageImageFilePath(@book.image_directory, 0.to_s), :alt => "title-image" %>
+<div class="book">
+	<table class="cover">
+		<tbody>
+			<tr>
+				<td><%= image_tag getPageImageFilePath(@book.image_directory, 0.to_s), :alt => "title-image" %></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
