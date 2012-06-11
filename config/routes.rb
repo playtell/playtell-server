@@ -33,6 +33,7 @@ Semiralabs::Application.routes.draw do
     match 'playdate/change_book' => 'playdate#change_book'
     match 'playdate/close_book' => 'playdate#close_book'
     match 'playdate/finger_tap' => 'playdate#finger_tap'
+    match 'playdate/finger_end' => 'playdate#finger_end'
     match 'playdate/create' => 'playdate#create'
     match 'playdate/disconnect' => 'playdate#disconnect'
     match 'playdate/join' => 'playdate#join'
