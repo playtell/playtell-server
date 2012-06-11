@@ -1375,13 +1375,12 @@ ul.nav-list li {
 .sign-up-badge {
 	position: absolute;
 	bottom: -20px;
-	left: 143px;
+	left: 113px;
 }
 
 #block-how-it-works {
 	padding: 0px 50px;
-	position: relative;
-	
+	position: relative;	
 }
 
 #block-how-it-works h1 {
@@ -1463,14 +1462,6 @@ ul.nav-list li {
 	padding-left: 50px;
 }
 
-.footer .top-row {
-
-}
-
-.footer .bottom-row {
-	
-}
-
 .footer .primary-nav a {
 	color: #fff;
 }
@@ -1479,20 +1470,81 @@ ul.nav-list li {
 	color: #939597;	
 }
 
+.beta-sign-up input[type="text"],
+.beta-sign-up input[type="email"],
+#ext-sign-up-form input[type="text"],
+#ext-sign-up-form input[type="email"] {
+	width: 250px;
+	font-family: 'Lato', sans-serif;
+	font-size:16pt;
+	font-weight: normal;
+	color: #123441;
+	padding: 10px;
+	background: #fff;
+	border: none;
+	border-radius: 6px;
+	margin: 13px 10px;
+}
+
+#ext-sign-up-form input[type="text"],
+#ext-sign-up-form input[type="email"] {
+	width: 200px;
+	margin: 10px 10px 5px 0px;
+}
+
 #beta-lightbox {
-    -moz-border-radius: 6px;
-    background: blue;
-    -webkit-border-radius: 6px;
-    border: 1px solid #536376;
+    background: #F4F3ED;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border: none;
     -webkit-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;
     -moz-box-shadow:  rgba(0,0,0,.6) 0px 2px 12px;
     padding: 14px 22px;
-    width: 400px;
+    width: 500px;
 	min-height: 50px;
     position: relative;
 	font-size: 1.3em;
 }
 
+#ext-sign-up-form h3 {
+	color: #5795CF;
+	font-size: 32px;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+#ext-sign-up-form p.required {
+	color: grey;
+	font-size: 12px;
+	display: inline;
+	background-color: #E1E0DB;
+	padding: 5px 10px;
+	border-radius: 6px;
+	margin: 50px 20px;
+}
+#ext-sign-up-form .chunk {
+	background-color: #E1E0DB;
+	padding: 10px;
+	border-radius: 6px;
+	margin-bottom: 30px;
+}
+
+#ext-sign-up-form p.error-text {
+	color: #F05A28;
+	font-size: 12px;
+}
+
+#ext-sign-up-form p.question {
+	color: #5795CF;
+	font-size: 22px;
+}
+
+#ext-sign-up-form .chunk div {
+	margin: 0px 0px 10px 25px;
+}
+
 #ext-sign-up-form p.answer-text {
 	display: inline;
+	color: #5795CF;
+	font-size: 14px;
 }

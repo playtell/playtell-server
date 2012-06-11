@@ -50,6 +50,23 @@
 			
 			//brings up the survey lightbox
 			$('.early-access-submit').click(function() {
+				$('#beta-lightbox').lightbox_me({
+			    	centered: false,
+					closeClick: false,
+					closeEsc: false,
+					onLoad: function() {
+						$('#beta-lightbox-text').find('input:first').focus();
+					},
+					onClose: function() {
+						$('#loader').hide();
+						$('#thank-you-active').hide();
+						$('#thank-you-early').hide();
+						$('#ext-sign-up-form').show();
+					}
+				});
+			});
+			
+			$('.early-access-submit').click(function() {
 				var passes = true;
 				$('.errow').hide();
 				$('.error').hide();
@@ -81,21 +98,6 @@
 					});
 				}
 			});
-			
-			$('.early-access-submit').click(function() {
-				$('#beta-lightbox').lightbox_me({
-			    	centered: false,
-					onLoad: function() {
-						$('#beta-lightbox-text').find('input:first').focus();
-					},
-					onClose: function() {
-						$('#loader').hide();
-						$('#thank-you-active').hide();
-						$('#thank-you-early').hide();
-						$('#ext-sign-up-form').show();
-					}
-				});
-			});	
 					
 			//submits the survey and shows either errors or balloon thank you message
 			$('#alpha-form-submit').click(function() {
@@ -237,10 +239,10 @@
 			<hr>
 			<div class="bottom-row">
 				<ul class="nav-list secondary-nav">
-					<li><a href="#">Contact Us</a></li>
-					<li><a href="#">Facebook</a></li>
-					<li><a href="#">Twitter</a></li>
-					<li><a href="#">AngelList</a></li>
+					<li><a href="mailto:info@playtell.com">Contact Us</a></li>
+					<li><a target="_blank" href="http://www.facebook.com/playtell">Facebook</a></li>
+					<li><a target="_blank" href="https://twitter.com/#!/GoPlayTell">Twitter</a></li>
+					<li><a target="_blank" href="http://angel.co/playtell">AngelList</a></li>
 				</ul>
 				<p class="inline-block fr"><a href="#">Terms of Service</a> | 
 				<a href="#">Privacy Policy</a></p>

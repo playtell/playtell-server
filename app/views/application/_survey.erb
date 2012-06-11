@@ -2,29 +2,32 @@
 <div id="step1" class="hidden">
 	<h3>Short Sign-Up Survey</h3>
 
+	<p class="required">Required</p>
 	<div class="chunk" id="owns_iPad">
-		<p class="required">Required</p>
 		<p class="error-text hidden">Please answer the question below.</p>
 		
 		<p class="question">Do you own an iPad?</p> 
-		<input type="radio" name="owns_iPad" value="1" class="answer"><p class="answer-text">Yes</p><br />
-		<input type="radio" name="owns_iPad" value="0" class="answer"><p class="answer-text">No</p>
+		<div><input type="radio" name="owns_iPad" value="1" class="answer"><p class="answer-text">Yes</p></div>
+		<div><input type="radio" name="owns_iPad" value="0" class="answer"><p class="answer-text">No</p></div>
 	</div>
 	
+	<p class="required">Required</p>
 	<div class="chunk" id="has_kids">
-		<p class="required">Required</p>
 		<p class="error-text hidden">Please answer the question below.</p>
 			
 		<p class="question">Which of the following describes you?</p>
-		
+		<div>
 		<input type="radio" name="has_kids" value="1" class="answer">
 		<p class="answer-text">I have children younger than 8 years old</p>
-		<br />
+		</div>
+		<div>
 		<input type="radio" name="has_kids" value="2" class="answer">
 		<p class="answer-text">I video chat with children that are younger than 8 years old</p>
-		<br />
+		</div>
+		<div>
 		<input type="radio" name="has_kids" value="0" class="answer">
 		<p class="answer-text">None of the above</p>
+		</div>
 	</div>
 	
 	<p><button class="blue big-button" id="beta-form-next">Next</button></p>
@@ -33,18 +36,19 @@
 <div id="step2" class="">
 	<h3>Sign-Up Your Family</h3>
 	
+	<p class="required">Required</p>
 	<div class="chunk" id="sign-up-family">
-		<p class="required">Required</p>
 		<p class="error-text hidden">You must invite at least one family member to play with.</p>
 		
-		<p class="question">Who would you like to invite to play with on PlayTell?</p> 
-		<br />
+		<p class="question">Who would you like to read with on PlayTell?</p> 
 		<input type="text" class="answer name" id="username2" placeholder="name or nickname">
 		<input type="email" class="answer email" id="email2" placeholder="email">
 	</div>
 	
-	<div class="chunk" id="sign-up-family-optional">
-		Any other family you'd like to invite?
+	<div class="chunk hidden" id="sign-up-family-optional">
+		<p class="question">Any other family you would like to invite?</p>
+		<input type="text" class="answer name" id="username2" placeholder="name or nickname">
+		<input type="email" class="answer email" id="email2" placeholder="email">
 	</div>
 	
 	<p><button class="blue big-button" id="beta-form-submit">Sign Up</button></p>
