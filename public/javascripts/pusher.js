@@ -64,7 +64,7 @@ function listenForTurnPage() {
 }
 
 function listenForFinger() {
-	playdateChannel.bind('grandma_finger', function(data) {
+	playdateChannel.bind('finger_tap', function(data) {
 		if (parseInt(data.player) != parseInt($('#current-user').html())) {
 			$("#finger").offset({ top: data.y, left: data.x }).removeClass('invisible');
 			$("#finger").addClass("fingered");
