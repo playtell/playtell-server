@@ -255,6 +255,25 @@ class Api::PlaydateController < ApplicationController
       render :status=>200, :json=>{:message => 'Finger_tap sent via pusher on ' + @playdate.pusher_channel_name}
     end
   end
+
+	def finger_end
+    @playdate = Playdate.find(params[:playdate_id])
+    if !@playdate or @playdate.blank?
+      render :status=>100, :json=>{ :message => "Playdate not found." }
+      return
+    elsif @playdate.disconnected?
+      render :status=>101, :json=>{ :message=> "Playdate has ended." }
+      return
+    elsif params[:x].blank? or params[:y].blank?
+      render :status=>160, :json=>{ :message => "x and y coordinates cannot be blank. "}
+      return
+    else
+      # @playdate.change = Playdate::GRANDMA_FINGER
+      # @playdate.save
+      Pusher[@playdate.pusher_channel_name].trigger('finger_end', {:player => current_user.id, :x => params[:x], :y => params[:y]})
+      render :status=>200, :json=>{:message => 'Finger_end sent via pusher on ' + @playdate.pusher_channel_name}
+    end
+  end
   
   private
   def initOpenTok

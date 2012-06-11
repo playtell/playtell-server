@@ -39,7 +39,7 @@ class Api::TokensController  < ApplicationController
           Urbanairship.register_device(params[:device_token])
         end
       end
-      render :status=>200, :json=>{:token=>@user.authentication_token, :user_id=>@user.id} 
+      render :status=>200, :json=>{:token=>@user.authentication_token, :user_id=>@user.id, :profilePhoto=>@user.profile_photo} 
     end
   end
   
