@@ -19,6 +19,7 @@
 .inline { display: inline; }
 .block { display: block; }
 .inline-block { display: inline-block; }
+.center { text-align: center; }
 .invisible { visibility: hidden; }
 
 .clear { clear: both; }

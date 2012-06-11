@@ -1,0 +1,50 @@
+<div id="ext-sign-up-form">
+	<div class="errors-container">
+		<div class="error error-ext-survey-fields">Please answer all questions</div> 
+		<div class="error error-ext-survey-email"> Please enter a unique, valid email</div>
+	</div>
+	<h3>SIGN UP</h3>
+	<hr />
+	<div class="chunk">
+		<%= image_tag 'error_arrow_right.png', :class=>"errow errow-ext-survey "%>
+		<p class="question" id="owns_iPad">Do you own an iPad?</p> 
+	</div><br />
+	<input type="radio" name="owns_iPad" value="1" class="answer"><p class="answer-text">Yes</p><br />
+	<input type="radio" name="owns_iPad" value="0" class="answer"><p class="answer-text">No</p>
+	<br />
+	
+	<div class="chunk">
+		<%= image_tag 'error_arrow_right.png', :class=>"errow errow-ext-survey "%>
+		<p class="question">Which of the following describes you?</p>
+	</div></br>
+	<input type="radio" name="has_kids" value="1" class="answer">
+		<p class="answer-text">I have children younger than 8 years old</p>
+	<br />
+	<input type="radio" name="has_kids" value="2" class="answer">
+		<p class="answer-text">I video chat with children that are younger than 8 years old</p>
+	<br />
+	<input type="radio" name="has_kids" value="0" class="answer">
+		<p class="answer-text">None of the above</p>
+	<br />
+	<div class="chunk">
+		<%= image_tag 'error_arrow_right.png', :class=>"errow errow-ext-survey "%>
+		<p class="question">Who would you like to invite to play with on PlayTell?</p> 
+	</div><br />
+		<input type="text" class="answer name" id="username2" placeholder="name or nickname">
+	<br />
+		<input type="email" class="answer email" id="email2" placeholder="email">
+	<br />
+
+	<p><button class="blue big-button" id="alpha-form-submit">Send</button></p>
+</div>
+<div id="thank-you-early" class="hidden">
+	<%= image_tag "thanks-balloon.png"%>
+	<h3>Thanks! You're on the list.</h3>
+	<p>We'll be in touch soon.</p> 
+</div>	
+<div id="thank-you-active" class="hidden">
+	<%= image_tag "thanks-balloon.png"%>
+	<h3>You're in!</h3>
+	<p>Further instructions are on their way to your email inbox. Get ready to play!</p> 
+</div>	
+<div id="loader" class="hidden loading"></div>

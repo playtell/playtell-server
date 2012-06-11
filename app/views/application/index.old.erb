@@ -1,0 +1,154 @@
+<% content_for :head do %>	
+
+	<script type="text/javascript">
+		var email_filter = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/;
+	  	$(document).ready(function() {
+
+		    //code to be used for scrolling page for nav links 
+		    $("#jump").click(function (event) {	
+				$(".homeContainer").animate(
+					{ scrollTop: 100 }, "slow", "easeOutBack" );
+				event.preventDefault();
+				return false;
+			});
+			
+			//brings up the survey lightbox
+			$('#early-access-submit').click(function() {
+				var passes = true;
+				$('.errow').hide();
+				$('.error').hide();
+				if (!email_filter.test($('#email').val().toUpperCase())) {
+					$('#email').parent().find('.errow').show();
+					$('.error-email').show();
+					passes = false;
+				}
+				if ($('#name').val() == '') {
+					$('#name').parent().find('.errow').show();
+					$('.error-name').show();
+					passes = false;
+				}
+				if (passes) {
+					$('.errow').hide();
+					$('.error').hide();
+					$('#alpha-lightbox').lightbox_me({
+				    	centered: false,
+						onLoad: function() {
+							$('#alpha-lightbox-text').find('input:first').focus();
+						},
+						onClose: function() {
+							$('#loader').hide();
+							$('#thank-you-active').hide();
+							$('#thank-you-early').hide();
+							$('#ext-sign-up-form').show();
+							
+						}
+					});
+				}
+			});
+			
+			//submits the survey and shows either errors or balloon thank you message
+			$('#alpha-form-submit').click(function() {
+					$('#ext-sign-up-form').hide();
+					$('#loader').show();
+					$.ajax({
+						url: "/early_access.json",
+						data: {
+							early_user: { username: $('#name').val(),
+										  email: $('#email').val(), 
+										  owns_iPad: $("input[name=owns_iPad]:checked").val(),
+										  has_kids: $("input[name=has_kids]:checked").val() },
+							user2: { username2: $('#username2').val(),
+									 email2: $('#email2').val() }
+						},
+						type: "POST",
+						success: function(data) {
+							$('#loader').hide();
+							$('.error').hide();
+							if (data.message == "active_user") {
+								$('#thank-you-active').show();
+							}
+							else if (data.message == "early_user") {
+								$('#thank-you-early').show();
+							}
+							else if (data.message == "error-email") {
+								$('#ext-sign-up-form').show();
+								$('.error-ext-survey-email').show();								
+							}
+							else if (data.message == "error-fields") {
+								$('#ext-sign-up-form').show();
+								$('.error-ext-survey-fields').show();								
+							}
+						},
+					});		
+			});
+			
+		  });
+	
+		//size the splash image to the window height
+		$(function () {
+			var h = $(window).height();
+	
+			var imgH = h / 7 * 5;
+			var signupH = h / 7 * 5 - 40;
+			var signupW = ($(window).width() - $('#block-sign-up').outerWidth()) / 2
+			$('#block-sign-up').offset({top: signupH, left: signupW});
+		
+		  	var img = new Image();
+		  	$(img)
+		    	.load(function () {
+		      		$(this).hide();
+			  		$(this).appendTo('#block-splash');
+		      		$(this).show();
+		    	})
+
+		    	.attr('src', '/images/splash_ipad.png')
+		    	.attr('style', 'height: ' + imgH + 'px');
+		});	
+		
+	 </script>
+	
+<% end %>
+
+<div class="homeContainer">
+<div class="landing-page" id="landingpage">
+	<div class="splash-container">
+		<div id="block-splash"></div>
+		<div id="block-sign-up">
+			<div class="alpha-sign-up" id="sign-up">
+				<div id="sign-up-form">
+					<div class="errors-container">
+						<div class="error error-name hidden">Please enter your name</div>
+						<div class="error error-email hidden">Please enter a valid email address</div>
+					</div>
+					<h3>REQUEST INVITE</h3>
+					<hr />
+					<div class="chunk">
+						<%= image_tag 'error_arrow_right.png', :class=>"errow hidden"%>
+						<input type="text" class="name" id="name" placeholder="name">
+					</div><br />
+					<div class="chunk">
+						<%= image_tag 'error_arrow_right.png', :class=>"errow hidden" %>
+						<input type="email" class="email" id="email" placeholder="email">
+					</div><br />
+					<button class="blue big-button" id="early-access-submit">Sign me up!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="lightbox hidden" id="alpha-lightbox">
+		<div id="alpha-lightbox-text">
+			<%= render :partial => 'survey' %>
+		</div>
+		<button class="close close-x blue">X</button>	
+	</div>
+</div>
+</div>
+<!--<div class="footer">
+	<ul>
+		<li><a href="#">Home</a></li>
+		<li><a href="#">Product</a></li>
+		<li><a href="#">Team</a></li>
+		<li><a href="#">Contact</a></li>
+	</ul>
+</div>-->
+
