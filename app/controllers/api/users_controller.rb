@@ -14,7 +14,6 @@ class Api::UsersController < ApplicationController
     else
       response = u.allFriends
     end
-    puts response    
     render :status=>200, :json=>{:friends => response}
   end
 end

@@ -348,11 +348,11 @@ div.ribbon {
 /* LAYOUT --------------------------------------------------------- */
 
 .homeContainer {
-    width: 1024px;
 	width: 100%;
 	height: 100%;
     margin: 0px auto;
 	overflow: auto;
+	background-color: #CBC8B9;
 }
 
 .mainContainer {
@@ -1316,195 +1316,235 @@ button.green2, input[type="submit"].green2 {
 
 /* NEW LANDING PAGE --------------------------------------------------------- */
 
+.landing-page a, .landing-page p {
+	font-family: 'Lato', sans-serif;
+}
+
 .landing-page {
-	overflow: auto;
-	min-width:1024px;
-	min-height:100%;
-	width:100%;
-	text-align: center;
+	background-color: #F4F3ED;
+	margin: 0px auto;
 }
 
-.landing-page p {
-	font-family: 'Lato', sans-serif;	
-	font-size: 14px;
-}
-
-.landing-page h3 {
-	font-family: 'Quicksand', sans-serif;
-}
-
-.nav {
-	line-height: 5em;
-	padding: 5px 10px 5px 100px;
-	position: fixed;
-	background: white; /*url("/images/nav_bg.png") repeat;*/
-	width: 100%;
-}
-
-.nav img {
-	vertical-align: middle;
-}
-
-.nav ul {
+ul.nav-list {
 	display: inline;
-	padding-left: 300px;
 }
 
-.nav ul li {
+ul.nav-list li {
 	display: inline;
 	list-style-type: none;
 	padding-right: 7px;
-	font-family: 'Lato', sans-serif;
+}
+
+#block-nav {
+	height: 55px;
+	background-color: #F4F3ED;
+	padding: 10px 50px;
+}
+
+#block-nav a {
 	font-size: 14px;
+	color: #123441;	
+}
+
+#block-nav ul {
+	margin-top: 20px;
 }
 
 #block-splash {
-	overflow: hidden;
-	background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(167,199,204,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(167,199,204,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(167,199,204,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(167,199,204,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(167,199,204,1) 100%); /* IE10+ */
-	background: linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(167,199,204,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#a7c7cc',GradientType=0 ); /* IE6-9 */
+	background-color: #5795CF;
+	position: relative;
 }
 
-.splash-container {
-	background: url("/images/splash_ipad_bg.jpg") repeat;
+#block-splash h2 {
+	font-size: 48px;
+	line-height: 48px;
+	color: #fff;
+	position: absolute;
+	left: 17%;
+	top: 30px;
+	font-family: "Lato", sans-serif;
+}
+
+.beta-sign-up {
+	background-color: #E1E0DB;
+	height: 72px;
 	position: relative;
+	text-align: center;
+}
+
+.sign-up-badge {
+	position: absolute;
+	bottom: -20px;
+	left: 113px;
+}
+
+#block-how-it-works {
+	padding: 0px 50px;
+	position: relative;	
+}
+
+#block-how-it-works h1 {
+	color: black;
+	font-size: 60px;
+	font-weight: normal;
+	padding: 20px 0px 10px 0px;
+}
+
+#block-how-it-works h3 {
+	color: #5795CF;
+	font-size: 24px;
+	font-weight: normal;
+	padding: 0px 0px 10px 0px;
+}
+
+#block-how-it-works .features-container {
+	position: relative;
+	margin-top: 30px;
+	height: 600px;
+}
+
+#block-how-it-works .features-icons-container {
+	padding-right: 50px;
+}
+
+#block-how-it-works .features-icons-container div {
+	margin: 0px 0px 40px 0px;
+	text-align:	center;
+}
+
+#block-how-it-works .features-icons-container div p {
+	margin-top: 5px;
+	font-size: 14px;
+}
+
+#block-how-it-works .features-image-container {
+	position: relative;
+}
+
+#block-how-it-works .features-image-container div {
+	position: absolute;
+	top: 0;
+	left: 130;
+}
+
+#block-how-it-works .features-image-container img {
+	width: 700px;
 }
 
 #block-sign-up {
+	background-color: #5795CF;
+	position: relative;
+}
+
+#block-sign-up h1 {
+	color: #fff;
+	font-size: 72px;
+	line-height: 72px;
 	position: absolute;
-	/*bottom: 0px;*/
-	padding: 15px 30px;
-	border: lightgrey solid 1px;
-	border-bottom-style: none;
-	border-radius: 10px;
-	background: white;
-	-webkit-box-shadow: rgba(0,0,0,.2) 0px -1px 10px;
-    -moz-box-shadow:  rgba(0,0,0,.2) 0px -1px 10px;
-	width: 450px;
+	top: 30px;
+	left: 10px;
+	width: 40px;
 }
 
-.name {
-	border-radius: 6px 6px 0px 0px;
-	margin-top: 10px 0px 0px 0px;
-}
-.email {
-	margin: -10px 0px 10px 0px;
-	border-radius: 0px 0px 6px 6px;
-	border-top: dotted white !important;
+.footer {
+	background-color: #58585B;
+	color: #939597;
+	font-size: 14px;
+	padding: 40px 50px;
+	position: relative;
 }
 
-#block-sign-up input[type="text"],
-#block-sign-up input[type="email"],
+.footer .logo-container {
+	padding-top: 9px;
+}
+
+.footer .nav-container {
+	padding-left: 50px;
+}
+
+.footer .primary-nav a {
+	color: #fff;
+}
+
+.footer .secondary-nav a, .footer p, .footer p a {
+	color: #939597;	
+}
+
+.beta-sign-up input[type="text"],
+.beta-sign-up input[type="email"],
 #ext-sign-up-form input[type="text"],
 #ext-sign-up-form input[type="email"] {
-	width: 300px;
+	width: 250px;
 	font-family: 'Lato', sans-serif;
 	font-size:16pt;
 	font-weight: normal;
-	color: #397684;
+	color: #123441;
 	padding: 10px;
-	background: lightgrey;
+	background: #fff;
 	border: none;
+	border-radius: 6px;
+	margin: 13px 10px;
 }
 
-#early-access-submit {
-	margin-top: 15px;
+#ext-sign-up-form input[type="text"],
+#ext-sign-up-form input[type="email"] {
+	width: 200px;
+	margin: 10px 10px 5px 0px;
 }
 
-#ext-sign-up-form h3, 
-#block-sign-up h3 {
+#beta-lightbox {
+    background: #F4F3ED;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border: none;
+    -webkit-box-shadow: rgba(0,0,0,.6) 0px 2px 12px;
+    -moz-box-shadow:  rgba(0,0,0,.6) 0px 2px 12px;
+    padding: 14px 22px;
+    width: 500px;
+	min-height: 50px;
+    position: relative;
+	font-size: 1.3em;
+}
+
+#ext-sign-up-form h3 {
+	color: #5795CF;
+	font-size: 32px;
 	text-align: center;
-	font-size: 30px;
-	font-family: "Comfortaa", sans-serif;
+	margin-bottom: 30px;
 }
 
-#alpha-lightbox {
-	width: 500px;
-	background: white;
-}
-
-#alpha-lightbox-text {
-	padding: 0px 15px;
-}
-
-#ext-sign-up-form hr, 
-#block-sign-up hr {
-	border-style:solid;
-	border-width:1px;
-	border-color:#123441;
-	margin: 15px 0px 20px 0px;
-}
-
-#ext-sign-up-form .question {
-	font-size: 20px;
-	margin-top: 10px;
-	font-weight: bold;
-	display: inline-block;
-}
-
-#ext-sign-up-form .answer {
-	margin-left: 10px;
-}
-#ext-sign-up-form .answer-text {
-	font-size: 12pt;
+#ext-sign-up-form p.required {
+	color: grey;
+	font-size: 12px;
 	display: inline;
+	background-color: #E1E0DB;
+	padding: 5px 10px;
+	border-radius: 6px;
+	margin: 50px 20px;
+}
+#ext-sign-up-form .chunk {
+	background-color: #E1E0DB;
+	padding: 20px;
+	border-radius: 6px;
+	margin-bottom: 30px;
 }
 
-#ext-sign-up-form input[type="radio"] {
-	margin-top: 8px;
-	padding: 0px 20px 26px 0px;
+#ext-sign-up-form p.error-text {
+	color: #F05A28;
+	font-size: 12px;
 }
 
-#username2 {
-	margin-top: 8px;
+#ext-sign-up-form p.question {
+	color: #5795CF;
+	font-size: 22px;
 }
 
-#thank-you-early, #thank-you-active {
-	text-align: center;
+#ext-sign-up-form .chunk div {
+	margin: 0px 0px 10px 25px;
 }
 
-.chunk {
-	position: relative;
-	display: inline-block;
-}
-
-.error {
-	height: 38px;
-	background: url('/images/error_banner.png') no-repeat;
-	font-size: 16pt;
-	color: #88331C;
-	text-shadow: rgba(255,255,255,.4) 0px 1px 1px;
-	text-align: left;
-	padding: 9px 0px 0px 55px;
-}
-
-.errow {
-	position: absolute;
-	bottom: 20px;
-	left: -25px;
-}
-
-.errow-survey {
-	left: -15px !important;
-}
-
-.errow-ext-survey {
-	top: 14px !important;
-}
-
-.ipad-button {
-	text-align: center;
-	margin-top: 200px;	
-}
-
-.ipad-button .errors-container {
-	text-align: center;
-}
-.ipad-button .error {
-	width: 410px;
-	margin-bottom: 20px;
+#ext-sign-up-form p.answer-text {
+	display: inline;
+	color: #5795CF;
+	font-size: 14px;
 }

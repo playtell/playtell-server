@@ -4,16 +4,69 @@
 		var email_filter = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/;
 	  	$(document).ready(function() {
 
-		    //code to be used for scrolling page for nav links 
-		    $("#jump").click(function (event) {	
+		    //scroll page for nav links 
+		    $(".home-link").click(function (event) {	
 				$(".homeContainer").animate(
-					{ scrollTop: 100 }, "slow", "easeOutBack" );
+					{ scrollTop: $("#block-splash").offset().top }, "slow", "easeOutBack" );
+				event.preventDefault();
+				return false;
+			});
+			
+			$(".whatis-link").click(function (event) {	
+				$(".homeContainer").animate(
+					{ scrollTop: $("#block-how-it-works").offset().top }, "slow", "easeOutBack" );
+				event.preventDefault();
+				return false;
+			});		    
+			
+			$(".signup-link").click(function (event) {	
+				$(".homeContainer").animate(
+					{ scrollTop: $("#block-sign-up").offset().top }, "slow", "easeOutBack" );
+				event.preventDefault();
+				return false;
+			});
+			
+			//show selected feature 
+			$(".videochat-link").click(function (event) {	
+				$('.feature').fadeOut();
+				$('.videochat').fadeIn();
+				event.preventDefault();
+				return false;
+			});
+			
+			$(".bookshelf-link").click(function (event) {	
+				$('.feature').fadeOut();
+				$('.bookshelf').fadeIn();
+				event.preventDefault();
+				return false;
+			});
+			
+			$(".book-link").click(function (event) {	
+				$('.feature').fadeOut();
+				$('.book').fadeIn();
 				event.preventDefault();
 				return false;
 			});
 			
 			//brings up the survey lightbox
-			$('#early-access-submit').click(function() {
+			$('.early-access-submit').click(function() {
+				$('#beta-lightbox').lightbox_me({
+			    	centered: false,
+					closeClick: false,
+					closeEsc: false,
+					onLoad: function() {
+						$('#beta-lightbox-text').find('input:first').focus();
+					},
+					onClose: function() {
+						$('#loader').hide();
+						$('#thank-you-active').hide();
+						$('#thank-you-early').hide();
+						$('#ext-sign-up-form').show();
+					}
+				});
+			});
+			
+			$('.early-access-submit').click(function() {
 				var passes = true;
 				$('.errow').hide();
 				$('.error').hide();
@@ -30,7 +83,7 @@
 				if (passes) {
 					$('.errow').hide();
 					$('.error').hide();
-					$('#alpha-lightbox').lightbox_me({
+					$('#beta-lightbox').lightbox_me({
 				    	centered: false,
 						onLoad: function() {
 							$('#alpha-lightbox-text').find('input:first').focus();
@@ -45,7 +98,7 @@
 					});
 				}
 			});
-			
+					
 			//submits the survey and shows either errors or balloon thank you message
 			$('#alpha-form-submit').click(function() {
 					$('#ext-sign-up-form').hide();
@@ -87,11 +140,12 @@
 		//size the splash image to the window height
 		$(function () {
 			var h = $(window).height();
+			var w = $(window).width()-10;
 	
 			var imgH = h / 7 * 5;
 			var signupH = h / 7 * 5 - 40;
 			var signupW = ($(window).width() - $('#block-sign-up').outerWidth()) / 2
-			$('#block-sign-up').offset({top: signupH, left: signupW});
+			//$('#block-sign-up').offset({top: signupH, left: signupW});
 		
 		  	var img = new Image();
 		  	$(img)
@@ -101,8 +155,22 @@
 		      		$(this).show();
 		    	})
 
-		    	.attr('src', '/images/splash_ipad.png')
-		    	.attr('style', 'height: ' + imgH + 'px');
+		    	.attr('src', '/images/homepage/dueling_ipads_test.png')
+		    	.attr('style', 'height: ' + imgH + 'px')
+		    	.attr('style', 'max-width: ' + w + 'px');
+		
+			  	var img2 = new Image();
+			  	$(img2)
+			    	.load(function () {
+			      		$(this).hide();
+				  		$(this).appendTo('#never-miss-storytime-container');
+			      		$(this).show();
+			    	})
+
+			    	.attr('src', '/images/homepage/never_miss_storytime.png')
+			    	.attr('style', 'height: ' + imgH + 'px');
+			
+				$('#block-sign-up').attr('style', 'min-height: ' + imgH + 'px');
 		});	
 		
 	 </script>
@@ -111,44 +179,83 @@
 
 <div class="homeContainer">
 <div class="landing-page" id="landingpage">
-	<div class="splash-container">
-		<div id="block-splash"></div>
-		<div id="block-sign-up">
-			<div class="alpha-sign-up" id="sign-up">
-				<div id="sign-up-form">
-					<div class="errors-container">
-						<div class="error error-name hidden">Please enter your name</div>
-						<div class="error error-email hidden">Please enter a valid email address</div>
-					</div>
-					<h3>REQUEST INVITE</h3>
-					<hr />
-					<div class="chunk">
-						<%= image_tag 'error_arrow_right.png', :class=>"errow hidden"%>
-						<input type="text" class="name" id="name" placeholder="name">
-					</div><br />
-					<div class="chunk">
-						<%= image_tag 'error_arrow_right.png', :class=>"errow hidden" %>
-						<input type="email" class="email" id="email" placeholder="email">
-					</div><br />
-					<button class="blue big-button" id="early-access-submit">Sign me up!</button>
+	<div id="block-nav">
+		<%= image_tag "logo.png" %>
+		<ul class="nav-list primary-nav fr">
+			<li><a href="#" class="home-link">Home</a></li>
+			<li><a href="#" class="whatis-link">What is PlayTell?</a></li>
+			<li><a href="#" class="signup-link">Sign Up</a></li>
+		</ul>				
+	</div>
+	<div id="block-splash" class="center">
+		<h2>Play together, even when you're apart</h2>
+	</div>
+		<%= render :partial => "sign-up" %>
+	<div id="block-how-it-works">
+		<h1>Storytime, Anytime</h1>
+		<h3>PlayTell lets you read a book with your loved ones while you're in a video chat.</h3>
+		<div class="features-container">
+			<div class="features-icons-container fl">
+				<div class="videochat-link">
+					<%= image_tag "homepage/videochat.png" %>
+					<p>Video Chat</p>
 				</div>
+				<div class="bookshelf-link">
+					<%= image_tag "homepage/bookshelf.png" %>
+					<p>Bookshelf</p>
+				</div>
+				<div class="book-link">
+					<%= image_tag "homepage/book.png" %>
+					<p>Playspace</p>
+				</div>
+			</div>
+			<div class="features-image-container">
+				<div><%= image_tag "homepage/playtell_bg.png" %></div>
+				<div><%= image_tag "homepage/playtell_bookdisabled.png", :class => "feature videochat" %></div>
+				<div><%= image_tag "homepage/playtell_bookshelf.png", :class => "feature bookshelf hidden" %></div>
+				<div><%= image_tag "homepage/playtell_book.png", :class => "feature book hidden" %></div>
+				<div><%= image_tag "homepage/playtell_videochat.png" %></div>
 			</div>
 		</div>
 	</div>
-	<div class="lightbox hidden" id="alpha-lightbox">
-		<div id="alpha-lightbox-text">
+	<div id="block-sign-up">
+		<div id="never-miss-storytime-container" class="fr inline-block"></div>	
+		<div><h1 class="inline-block fr">Never miss storytime again</h1></div>			
+	</div>
+	<%= render :partial => "sign-up" %>	
+	<div class="footer">
+		<div class="logo-container fl inline-block">
+			<%= image_tag "homepage/footer_logo.png" %>
+		</div>
+		<div class="nav-container">
+			<div class="top-row">
+				<ul class="nav-list primary-nav">
+					<li><a href="#" class="home-link">Home</a></li>
+					<li><a href="#" class="whatis-link">What is PlayTell?</a></li>
+					<li><a href="#" class="signup-link">Sign Up</a></li>
+				</ul>
+				<p class="inline-block fr">2012 &copy; PlayTell, Inc. Made in San Francisco.</p>
+			</div>
+			<hr>
+			<div class="bottom-row">
+				<ul class="nav-list secondary-nav">
+					<li><a href="mailto:info@playtell.com">Contact Us</a></li>
+					<li><a target="_blank" href="http://www.facebook.com/playtell">Facebook</a></li>
+					<li><a target="_blank" href="https://twitter.com/#!/GoPlayTell">Twitter</a></li>
+					<li><a target="_blank" href="http://angel.co/playtell">AngelList</a></li>
+				</ul>
+				<p class="inline-block fr"><a href="#">Terms of Service</a> | 
+				<a href="#">Privacy Policy</a></p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="lightbox hidden" id="beta-lightbox">
+		<div id="beta-lightbox-text">
 			<%= render :partial => 'survey' %>
 		</div>
 		<button class="close close-x blue">X</button>	
 	</div>
 </div>
 </div>
-<!--<div class="footer">
-	<ul>
-		<li><a href="#">Home</a></li>
-		<li><a href="#">Product</a></li>
-		<li><a href="#">Team</a></li>
-		<li><a href="#">Contact</a></li>
-	</ul>
-</div>-->
 
