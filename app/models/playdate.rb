@@ -38,7 +38,8 @@ class Playdate < ActiveRecord::Base
 # returns the playdate object if a non-disconnected playdate exists for the given user
   def self.findActivePlaydate(user)
     p = Playdate.where("player1_id = ? AND status != 0 OR player2_id = ? AND status != 0", user.id, user.id)
-    return p.first unless p.nil?
+    return p.last unless p.nil?
+    nil
   end
   
 # returns the other player in the playdate of the given user

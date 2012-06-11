@@ -116,6 +116,30 @@ class Api::PlaydateController < ApplicationController
     render :status=>200, :json=>{:message => 'End_playdate sent via pusher on '+ @playdate.pusher_channel_name}
   end
   
+  # required params: user_id
+  def check_for_playdate
+    u = User.find(params[:user_id]) unless params[:user_id].blank?
+    if !u or u.blank?
+      render :status=>150, :json=>{ :message => "User not found." }
+      return
+    end
+    
+    @playdate = Playdate.findActivePlaydate(u)
+    if @playdate.nil?
+      puts 'none!'
+      render :status=>100, :json=>{ :message => "Playdate not found." }
+      return
+    end
+    
+    render :status=>200, :json=>{:playdateID => @playdate.id,
+      :pusherChannelName => @playdate.pusher_channel_name,
+      :initiatorID => @playdate.getOtherPlayerID(u),
+      :playmateID => current_user.id,
+      :tokboxSessionID => @playdate.video_session_id,
+      :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+      :tokboxPlaymateToken => @playdate.tokbox_playmate_token}
+  end
+  
   #request params expected: playdate_id and initiator_id
   def redial
     p = Playdate.find(params[:playdate_id])
