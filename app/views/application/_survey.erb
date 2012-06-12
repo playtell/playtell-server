@@ -1,10 +1,10 @@
 <div id="ext-sign-up-form">
-<div id="step1" class="hidden">
+<div id="step1" class="">
 	<h3>Short Sign-Up Survey</h3>
 
 	<p class="required">Required</p>
 	<div class="chunk" id="owns_iPad">
-		<p class="error-text hidden">Please answer the question below.</p>
+		<p class="error-text error-text-required hidden">Please answer the question below.</p>
 		
 		<p class="question">Do you own an iPad?</p> 
 		<div><input type="radio" name="owns_iPad" value="1" class="answer"><p class="answer-text">Yes</p></div>
@@ -13,7 +13,7 @@
 	
 	<p class="required">Required</p>
 	<div class="chunk" id="has_kids">
-		<p class="error-text hidden">Please answer the question below.</p>
+		<p class="error-text error-text-required hidden">Please answer the question below.</p>
 			
 		<p class="question">Which of the following describes you?</p>
 		<div>
@@ -30,15 +30,16 @@
 		</div>
 	</div>
 	
-	<p><button class="blue big-button" id="beta-form-next">Next</button></p>
+	<div class="bottom-button"><p><a href="#" id="beta-form-next" class="homepage-sprite"></a></p></div>
 </div>
 
-<div id="step2" class="">
+<div id="step2" class="hidden">
 	<h3>Sign-Up Your Family</h3>
 	
 	<p class="required">Required</p>
 	<div class="chunk" id="sign-up-family">
-		<p class="error-text hidden">You must invite at least one family member to play with.</p>
+		<p class="error-text error-text-required hidden">You must invite at least one family member to play with.</p>
+		<p class="error-text error-text-valid hidden">Please enter your name and a valid email address.</p>
 		
 		<p class="question">Who would you like to read with on PlayTell?</p> 
 		<input type="text" class="answer name" id="username2" placeholder="name or nickname">
@@ -51,19 +52,24 @@
 		<input type="email" class="answer email" id="email2" placeholder="email">
 	</div>
 	
-	<p><button class="blue big-button" id="beta-form-submit">Sign Up</button></p>
+	<div class="bottom-button bottom-button-first"><p><a class="homepage-sprite close cancel"></a></p></div>
+	<div class="bottom-button"><p><a class="homepage-sprite" id="beta-form-submit"></a></p></div>
 	
 </div>
 
-<div id="thank-you-early" class="hidden">
-	<%= image_tag "thanks-balloon.png"%>
-	<h3>Thanks! You're on the list.</h3>
-	<p>We'll be in touch soon.</p> 
-</div>	
+<div id="step3" class="hidden">
+	<h3>Thank You</h3>
+	
+	<%= image_tag "homepage/balloon.png", :class=>"fr" %>
+	<div class="thanks fr">
+		<p class="top-thanks top-thanks-full hidden">You and your family members will receive an email with a link to download the PlayTell app.</p>
+		<p class="top-thanks top-thanks-individual hidden">You're on the list! We'll be in touch soon.</p>
+		<p class="bottom-thanks">Thanks for signing up to PlayTell!</p>
+	</div>
+	<br>
 
-<div id="thank-you-active" class="hidden">
-	<%= image_tag "thanks-balloon.png"%>
-	<h3>You're in!</h3>
-	<p>Further instructions are on their way to your email inbox. Get ready to play!</p> 
-</div>	
+	<div class="bottom-button"><p><a class="homepage-sprite close"></a></p></div>
+	
+</div>
+	
 <div id="loader" class="hidden loading"></div>

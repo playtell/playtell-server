@@ -16,17 +16,18 @@ class ApplicationController < ActionController::Base
     
     unless params[:early_user][:email].blank? 
       earlyUser = EarlyUser.find_or_create_by_email(params[:early_user])
-
+      puts 'here1'
       if earlyUser.qualifies? and !user2[:email2].blank? 
         if user2[:email2] == params[:early_user][:email]
           render :json => {:message=>"error-email"}
           return
         else
-          user1 = User.new(:email => params[:early_user][:email], 
+          puts "here"
+          user1 = User.find_or_create_by_email(:email => params[:early_user][:email], 
                                :password => "rg", 
                                :username => params[:early_user][:username],
                                :status => User::WAITING_FOR_UDID)
-          user2 = User.new(:email => user2[:email2], 
+          user2 = User.find_or_create_by_email(:email => user2[:email2], 
                                :password => "rg", 
                                :username => user2[:username2], 
                                :status => User::WAITING_FOR_UDID)

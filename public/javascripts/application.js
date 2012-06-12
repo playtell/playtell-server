@@ -3,8 +3,15 @@ function show(id) {
 }
 
 function hide(id) {
-	$("#"+id).addClass('hidden')
-	
+	$("#"+id).addClass('hidden')	
+}
+
+function visible(selector) {
+	$(selector).removeClass('invisible');
+}
+
+function invisible(selector) {
+	$(selector).addClass('invisible');	
 }
 
 //these actually disable and enable even though they're called "show"

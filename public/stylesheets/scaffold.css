@@ -1367,7 +1367,7 @@ ul.nav-list li {
 
 .beta-sign-up {
 	background-color: #E1E0DB;
-	height: 72px;
+	height: 92px;
 	position: relative;
 	text-align: center;
 }
@@ -1442,8 +1442,8 @@ ul.nav-list li {
 	line-height: 72px;
 	position: absolute;
 	top: 30px;
-	left: 10px;
-	width: 40px;
+	width: 330px;
+	text-align: right;
 }
 
 .footer {
@@ -1470,6 +1470,26 @@ ul.nav-list li {
 	color: #939597;	
 }
 
+.error-text {
+	color: #F05A28;
+	text-align: left;
+	font-size: 12px;
+}
+
+.beta-sign-up .error-text {
+	margin: 5px 0px 0px 20px;
+}
+
+#beta-lightbox .error-text {
+	margin: 5px 0px 0px 0px;
+}
+
+.signup-button-container {
+	display: inline-block;
+	margin-bottom: 15px;
+	vertical-align: middle;
+}
+
 .beta-sign-up input[type="text"],
 .beta-sign-up input[type="email"],
 #ext-sign-up-form input[type="text"],
@@ -1479,11 +1499,11 @@ ul.nav-list li {
 	font-size:16pt;
 	font-weight: normal;
 	color: #123441;
-	padding: 10px;
+	padding: 5px 10px;
 	background: #fff;
 	border: none;
 	border-radius: 6px;
-	margin: 13px 10px;
+	margin: 3px 10px;
 }
 
 #ext-sign-up-form input[type="text"],
@@ -1504,6 +1524,8 @@ ul.nav-list li {
 	min-height: 50px;
     position: relative;
 	font-size: 1.3em;
+	height: 557px;
+	position: relative;
 }
 
 #ext-sign-up-form h3 {
@@ -1511,6 +1533,17 @@ ul.nav-list li {
 	font-size: 32px;
 	text-align: center;
 	margin-bottom: 30px;
+}
+
+#ext-sign-up-form .bottom-button {
+	text-align: right;
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+}
+
+#ext-sign-up-form .bottom-button-first {
+	right: 130px;
 }
 
 #ext-sign-up-form p.required {
@@ -1524,7 +1557,7 @@ ul.nav-list li {
 }
 #ext-sign-up-form .chunk {
 	background-color: #E1E0DB;
-	padding: 20px;
+	padding: 10px 20px;
 	border-radius: 6px;
 	margin-bottom: 30px;
 }
@@ -1537,6 +1570,7 @@ ul.nav-list li {
 #ext-sign-up-form p.question {
 	color: #5795CF;
 	font-size: 22px;
+	margin-bottom: 10px;
 }
 
 #ext-sign-up-form .chunk div {
@@ -1548,3 +1582,65 @@ ul.nav-list li {
 	color: #5795CF;
 	font-size: 14px;
 }
+
+#ext-sign-up-form #step3 img {
+	border-radius: 6px;
+	width: 150px;
+	margin-right: 30px;
+}
+
+#ext-sign-up-form #step3 div.thanks {
+	background-color: #fff;
+	padding: 20px;
+	margin-top: 5px;
+	width: 250px;
+}
+
+#ext-sign-up-form #step3 p.top-thanks {
+	font-size: 18px;
+	font-weight: 400;
+	color: #5795CF;
+}
+
+#ext-sign-up-form #step3 p.bottom-thanks {
+	font-size: 14px;
+	color: #5795CF;
+	margin-top: 5px;
+}
+
+input::-webkit-input-placeholder {
+	color: #A2A2A2;
+}
+
+/* SPRITE */
+
+.homepage-sprite {
+	background: url("/images/homepage/sprite.png") no-repeat;
+	display: inline-block;
+}
+
+.videochat-link p a:active { background-position: 0 -710px; width: 37px; height: 37px; } 
+.videochat-link p a.active { background-position: 0 -710px; width: 37px; height: 37px; } 
+.videochat-link p a { background-position: 0 -757px; width: 37px; height: 37px; }
+
+.book-link p a:active { background-position: 0 0; width: 48px; height: 37px; } 
+.book-link p a.active { background-position: 0 0; width: 48px; height: 37px; } 
+.book-link p a { background-position: 0 -47px; width: 48px; height: 37px; } 
+
+.bookshelf-link p a:active { background-position: 0 -94px; width: 72px; height: 37px; } 
+.bookshelf-link p a.active { background-position: 0 -94px; width: 72px; height: 37px; } 
+.bookshelf-link p a { background-position: 0 -141px; width: 72px; height: 37px; } 
+
+#sign-up-form p a.early-access-submit:active,
+#step2 p a#beta-form-submit:active { background-position: 0 -616px; width: 93px; height: 36px; } 
+#sign-up-form p a.early-access-submit,
+#step2 p a#beta-form-submit { background-position: 0 -662px; width: 93px; height: 38px; }
+
+#step1 p a#beta-form-next:active { background-position: 0 -522px; width: 64px; height: 36px; } 
+#step1 p a#beta-form-next { background-position: 0 -568px; width: 64px; height: 38px; } 
+
+#step3 p a.close:active { background-position: 0 -282px; width: 73px; height: 36px; } 
+#step3 p a.close { background-position: 0 -328px; width: 73px; height: 38px; }
+
+#step2 p a.cancel:active { background-position: 0 -188px; width: 85px; height: 36px; } 
+#step2 p a.cancel { background-position: 0 -234px; width: 85px; height: 38px; } 

@@ -1,13 +1,13 @@
 <div class="beta-sign-up">
 	<div class="sign-up-badge inline-block">
-		<%= image_tag "sign_up_badge.png", :alt => "Sign up for the PlayTell beta!" %>
+		<%= image_tag "homepage/sign_up_badge.png", :alt => "Sign up for the PlayTell beta!" %>
 	</div>
 	<div id="sign-up-form" class="inline-block">
+		<p class="invisible error-text error-text-signup">Please enter your name and a valid email address.</p>
 		<input type="text" class="name" id="name" placeholder="name">
 		<input type="email" class="email" id="email" placeholder="email">
-		<p class="inline"><a href="#"><%= image_tag "homepage/signup.png", :class => "early-access-submit" %></a></p>
+		<div class="signup-button-container"><p class="inline"><a href="#" class="homepage-sprite early-access-submit"></a></p></div>
 	</div>
 	<div class="social-elements inline-block">
-		FB like, Twitter button
 	</div>
 </div>
