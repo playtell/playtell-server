@@ -129,6 +129,10 @@ class Api::PlaydateController < ApplicationController
       puts 'none!'
       render :status=>100, :json=>{ :message => "Playdate not found." }
       return
+    elsif @playdate.disconnected?
+      render :status=>101, :json=>{ :message=> "Playdate has ended." }
+      return
+    else
     end
     
     render :status=>200, :json=>{:playdateID => @playdate.id,
