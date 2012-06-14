@@ -117,6 +117,7 @@ class Api::PlaydateController < ApplicationController
   end
   
   # required params: user_id
+  # checks to see if a playdate exists for the given user
   def check_for_playdate
     u = User.find(params[:user_id]) unless params[:user_id].blank?
     if !u or u.blank?
@@ -125,14 +126,10 @@ class Api::PlaydateController < ApplicationController
     end
     
     @playdate = Playdate.findActivePlaydate(u)
-    if @playdate.nil?
+    if @playdate.nil? or @playdate.disconnected?
       puts 'none!'
-      render :status=>100, :json=>{ :message => "Playdate not found." }
+      render :status=>100, :json=>{ :message => "No connected playdate found." }
       return
-    elsif @playdate.disconnected?
-      render :status=>101, :json=>{ :message=> "Playdate has ended." }
-      return
-    else
     end
     
     render :status=>200, :json=>{:playdateID => @playdate.id,
