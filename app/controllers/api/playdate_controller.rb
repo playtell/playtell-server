@@ -56,7 +56,7 @@ class Api::PlaydateController < ApplicationController
            :sound => "music-box.wav"
          }
        }
-       logger.info("Push notification sent: " + "playdate id: " + @playdate.id.to_s + " device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate])
+       # logger.info("Push notification sent: " + "playdate id: " + @playdate.id.to_s + " device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate])
        Urbanairship.push(notification)
      end
      
@@ -68,6 +68,32 @@ class Api::PlaydateController < ApplicationController
        :tokboxSessionID => @playdate.video_session_id,
        :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
        :tokboxPlaymateToken => @playdate.tokbox_playmate_token}
+  end
+
+  # request params: playdate_id
+  def show
+    @playdate = Playdate.find(params[:playdate_id])
+    if !@playdate or @playdate.blank?
+      return render :status=>100, :json=>{ :message => "Playdate not found." }
+    elsif @playdate.disconnected?
+      return render :status=>101, :json=>{ :message=> "Playdate has ended." }
+    end
+    
+    # Verify that person requesting details is either initiator or playmate
+    if @playdate.player1_id != current_user.id && @playdate.player2_id != current_user.id
+      return render :status=>115, :json=>{:message=> "User doesn't belong to this playdate"}
+    end
+
+    # Notify
+    render :status=>200, :json=>{
+      :playdateID           => @playdate.id,
+      :pusherChannelName    => @playdate.pusher_channel_name,
+      :initiatorID          => @playdate.player1_id,
+      :playmateID           => @playdate.player2_id,
+      :tokboxSessionID      => @playdate.video_session_id,
+      :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+      :tokboxPlaymateToken  => @playdate.tokbox_playmate_token
+    }
   end
 
   # required params: playdate_id
