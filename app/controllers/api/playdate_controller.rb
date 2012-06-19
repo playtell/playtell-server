@@ -57,7 +57,6 @@ class Api::PlaydateController < ApplicationController
        }
        # puts "push notification sent with this data: " + "device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate]
        Urbanairship.push(notification)
-       raise notification.inspect
      end
      
      # Notify
