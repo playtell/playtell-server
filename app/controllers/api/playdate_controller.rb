@@ -56,7 +56,7 @@ class Api::PlaydateController < ApplicationController
            :sound => "music-box.wav"
          }
        }
-       logger.info("Push notification sent: " + "playdate id: " + @playdate.id + " device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate])
+       logger.info("Push notification sent: " + "playdate id: " + @playdate.id.to_s + " device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate])
        Urbanairship.push(notification)
      end
      

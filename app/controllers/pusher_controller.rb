@@ -11,6 +11,7 @@ class PusherController < ApplicationController
                   })
     else #elsif params[:channel_name].split("-")[1] == "playdate" #presence-playdate-channel-<playdateID>
       playdate = Playdate.find_by_id(params[:channel_name].split("-")[3])
+      return render :text => "Playdate not found", :status => '100' if playdate.nil?
       if playdate.hasUser(current_user)
         session[:playdate] = playdate.id
         response = Pusher[params[:channel_name]].authenticate(params[:socket_id])
