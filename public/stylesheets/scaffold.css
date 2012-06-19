@@ -1360,7 +1360,7 @@ ul.nav-list li {
 	line-height: 48px;
 	color: #fff;
 	position: absolute;
-	left: 17%;
+	left: 20%;
 	top: 30px;
 	font-family: "Lato", sans-serif;
 }
@@ -1379,8 +1379,10 @@ ul.nav-list li {
 }
 
 #block-how-it-works {
-	padding: 0px 50px;
+	padding: 30px 50px;
 	position: relative;	
+	margin: 0 auto;
+	width: 850px;
 }
 
 #block-how-it-works h1 {
@@ -1403,10 +1405,6 @@ ul.nav-list li {
 	height: 600px;
 }
 
-#block-how-it-works .features-icons-container {
-	padding-right: 50px;
-}
-
 #block-how-it-works .features-icons-container div {
 	margin: 0px 0px 40px 0px;
 	text-align:	center;
@@ -1424,7 +1422,7 @@ ul.nav-list li {
 #block-how-it-works .features-image-container div {
 	position: absolute;
 	top: 0;
-	left: 130;
+	left: 110px;
 }
 
 #block-how-it-works .features-image-container img {
@@ -1623,9 +1621,9 @@ input::-webkit-input-placeholder {
 .videochat-link p a.active { background-position: 0 -710px; width: 37px; height: 37px; } 
 .videochat-link p a { background-position: 0 -757px; width: 37px; height: 37px; }
 
-.book-link p a:active { background-position: 0 0; width: 48px; height: 37px; } 
-.book-link p a.active { background-position: 0 0; width: 48px; height: 37px; } 
-.book-link p a { background-position: 0 -47px; width: 48px; height: 37px; } 
+.playspace-link p a:active { background-position: 0 0; width: 48px; height: 37px; } 
+.playspace-link p a.active { background-position: 0 0; width: 48px; height: 37px; } 
+.playspace-link p a { background-position: 0 -47px; width: 48px; height: 37px; } 
 
 .bookshelf-link p a:active { background-position: 0 -94px; width: 72px; height: 37px; } 
 .bookshelf-link p a.active { background-position: 0 -94px; width: 72px; height: 37px; } 

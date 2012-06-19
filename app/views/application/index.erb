@@ -46,10 +46,10 @@
 				return false;
 			});
 			
-			$(".book-link").click(function (event) {
+			$(".playspace-link").click(function (event) {
 				$('.feature-icon').removeClass('active');
 				$('.feature').fadeOut();
-				$('.book-link .feature-icon').addClass('active');
+				$('.playspace-link .feature-icon').addClass('active');
 				$('.book').fadeIn();
 				event.preventDefault();
 				return false;
@@ -219,7 +219,7 @@
 		      		$(this).show();
 		    	})
 
-		    	.attr('src', '/images/homepage/dueling_ipads_test.png')
+		    	.attr('src', '/images/homepage/dueling_ipads.png')
 		    	.attr('style', 'height: ' + imgH + 'px')
 		    	.attr('style', 'max-width: ' + w + 'px');
 		
@@ -233,9 +233,10 @@
 			    	})
 
 			    	.attr('src', '/images/homepage/never_miss_storytime.png')
-			    	.attr('style', 'height: ' + imgH + 'px');
-				$('#block-sign-up').attr('style', 'min-height: ' + imgH + 'px');
-				$('#block-sign-up h1').css("right", textPos);
+			    	.attr('style', 'height: ' + imgH + 'px')
+			    	.attr('style', 'max-width: ' + w + 'px');
+				//$('#block-sign-up').attr('style', 'min-height: ' + imgH + 'px');
+				//$('#block-sign-up h1').css("right", textPos);
 				console.log($('#block-sign-up h1').offset());
 		});	
 		
@@ -262,31 +263,30 @@
 		<h3>PlayTell lets you read a book with your loved ones while you're in a video chat.</h3>
 		<div class="features-container">
 			<div class="features-icons-container fl">
-				<div class="videochat-link">
+				<div class="playspace-link">
 					<p><a href="#" class="homepage-sprite feature-icon active"></a></p>
+					<p>Playspace</p>
+				</div>
+				<div class="videochat-link">
+					<p><a href="#" class="homepage-sprite feature-icon"></a></p>
 					<p>Video Chat</p>
 				</div>
 				<div class="bookshelf-link">
 					<p><a href="#" class="homepage-sprite feature-icon"></a></p>
 					<p>Bookshelf</p>
 				</div>
-				<div class="book-link">
-					<p><a href="#" class="homepage-sprite feature-icon"></a></p>
-					<p>Playspace</p>
-				</div>
 			</div>
 			<div class="features-image-container">
 				<div><%= image_tag "homepage/playtell_bg.png" %></div>
-				<div><%= image_tag "homepage/playtell_bookdisabled.png", :class => "feature videochat" %></div>
+				<div><%= image_tag "homepage/playtell_bookdisabled.png", :class => "feature videochat hidden" %></div>
 				<div><%= image_tag "homepage/playtell_bookshelf.png", :class => "feature bookshelf hidden" %></div>
-				<div><%= image_tag "homepage/playtell_book.png", :class => "feature book hidden" %></div>
+				<div><%= image_tag "homepage/playtell_book.png", :class => "feature book" %></div>
 				<div><%= image_tag "homepage/playtell_videochat.png" %></div>
 			</div>
 		</div>
 	</div>
 	<div id="block-sign-up">
-		<div id="never-miss-storytime-container" class="fr inline-block"></div>	
-		<h1 class="inline-block fr">Never miss storytime again</h1>
+		<div id="never-miss-storytime-container" class="inline-block"></div>	
 	</div>
 	<div class="signup2"><%= render :partial => "sign-up" %></div>
 	<div class="footer">
