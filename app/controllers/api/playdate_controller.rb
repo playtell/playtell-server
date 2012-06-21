@@ -220,6 +220,10 @@ class Api::PlaydateController < ApplicationController
       render :status=>103, :json=>{ :message=> "Playdate has ended." }
       return
     else
+      # Check if book is already open
+      if @playdate.change == Playdate::CHANGE_BOOK
+        return render :status=>121, :json=>{ :message=> "Book already open." }
+      end
       @playdate.change = Playdate::CHANGE_BOOK
       @playdate.save
       if !changeBook
