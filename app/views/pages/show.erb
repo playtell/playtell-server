@@ -1,18 +1,21 @@
 <div id="page_<%= @page.page_num.to_s %>" class="page">
-	<table class="image">
+	<table class="page-table">
 		<tbody>
 			<tr>
-				<td><%= image_tag getPageImageFilePath(@book.image_directory, @page.page_num.to_s), :class => @book.image_only ? "book-image book-image-only" : "book-image" %></td>
+				<td><%= image_tag getPageImageFilePath(@book.image_directory, @page.page_num.to_s), :class => @book.image_only==1 ? "book-image book-image-only" : "book-image" %></td>
 			</tr>
+			<% if @book.image_only == 0 %>
+				<tr><td>
+				<% if (@page.page_text.length > 400) %>
+					<div class="book-text-small">
+				<% else %>
+					<div class="book-text">	
+				<% end %>
+				<%= @page.page_text %>
+				</div>
+				</td></tr>
+			<% end %>
 		</tbody>
 	</table>
-	<% if @book.image_only == 0 %>
-		<% if (@page.page_text.length > 400) %>
-			<div class="book-text-small">
-		<% else %>
-			<div class="book-text">	
-		<% end %>
-		<%= @page.page_text %>
-		</div>
-	<% end %>
+
 </div>
