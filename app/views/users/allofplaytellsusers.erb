@@ -50,7 +50,6 @@
 			<p>Had kidz: <%= user.has_kids %></p>
 		<% end %>
 	</div>
-	<% if false %>
 	<div class="playdates-container inline-block admin-div">
 		<h1>Playdates (<%= @playdates.count %>)</h1>
 		<% for playdate in @playdates %>
@@ -62,13 +61,7 @@
 			<% end %>
 		<% end %>
 	</div>
-	<% end %>
-	<div class="user-container inline-block admin-div">
-		<h1>PlayTell User Emails (<%= @peeps.count %>)</h1>
-		<% for user in @peeps %>
-			<p><%= user.email %></p>
-		<% end %>
-	</div>
+
 	
 </div>
 
