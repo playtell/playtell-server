@@ -39,8 +39,11 @@ Semiralabs::Application.routes.draw do
     match 'playdate/disconnect' => 'playdate#disconnect'
     match 'playdate/join' => 'playdate#join'
     match 'playdate/check_for_playdate' => 'playdate#check_for_playdate'
+    match 'playdate/channel_stats' => 'playdate#channel_stats'
     match 'books/list' => 'books#list'
     match 'users/all_friends' => 'users#all_friends'
+    match 'users/get_status' => 'users#get_status'
+    match 'pusher/hook' => 'pusher#hook'
     #resources :settings, :only => [:update]
   end
   

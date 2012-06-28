@@ -176,8 +176,26 @@ private
   
   # sends a pusher event on playdate channel to end playdate
   def endPlaydate
+    # Channel notification to players in this playdate
     Pusher[@playdate.pusher_channel_name].trigger('end_playdate', {:playdate => @playdate.id, :player => current_user.id})
-    @playdate.disconnect 
+    
+    # Rendezvous notification to everyone else
+    initiator = User.find(@playdate.player1_id)
+    playmate = User.find(@playdate.player2_id)
+    Pusher["presence-rendezvous-channel"].trigger('playdate_ended', {
+      :playdateID           => @playdate.id,
+      :pusherChannelName    => @playdate.pusher_channel_name,
+      :initiatorID          => initiator.id,
+      :initiator            => initiator.username,
+      :playmateID           => playmate.id,
+      :playmateName         => playmate.username,
+      :tokboxSessionID      => @playdate.video_session_id,
+      :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+      :tokboxPlaymateToken  => @playdate.tokbox_playmate_token
+    })
+    
+    # DB update
+    @playdate.disconnect
   end
   
 end
