@@ -13,7 +13,7 @@ class Api::PusherController < ApplicationController
       end
       render :json => {response: 'ok'}
     else
-      render :status: 401, :json => {response: 'invalid'}
+      render :status => 401, :json => {response: 'invalid'}
     end
   end
   
