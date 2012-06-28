@@ -307,6 +307,20 @@ class Api::PlaydateController < ApplicationController
     end
   end
   
+  def channel_stats
+    @playdate = Playdate.find(params[:playdate_id])
+    if !@playdate or @playdate.blank?
+      render :status=>100, :json=>{ :message => "Playdate not found." }
+      return
+    elsif @playdate.disconnected?
+      render :status=>101, :json=>{ :message=> "Playdate has ended." }
+      return
+    else
+      stats = Pusher[@playdate.pusher_channel_name].stats
+      render :status=>200, :json=>{:message => "Pusher channel {#{@playdate.pusher_channel_name}} stats", :stats => stats}
+    end
+  end
+  
   private
   def initOpenTok
     @api_key = "4f5e85254a3c12ae46a8fe32ba01ff8c8008e55d"
