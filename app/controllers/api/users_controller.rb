@@ -25,18 +25,18 @@ class Api::UsersController < ApplicationController
     return render :status => 151, :json => {:message => 'User ids missing'} if ids.empty?
     
     # Find all users
-    user_statuses = {}
+    user_statuses = []
     ids.each do |id|
       user = User.find(id)
       return render :status => 150, :json => {:message => "User {#{id}} not found."} if user.nil?
       
       # Check if user is pending, connected or not connected at all
       if Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status = ?", id, id, Playdate::CONNECTING]) > 0
-        user_statuses[id] = Playdate::CONNECTING
+        user_statuses << {:id => id, :status => Playdate::CONNECTING}
       elsif Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status = ?", id, id, Playdate::CONNECTED]) > 0
-        user_statuses[id] = Playdate::CONNECTED
+        user_statuses << {:id => id, :status => Playdate::CONNECTED}
       else
-        user_statuses[id] = Playdate::DISCONNECTED
+        user_statuses << {:id => id, :status => Playdate::DISCONNECTED}
       end
     end
     
