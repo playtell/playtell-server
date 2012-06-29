@@ -25,18 +25,21 @@ class Api::UsersController < ApplicationController
     return render :status => 151, :json => {:message => 'User ids missing'} if ids.empty?
     
     # Find all users
-    user_statuses = {}
+    user_statuses = []
     ids.each do |id|
       user = User.find(id)
       return render :status => 150, :json => {:message => "User {#{id}} not found."} if user.nil?
       
-      # Check if user is pending, connected or not connected at all
-      if Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status = ?", id, id, Playdate::CONNECTING]) > 0
-        user_statuses[id] = Playdate::CONNECTING
-      elsif Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status = ?", id, id, Playdate::CONNECTED]) > 0
-        user_statuses[id] = Playdate::CONNECTED
+      # Check status
+      if (user.status != User::CONFIRMED)
+        # User is pending (aka. hasn't installed the app yet)
+        user_statuses << {:id => id, :status => 'pending'}
+      elsif Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status != ?", id, id, Playdate::DISCONNECTED]) > 0
+        # User is either connecting to a playdate or in a playdate
+        user_statuses << {:id => id, :status => 'playdate'}
       else
-        user_statuses[id] = Playdate::DISCONNECTED
+        # User is available
+        user_statuses << {:id => id, :status => 'available'}
       end
     end
     
