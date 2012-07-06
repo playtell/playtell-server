@@ -8,6 +8,14 @@ class Api::BooksController < ApplicationController
     books = Book.order(:created_at).all
     response = []
     books.each do |book|
+      pages = []
+      book.pages.order(:page_num).each do |page|
+        pages << {
+          :url    => url_for(book_page_url(book, page.page_num)),
+          :bitmap => "http://playtell.s3.amazonaws.com/books/#{book.id.to_s}/page#{page.page_num.to_s}.jpg"
+        }
+      end
+      
       response << {
         :id           => book.id,
         :current_page => 1,
@@ -17,10 +25,7 @@ class Api::BooksController < ApplicationController
             :bitmap => "http://playtell.s3.amazonaws.com/books/#{book.id.to_s}/cover_front.jpg"
           }
         }
-        :pages        => book.pages.order(:page_num).map{|page| {
-          :url    => url_for(book_page_url(book, page.page_num)),
-          :bitmap => "http://playtell.s3.amazonaws.com/books/#{book.id.to_s}/page#{page.page_num.to_s}.jpg"
-        }},
+        :pages        => pages,
         :total_pages  => book.pages.size
       }
     end
