@@ -11,8 +11,16 @@ class Api::BooksController < ApplicationController
       response << {
         :id           => book.id,
         :current_page => 1,
-        :cover_front  => url_for(book_url(book)),
-        :pages        => book.pages.order(:page_num).map{|page| url_for(book_page_url(book, page.page_num))},
+        :cover        => {
+          :front => {
+            :url    => url_for(book_url(book)),
+            :bitmap => "http://playtell.s3.amazonaws.com/books/#{book.id.to_s}/cover_front.jpg"
+          }
+        }
+        :pages        => book.pages.order(:page_num).map{|page| {
+          :url    => url_for(book_page_url(book, page.page_num)),
+          :bitmap => "http://playtell.s3.amazonaws.com/books/#{book.id.to_s}/page#{page.page_num.to_s}.jpg"
+        }},
         :total_pages  => book.pages.size
       }
     end
