@@ -24,7 +24,7 @@ class Api::BooksController < ApplicationController
             :url    => url_for(book_url(book)),
             :bitmap => "http://playtell.s3.amazonaws.com/books/#{book.id.to_s}/cover_front.jpg"
           }
-        }
+        },
         :pages        => pages,
         :total_pages  => book.pages.size
       }
