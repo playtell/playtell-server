@@ -20,15 +20,12 @@ class Api::ContactsController < ApplicationController
       next if (!contact.key?('name') || !contact.key?('email') || !contact.key?('source'))
       
       # Create new contact entry
-      contactDb = Contact.new({
-        :name   => contact['name'],
-        :email  => contact['email'],
-        :source => contact['source']
+      Contact.create({
+        :user_id => current_user.id,
+        :name    => contact['name'],
+        :email   => contact['email'],
+        :source  => contact['source']
       })
-      
-      if !contactDb.save
-        render :text => 'Fail saving'
-      end
       
       total_saved += 1
     end
