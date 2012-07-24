@@ -36,11 +36,20 @@ class Api::ContactsController < ApplicationController
   def show
     contacts = []
     current_user.contacts.each do |contact|
-      contacts << {
-        :name   => contact.name,
-        :email  => contact.email,
-        :source => contact.source
+      # Rehash contact
+      contact = {
+        :name    => contact.name,
+        :email   => contact.email,
+        :source  => contact.source,
+        :user_id => nil
       }
+      
+      # Check if contact is already a registered user
+      users = User.where(:email => contact.email).limit(1)
+      contact[:user_id] = users.first.id if users.size > 0
+      
+      # Add to contacts list
+      contacts << contact
     end
     render :status => 200, :json => {:contacts => contacts, :total_contacts => contacts.size}
   end
