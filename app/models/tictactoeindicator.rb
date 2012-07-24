@@ -2,6 +2,9 @@ class Tictactoeindicator < ActiveRecord::Base
 	belongs_to :tictactoeboard
 	attr_accessible :x_count, :y_count, :is_a_row, :row_or_col_index
 
+	# TODO comment across indicator implementation
+	# TODO comment workaround for first row
+
 	#increment count
 	def increment_count(is_x)
 		if self.is_a_row

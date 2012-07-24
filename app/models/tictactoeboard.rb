@@ -4,8 +4,9 @@ class Tictactoeboard < ActiveRecord::Base
 	has_many :tictactoespaces, :dependent => :destroy
 	has_many :tictactoeindicators, :dependent => :destroy
 
+	# TODO revisit methods for org purposes
 	def user_authorized(friend_id)
-		return friend_id == self.created_by || friend_id == self.playmate
+		return friend_id == self.created_by || friend_id == self.playmate #TODO RUBY always will return value from last line evaluated
 	end
 
 	def player_is_x(friend_id)
@@ -22,7 +23,7 @@ class Tictactoeboard < ActiveRecord::Base
 
 	def get_across_indicator(space)
 		if space.coordinates.to_s == "0" || space.coordinates.to_s == "22" || space.coordinates.to_s == "11"
-			return self.tictactoeindicators.where(:is_a_row => true, :row_or_col_index => 4).first
+			return self.tictactoeindicators.where(:is_a_row => true, :row_or_col_index => 4).first #TODO use find_by_is....
 		elsif space.coordinates.to_s == "2" || space.coordinates.to_s == "20"
 			return self.tictactoeindicators.where(:is_a_row => false, :row_or_col_index => 4).first
 		end
@@ -35,11 +36,11 @@ class Tictactoeboard < ActiveRecord::Base
 
 	def mark_location(coordinates, friend_id)
 		space = self.space_from_coordinates(coordinates)
-		puts "space is " + space.id.to_s()
+		puts "space is " + space.id.to_s() #TODO remove puts debugging
 
 		return 0 if !space.available || space.nil?
 
-		board_full = mark_space(space, friend_id)
+		board_full = mark_space(space, friend_id) # TODO explain this a bit
 		game_won = update_indicators(space, friend_id)
 		if board_full && !game_won
 			self.game_cats_game
@@ -62,7 +63,7 @@ class Tictactoeboard < ActiveRecord::Base
 		across_indicator1 = get_across_indicator(space)
 		game_over_across = across_indicator1.increment_count(player_is_x(friend_id)) if !across_indicator1.nil?
 		across_indicator_2 = nil
-		if (space.coordinates.to_s() == "11")
+		if (space.coordinates.to_s() == "11") # TODO revisit hard coding middle piece??
 			 across_indicator_2 = self.tictactoeindicators.where(:is_a_row => false, :row_or_col_index => 4).first
 		end
 		game_over_across_2 = across_indicator_2.increment_count(player_is_x(friend_id)) if !across_indicator_2.nil?
@@ -97,11 +98,10 @@ class Tictactoeboard < ActiveRecord::Base
 		return self.created_by == user_id	
 	end
 
-	def game_won(user_id) # TODO make sure user_id is passed as a string
+	def game_won(user_id) # TODO make sure user_id is passed as a string, maybe n\rename
 		self.status = 1
 		self.winner = user_id
 		self.save
-		#sets the winner_id and the game flag
 	end
 
 	def game_cats_game
@@ -111,6 +111,6 @@ class Tictactoeboard < ActiveRecord::Base
 	end
 
 	def is_cats_game
-		return self.status == 2
+		return self.status == 2 #TODO hard code the constants
 	end
 end

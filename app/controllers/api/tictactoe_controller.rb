@@ -1,15 +1,12 @@
 class Api::TictactoeController < ApplicationController
 	 respond_to :json
-
-	def initialize
-		#if no tictactoe object create one
-		tictactoe = Tictactoe.create if Tictactoe.first.nil?
-	end
+	 # skip_before_filter :verify_authenticity_token
+	 # before_filter :authenticate_user!
 
 	#request params friend_id, playmate
 	def new_game
 		#grab tictactoe master
-		tictactoe = Tictactoe.create if Tictactoe.first.nil?
+		tictactoe = Tictactoe.create if Tictactoe.first.nil? #TODO make sense of this
 		tictactoe = Tictactoe.first
 
 		creator = User.find_by_id(params[:friend_id].to_i)
@@ -21,15 +18,17 @@ class Api::TictactoeController < ApplicationController
 		#init board
 		board_id = tictactoe.create_new_board(creator.id, playmate.id)
 
-		render :json=>{:message=>"Board successfully initialized", :board_id => board_id}
+		render :json=>{:message=>"Board successfully initialized", :board_id => board_id} #TODO unify json response variables
 	end
 
 	#request params friend_id, board_id, coordinates
 	def place_piece # TODO fix json response formats and error codes to things that make sense client-side
 		# grab parameters
+
+		# TODO enforce whose turn it is
 		user = User.find_by_id(params[:friend_id].to_i)
 		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
-		coordinates = params[:coordinates].to_i
+		coordinates = params[:coordinates].to_i # TODO enforce that all request params are there
 
 		return render :json=>{:placement_status => 0, :message=>"Error: Playmate with that user id not found."} if user.nil? #TODO figure out why json status messages don't work in browser
 		return render :json=>{:placement_status => 0, :message=>"Error: Board with that board id not found."} if board.nil?
@@ -44,6 +43,7 @@ class Api::TictactoeController < ApplicationController
 		spaces_dump = JSON.dump board.tictactoespaces
 		indicators_dump = JSON.dump board.tictactoeindicators
 
+		# TODO try not to repeat code here (playdate.rb, user.rb have examples of using constants)
 		if  response_code == 0
 			return render :json=>{:placement_status => response_code, :message=>"Error: Piece cannot be placed. Another piece is already at this location", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		elsif response_code == 1
@@ -52,7 +52,7 @@ class Api::TictactoeController < ApplicationController
 			return render :json=>{:placement_status => response_code, :message=>"Piece successfully placed. " + params[:friend_id] + " has won!", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		elsif response_code == 3
 			return render :json=>{:placement_status => response_code, :message=>"Piece successfully placed, but it's a cat's game. MEOW", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
-		else
+		else # TODO remove
 			return render :json=>{:placement_status => response_code, :message=>"Unknown Error: Response code: " + response_code.to_s(), :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		end
 	end
@@ -82,6 +82,10 @@ class Api::TictactoeController < ApplicationController
 
 		dump = JSON.dump board
 		return render :json => dump 
+	end
+
+	# TODO implement quit game
+	def end_game
 	end
 
 end

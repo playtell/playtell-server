@@ -24,9 +24,8 @@ class Tictactoespace < ActiveRecord::Base
 		cor = self.coordinates.to_s()
 
 		return cor.split('').map(&:to_i).first if self.is_first_row #special handling for first row because of rails truncation
-		y = cor.split('').map(&:to_i).second
 		
 		return 0 if y.nil?
-		return y
+		cor.split('').map(&:to_i).second
 	end
 end
