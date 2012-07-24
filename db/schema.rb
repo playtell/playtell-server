@@ -10,7 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120402210232) do
+ActiveRecord::Schema.define(:version => 20120723225238) do
+
+  create_table "boards", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -35,6 +40,18 @@ ActiveRecord::Schema.define(:version => 20120402210232) do
     t.datetime "updated_at"
     t.integer  "cardgame_id"
   end
+
+  create_table "contacts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "email"
+    t.string   "source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contacts", ["user_id", "email"], :name => "index_contacts_on_user_id_and_email"
+  add_index "contacts", ["user_id", "name"], :name => "index_contacts_on_user_id_and_name"
 
   create_table "device_tokens", :force => true do |t|
     t.integer  "user_id"
@@ -64,6 +81,82 @@ ActiveRecord::Schema.define(:version => 20120402210232) do
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "friend_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games", :force => true do |t|
+    t.integer  "type"
+    t.integer  "playdate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "tictactoe_number"
+  end
+
+  create_table "games_boards", :force => true do |t|
+    t.integer  "status"
+    t.integer  "num_pieces_placed"
+    t.integer  "winner"
+    t.integer  "whose_turn"
+    t.integer  "tictactoe_game_id"
+    t.integer  "tictactoe_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games_indicators", :force => true do |t|
+    t.integer  "x_count"
+    t.integer  "ycount"
+    t.boolean  "is_a_row"
+    t.integer  "row_or_col_index"
+    t.integer  "board_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games_spaces", :force => true do |t|
+    t.integer  "friend_id"
+    t.boolean  "available"
+    t.integer  "coordinates"
+    t.integer  "board_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games_tictactoe_boards", :force => true do |t|
+    t.integer  "status"
+    t.integer  "num_pieces_placed"
+    t.integer  "winner"
+    t.integer  "whose_turn"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games_tictactoe_indicators", :force => true do |t|
+    t.integer  "x_count"
+    t.integer  "ycount"
+    t.boolean  "is_a_row"
+    t.integer  "row_or_col_index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games_tictactoe_spaces", :force => true do |t|
+    t.integer  "friend_id"
+    t.boolean  "available"
+    t.integer  "coordinates"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games_tictactoes", :force => true do |t|
+    t.integer  "num_boards"
+    t.integer  "num_active_games"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "indicators", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -111,6 +204,50 @@ ActiveRecord::Schema.define(:version => 20120402210232) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "spaces", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tictactoeboards", :force => true do |t|
+    t.integer  "status"
+    t.integer  "num_pieces_placed"
+    t.integer  "winner"
+    t.integer  "whose_turn"
+    t.integer  "tictactoe_game_id"
+    t.integer  "tictactoe_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by"
+    t.integer  "playmate"
+  end
+
+  create_table "tictactoeindicators", :force => true do |t|
+    t.integer  "x_count"
+    t.boolean  "is_a_row"
+    t.integer  "row_or_col_index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "tictactoeboard_id"
+    t.integer  "y_count"
+  end
+
+  create_table "tictactoes", :force => true do |t|
+    t.integer  "num_boards"
+    t.integer  "num_active_games"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tictactoespaces", :force => true do |t|
+    t.integer  "friend_id"
+    t.boolean  "available"
+    t.integer  "coordinates"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "tictactoeboard_id"
+  end
 
   create_table "user_settings", :force => true do |t|
     t.integer  "user_id"

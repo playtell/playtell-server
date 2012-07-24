@@ -46,6 +46,8 @@ Semiralabs::Application.routes.draw do
     match 'pusher/hook' => 'pusher#hook'
     match 'contacts/create_list' => 'contacts#create_list'
     match 'contacts/show' => 'contacts#show'
+    match 'games/tictactoe/new_game' => 'tictactoe#new_game'
+    match 'games/tictactoe/place_piece' => 'tictactoe#place_piece'
     #resources :settings, :only => [:update]
   end
   
