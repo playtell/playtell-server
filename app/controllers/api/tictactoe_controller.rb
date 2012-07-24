@@ -31,11 +31,11 @@ class Api::TictactoeController < ApplicationController
 		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
 		coordinates = params[:coordinates].to_i
 
-		return render :json=>{:message=>"Error: Playmate with that user id not found."} if user.nil? #TODO figure out why json status messages don't work in browser
-		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
-		return render :json=>{:message=>"Error: Playmate with that id does not have access to this board"} if !board.user_authorized(user.id)
-		return render :json=>{:message=>"Error: Coordinates are invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.coordinates_in_bounds(coordinates)
-		return render :json=>{:message=>"Error: Game has already ended or game is invalid"} if board.status != 0
+		return render :json=>{:placement_status => 0, :message=>"Error: Playmate with that user id not found."} if user.nil? #TODO figure out why json status messages don't work in browser
+		return render :json=>{:placement_status => 0, :message=>"Error: Board with that board id not found."} if board.nil?
+		return render :json=>{:placement_status => 0, :message=>"Error: Playmate with that id does not have access to this board"} if !board.user_authorized(user.id)
+		return render :json=>{:placement_status => 0, :message=>"Error: Coordinates are invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.coordinates_in_bounds(coordinates)
+		return render :json=>{:placement_status => 0, :message=>"Error: Game has already ended or game is invalid"} if board.status != 0
 
 		response_code = board.mark_location(coordinates, user.id)
 
@@ -45,15 +45,15 @@ class Api::TictactoeController < ApplicationController
 		indicators_dump = JSON.dump board.tictactoeindicators
 
 		if  response_code == 0
-			return render :json=>{:message=>"Error: Piece cannot be placed. Another piece is already at this location", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
+			return render :json=>{:placement_status => response_code, :message=>"Error: Piece cannot be placed. Another piece is already at this location", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		elsif response_code == 1
-			return render :json=>{:message=>"Piece successfully placed at " + params[:coordinates], :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
+			return render :json=>{:placement_status => response_code, :message=>"Piece successfully placed at " + params[:coordinates], :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		elsif response_code == 2
-			return render :json=>{:message=>"Piece successfully placed. " + params[:friend_id] + " has won!", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
+			return render :json=>{:placement_status => response_code, :message=>"Piece successfully placed. " + params[:friend_id] + " has won!", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		elsif response_code == 3
-			return render :json=>{:message=>"Piece successfully placed, but it's a cat's game. MEOW", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
+			return render :json=>{:placement_status => response_code, :message=>"Piece successfully placed, but it's a cat's game. MEOW", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		else
-			return render :json=>{:message=>"Unknown Error: Response code: " + response_code.to_s(), :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
+			return render :json=>{:placement_status => response_code, :message=>"Unknown Error: Response code: " + response_code.to_s(), :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		end
 	end
 

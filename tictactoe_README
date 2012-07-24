@@ -1,0 +1,51 @@
+Tic Tac Toe Api
+------------
+
+### new_game ###
+*Function*: api/games/tictactoe/new_game
+*Function Description*: This function must be called to initialize all objects necessary to create a tic tac toe game.
+*Function Returns*: JSON objects 
+-:message: contains a message describing success/failure, a
+-:board_id, which is the id of the new tic tac toe board that has been created in the database. This is used for all other API calls.
+*Request Parameters*: friend_id, playmate
+*Request Parameter Descriptions*: 
+[friend_id] is the id of the User in the database who initiated the game
+[playmate] is the id of the User in the database who is challenged to a game
+
+### place_piece ###
+*Function*: api/games/tictactoe/place_piece
+*Function Description*: Most important function, basically this should be called whenever client tries to place a piece on board.
+*Function Returns*: :placement_status represents the result of the attempted placement.
+-:placement_status => 0: Placement failed
+-:placement_status => 1: Placement success. Game remains active
+-:placement_status => 2: Placement success. Game over, winner found
+-:placement_status => 3: Placement success. Game over, cat's game
+*Request Parameters*: friend_id, board_id, coordinates
+*Request Parameter Descriptions*: 
+[friend_id] is the id of the User in the database who wants to place piece
+[board_id] is the id of the board on which piece is requested to be placed
+[coordinates] is the two digit representation of the row and col requested, in the format "xy"
+
+### board_to_json ###
+*Function*: api/games/tictactoe/board_to_json
+*Function Description*:  Returns json representation of the board at the given board_id
+*Function returns*: Object dump of board in JSON format
+*Request Parameters*: board_id
+*Request Parameter Descriptions*: 
+[board_id] is the id of the board
+
+### spaces_to_json ###
+*Function*: api/games/tictactoe/spaces_to_json
+*Function Description*: Returns json representation of all spaces for given board_id
+*Function returns*: Object dump of all spaces for associated board in JSON format
+*Request Parameters*: board_id
+*Request Parameter Descriptions*: 
+[board_id] is the id of the board
+
+### indicators_to_json ###
+*Function*: api/games/tictactoe/indicators_to_json
+*Function Description*: Returns json representation of the indicators at the given board_id
+*Function returns*: Object dump of all indicators for associated board in JSON format
+*Request Parameters*: board_id
+*Request Parameter Descriptions*: 
+[board_id] is the id of the board
