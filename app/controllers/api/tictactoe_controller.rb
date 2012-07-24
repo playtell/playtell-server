@@ -38,20 +38,50 @@ class Api::TictactoeController < ApplicationController
 		return render :json=>{:message=>"Error: Game has already ended or game is invalid"} if board.status != 0
 
 		response_code = board.mark_location(coordinates, user.id)
+
+		#grab board, spaces, and indicators in json format to send to iPads for validation purposes
+		board_dump = JSON.dump board
+		spaces_dump = JSON.dump board.tictactoespaces
+		indicators_dump = JSON.dump board.tictactoeindicators
+
 		if  response_code == 0
-			return render :json=>{:message=>"Error: Piece cannot be placed. Another piece is already at this location"}
+			return render :json=>{:message=>"Error: Piece cannot be placed. Another piece is already at this location", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		elsif response_code == 1
-			return render :json=>{:message=>"Piece successfully placed at " + params[:coordinates]}
+			return render :json=>{:message=>"Piece successfully placed at " + params[:coordinates], :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		elsif response_code == 2
-			return render :json=>{:message=>"Piece successfully placed. " + params[:friend_id] + " has won!" }
+			return render :json=>{:message=>"Piece successfully placed. " + params[:friend_id] + " has won!", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		elsif response_code == 3
-			return render :json=>{:message=>"Piece successfully placed, but it's a cat's game. MEOW" }
+			return render :json=>{:message=>"Piece successfully placed, but it's a cat's game. MEOW", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		else
-			return render :json=>{:message=>"Response code: " + response_code.to_s() }
+			return render :json=>{:message=>"Unknown Error: Response code: " + response_code.to_s(), :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		end
 	end
 
-	def end_game # TODO in the future this might take in a board_id
+	#request params board_id
+	def spaces_to_json
+		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
+		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
+
+		dump = JSON.dump board.tictactoespaces
+		return render :json => dump 
+	end
+
+	#request params board_id
+	def indicators_to_json
+		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
+		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
+
+		dump = JSON.dump board.tictactoeindicators
+		return render :json => dump 
+	end
+
+	#request params board_id
+	def board_to_json
+		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
+		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
+
+		dump = JSON.dump board
+		return render :json => dump 
 	end
 
 end
