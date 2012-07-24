@@ -37,7 +37,7 @@ class Api::ContactsController < ApplicationController
     contacts = []
     current_user.contacts.each do |contact|
       # Rehash contact
-      contact = {
+      currentContact = {
         :name    => contact.name,
         :email   => contact.email,
         :source  => contact.source,
@@ -46,10 +46,10 @@ class Api::ContactsController < ApplicationController
       
       # Check if contact is already a registered user
       users = User.where(:email => contact.email).limit(1)
-      contact[:user_id] = users.first.id if users.size > 0
+      currentContact[:user_id] = users.first.id if users.size > 0
       
       # Add to contacts list
-      contacts << contact
+      contacts << currentContact
     end
     render :status => 200, :json => {:contacts => contacts, :total_contacts => contacts.size}
   end
