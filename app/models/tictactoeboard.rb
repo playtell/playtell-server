@@ -1,116 +1,184 @@
 class Tictactoeboard < ActiveRecord::Base
-	attr_accessible :status, :num_pieces_placed, :winner, :whose_turn, :created_by, :playmate # assume created_by is always x
-	belongs_to :tictactoe  # TODO remove this once confirmed that table has been renamed
+	# ---- CONSTANTS ----
+	# game status
+	OPEN_GAME = 0
+	CLOSED_WON = 1
+	CLOSED_CATS = 2
+	CLOSED_UNFINISHED = 3
+
+	# piece placement
+	NOT_PLACED = 0
+	PLACED_SUCCESS = 1
+	PLACED_WON = 2
+	PLACED_CATS = 3
+
+	# turn indicators
+	CREATORS_TURN = 0
+	PLAYMATES_TURN = 1
+
+	#other
+	MAX_PIECES_PLACED = 9
+	MIN_PIECES_PLACED = 0
+
+	ACROSS_INDICATOR_INDEX = 4
+	ACROSS_INDICATOR_IS_A_ROW = true
+
+	ACROSS_INDICATOR_2_INDEX = 4
+	ACROSS_INDICATOR_2_IS_A_ROW = false
+
+	# ---- validations (use own discretion) ----
+
+	attr_accessible :status, :num_pieces_placed, :winner, :whose_turn, :created_by, :playmate
+	belongs_to :tictactoe
 	has_many :tictactoespaces, :dependent => :destroy
 	has_many :tictactoeindicators, :dependent => :destroy
 
-	# TODO revisit methods for org purposes
-	def user_authorized(friend_id)
-		return friend_id == self.created_by || friend_id == self.playmate #TODO RUBY always will return value from last line evaluated
+
+	## -Start board verification methods. These are bools giving the client info about the board
+	def is_playmates_turn(initiator_id)
+		if self.whose_turn == 0
+			return initiator_id == self.created_by
+		else
+			return initiator_id == self.playmate
+		end
 	end
 
-	def player_is_x(friend_id)
-		return self.created_by == friend_id
+	def user_authorized(initiator_id)
+		initiator_id == self.created_by || initiator_id == self.playmate
+	end
+
+	def is_player_x(initiator_id)
+		self.created_by == initiator_id
+	end
+
+	def is_board_full
+		self.num_pieces_placed >= MAX_PIECES_PLACED
+	end
+
+	def is_cats_game
+		self.status == CLOSED_CATS
+	end
+
+	def are_coordinates_in_bounds(coordinates)
+		space = self.get_space(coordinates)
+		return !space.nil?
+	end
+
+	def is_board_accepting_placements
+		self.status == OPEN_GAME && self.num_pieces_placed < MAX_PIECES_PLACED && self.num_pieces_placed >= MIN_PIECES_PLACED
+	end
+
+	def is_authorized(user_id)
+		self.created_by == user_id	
+	end
+
+	def is_game_creator(initiator_id)
+		initiator_id == self.created_by
+	end
+	## -End board verification methods
+
+	## -Start board active-record getters.
+	def get_space(coordinates)
+		return self.tictactoespaces.find_by_coordinates(coordinates)
 	end
 
 	def get_row_indicator(space)
-		return self.tictactoeindicators.where(:is_a_row => true, :row_or_col_index => space.get_x).first
+		self.tictactoeindicators.find_by_is_a_row_and_row_or_col_index(true, space.get_x)
 	end
 
 	def get_col_indicator(space)
-		return self.tictactoeindicators.where(:is_a_row => false, :row_or_col_index => space.get_y).first
+		self.tictactoeindicators.find_by_is_a_row_and_row_or_col_index(false, space.get_y)
 	end
 
 	def get_across_indicator(space)
 		if space.coordinates.to_s == "0" || space.coordinates.to_s == "22" || space.coordinates.to_s == "11"
-			return self.tictactoeindicators.where(:is_a_row => true, :row_or_col_index => 4).first #TODO use find_by_is....
+			return self.tictactoeindicators.find_by_is_a_row_and_row_or_col_index(ACROSS_INDICATOR_IS_A_ROW, ACROSS_INDICATOR_INDEX)
 		elsif space.coordinates.to_s == "2" || space.coordinates.to_s == "20"
-			return self.tictactoeindicators.where(:is_a_row => false, :row_or_col_index => 4).first
+			return self.tictactoeindicators.find_by_is_a_row_and_row_or_col_index(ACROSS_INDICATOR_2_IS_A_ROW, ACROSS_INDICATOR_2_INDEX)
 		end
 		return nil
 	end
 
-	def space_from_coordinates(coordinates)
-		return self.tictactoespaces.where(:coordinates => coordinates).first
-	end
-
-	def mark_location(coordinates, friend_id)
-		space = self.space_from_coordinates(coordinates)
-		puts "space is " + space.id.to_s() #TODO remove puts debugging
-
-		return 0 if !space.available || space.nil?
-
-		board_full = mark_space(space, friend_id) # TODO explain this a bit
-		game_won = update_indicators(space, friend_id)
-		if board_full && !game_won
-			self.game_cats_game
-			return 3 #cat's game
-		elsif game_won
-			self.game_won(friend_id)
-			return 2 #we have a winner
-		elsif !game_won && !board_full #successfully placed
-			return 1
-		end
-	end
-
-	#returning true means that game has been won!
-	def update_indicators(space, friend_id)
-		#grab x and y direction indicators
-		puts " Player: " + friend_id.to_s() + " is  " + player_is_x(friend_id).to_s()
-		game_over_row = get_row_indicator(space).increment_count(player_is_x(friend_id))
-		game_over_col = get_col_indicator(space).increment_count(player_is_x(friend_id))
-
-		across_indicator1 = get_across_indicator(space)
-		game_over_across = across_indicator1.increment_count(player_is_x(friend_id)) if !across_indicator1.nil?
-		across_indicator_2 = nil
-		if (space.coordinates.to_s() == "11") # TODO revisit hard coding middle piece??
-			 across_indicator_2 = self.tictactoeindicators.where(:is_a_row => false, :row_or_col_index => 4).first
-		end
-		game_over_across_2 = across_indicator_2.increment_count(player_is_x(friend_id)) if !across_indicator_2.nil?
-
-
-		return game_over_row || game_over_col || game_over_across || game_over_across_2
-	end
-
-	def mark_space(space, friend_id)
-		#mark the space
-		space.set_space(friend_id)
-		puts "space with id: " + space.id.to_s() + " is now marked as " + space.available.to_s()
-		self.num_pieces_placed = self.num_pieces_placed + 1
-		self.save
-		return self.num_pieces_placed > 8
-	end
-
-	# TODO a bit more error checking
-	def coordinates_in_bounds(coordinates)
-		#check if valid coordinate
-		space = self.space_from_coordinates(coordinates)
-		return !space.nil?
-	end
-
-	# boolean returning method that indicates whether game is still going on
-	def accepting_placements
-		return self.status == 0 && self.num_pieces_placed < 10 && self.num_pieces_placed >= 0
-	end
-
-	#returns true if passed in user can make changes to given board
-	def is_authorized(user_id)
-		return self.created_by == user_id	
-	end
-
-	def game_won(user_id) # TODO make sure user_id is passed as a string, maybe n\rename
-		self.status = 1
+	def game_won(user_id)
+		self.status = CLOSED_WON
 		self.winner = user_id
 		self.save
 	end
 
 	def game_cats_game
-		#sets the game flag
-		self.status = 2
+		self.status = CLOSED_CATS
+		self.save
+	end
+	## -End board active-record getters.
+
+	## -Start board setters
+	def set_turn(user_id)
+		if is_game_creator(user_id)
+			self.whose_turn = PLAYMATES_TURN
+		else
+			self.whose_turn = CREATORS_TURN
+		end
 		self.save
 	end
 
-	def is_cats_game
-		return self.status == 2 #TODO hard code the constants
+	# main method that marks a space on the board and updates the underpinnings of the model to do so
+	def mark_location(coordinates, initiator_id)
+		space = self.get_space(coordinates)
+
+		return 0 if !space.available || space.nil?
+
+		status = NOT_PLACED
+		mark_success = mark_space(space, initiator_id)
+		if mark_success
+			set_turn(initiator_id)
+			game_won = update_indicators(space, initiator_id)
+			if self.is_board_full && !game_won
+				self.game_cats_game
+				return PLACED_CATS
+			elsif game_won
+				self.game_won(initiator_id)
+				return PLACED_WON
+			elsif !game_won && !self.is_board_full
+				return PLACED_SUCCESS
+			end
+		end
+		status
 	end
+
+	def mark_space(space, initiator_id)
+		set_success = space.set_space(initiator_id)
+		if set_success
+			self.num_pieces_placed = self.num_pieces_placed + 1
+			return self.save
+		end
+		false
+	end
+
+	def update_indicators(space, initiator_id)
+		row_indicator = self.get_row_indicator(space)
+		col_indicator = self.get_col_indicator(space)
+
+		row_indicator.increment_count(is_player_x(initiator_id))
+		col_indicator.increment_count(is_player_x(initiator_id))
+
+		across_indicator1 = self.get_across_indicator(space)
+		across_indicator1.increment_count(is_player_x(initiator_id)) if !across_indicator1.nil?
+
+		across_indicator_2 = nil
+
+		if (space.coordinates.to_s() == "11") # special handling is specifically built in here for the middle piece since it has two across indicators
+			 across_indicator_2 = self.tictactoeindicators.find_by_is_a_row_and_row_or_col_index(ACROSS_INDICATOR_2_IS_A_ROW, ACROSS_INDICATOR_2_INDEX)
+		end
+		across_indicator_2.increment_count(is_player_x(initiator_id)) if !across_indicator_2.nil?
+
+		across_2_game_over = false
+		across_1_game_over = false # TODO check if these are already false
+		
+		across_2_game_over = across_indicator_2.game_over if !across_indicator_2.nil?
+		across_1_game_over = across_indicator1.game_over if !across_indicator1.nil?
+
+		return row_indicator.game_over || col_indicator.game_over || across_2_game_over || across_2_game_over
+	end
+	## -End board active-record getters.
+
 end

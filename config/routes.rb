@@ -51,6 +51,7 @@ Semiralabs::Application.routes.draw do
     match 'games/tictactoe/spaces_to_json' => 'tictactoe#spaces_to_json'
     match 'games/tictactoe/indicators_to_json' => 'tictactoe#indicators_to_json'
     match 'games/tictactoe/board_to_json' => 'tictactoe#board_to_json'
+    match 'games/tictactoe/end_game' => 'tictactoe#end_game'
     #resources :settings, :only => [:update]
   end
   
