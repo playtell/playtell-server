@@ -34,19 +34,26 @@ class Api::ContactsController < ApplicationController
   end
 
   def show
+    current_friends = current_user.allFriends.map!{|user| user.id}
     contacts = []
     current_user.contacts.each do |contact|
       # Rehash contact
       currentContact = {
-        :name    => contact.name,
-        :email   => contact.email,
-        :source  => contact.source,
-        :user_id => nil
+        :name      => contact.name,
+        :email     => contact.email,
+        :source    => contact.source,
+        :user_id   => nil,
+        :is_friend => false
       }
       
       # Check if contact is already a registered user
       users = User.where(:email => contact.email).limit(1)
-      currentContact[:user_id] = users.first.id if users.size > 0
+      if users.size > 0
+        currentContact[:user_id] = users.first.id
+
+        # Check if contact is already a friend
+        currentContact[:is_friend] = current_friends.include?(users.first.id)
+      end
       
       # Add to contacts list
       contacts << currentContact
