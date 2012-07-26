@@ -7,6 +7,10 @@ class Api::ContactsController < ApplicationController
   def create_list
     # First delete all current contacts for this user (no overlapping contacts)
     current_user.contacts.delete_all
+    puts "Requested!"
+    puts "Requested!"
+    puts "Requested!"
+    puts "Requested!"
     
     # Parse the list (json encoded) and create individual contact entries
     if params[:contacts].nil? || params[:contacts].empty?
