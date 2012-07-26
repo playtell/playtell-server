@@ -2,6 +2,7 @@ class Api::ContactsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_filter :authenticate_user!
   respond_to :json
+  require 'cgi'
   
   # Pass a list of contacts
   def create_list
@@ -12,24 +13,24 @@ class Api::ContactsController < ApplicationController
     if params[:contacts].nil? || params[:contacts].empty?
       return render :status => 170, :json => {:message => 'Contacts are missing.'}
     end
-    contacts = ActiveSupport::JSON.decode(params[:contacts])
+    contacts = ActiveSupport::JSON.decode(CGI::unescape(params[:contacts]))
     
     total_saved = 0
     puts(contacts.inspect)
-    # contacts.each do |contact|
-    #       # Verify this contact has all required params
-    #       next if (!contact.key?('name') || !contact.key?('email') || !contact.key?('source'))
-    #       
-    #       # Create new contact entry
-    #       Contact.create({
-    #         :user_id => current_user.id,
-    #         :name    => contact['name'],
-    #         :email   => contact['email'],
-    #         :source  => contact['source']
-    #       })
-    #       
-    #       total_saved += 1
-    #     end
+    contacts.each do |contact|
+      # Verify this contact has all required params
+      next if (!contact.key?('name') || !contact.key?('email') || !contact.key?('source'))
+
+      # Create new contact entry
+      Contact.create({
+        :user_id => current_user.id,
+        :name    => contact['name'],
+        :email   => contact['email'],
+        :source  => contact['source']
+      })
+
+      total_saved += 1
+    end
 
     render :status => 200, :json => {:message => "Contacts saved successfully (#{total_saved} of #{contacts.size})."}
   end
