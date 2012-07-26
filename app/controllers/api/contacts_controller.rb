@@ -7,10 +7,6 @@ class Api::ContactsController < ApplicationController
   def create_list
     # First delete all current contacts for this user (no overlapping contacts)
     current_user.contacts.delete_all
-    puts "Requested!"
-    puts "Requested!"
-    puts "Requested!"
-    puts "Requested!"
     
     # Parse the list (json encoded) and create individual contact entries
     if params[:contacts].nil? || params[:contacts].empty?
@@ -20,20 +16,20 @@ class Api::ContactsController < ApplicationController
     
     total_saved = 0
     puts(contacts.inspect)
-    contacts.each do |contact|
-      # Verify this contact has all required params
-      next if (!contact.key?('name') || !contact.key?('email') || !contact.key?('source'))
-      
-      # Create new contact entry
-      Contact.create({
-        :user_id => current_user.id,
-        :name    => contact['name'],
-        :email   => contact['email'],
-        :source  => contact['source']
-      })
-      
-      total_saved += 1
-    end
+    # contacts.each do |contact|
+    #       # Verify this contact has all required params
+    #       next if (!contact.key?('name') || !contact.key?('email') || !contact.key?('source'))
+    #       
+    #       # Create new contact entry
+    #       Contact.create({
+    #         :user_id => current_user.id,
+    #         :name    => contact['name'],
+    #         :email   => contact['email'],
+    #         :source  => contact['source']
+    #       })
+    #       
+    #       total_saved += 1
+    #     end
 
     render :status => 200, :json => {:message => "Contacts saved successfully (#{total_saved} of #{contacts.size})."}
   end
