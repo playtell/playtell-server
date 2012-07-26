@@ -49,7 +49,9 @@ class Api::ContactsController < ApplicationController
       # Check if contact is already a registered user
       users = User.where(:email => contact.email).limit(1)
       if users.size > 0
+        # Pass along user_id instead of email
         currentContact[:user_id] = users.first.id
+        currentContact[:email] = nil
 
         # Check if contact is already a friend
         currentContact[:is_friend] = current_friends.include?(users.first.id)
