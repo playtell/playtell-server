@@ -16,7 +16,6 @@ class Api::ContactsController < ApplicationController
     contacts = ActiveSupport::JSON.decode(CGI::unescape(params[:contacts]))
     
     total_saved = 0
-    puts(contacts.inspect)
     contacts.each do |contact|
       # Verify this contact has all required params
       next if (!contact.key?('name') || !contact.key?('email') || !contact.key?('source'))
