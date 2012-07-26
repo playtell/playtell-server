@@ -12,7 +12,7 @@ class Api::ContactsController < ApplicationController
     if params[:contacts].nil? || params[:contacts].empty?
       return render :status => 170, :json => {:message => 'Contacts are missing.'}
     end
-    contacts = params[:contacts] #ActiveSupport::JSON.decode(params[:contacts])
+    contacts = ActiveSupport::JSON.decode(params[:contacts])
     
     total_saved = 0
     puts(contacts.inspect)
