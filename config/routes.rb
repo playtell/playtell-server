@@ -46,6 +46,8 @@ Semiralabs::Application.routes.draw do
     match 'pusher/hook' => 'pusher#hook'
     match 'contacts/create_list' => 'contacts#create_list'
     match 'contacts/show' => 'contacts#show'
+    match 'contacts/show_related' => 'contacts#show_related'
+    match 'contacts/notify' => 'contacts#notify'
     #resources :settings, :only => [:update]
   end
   
