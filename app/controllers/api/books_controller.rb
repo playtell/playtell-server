@@ -32,4 +32,15 @@ class Api::BooksController < ApplicationController
 
     render :status=>200, :json=>{:books => response}
   end
+  
+  # returns the id of the puppet book that we're using for the new user experience
+  def get_nux_book
+    b = Book.find_by_title("Koda's Adventure") 
+    if !b.nil?
+      render :status=>200, :json => {:nux_book_id => b.id } 
+      return
+    end
+    render :json => {:message => "no nux book found "}
+  end
+  
 end

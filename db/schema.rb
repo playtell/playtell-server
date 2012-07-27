@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120402210232) do
+ActiveRecord::Schema.define(:version => 20120726163401) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
@@ -35,6 +35,25 @@ ActiveRecord::Schema.define(:version => 20120402210232) do
     t.datetime "updated_at"
     t.integer  "cardgame_id"
   end
+
+  create_table "contact_notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "email"
+    t.string   "source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contacts", ["user_id", "email"], :name => "index_contacts_on_user_id_and_email"
+  add_index "contacts", ["user_id", "name"], :name => "index_contacts_on_user_id_and_name"
 
   create_table "device_tokens", :force => true do |t|
     t.integer  "user_id"
