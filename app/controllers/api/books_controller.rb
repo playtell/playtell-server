@@ -37,7 +37,7 @@ class Api::BooksController < ApplicationController
   def get_nux_book
     b = Book.find_by_title("Koda's Adventure") 
     if !b.nil?
-      render :status=>200, :json => {:nux_bookID => b.id } 
+      render :status=>200, :json => {:nux_bookID => b.id.to_i } 
       return
     end
     render :json => {:message => "no nux book found "}
