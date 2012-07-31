@@ -68,6 +68,7 @@ Page.create({:book_id => b.id,
              :page_num => 3, 
              :page_text => ""})
 
+=begin
 b = Book.create( {:title => "Barry the Barred Owl", :image_directory => "barry-the-owl", :image_only => 1} )             
 Page.create({:book_id => b.id, 
             :page_num => 1, 
@@ -114,6 +115,7 @@ Page.create({:book_id => b.id,
 Page.create({:book_id => b.id, 
             :page_num => 15, 
             :page_text => ""})
+=end
                                                                                       
 b = Book.create({ :title => "Little Red Riding Hood", :image_directory => "little-red-riding-hood" })
 Page.create({:book_id => b.id, 
