@@ -13,7 +13,7 @@ class Api::BooksController < ApplicationController
         pages << {
           :url    => url_for(book_page_url(book, page.page_num)),
           #:bitmap => "http://playtell.s3.amazonaws.com/books/#{book.id.to_s}/page#{page.page_num.to_s}.jpg"
-          :bitmap => "http://playtell.s3.amazonaws.com/books/#{book.image_directory}/page#{page.page_num.to_s}.jpg"
+          :bitmap => "#{S3_BUCKET_NAME}/books/#{book.image_directory}/page#{page.page_num.to_s}.jpg"
         }
       end
       
@@ -23,7 +23,7 @@ class Api::BooksController < ApplicationController
         :cover        => {
           :front => {
             :url    => url_for(book_url(book)),
-            :bitmap => "http://playtell.s3.amazonaws.com/books/#{book.image_directory}/cover_front.jpg"
+            :bitmap => "#{S3_BUCKET_NAME}/books/#{book.image_directory}/cover_front.jpg"
           }
         },
         :pages        => pages,
