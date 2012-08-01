@@ -302,5 +302,6 @@ Page.create({:book_id => t.id,
            
 # create users
 if !User.find_by_username(DEFAULT_FRIEND_NAME)
-  User.create(:email => "jason@playtell.com", :password => "rg", :username => "jason")
+  u = User.create(:email => "jason@playtell.com", :password => "rg", :username => "jason")
+  u.confirmed
 end
