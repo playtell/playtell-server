@@ -41,6 +41,7 @@ Semiralabs::Application.routes.draw do
     match 'playdate/check_for_playdate' => 'playdate#check_for_playdate'
     match 'playdate/channel_stats' => 'playdate#channel_stats'
     match 'books/list' => 'books#list'
+    match 'books/get_nux_book' => 'books#get_nux_book'
     match 'users/all_friends' => 'users#all_friends'
     match 'users/get_status' => 'users#get_status'
     match 'pusher/hook' => 'pusher#hook'
@@ -52,6 +53,8 @@ Semiralabs::Application.routes.draw do
     match 'games/tictactoe/indicators_to_json' => 'tictactoe#indicators_to_json'
     match 'games/tictactoe/board_to_json' => 'tictactoe#board_to_json'
     match 'games/tictactoe/end_game' => 'tictactoe#end_game'
+    match 'contacts/show_related' => 'contacts#show_related'
+    match 'contacts/notify' => 'contacts#notify'
     #resources :settings, :only => [:update]
   end
   
