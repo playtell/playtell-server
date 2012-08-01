@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
   # auto-adds Test as this user's first friend
   def add_first_friend
-    if User.count > 1
+    if User.count > 0
       self.friendships.create!(:friend_id => User.find_by_username(DEFAULT_FRIEND_NAME).id)
     end
   end
