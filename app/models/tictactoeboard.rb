@@ -170,14 +170,14 @@ class Tictactoeboard < ActiveRecord::Base
 			 across_indicator_2 = self.tictactoeindicators.find_by_is_a_row_and_row_or_col_index(ACROSS_INDICATOR_2_IS_A_ROW, ACROSS_INDICATOR_2_INDEX)
 		end
 		across_indicator_2.increment_count(is_player_x(initiator_id)) if !across_indicator_2.nil?
-
+		
 		across_2_game_over = false
-		across_1_game_over = false # TODO check if these are already false
+		across_2_game_over = false
 		
 		across_2_game_over = across_indicator_2.game_over if !across_indicator_2.nil?
 		across_1_game_over = across_indicator1.game_over if !across_indicator1.nil?
 
-		return row_indicator.game_over || col_indicator.game_over || across_2_game_over || across_2_game_over
+		return row_indicator.game_over || col_indicator.game_over || across_1_game_over || across_2_game_over
 	end
 	## -End board active-record getters.
 
