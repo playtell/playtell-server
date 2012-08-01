@@ -32,7 +32,9 @@ class User < ActiveRecord::Base
 
   # auto-adds Test as this user's first friend
   def add_first_friend
-    self.friendships.create!(:friend_id => User.find_by_username(DEFAULT_FRIEND_NAME).id)
+    if User.count > 1
+      self.friendships.create!(:friend_id => User.find_by_username(DEFAULT_FRIEND_NAME).id)
+    end
   end
   
   # assigns one of the default balloon photos to the user as their first profile photo  
