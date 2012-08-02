@@ -51,7 +51,7 @@ class Api::ContactsController < ApplicationController
       # Check if contact is already a registered user
       users = User.where(:email => contact.email).limit(1)
       if users.size > 0
-        # Verify current user isn't that user!
+        # Verify current user isn't that contact!
         next if users.first.id == current_user.id
         
         # Pass along user_id instead of email
@@ -72,28 +72,22 @@ class Api::ContactsController < ApplicationController
   def show_related
     current_friends = current_user.allFriends.map!{|user| user.id}
     contacts = []
-    filtered_contacts = current_user.contacts.where("name ilike '%#{current_user.lastname}%'")
+    filtered_contacts = current_user.contacts.where("contacts.name ilike '%#{current_user.lastname}%'").joins('inner join users on users.email = contacts.email')
     filtered_contacts.each do |contact|
+      user = User.find_by_email(contact.email)
+
+      # Verify current user isn't that contact!
+      next if user.id == current_user.id
+
       # Rehash contact
       currentContact = {
         :name      => contact.name,
         :email     => contact.email,
         :source    => contact.source,
-        :user_id   => nil,
-        :is_friend => false
+        :user_id   => user.id,
+        :is_friend => current_friends.include?(user.id)
       }
-      
-      # Check if contact is already a registered user
-      users = User.where(:email => contact.email).limit(1)
-      if users.size > 0
-        # Pass along user_id instead of email
-        currentContact[:user_id] = users.first.id
-        currentContact[:email] = nil
 
-        # Check if contact is already a friend
-        currentContact[:is_friend] = current_friends.include?(users.first.id)
-      end
-      
       # Add to contacts list
       contacts << currentContact
     end
