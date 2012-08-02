@@ -51,6 +51,9 @@ class Api::ContactsController < ApplicationController
       # Check if contact is already a registered user
       users = User.where(:email => contact.email).limit(1)
       if users.size > 0
+        # Verify current user isn't that user!
+        next if users.first.id == current_user.id
+        
         # Pass along user_id instead of email
         currentContact[:user_id] = users.first.id
         currentContact[:email] = nil
