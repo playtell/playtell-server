@@ -155,7 +155,7 @@ class Api::PlaydateController < ApplicationController
     @playdate = Playdate.findActivePlaydate(u)
     if @playdate.nil? or @playdate.disconnected?
       puts 'none!'
-      render :status=>100, :json=>{ :message => "No connected playdate found." }
+      render :status=>400, :json=>{ :message => "No connected playdate found." }
       return
     end
     
