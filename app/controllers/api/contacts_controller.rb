@@ -3,6 +3,7 @@ class Api::ContactsController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
   require 'cgi'
+  require 'digest/md5'
   
   # Pass a list of contacts
   def create_list
@@ -41,6 +42,7 @@ class Api::ContactsController < ApplicationController
     current_user.contacts.each do |contact|
       # Rehash contact
       currentContact = {
+        :uid           => Digest::MD5.hexdigest(contact.id),
         :name          => contact.name,
         :email         => contact.email,
         :source        => contact.source,
@@ -85,6 +87,7 @@ class Api::ContactsController < ApplicationController
 
       # Rehash contact
       currentContact = {
+        :uid           => Digest::MD5.hexdigest(contact.id),
         :name          => contact.name,
         :email         => contact.email,
         :source        => contact.source,
