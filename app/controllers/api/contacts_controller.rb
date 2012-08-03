@@ -41,11 +41,12 @@ class Api::ContactsController < ApplicationController
     current_user.contacts.each do |contact|
       # Rehash contact
       currentContact = {
-        :name      => contact.name,
-        :email     => contact.email,
-        :source    => contact.source,
-        :user_id   => nil,
-        :is_friend => false
+        :name          => contact.name,
+        :email         => contact.email,
+        :source        => contact.source,
+        :user_id       => nil,
+        :is_friend     => false,
+        :profile_photo => nil
       }
       
       # Check if contact is already a registered user
@@ -60,6 +61,9 @@ class Api::ContactsController < ApplicationController
 
         # Check if contact is already a friend
         currentContact[:is_friend] = current_friends.include?(users.first.id)
+        
+        # Load profile photo
+        currentContact[:profile_photo] = users.first.profile_photo
       end
       
       # Add to contacts list
@@ -81,11 +85,12 @@ class Api::ContactsController < ApplicationController
 
       # Rehash contact
       currentContact = {
-        :name      => contact.name,
-        :email     => contact.email,
-        :source    => contact.source,
-        :user_id   => user.id,
-        :is_friend => current_friends.include?(user.id)
+        :name          => contact.name,
+        :email         => contact.email,
+        :source        => contact.source,
+        :user_id       => user.id,
+        :is_friend     => current_friends.include?(user.id),
+        :profile_photo => user.profile_photo
       }
 
       # Add to contacts list
