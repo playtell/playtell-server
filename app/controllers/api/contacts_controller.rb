@@ -42,7 +42,7 @@ class Api::ContactsController < ApplicationController
     current_user.contacts.each do |contact|
       # Rehash contact
       currentContact = {
-        :uid           => Digest::MD5.hexdigest(contact.id),
+        :uid           => Digest::MD5.hexdigest(contact.id.to_s),
         :name          => contact.name,
         :email         => contact.email,
         :source        => contact.source,
@@ -87,7 +87,7 @@ class Api::ContactsController < ApplicationController
 
       # Rehash contact
       currentContact = {
-        :uid           => Digest::MD5.hexdigest(contact.id),
+        :uid           => Digest::MD5.hexdigest(contact.id.to_s),
         :name          => contact.name,
         :email         => contact.email,
         :source        => contact.source,
