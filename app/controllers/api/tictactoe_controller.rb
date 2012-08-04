@@ -22,7 +22,7 @@ class Api::TictactoeController < ApplicationController
 	
 		# grab the current playdate! 
 		@playdate = Playdate.find_by_id(params[:playdate_id])
-		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if playdate.nil?
+		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if @playdate.nil?
 
 		tictactoe = Tictactoe.create if Tictactoe.first.nil?
 		tictactoe = Tictactoe.first
