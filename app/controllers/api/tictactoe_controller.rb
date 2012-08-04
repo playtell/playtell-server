@@ -21,7 +21,7 @@ class Api::TictactoeController < ApplicationController
 		return render :json=>{:message=>"HTTP POST expects \"playmate_id\" and playdate_id and authentication_token as parameters. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil?
 	
 		# grab the current playdate! 
-		@playdate = Playdate.find_by_id(playdate_id)
+		@playdate = Playdate.find_by_id(params[:playdate_id])
 		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if playdate.nil?
 
 		tictactoe = Tictactoe.create if Tictactoe.first.nil?
