@@ -18,8 +18,12 @@ class Api::TictactoeController < ApplicationController
 
 	#request params playmate_id
 	def new_game
-		return render :json=>{:message=>"HTTP POST expects \"playmate_id\" and authentication_token as parameters. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil?
+		return render :json=>{:message=>"HTTP POST expects \"playmate_id\" and playdate_id and authentication_token as parameters. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil?
 	
+		# grab the current playdate! 
+		@playdate = Playdate.find_by_id(playdate_id)
+		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if playdate.nil?
+
 		tictactoe = Tictactoe.create if Tictactoe.first.nil?
 		tictactoe = Tictactoe.first
 
@@ -29,6 +33,7 @@ class Api::TictactoeController < ApplicationController
 		return render :json=>{:message=>"Playmate with id: " + params[:playmate_id] + " not found."} if playmate.nil?
 
 		board_id = tictactoe.create_new_board(current_user.id, playmate.id)
+      	Pusher[@playdate.pusher_channel_name].trigger('tictactoe_start', {:initiator_id => current_user.id, :playmate_id => params[:playmate_id], :board_id => board_id})
 
 		render :json=>{:message=>"Board successfully initialized", :board_id => board_id}
 	end
