@@ -3,6 +3,7 @@ class Api::ContactsController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
   require 'cgi'
+  require 'digest/md5'
   
   # Pass a list of contacts
   def create_list
@@ -41,22 +42,30 @@ class Api::ContactsController < ApplicationController
     current_user.contacts.each do |contact|
       # Rehash contact
       currentContact = {
-        :name      => contact.name,
-        :email     => contact.email,
-        :source    => contact.source,
-        :user_id   => nil,
-        :is_friend => false
+        :uid           => Digest::MD5.hexdigest(contact.id.to_s),
+        :name          => contact.name,
+        :email         => contact.email,
+        :source        => contact.source,
+        :user_id       => nil,
+        :is_friend     => false,
+        :profile_photo => nil
       }
       
       # Check if contact is already a registered user
       users = User.where(:email => contact.email).limit(1)
       if users.size > 0
+        # Verify current user isn't that contact!
+        next if users.first.id == current_user.id
+        
         # Pass along user_id instead of email
         currentContact[:user_id] = users.first.id
         currentContact[:email] = nil
 
         # Check if contact is already a friend
         currentContact[:is_friend] = current_friends.include?(users.first.id)
+        
+        # Load profile photo
+        currentContact[:profile_photo] = users.first.profile_photo
       end
       
       # Add to contacts list
@@ -69,28 +78,24 @@ class Api::ContactsController < ApplicationController
   def show_related
     current_friends = current_user.allFriends.map!{|user| user.id}
     contacts = []
-    filtered_contacts = current_user.contacts.where("name ilike '%#{current_user.lastname}%'")
+    filtered_contacts = current_user.contacts.where("contacts.name ilike '%#{current_user.lastname}%'").joins('inner join users on users.email = contacts.email')
     filtered_contacts.each do |contact|
+      user = User.find_by_email(contact.email)
+
+      # Verify current user isn't that contact!
+      next if user.id == current_user.id
+
       # Rehash contact
       currentContact = {
-        :name      => contact.name,
-        :email     => contact.email,
-        :source    => contact.source,
-        :user_id   => nil,
-        :is_friend => false
+        :uid           => Digest::MD5.hexdigest(contact.id.to_s),
+        :name          => contact.name,
+        :email         => contact.email,
+        :source        => contact.source,
+        :user_id       => user.id,
+        :is_friend     => current_friends.include?(user.id),
+        :profile_photo => user.profile_photo
       }
-      
-      # Check if contact is already a registered user
-      users = User.where(:email => contact.email).limit(1)
-      if users.size > 0
-        # Pass along user_id instead of email
-        currentContact[:user_id] = users.first.id
-        currentContact[:email] = nil
 
-        # Check if contact is already a friend
-        currentContact[:is_friend] = current_friends.include?(users.first.id)
-      end
-      
       # Add to contacts list
       contacts << currentContact
     end

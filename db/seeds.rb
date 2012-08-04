@@ -298,3 +298,10 @@ Page.create({:book_id => t.id,
            :page_num => 23, 
            :page_text => "And now, every time Thomas passes a signal, he checks it twice, just to be safe. Gordon likes to tease him. \"Fussy little Thomas certainly is fussy about signals.\"\n\"Peep, peep!\" says Thomas. \"Safety is our first concern.\""
            })
+           
+           
+# create users
+if !User.find_by_username(DEFAULT_FRIEND_NAME)
+  u = User.create(:email => "jason@playtell.com", :password => "rg", :username => "jason")
+  u.confirmed
+end
