@@ -42,7 +42,7 @@ class Api::TictactoeController < ApplicationController
 		board_id = tictactoe.create_new_board(current_user.id, playmate.id)
       	Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_new_game', {:initiator_id => current_user.id, :board_id => board_id})
 
-		render :json=>{:message=>"Board successfully initialized, playdate id is " + @playdate.id, :board_id => board_id}
+		render :json=>{:message=>"Board successfully initialized, playdate id is " + @playdate.id.to_s, :board_id => board_id}
 	end
 
 	#request params user_id, board_id, coordinates
