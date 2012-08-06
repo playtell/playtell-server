@@ -9,8 +9,15 @@ class Api::TictactoeController < ApplicationController
 	# piece placement
 	NOT_PLACED = 0
 	PLACED_SUCCESS = 1
-	PLACED_WON = 2
-	PLACED_CATS = 3
+	PLACED_CATS = 2
+	PLACED_WON_ROW_0 = 3
+	PLACED_WON_ROW_1 = 4
+	PLACED_WON_ROW_2 = 5
+	PLACED_WON_COL_0 = 6
+	PLACED_WON_COL_1 = 7
+	PLACED_WON_ROW_2 = 8
+	PLACED_WON_ACROSS_TOP_LEFT = 9
+	PLACED_WON_ACROS_BOTTON_LEFT = 10
 
 	 respond_to :json
 	 skip_before_filter :verify_authenticity_token
@@ -33,7 +40,7 @@ class Api::TictactoeController < ApplicationController
 		return render :json=>{:message=>"Playmate with id: " + params[:playmate_id] + " not found."} if playmate.nil?
 
 		board_id = tictactoe.create_new_board(current_user.id, playmate.id)
-      	Pusher[@playdate.pusher_channel_name].trigger('tictactoe_start', {:initiator_id => current_user.id, :playmate_id => params[:playmate_id], :board_id => board_id})
+      	Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_start', {:initiator_id => current_user.id, :board_id => board_id})
 
 		render :json=>{:message=>"Board successfully initialized", :board_id => board_id}
 	end
@@ -68,7 +75,7 @@ class Api::TictactoeController < ApplicationController
 			return render :json=>{:placement_status => response_code, :message=>"Error: Piece cannot be placed. Another piece is already at this location", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		elsif response_code == PLACED_SUCCESS
 			return render :json=>{:placement_status => response_code, :message=>"Piece successfully placed at " + params[:coordinates], :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
-		elsif response_code == PLACED_WON
+		elsif response_code == PLACED_WON_ROW_0
 			return render :json=>{:placement_status => response_code, :message=>"Piece successfully placed. " + params[:user_id] + " has won!", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
 		elsif response_code == PLACED_CATS
 			return render :json=>{:placement_status => response_code, :message=>"Piece successfully placed, but it's a cat's game. MEOW", :board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
