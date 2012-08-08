@@ -107,7 +107,7 @@ class Api::TictactoeController < ApplicationController
 		if response_code != NOT_PLACED
 			yCor = board.get_space(coordinates).get_y
 			xCor = board.get_space(coordinates).get_x
-		}
+		end
 
 		response["message"] = response_message
 		response["placement_code"] = response_code	

@@ -17,7 +17,7 @@ class Tictactoe < ActiveRecord::Base
 	#win status codes
 	PLACED_WON_COL_0 = 6
 	PLACED_WON_COL_1 = 7
-	PLACED_WON_ROW_2 = 8
+	PLACED_WON_COL_2 = 8
 	PLACED_WON_ACROSS_TOP_LEFT = 9
 	PLACED_WON_ACROS_BOTTON_LEFT = 10
 	PLACED_WON_ROW_0 = 11
