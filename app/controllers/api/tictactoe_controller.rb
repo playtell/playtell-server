@@ -104,12 +104,20 @@ class Api::TictactoeController < ApplicationController
 			response_message = "Placement success at " + params[:coordinates] + ". Cats game!"
 		end
 
+		if response_code != NOT_PLACED
+			yCor = board.get_space(coordinates).get_y
+			xCor = board.get_space(coordinates).get_x
+		}
+
 		response["message"] = response_message
 		response["placement_code"] = response_code	
 		if response_code == PLACED_WON
 			response["win_code"] = board.win_code
+			Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_place_piece', {:win_code => board.win_code, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board_id, :x_coordinate => xCor, :y_coordinate => yCor})
 		end
-		
+
+		Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_place_piece', {:placement_code => response_code, :playmate_id => current_user.id, :board_id => board_id, :x_coordinate => xCor, :y_coordinate => yCor})
+
 		render :json => response
 	end
 
