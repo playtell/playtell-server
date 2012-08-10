@@ -119,6 +119,10 @@ class Api::ContactsController < ApplicationController
     # Notify each
     emails_sent = 0
     emails.each do |email|
+      # Find the contact by email
+      contact = Contact.find_by_email(email)
+      next if contact.nil?
+
       # Check if already notified recently by the same user. If so, skip!
       next if current_user.contact_notifications.where(:email => email).count > 0
 
@@ -128,7 +132,9 @@ class Api::ContactsController < ApplicationController
         :email   => email
       })
     
-      # TODO: Send the actual email
+      # Send the actual email
+      UserMailer.contact_invitation(contact, message).deliver
+
       emails_sent += 1
     end
     
