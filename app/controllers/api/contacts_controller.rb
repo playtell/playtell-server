@@ -133,7 +133,7 @@ class Api::ContactsController < ApplicationController
       })
     
       # Send the actual email
-      UserMailer.contact_invitation(contact, message).deliver
+      UserMailer.contact_invitation(current_user, contact, message).deliver
 
       emails_sent += 1
     end
