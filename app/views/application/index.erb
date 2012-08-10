@@ -218,21 +218,24 @@
 		    	.attr('style', 'height: ' + imgH + 'px')
 		    	.attr('style', 'max-width: ' + w + 'px');
 		
-				var textPos = w / 7 * 4;
-			  	var img2 = new Image();
-			  	$(img2)
-			    	.load(function () {
-			      		$(this).hide();
-				  		$(this).appendTo('#never-miss-storytime-container');
-			      		$(this).show();
-			    	})
+			var textPos = w / 7 * 4;
+		  	var img2 = new Image();
+		  	$(img2)
+		    	.load(function () {
+		      		$(this).hide();
+			  		$(this).appendTo('#never-miss-storytime-container');
+		      		$(this).show();
+		    	})
 
-			    	.attr('src', '/images/homepage/never_miss_storytime.png')
-			    	.attr('style', 'height: ' + imgH + 'px')
-			    	.attr('style', 'max-width: ' + w + 'px');
-				//$('#block-sign-up').attr('style', 'min-height: ' + imgH + 'px');
-				//$('#block-sign-up h1').css("right", textPos);
-				console.log($('#block-sign-up h1').offset());
+		    	.attr('src', '/images/homepage/never_miss_storytime.png')
+		    	.attr('style', 'height: ' + imgH + 'px')
+		    	.attr('style', 'max-width: ' + w + 'px');
+			//$('#block-sign-up').attr('style', 'min-height: ' + imgH + 'px');
+			//$('#block-sign-up h1').css("right", textPos);
+			
+			var formLoc;
+			formLoc = $('#sign-up-form').offset();
+			$('.sign-up-badge').offset({left: formLoc.left-175});
 		});	
 		
 	 </script>
