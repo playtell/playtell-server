@@ -44,10 +44,9 @@ class Tictactoeboard < ActiveRecord::Base
 	has_many :tictactoespaces, :dependent => :destroy
 	has_many :tictactoeindicators, :dependent => :destroy
 
-
 	## -Start board verification methods. These are bools giving the client info about the board
 	def is_playmates_turn(initiator_id)
-		if self.whose_turn == 0
+		if self.whose_turn == CREATORS_TURN
 			return initiator_id == self.created_by
 		else
 			return initiator_id == self.playmate
@@ -120,6 +119,7 @@ class Tictactoeboard < ActiveRecord::Base
 		self.status = CLOSED_CATS
 		self.save
 	end
+
 	## -End board active-record getters.
 
 	## -Start board setters

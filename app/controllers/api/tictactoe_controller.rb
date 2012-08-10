@@ -1,11 +1,5 @@
 class Api::TictactoeController < ApplicationController
 	# ---- CONSTANTS ----
-	# game status codes
-	OPEN_GAME = 0
-	CLOSED_WON = 1
-	CLOSED_CATS = 2
-	CLOSED_UNFINISHED = 3
-
 	# piece placement status codes
 	NOT_PLACED = 0
 	PLACED_SUCCESS = 1
@@ -114,10 +108,10 @@ class Api::TictactoeController < ApplicationController
 		response["placement_code"] = response_code	
 		if response_code == PLACED_WON
 			response["win_code"] = board.win_code
-			Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_place_piece', {:has_json => 0, :win_code => board.win_code, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :x_coordinate => xCor, :y_coordinate => yCor})
+			Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_place_piece', {:has_json => 0, :win_code => board.win_code, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :coordinates => params[:coordinates]})
 		end
 
-		Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_place_piece', {:has_json => 0, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :x_coordinate => xCor, :y_coordinate => yCor})
+		Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_place_piece', {:has_json => 0, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :coordinates => params[:coordinates]})
 
 		render :json => response
 	end
@@ -163,6 +157,9 @@ class Api::TictactoeController < ApplicationController
 		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
 
 		board.game_cats_game #TODO fix this
+
+		Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_end_game', {:board_id => board.id})
+
 		return render :json=>{:message=>"Game has been terminated."}
 	end
 
