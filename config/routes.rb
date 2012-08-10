@@ -44,17 +44,18 @@ Semiralabs::Application.routes.draw do
     match 'books/get_nux_book' => 'books#get_nux_book'
     match 'users/all_friends' => 'users#all_friends'
     match 'users/get_status' => 'users#get_status'
+    match 'users/create_friendship' => 'users#create_friendship'
     match 'pusher/hook' => 'pusher#hook'
     match 'contacts/create_list' => 'contacts#create_list'
     match 'contacts/show' => 'contacts#show'
+    match 'contacts/show_related' => 'contacts#show_related'
+    match 'contacts/notify' => 'contacts#notify'
     match 'games/tictactoe/new_game' => 'tictactoe#new_game'
     match 'games/tictactoe/place_piece' => 'tictactoe#place_piece'
     match 'games/tictactoe/spaces_to_json' => 'tictactoe#spaces_to_json'
     match 'games/tictactoe/indicators_to_json' => 'tictactoe#indicators_to_json'
     match 'games/tictactoe/board_to_json' => 'tictactoe#board_to_json'
     match 'games/tictactoe/end_game' => 'tictactoe#end_game'
-    match 'contacts/show_related' => 'contacts#show_related'
-    match 'contacts/notify' => 'contacts#notify'
     #resources :settings, :only => [:update]
   end
   
