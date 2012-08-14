@@ -115,6 +115,8 @@ class Api::ContactsController < ApplicationController
       return render :status => 171, :json => {:message => 'Contact emails are missing.'}
     end
     emails = ActiveSupport::JSON.decode(CGI::unescape(params[:emails]))
+
+    puts "Message #{message}"
     
     # Notify each
     emails_sent = 0
@@ -129,14 +131,14 @@ class Api::ContactsController < ApplicationController
       next if current_user.contact_notifications.where(:email => email).count > 0
 
       # Save a record that we emailed them
-      ContactNotification.create({
-        :user_id => current_user.id,
-        :email   => email
-      })
+      # ContactNotification.create({
+      #   :user_id => current_user.id,
+      #   :email   => email
+      # })
     
       # Send the actual email
       UserMailer.contact_invitation(current_user, contact, message).deliver
-      puts "Email sent"
+
       emails_sent += 1
     end
     
