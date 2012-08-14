@@ -16,7 +16,8 @@ Semiralabs::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.perform_deliveries = false #prevent sending emails in development 
+  # config.action_mailer.perform_deliveries = false #prevent sending emails in development 
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # Print deprecation notices to the Rails logger
