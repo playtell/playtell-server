@@ -21,6 +21,6 @@ class UserMailer < ActionMailer::Base
     @contact = contact
     @current_user = current_user
     @body = body
-    mail(:to => contact.email, :subject => "Join #{current_user.first_name} #{current_user.last_name} on PlayTell!")
+    mail(:to => contact.email, :subject => "Join #{current_user.firstname} #{current_user.lastname} on PlayTell!")
   end
 end
