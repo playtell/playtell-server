@@ -116,8 +116,6 @@ class Api::ContactsController < ApplicationController
     end
     emails = ActiveSupport::JSON.decode(CGI::unescape(params[:emails]))
 
-    puts "Message #{message}"
-    
     # Notify each
     emails_sent = 0
     emails.each do |email|

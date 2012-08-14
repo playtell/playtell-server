@@ -17,10 +17,11 @@ class UserMailer < ActionMailer::Base
       mail(:to => @invitee.email, :subject => betauser.username.capitalize + " got you early access to PlayTell :)")
   end
 
-  def contact_invitation(current_user, contact, body)
+  def contact_invitation(current_user, contact, message)
+    # @current_user = current_user
     @contact = contact
-    @current_user = current_user
-    @body = body
+    @message = message
+    puts "Message: #{message}"
     mail(:to => contact.email, :subject => "Join #{current_user.firstname} #{current_user.lastname} on PlayTell!")
   end
 end
