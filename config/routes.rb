@@ -60,10 +60,11 @@ Semiralabs::Application.routes.draw do
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'
     
-    match 'activities/list' => 'application#getAllActivities'
     
     #resources :settings, :only => [:update]
   end
+
+  match 'activities/list' => 'application#getAllActivities'
   
   match 'pusher/auth' => 'pusher#auth'
   match '/ipad' => 'ipad#index'
