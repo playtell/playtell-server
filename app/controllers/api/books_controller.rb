@@ -31,7 +31,7 @@ class Api::BooksController < ApplicationController
         :total_pages  => book.pages.size
       }
     end
-    render :status=>200, :json=>{:books => getBookList}
+    render :status=>200, :json=>{:books => response}
   end
   
   # returns the id of the puppet book that we're using for the new user experience
