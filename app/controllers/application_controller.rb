@@ -77,6 +77,14 @@ class ApplicationController < ActionController::Base
         #:total_pages  => book.pages.count
       }
     end
+    #TODO add tic tac toe activity
+
+    a = {
+      :activity_id        => 100,
+      :activity_logo_url  => "#{S3_BUCKET_NAME}/toybox/TTT-logo.png",
+      :activity_name      => "Tic Tac Toe"
+    }
+    activities << a
     
     response = {
       :num_activities => books.count,
