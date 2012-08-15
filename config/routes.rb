@@ -53,8 +53,14 @@ Semiralabs::Application.routes.draw do
     match 'games/tictactoe/indicators_to_json' => 'tictactoe#indicators_to_json'
     match 'games/tictactoe/board_to_json' => 'tictactoe#board_to_json'
     match 'games/tictactoe/end_game' => 'tictactoe#end_game'
+<<<<<<< master
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'
+=======
+    
+    match 'activities/list' => 'application#getAllActivities'
+    
+>>>>>>> local
     #resources :settings, :only => [:update]
   end
   
