@@ -56,8 +56,15 @@ Semiralabs::Application.routes.draw do
     match 'games/tictactoe/indicators_to_json' => 'tictactoe#indicators_to_json'
     match 'games/tictactoe/board_to_json' => 'tictactoe#board_to_json'
     match 'games/tictactoe/end_game' => 'tictactoe#end_game'
+
+    match 'contacts/show_related' => 'contacts#show_related'
+    match 'contacts/notify' => 'contacts#notify'
+    
+    
     #resources :settings, :only => [:update]
   end
+
+  match 'activities/list' => 'application#getAllActivities'
   
   match 'pusher/auth' => 'pusher#auth'
   match '/ipad' => 'ipad#index'

@@ -5,8 +5,9 @@ class Api::BooksController < ApplicationController
   respond_to :json
 
   def list
-    books = Book.order(:created_at).all
     response = []
+
+    books = Book.order(:created_at).all
     books.each do |book|
       pages = []
       book.pages.order(:page_num).each do |page|
@@ -30,7 +31,6 @@ class Api::BooksController < ApplicationController
         :total_pages  => book.pages.size
       }
     end
-
     render :status=>200, :json=>{:books => response}
   end
   
@@ -43,5 +43,5 @@ class Api::BooksController < ApplicationController
     end
     render :json => {:message => "no nux book found "}
   end
-  
+    
 end
