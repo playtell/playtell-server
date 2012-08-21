@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
   end
 
   def allApprovedFriends
-    self.friends.where(:status => true) + self.inverse_friends.where(:status => true)
+    self.friends.where("friendships.status = true") + self.inverse_friends.where("friendships.status = true")
   end
   
   def allFriendships
