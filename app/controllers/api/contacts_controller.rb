@@ -115,7 +115,7 @@ class Api::ContactsController < ApplicationController
       return render :status => 171, :json => {:message => 'Contact emails are missing.'}
     end
     emails = ActiveSupport::JSON.decode(CGI::unescape(params[:emails]))
-    
+
     # Notify each
     emails_sent = 0
     emails.each do |email|

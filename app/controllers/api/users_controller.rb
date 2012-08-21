@@ -12,9 +12,8 @@ class Api::UsersController < ApplicationController
       render :status=>150, :json=>{ :message => "User not found." }
       return
     else
-      response = u.allFriends
+      render :status=>200, :json=>{:friends => u.allFriends, :approved_friends => u.allApprovedFriends}
     end
-    render :status=>200, :json=>{:friends => response}
   end
   
   # required params: user_ids
