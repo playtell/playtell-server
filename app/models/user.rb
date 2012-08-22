@@ -76,15 +76,8 @@ class User < ActiveRecord::Base
     self.friends.where("friendships.status = true") + self.inverse_friends.where("friendships.status = true")
   end
   
-  def allFriendships
-    all_ids = []
-    for f in self.friendships 
-      all_ids << f.friend_id
-    end
-    for i in self.inverse_friendships
-      all_ids << i.user_id
-    end
-    return all_ids
+  def allActiveFriendships
+    self.friendships.where("status != false") + self.inverse_friendships.where("status != false")
   end
   
   def isFriend? (user)
