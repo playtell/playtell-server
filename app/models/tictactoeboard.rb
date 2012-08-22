@@ -120,6 +120,11 @@ class Tictactoeboard < ActiveRecord::Base
 		self.save
 	end
 
+	def game_ended_by_user
+		self.status = CLOSED_UNFINISHED
+		self.save
+	end
+
 	## -End board active-record getters.
 
 	## -Start board setters
