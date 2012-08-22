@@ -23,6 +23,7 @@ class Api::FriendshipsController < ApplicationController
     unless friendship.nil?
       # If so, make them friends immediately!
       friendship.status = true
+      friendship.responded_at = DateTime.now
       friendship.save
 
       # TODO: Notify user_id that we confirmed their friend request
@@ -52,6 +53,7 @@ class Api::FriendshipsController < ApplicationController
 
     # Accept friendship
     friendship.status = true
+    friendship.responded_at = DateTime.now
     friendship.save
 
     # TODO: Notify user_id of friendship acceptance
@@ -73,6 +75,7 @@ class Api::FriendshipsController < ApplicationController
 
     # Decline friendship
     friendship.status = false
+    friendship.responded_at = DateTime.now
     friendship.save
 
     # TODO: Notify user_id of friendship denial 
