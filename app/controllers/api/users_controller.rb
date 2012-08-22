@@ -9,11 +9,21 @@ class Api::UsersController < ApplicationController
     u = User.find(params[:user_id])
     return render :status=>150, :json=>{ :message => "User not found." } if u.nil?
 
-    # Give each friendship a status (confirmed or pending)
+    # Give each friendship a status (confirmed, pending-them, or pending-you)
     friends = []
     u.allApprovedAndPendingFriendships.each do |friendship|
+      # Figure out status
+      status = friendship.status.nil? ? 'pending' : 'confirmed'
+      
       # Find friend
-      friend_id = friendship.user_id == current_user.id ? friendship.friend_id : friendship.user_id
+      if friendship.user_id == current_user.id
+        friend_id = friendship.friend_id
+        status = "pending-them" if status == 'pending' # Are we waiting for them to approve to you to approve?
+      else
+        friend_id = friendship.user_id
+        status = "pending-you" if status == 'pending' # Are we waiting for them to approve to you to approve?
+      end
+
       friend = User.find(friend_id)
       next if friend.nil?
 
@@ -56,19 +66,20 @@ class Api::UsersController < ApplicationController
     render :status => 200, :json => {:status => user_statuses}
   end
 
+  # DEPRECIATED: Reimplemented in api/friendships_controller.rb > 'create'
   # require params: user_id
-  def create_friendship
-    # Find the user
-    return render :status => 150, :json => {:message => "User not found."} if params[:user_id].nil? || params[:user_id].empty?
-    user = User.find(params[:user_id].to_i)
-    return render :status => 150, :json => {:message => "User {#{id}} not found."} if user.nil?
+  # def create_friendship
+  #   # Find the user
+  #   return render :status => 150, :json => {:message => "User not found."} if params[:user_id].nil? || params[:user_id].empty?
+  #   user = User.find(params[:user_id].to_i)
+  #   return render :status => 150, :json => {:message => "User {#{id}} not found."} if user.nil?
 
-    # See if they're already friends
-    return render :status => 152, :json => {:message => "User is already a friend."} if current_user.isFriend?(user)
+  #   # See if they're already friends
+  #   return render :status => 152, :json => {:message => "User is already a friend."} if current_user.isFriend?(user)
 
-    # Create friendship with current user
-    current_user.friendships.create!(:friend_id => user.id)
+  #   # Create friendship with current user
+  #   current_user.friendships.create!(:friend_id => user.id)
 
-    render :status => 200, :json => {:message => "Friendship created"}
-  end
+  #   render :status => 200, :json => {:message => "Friendship created"}
+  # end
 end
