@@ -37,7 +37,7 @@ class Api::ContactsController < ApplicationController
 
   # Show all contacts
   def show
-    current_friends = current_user.allFriends.map!{|user| user.id}
+    current_friends = current_user.allApprovedAndPendingFriends.map!{|user| user.id}
     contacts = []
     current_user.contacts.each do |contact|
       # Rehash contact
@@ -76,7 +76,7 @@ class Api::ContactsController < ApplicationController
   
   # Show only related contacts (based on last name match)
   def show_related
-    current_friends = current_user.allFriends.map!{|user| user.id}
+    current_friends = current_user.allApprovedAndPendingFriends.map!{|user| user.id}
     contacts = []
     filtered_contacts = current_user.contacts.where("contacts.name ilike '%#{current_user.lastname}%'").joins('inner join users on users.email = contacts.email')
     filtered_contacts.each do |contact|

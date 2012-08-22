@@ -9,11 +9,21 @@ class Api::UsersController < ApplicationController
     u = User.find(params[:user_id])
     return render :status=>150, :json=>{ :message => "User not found." } if u.nil?
 
-    # Give each friendship a status (confirmed or pending)
+    # Give each friendship a status (confirmed, pending-them, or pending-you)
     friends = []
     u.allApprovedAndPendingFriendships.each do |friendship|
+      # Figure out status
+      status = friendship.status.nil? ? 'pending' : 'confirmed'
+      
       # Find friend
-      friend_id = friendship.user_id == current_user.id ? friendship.friend_id : friendship.user_id
+      if friendship.user_id == current_user.id
+        friend_id = friendship.friend_id
+        status = "pending-them" if status == 'pending' # Are we waiting for them to approve to you to approve?
+      else
+        friend_id = friendship.user_id
+        status = "pending-you" if status == 'pending' # Are we waiting for them to approve to you to approve?
+      end
+
       friend = User.find(friend_id)
       next if friend.nil?
 

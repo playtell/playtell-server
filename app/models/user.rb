@@ -75,6 +75,10 @@ class User < ActiveRecord::Base
   def allPendingFriends
     self.friends.where("friendships.status is null") + self.inverse_friends.where("friendships.status is null")
   end
+
+  def allApprovedAndPendingFriends
+    self.friends.where("friendships.status is not false") + self.inverse_friends.where("friendships.status is not false")
+  end
   
   def allApprovedAndPendingFriendships
     self.friendships.where("status is not false") + self.inverse_friendships.where("status is not false")
