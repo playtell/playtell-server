@@ -69,6 +69,8 @@ Semiralabs::Application.routes.draw do
   match 'pusher/auth' => 'pusher#auth'
   match '/ipad' => 'ipad#index'
   match '/iPad' => 'ipad#index'
+  match '/iPad-tictactoe' => 'ipad#index'
+
   
   match 'early_access' => 'application#earlyAccess' 
   match 'timeline' => 'application#timeline'  
