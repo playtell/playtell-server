@@ -11,7 +11,7 @@ class Api::UsersController < ApplicationController
 
     # Give each friendship a status (confirmed or pending)
     friends = []
-    u.allActiveFriendships.each do |friendship|
+    u.allApprovedAndPendingFriendships.each do |friendship|
       # Find friend
       friend_id = friendship.user_id == current_user.id ? friendship.friend_id : friendship.user_id
       friend = User.find(friend_id)

@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
   
   has_one :playdate  
   has_many :friendships
-  has_many :friends, :through => :friendships
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
-  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+  has_many :friends, :through => :friendships, :conditions => 'friendships.status = true'
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user, :conditions => 'friendships.status = true'
   has_many :device_tokens
   has_many :playdate_photos
   has_many :contacts
@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
     self.friends.where("friendships.status = true") + self.inverse_friends.where("friendships.status = true")
   end
   
-  def allActiveFriendships
+  def allApprovedAndPendingFriendships
     self.friendships.where("status is not false") + self.inverse_friendships.where("status is not false")
   end
   
