@@ -21,9 +21,9 @@ class Api::TictactoeController < ApplicationController
 	 skip_before_filter :verify_authenticity_token
 	 before_filter :authenticate_user!
 
-	#request params playmate_id, authentication_token, playdate_id
+	#request params playmate_id, authentication_token, playdate_id, already_playing
 	def new_game
-		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, authentication_token. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil?
+		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, authentication_token. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil?
 	
 		# grab the current playdate! 
 		@playdate = Playdate.find_by_id(params[:playdate_id])
@@ -38,7 +38,11 @@ class Api::TictactoeController < ApplicationController
 		return render :json=>{:message=>"Playmate with id: " + params[:playmate_id] + " not found."} if playmate.nil?
 
 		board_id = tictactoe.create_new_board(current_user.id, playmate.id)
-      	Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_new_game', {:initiator_id => current_user.id, :board_id => board_id})
+		if !params[:already_playing].nil?
+			Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_refresh_game', {:initiator_id => current_user.id, :board_id => board_id})
+      	else
+      		Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_new_game', {:initiator_id => current_user.id, :board_id => board_id})
+		end
 
 		render :json=>{:message=>"Board successfully initialized, playdate id is " + @playdate.id.to_s, :board_id => board_id}
 	end
