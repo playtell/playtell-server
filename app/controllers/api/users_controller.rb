@@ -7,13 +7,23 @@ class Api::UsersController < ApplicationController
   # returns user objects for all of the given user's friends
   def all_friends
     u = User.find(params[:user_id])
-    
-    if !u or u.blank?
-      render :status=>150, :json=>{ :message => "User not found." }
-      return
-    else
-      render :status=>200, :json=>{:friends => u.allFriends, :approved_friends => u.allApprovedFriends}
+    return render :status=>150, :json=>{ :message => "User not found." } if u.nil?
+
+    # Give each friendship a status (confirmed or pending)
+    friends = []
+    u.allApprovedAndPendingFriendships.each do |friendship|
+      # Find friend
+      friend_id = friendship.user_id == current_user.id ? friendship.friend_id : friendship.user_id
+      friend = User.find(friend_id)
+      next if friend.nil?
+
+      # Find friend friendship status
+      friendHash = friend.as_json
+      friendHash[:status] = friendship.status.nil? ? 'pending' : 'confirmed'
+      friends << friendHash
     end
+    
+    render :status=>200, :json=>{:friends => friends}
   end
   
   # required params: user_ids
