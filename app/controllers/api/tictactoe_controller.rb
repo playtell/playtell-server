@@ -151,9 +151,13 @@ class Api::TictactoeController < ApplicationController
 		return render :json => dump 
 	end
 
-	#request params board_id
+	#request params board_id, playdate_id
 	def end_game
-		return render :json=>{:message=>"HTTP POST expects parameter \"board_id\" and an authentication_token. Refer to the API documentation for more info."} if params[:board_id].nil? || params[:authentication_token].nil?
+		return render :json=>{:message=>"HTTP POST expects parameter \"board_id\", playdate_id, and an authentication_token. Refer to the API documentation for more info."} if params[:board_id].nil? || params[:authentication_token].nil?
+
+		# grab the current playdate! 
+		@playdate = Playdate.find_by_id(params[:playdate_id])
+		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if @playdate.nil?
 
 		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
 		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
