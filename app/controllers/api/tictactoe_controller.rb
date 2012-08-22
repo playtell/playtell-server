@@ -58,13 +58,14 @@ class Api::TictactoeController < ApplicationController
 		end
 
 		@playdate = Playdate.find_by_id(params[:playdate_id])
+		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
+
 		return render :json=>{:placement_status => 0, :message=>"Error: Game has already ended or game is invalid"} if board.status != 0
 
 		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if @playdate.nil?
 
 		return render :json=>{:placement_status => 0, :message=>"Error: Playmate cannot be found."} if current_user.nil? #TODO figure out why json status messages don't work in browser
 
-		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
 		return render :json=>{:placement_status => 0, :message=>"Error: Board with that board id not found."} if board.nil?
 
 		coordinates = params[:coordinates].to_i
