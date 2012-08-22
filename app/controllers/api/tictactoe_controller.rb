@@ -38,7 +38,7 @@ class Api::TictactoeController < ApplicationController
 		return render :json=>{:message=>"Playmate with id: " + params[:playmate_id] + " not found."} if playmate.nil?
 
 		board_id = tictactoe.create_new_board(current_user.id, playmate.id)
-		if !params[:ongoing_game].nil?
+		if !params[:already_playing].nil?
 			Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_refresh_game', {:initiator_id => current_user.id, :board_id => board_id})
       		render :json=>{:message=>"Board successfully refreshed, playdate id is " + @playdate.id.to_s, :board_id => board_id}
       	else
