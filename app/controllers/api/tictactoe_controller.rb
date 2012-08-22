@@ -21,7 +21,7 @@ class Api::TictactoeController < ApplicationController
 	 skip_before_filter :verify_authenticity_token
 	 before_filter :authenticate_user!
 
-	#request params playmate_id, authentication_token, playdate_id, already_playing
+	#request params user_id, authentication_token, playdate_id, already_playing
 	def new_game
 		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, authentication_token. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:user_id].nil? || params[:playdate_id].nil?
 	
@@ -35,7 +35,7 @@ class Api::TictactoeController < ApplicationController
 		return render :json=>{:message=>"Playmate cannot be found."} if current_user.nil?
 
 		user_current = User.find_by_id(params[:user_id].to_i)
-		return render :json=>{:message=>"User with id: " + params[:user_id] + " not found."} if playmate.nil?
+		return render :json=>{:message=>"User with id: " + params[:user_id] + " not found."} if user_current.nil?
 
 		board_id = tictactoe.create_new_board(current_user.id, user_current.id)
 		if !params[:already_playing].nil?
