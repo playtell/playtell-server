@@ -18,7 +18,7 @@ class Api::UsersController < ApplicationController
       next if friend.nil?
 
       # Find friend friendship status
-      friendHash = friend.to_hash
+      friendHash = friend.as_json
       friendHash[:status] = friendship.status.nil? ? 'pending' : 'confirmed'
       friends << friendHash
     end
