@@ -157,7 +157,7 @@ class Api::TictactoeController < ApplicationController
 
 		# grab the current playdate! 
 		@playdate = Playdate.find_by_id(params[:playdate_id])
-		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if @playdate.nil?
+		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if (@playdate.nil? && params[:playdate_id].nil)?
 
 		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
 		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
