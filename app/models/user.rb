@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   end
   
   def allActiveFriendships
-    self.friendships.where("status != false") + self.inverse_friendships.where("status != false")
+    self.friendships.where("status is not false") + self.inverse_friendships.where("status is not false")
   end
   
   def isFriend? (user)
