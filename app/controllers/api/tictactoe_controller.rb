@@ -21,10 +21,10 @@ class Api::TictactoeController < ApplicationController
 	 skip_before_filter :verify_authenticity_token
 	 before_filter :authenticate_user!
 
-	#request params playmate_id, authentication_token, playdate_id, already_playing
+	#request params initiator_id, playmate_id, authentication_token, playdate_id, already_playing
 	def new_game
-		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, authentication_token. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil?
-	
+		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, authentication_token. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:initiator_id].nil?
+		
 		# grab the current playdate! 
 		@playdate = Playdate.find_by_id(params[:playdate_id])
 		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if @playdate.nil?
@@ -35,15 +35,18 @@ class Api::TictactoeController < ApplicationController
 		return render :json=>{:message=>"Playmate cannot be found."} if current_user.nil?
 
 		playmate = User.find_by_id(params[:playmate_id].to_i)
+		initiator = User.find_by_id(params[:initiator_id].to_i)
+
 		return render :json=>{:message=>"Playmate with id: " + params[:playmate_id] + " not found."} if playmate.nil?
+		return render :json=>{:message=>"Initiator playmate with id: " + params[:initiator_id] + " not found."} if playmate.nil?
 
 		board_id = tictactoe.create_new_board(current_user.id, playmate.id)
 		if !params[:already_playing].nil?
-			Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_refresh_game', {:initiator_id => current_user.id, :board_id => board_id})
-      		render :json=>{:message=>"Board successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => current_user.id, :board_id => board_id}
+			Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_refresh_game', {:initiator_id => initiator.id, :board_id => board_id})
+      		render :json=>{:message=>"Board successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id}
       	else
-      		Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_new_game', {:initiator_id => current_user.id, :board_id => board_id})
-			render :json=>{:message=>"Board successfully initialized, playdate id is " + @playdate.id.to_s, :initiator_id => current_user.id, :board_id => board_id}
+      		Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_new_game', {:initiator_id => initiator.id, :board_id => board_id})
+			render :json=>{:message=>"Board successfully initialized, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id}
 		end
 
 	end
