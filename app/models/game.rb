@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   
   # creates the corresponding app record in the db for this game
   def create_app
-    a = App.new()
+    a = App.new({:title => self.title})
     a.save
     self.app_id = a.id
   end
