@@ -29,7 +29,7 @@ class Api::UsersController < ApplicationController
 
       # Find friend friendship status
       friendHash = friend.as_json
-      friendHash[:friendship_status] = status
+      friendHash[:friendshipStatus] = status
       friends << friendHash
     end
     
