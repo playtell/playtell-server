@@ -28,10 +28,10 @@ class Api::UsersController < ApplicationController
       next if friend.nil?
 
       # User status
-      if (user.status != User::CONFIRMED)
+      if (friend.status != User::CONFIRMED)
         # User is pending (aka. hasn't installed the app yet)
         userStatus = 'pending'
-      elsif Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status != ?", id, id, Playdate::DISCONNECTED]) > 0
+      elsif Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status != ?", friend_id, friend_id, Playdate::DISCONNECTED]) > 0
         # User is either connecting to a playdate or in a playdate
         userStatus = 'playdate'
       else
