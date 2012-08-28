@@ -10,26 +10,39 @@ class Api::UsersController < ApplicationController
     return render :status=>150, :json=>{ :message => "User not found." } if u.nil?
 
     # Give each friendship a status (confirmed, pending-them, or pending-you)
+    # Give each a user status (available, playdate, pending)
     friends = []
     u.allApprovedAndPendingFriendships.each do |friendship|
-      # Figure out status
-      status = friendship.status.nil? ? 'pending' : 'confirmed'
-      
-      # Find friend
+      # Friendship status
+      friendshipStatus = friendship.status.nil? ? 'pending' : 'confirmed'
       if friendship.user_id == current_user.id
         friend_id = friendship.friend_id
-        status = "pending-them" if status == 'pending' # Are we waiting for them to approve to you to approve?
+        friendshipStatus = "pending-them" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
       else
         friend_id = friendship.user_id
-        status = "pending-you" if status == 'pending' # Are we waiting for them to approve to you to approve?
+        friendshipStatus = "pending-you" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
       end
 
+      # Find the user
       friend = User.find(friend_id)
       next if friend.nil?
 
+      # User status
+      if (user.status != User::CONFIRMED)
+        # User is pending (aka. hasn't installed the app yet)
+        userStatus = 'pending'
+      elsif Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status != ?", id, id, Playdate::DISCONNECTED]) > 0
+        # User is either connecting to a playdate or in a playdate
+        userStatus = 'playdate'
+      else
+        # User is available
+        userStatus = 'available'
+      end
+
       # Find friend friendship status
       friendHash = friend.as_json
-      friendHash[:friendshipStatus] = status
+      friendHash[:friendshipStatus] = friendshipStatus
+      friendHash[:userStatus] = userStatus
       friends << friendHash
     end
     
