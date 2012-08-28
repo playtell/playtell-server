@@ -29,7 +29,7 @@ class Api::UsersController < ApplicationController
 
       # Find friend friendship status
       friendHash = friend.as_json
-      friendHash[:status] = friendship.status.nil? ? 'pending' : 'confirmed'
+      friendHash[:friendship_status] = status
       friends << friendHash
     end
     
