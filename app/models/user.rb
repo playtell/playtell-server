@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
     return nil if friend.nil?
 
     # User status
-    userStatus = friend.userStatus
+    userStatus = self.userStatus
 
     # Privacy concern: only show that user is in playdate if you're confirmed friends
     if userStatus == 'playdate' && friendshipStatus != 'confirmed'
