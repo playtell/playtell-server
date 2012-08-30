@@ -28,13 +28,27 @@ class Api::FriendshipsController < ApplicationController
 
       # TODO: Notify user_id that we confirmed their friend request
 
+      # Notify Pusher rendezvous channel of friendship approved
+      Pusher["presence-rendezvous-channel"].trigger('friendship_accepted', {
+        :initiatorID => current_user.id,
+        :friendID    => user.id
+      })
+
       return render :status => 200, :json => {:message => "Friendship accepted"}
     end
 
     # Create a friendship request
-    current_user.friendships.create!(:friend_id => user.id)
+    friendship = current_user.friendships.create!(:friend_id => user.id)
 
     # TODO: Notify user_id of new friendship request
+
+    # Notify Pusher rendezvous channel
+    Pusher["presence-rendezvous-channel"].trigger('friendship_requested', {
+      :initiator   => current_user.as_playmate(friendship),
+      :initiatorID => current_user.id,
+      :friend      => user.as_playmate(friendship),
+      :friendID    => user.id
+    })
 
     render :status => 200, :json => {:message => "Friendship request created"}
   end
@@ -58,6 +72,12 @@ class Api::FriendshipsController < ApplicationController
 
     # TODO: Notify user_id of friendship acceptance
 
+    # Notify Pusher rendezvous channel of friendship acceptance
+    Pusher["presence-rendezvous-channel"].trigger('friendship_accepted', {
+      :initiatorID => current_user.id,
+      :friendID    => user.id
+    })
+
     render :status => 200, :json => {:message => "Friendship accepted"}
   end
 
@@ -78,7 +98,13 @@ class Api::FriendshipsController < ApplicationController
     friendship.responded_at = DateTime.now
     friendship.save
 
-    # TODO: Notify user_id of friendship denial 
+    # TODO: Notify user_id of friendship denial
+
+    # Notify Pusher rendezvous channel of friendship acceptance
+    Pusher["presence-rendezvous-channel"].trigger('friendship_denied', {
+      :initiatorID => current_user.id,
+      :friendID    => user.id
+    })
 
     render :status => 200, :json => {:message => "Friendship declined"}
   end
