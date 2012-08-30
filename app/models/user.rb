@@ -134,10 +134,10 @@ class User < ActiveRecord::Base
     friendshipStatus = friendship.status.nil? ? 'pending' : 'confirmed'
     if friendship.user_id == self.id
       friend_id = friendship.friend_id
-      friendshipStatus = "pending-them" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
+      friendshipStatus = "pending-you" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
     else
       friend_id = friendship.user_id
-      friendshipStatus = "pending-you" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
+      friendshipStatus = "pending-them" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
     end
 
     # Find the user
