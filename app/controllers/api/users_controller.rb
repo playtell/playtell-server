@@ -15,17 +15,17 @@ class Api::UsersController < ApplicationController
     u.allApprovedAndPendingFriendships.each do |friendship|
       # # Friendship status
       # friendshipStatus = friendship.status.nil? ? 'pending' : 'confirmed'
-      # if friendship.user_id == current_user.id
-      #   friend_id = friendship.friend_id
+      if friendship.user_id == current_user.id
+        friend_id = friendship.friend_id
       #   friendshipStatus = "pending-them" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
-      # else
-      #   friend_id = friendship.user_id
+      else
+        friend_id = friendship.user_id
       #   friendshipStatus = "pending-you" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
-      # end
+      end
 
       # # Find the user
-      # friend = User.find(friend_id)
-      # next if friend.nil?
+      friend = User.find(friend_id)
+      next if friend.nil?
 
       # # User status
       # if (friend.status != User::CONFIRMED)
