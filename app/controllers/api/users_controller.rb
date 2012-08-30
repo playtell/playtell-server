@@ -48,7 +48,7 @@ class Api::UsersController < ApplicationController
       # friendHash = friend.as_json
       # friendHash[:friendshipStatus] = friendshipStatus
       # friendHash[:userStatus] = userStatus
-      friendHash = friend.as_playdate(friendship)
+      friendHash = friend.as_playmate(friendship)
       friends << friendHash
     end
     
