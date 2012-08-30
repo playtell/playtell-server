@@ -74,8 +74,8 @@ class Api::FriendshipsController < ApplicationController
 
     # Notify Pusher rendezvous channel of friendship acceptance
     Pusher["presence-rendezvous-channel"].trigger('friendship_accepted', {
-      :initiatorID => current_user.id,
-      :friendID    => user.id
+      :initiatorID => user.id,
+      :friendID    => current_user.id
     })
 
     render :status => 200, :json => {:message => "Friendship accepted"}
@@ -102,8 +102,8 @@ class Api::FriendshipsController < ApplicationController
 
     # Notify Pusher rendezvous channel of friendship acceptance
     Pusher["presence-rendezvous-channel"].trigger('friendship_denied', {
-      :initiatorID => current_user.id,
-      :friendID    => user.id
+      :initiatorID => user.id,
+      :friendID    => current_user.id
     })
 
     render :status => 200, :json => {:message => "Friendship declined"}
