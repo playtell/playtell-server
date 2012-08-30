@@ -39,6 +39,11 @@ class Api::UsersController < ApplicationController
         userStatus = 'available'
       end
 
+      # Privacy concern: only show that user is in playdate if you're confirmed friends
+      if userStatus == 'playdate' && friendshipStatus != 'confirmed'
+        userStatus = 'available'
+      end
+
       # Find friend friendship status
       friendHash = friend.as_json
       friendHash[:friendshipStatus] = friendshipStatus
