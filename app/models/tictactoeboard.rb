@@ -38,9 +38,8 @@ class Tictactoeboard < ActiveRecord::Base
 	NIL_OR_ERROR = 99
 
 	# ---- validations ----
-
 	attr_accessible :status, :num_pieces_placed, :winner, :whose_turn, :created_by, :playmate, :win_code
-	belongs_to :tictactoe
+	belongs_to :gamelet
 	has_many :tictactoespaces, :dependent => :destroy
 	has_many :tictactoeindicators, :dependent => :destroy
 

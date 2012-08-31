@@ -35,6 +35,8 @@ gem "fog", "~> 1.1.2"
 gem 'imgkit'
 gem 'twilio-rb'
 gem 'newrelic_rpm'
+gem "rspec-rails", :group => [:test, :development]
+gem 'test-unit'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

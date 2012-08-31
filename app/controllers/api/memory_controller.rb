@@ -1,60 +1,47 @@
-class Api::TictactoeController < ApplicationController
+class Api::MemoryController < ApplicationController
 	# ---- CONSTANTS ----
-	# piece placement status codes
-	NOT_PLACED = 0
-	PLACED_SUCCESS = 1
-	PLACED_WON = 2
-	PLACED_CATS = 3
-
-	#win status codes
-	PLACED_WON_COL_0 = 6
-	PLACED_WON_COL_1 = 7
-	PLACED_WON_COL_2 = 8
-	PLACED_WON_ACROSS_TOP_LEFT = 9
-	PLACED_WON_ACROS_BOTTON_LEFT = 10
-	PLACED_WON_ROW_0 = 11
-	PLACED_WON_ROW_1 = 12
-	PLACED_WON_ROW_2 = 13
-	NIL_OR_ERROR = 99
-
 	 respond_to :json
 	 skip_before_filter :verify_authenticity_token
 	 before_filter :authenticate_user!
 
-	#request params initiator_id, playmate_id, authentication_token, playdate_id, already_playing
+	#request params initiator_id, playmate_id, authentication_token, playdate_id, already_playing, theme_id
 	def new_game
-		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, initiator_id, authentication_token. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:initiator_id].nil?
+		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, initiator_id, authentication_token, and theme_id. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:initiator_id].nil? || params[:theme_id].nil?
 		
 		# grab the current playdate! 
 		@playdate = Playdate.find_by_id(params[:playdate_id])
 		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if @playdate.nil?
 
-		gamelet = Gamelet.create if Gamelet.first.nil?
-		gamelet = Gamelet.first
+		# grab the theme_id and validate it 
+		## TODO at some point we need a theme table so we can error check theme_id... maybe add a "Theme" model to the rails app?
+		theme_id = params[:theme_id]
 
-		return render :json=>{:message=>"Playmate cannot be found."} if current_user.nil?
+		# create a new gamelet
+		gamelet = Gamelet.create(:theme_id => theme_id)
 
+		## get playmate and intiator
 		playmate = User.find_by_id(params[:playmate_id].to_i)
 		initiator = User.find_by_id(params[:initiator_id].to_i)
 
-		return render :json=>{:message=>"Playmate with id: " + params[:playmate_id] + " not found."} if playmate.nil?
 		return render :json=>{:message=>"Initiator playmate with id: " + params[:initiator_id] + " not found."} if initiator.nil?
+		return render :json=>{:message=>"Playmate with id: " + params[:playmate_id] + " not found."} if playmate.nil?
 
-		board_id = gamelet.new_tictactoe_board(initiator.id, playmate.id)
+		board_id = gamelet.new_memory_board(initiator.id, playmate.id, theme_id)
+
 		if !params[:already_playing].nil?
-			Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_refresh_game', {:initiator_id => initiator.id, :board_id => board_id})
+			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {:initiator_id => initiator.id, :board_id => board_id})
       		render :json=>{:message=>"Board successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id}
       	else
-      		Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_new_game', {:initiator_id => initiator.id, :board_id => board_id})
+      		Pusher[@playdate.pusher_channel_name].trigger('games_memory_new_game', {:initiator_id => initiator.id, :board_id => board_id})
 			render :json=>{:message=>"Board successfully initialized, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id}
 		end
 
 	end
 
-	#request params user_id, board_id, coordinates, with_json
-	def place_piece
+	#request params card1_index, card2_index, board_id, playdate_id, authentication_token, user_id
+	def play_turn
 		##start PARAM validation start
-		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, coordinates, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:coordinates].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
+		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, coordinates, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:card2_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
 
 		current_user = User.find_by_id(params[:user_id])
 		return render :json=>{:message=>"Playmate cannot be found."} if current_user.nil?
@@ -179,5 +166,4 @@ class Api::TictactoeController < ApplicationController
 
 		return render :json=>{:message=>"Game has been terminated."}
 	end
-
 end

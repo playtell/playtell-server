@@ -53,12 +53,17 @@ Semiralabs::Application.routes.draw do
     match 'friendship/create' => 'friendships#create'
     match 'friendship/accept' => 'friendships#accept'
     match 'friendship/decline' => 'friendships#decline'
+
     match 'games/tictactoe/new_game' => 'tictactoe#new_game'
     match 'games/tictactoe/place_piece' => 'tictactoe#place_piece'
     match 'games/tictactoe/spaces_to_json' => 'tictactoe#spaces_to_json'
     match 'games/tictactoe/indicators_to_json' => 'tictactoe#indicators_to_json'
     match 'games/tictactoe/board_to_json' => 'tictactoe#board_to_json'
     match 'games/tictactoe/end_game' => 'tictactoe#end_game'
+
+    match 'games/memory/new_game' => 'memory#new_game'
+    match 'games/tictactoe/play_turn' => 'memory#play_turn'
+    match 'games/tictactoe/end_game' => 'memory#end_game'
 
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'

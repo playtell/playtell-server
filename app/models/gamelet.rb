@@ -1,4 +1,4 @@
-class Tictactoe < ActiveRecord::Base
+class Gamelet < ActiveRecord::Base
 	# ---- CONSTANTS ----
 	# game status
 	OPEN_GAME = 0
@@ -25,14 +25,15 @@ class Tictactoe < ActiveRecord::Base
 	PLACED_WON_ROW_2 = 13
 	NIL_OR_ERROR = 99
 
-	attr_accessible :num_boards, :num_active_games
-	belongs_to :game
-	has_many :tictactoeboards, :dependent => :destroy # TODO ask someone about a good way to keep track of the number of boards once they are created
+	attr_accessible :theme_id
+	has_many :tictactoeboards, :dependent => :destroy
 	has_many :tictactoeindicators, :through => :tictactoeboards
 	has_many :tictactoespaces, :through => :tictactoeboards
 
-	# initializes and creates new board, returns -1 if fail, else returns new board id
-	def create_new_board(created_by, friend_2)
+	has_many :memoryboards, :dependent => :destroy
+
+	# initializes and creates new tictactoeboard, -1 means error returned
+	def new_tictactoe_board(created_by, friend_2)
 
 		#verify that created_by exists in the users table
 		creator = User.find_by_id(created_by)
@@ -64,5 +65,18 @@ class Tictactoe < ActiveRecord::Base
 
 		return board.id
 	end
+
+	def new_memorygame_board(created_by, friend_2, total_num_cards)
+
+		#verify that created_by exists in the users table
+		creator = User.find_by_id(created_by)
+		playmate = User.find_by_id(friend_2)
+		return -1 if creator.nil? || playmate.nil?
+
+		board = Memoryboard.create(:win_code => NIL_OR_ERROR, :status => OPEN_GAME, :num_cards_left => total_num_cards, :winner => nil, :initiator_id => creator.id, :playmate_id => playmate.id, :whose_turn => CREATORS_TURN, :gamelet_id => self.id, :num_total_cards => num_total_cards) # it's the creator's turn first
+
+		return board.id
+	end
+
 
 end
