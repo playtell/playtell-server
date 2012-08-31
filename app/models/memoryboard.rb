@@ -2,7 +2,6 @@ class Memoryboard < ActiveRecord::Base
 	# ---- CONSTANTS ----
 	# game status
 	OPEN_GAME = 0
-	CLOSED_WON = 2
 	CLOSED_UNFINISHED = 3
 
 	# piece placement status codes
@@ -102,6 +101,8 @@ class Memoryboard < ActiveRecord::Base
 	def card_array_to_string
 		@cards.map {|i| i.to_s}.join
 	end
+
+	
 
 
 end

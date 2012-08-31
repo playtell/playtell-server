@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830231037) do
+ActiveRecord::Schema.define(:version => 20120831011739) do
 
   create_table "apps", :force => true do |t|
     t.datetime "created_at"
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20120830231037) do
   create_table "gamelets", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "theme_id"
   end
 
   create_table "games", :force => true do |t|
@@ -193,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20120830231037) do
     t.integer  "playdate_id"
     t.integer  "playmate_id"
     t.integer  "initiator_id"
+    t.integer  "num_total_cards"
   end
 
   create_table "pages", :force => true do |t|

@@ -1,9 +1,9 @@
 class AddStuffToGamelet < ActiveRecord::Migration
   def self.up
-  	add_column :theme_id, :gamelet, :integer
+  	add_column :gamelets, :theme_id, :integer
   end
 
   def self.down
-  	remove_column :theme_id, :gamelet
+  	remove_column :gamelets, :theme_id
   end
 end

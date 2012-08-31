@@ -1,11 +1,15 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+memory_gamelet:
+id: 10
+theme_id: 10
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+memory_gamelet1:
+id: 11
+theme_id: 11
+
+memory_gamelet2:
+id: 12
+theme_id: 12
+
+memory_gamelet3:
+id: 13
+theme_id: 13
