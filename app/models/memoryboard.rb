@@ -43,7 +43,7 @@ class Memoryboard < ActiveRecord::Base
 	end
 
 	def index_in_bounds(index)
-		(index >= 0) && (index <= (self.num_cards_left - 1)
+		(index >= 0) && (index <= (self.num_cards_left - 1))
 	end
 
 	## -Start board setters
