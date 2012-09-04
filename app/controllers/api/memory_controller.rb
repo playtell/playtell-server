@@ -31,7 +31,7 @@ class Api::MemoryController < ApplicationController
 		return render :json=>{:message=>"Initiator playmate with id: " + params[:initiator_id] + " not found."} if initiator.nil?
 		return render :json=>{:message=>"Playmate with id: " + params[:playmate_id] + " not found."} if playmate.nil?
 
-		board_id = gamelet.new_memory_board(initiator.id, playmate.id, theme_id)
+		board_id = gamelet.new_memorygame_board(initiator.id, playmate.id, theme_id)
 
 		if !params[:already_playing].nil?
 			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {:initiator_id => initiator.id, :board_id => board_id})
