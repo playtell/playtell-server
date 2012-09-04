@@ -86,6 +86,7 @@ class Memoryboard < ActiveRecord::Base
 			end
 			@@cards[index] = CARD_UNAVAILABLE
 			set_turn(initiator_id)
+			self.num_cards_left = (self.num_cards_left - 1)
 			return true
 		end
 		return false
@@ -136,5 +137,9 @@ class Memoryboard < ActiveRecord::Base
 	def is_a_match(a,b)
 		@@cards[a] == @@cards[b]
 	end
-	
+
+	def we_have_a_winner
+		self.num_cards_left <= 1
+	end
+
 end

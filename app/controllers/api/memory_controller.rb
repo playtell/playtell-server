@@ -99,7 +99,7 @@ class Api::MemoryController < ApplicationController
 				response_code = FLIP_FIRST_CARD
 				response_message = "FLIP first card. Pusher sent!"
 
-				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:message => response_message, :has_json => 0, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index]})
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:message => response_message, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index]})
 			end
 		else
 			response_code = MATCH_ERROR
@@ -110,26 +110,26 @@ class Api::MemoryController < ApplicationController
 				response_code_card2 = board.mark_index(card1_index, current_user.id)
 				if ((response_code_card1) && (response_code_card2))
 					response_code = MATCH_FOUND
+					if (board.we_have_a_winner)
+						response_code = MATCH_WINNER
+					end
 				end
 			end
+
+			if response_code == MATCH_ERROR
+				response_message = "Error: Match not made one or more of your card indexes was invalid."
+			elsif response_code == MATCH_FOUND
+				response_message = "Match success. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
+			elsif response_code == MATCH_WINNER
+				response_message = "MATCH SUCCESS, WE HAVE A WINNER. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
+			end
+
+			response["has_json"] = 0
+			response["message"] = response_message
+			response["placement_status"] = response_code	
+			Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
 		end
 
-		if response_code == MATCH_ERROR
-			response_message = "Error: Match not made one or more of your card indexes was invalid."
-		elsif response_code == MATCH_FOUND
-			response_message = "Match success. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
-		elsif response_code == MATCH_WINNER
-			response_message = "MATCH SUCCESS, WE HAVE A WINNER. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
-		end
-
-		response["has_json"] = 0
-		response["message"] = response_message
-		response["placement_code"] = response_code	
-		if response_code == MATCH_WINNER
-			Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:has_json => 0, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :coordinates => params[:coordinates]})
-		end
-
-		Pusher[@playdate.pusher_channel_name].trigger('games_memory_place_piece', {:has_json => 0, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :coordinates => params[:coordinates]})
 
 		render :json => response
 	end
