@@ -4,6 +4,11 @@ class Api::MemoryController < ApplicationController
 	 skip_before_filter :verify_authenticity_token
 	 before_filter :authenticate_user!
 
+	 MATCH_FOUND = 0
+	 MATCH_ERROR = 1
+	 FLIP_FIRST_CARD = 2
+	 MATCH_WINNER = 3
+
 	#request params initiator_id, playmate_id, authentication_token, playdate_id, already_playing, theme_id
 	def new_game
 		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, initiator_id, authentication_token, and theme_id. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:initiator_id].nil? || params[:theme_id].nil?
@@ -40,6 +45,8 @@ class Api::MemoryController < ApplicationController
 
 	#request params card1_index, card2_index, board_id, playdate_id, authentication_token, user_id
 	def play_turn
+		touched_only_one_card = false
+
 		##start PARAM validation start
 		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, coordinates, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:card2_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
 
@@ -53,7 +60,7 @@ class Api::MemoryController < ApplicationController
 		end
 
 		@playdate = Playdate.find_by_id(params[:playdate_id])
-		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
+		board = Memoryboard.find_by_id(params[:board_id].to_i)
 
 		return render :json=>{:placement_status => 0, :message=>"Error: Game has already ended or game is invalid"} if board.status != 0
 
@@ -63,8 +70,14 @@ class Api::MemoryController < ApplicationController
 
 		return render :json=>{:placement_status => 0, :message=>"Error: Board with that board id not found."} if board.nil?
 
-		coordinates = params[:coordinates].to_i
-		return render :json=>{:placement_status => 0, :message=>"Error: Coordinates are invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.are_coordinates_in_bounds(coordinates)
+		card1_index = params[:card1_index].to_i
+		card2_index = params[:card2_index].to_i
+
+		return render :json=>{:placement_status => 0, :message=>"Error: Card1Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card1_index)
+		if (card2_index != 0)
+			return render :json=>{:placement_status => 0, :message=>"Error: Card2Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card2_index)
+			touched_only_one_card = true
+		end
 
 		return render :json=>{:placement_status => 0, :message=>"Error: Playmate with id" + current_user.id.to_s() +  "is not authorized to change this board"} if !board.user_authorized(current_user.id)
 		return render :json=>{:placement_status => 0, :message=>"Error: It is not " + current_user.username.to_s + "'s turn! Try again after opponent makes move."} if !board.is_playmates_turn(current_user.id)
@@ -72,10 +85,8 @@ class Api::MemoryController < ApplicationController
 		##start RESPONSE formation
 		response = {}
 		if json_response
-			board_dump = JSON.dump board
-			spaces_dump = JSON.dump board.tictactoespaces
-			indicators_dump = JSON.dump board.tictactoeindicators
-			status_dump = {:has_json => 1,:board_dump => board_dump, :spaces_dump => spaces_dump, :indicators_dump => indicators_dump}
+			board_dump = JSON.dump board.card_array_to_string
+			status_dump = {:has_json => 1,:board_dump => board_dump}
 			response.merge(status_dump)
 		end
 
@@ -83,63 +94,51 @@ class Api::MemoryController < ApplicationController
 		response_message = ""
 
 		#get response
-		response_code = board.mark_location(coordinates, current_user.id)
+		if (touched_only_one_card)
+			if (board.valid_card_at_index(card1_index))
+				response_code = FLIP_FIRST_CARD
+				response_message = "FLIP first card. Pusher sent!"
 
-		if response_code == NOT_PLACED
-			response_message = "Placement failed. Another piece at " + params[:coordinates]
-		elsif response_code == PLACED_SUCCESS
-			response_message = "Placement success at " + params[:coordinates]
-		elsif response_code == PLACED_WON
-			response_message = "Placement success at " + params[:coordinates] + ". We have a winner!"
-		elsif response_code == PLACED_CATS
-			response_message = "Placement success at " + params[:coordinates] + ". Cats game!"
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:message => response_message, :has_json => 0, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index]})
+			end
+		else
+			response_code = MATCH_ERROR
+
+			# do they match?
+			if (board.is_a_match(card1_index, card2_index))
+				response_code_card1 = board.mark_index(card1_index, current_user.id)
+				response_code_card2 = board.mark_index(card1_index, current_user.id)
+				if ((response_code_card1) && (response_code_card2))
+					response_code = MATCH_FOUND
+				end
+			end
 		end
 
-		if response_code != NOT_PLACED
-			yCor = board.get_space(coordinates).get_y
-			xCor = board.get_space(coordinates).get_x
+		if response_code == MATCH_ERROR
+			response_message = "Error: Match not made one or more of your card indexes was invalid."
+		elsif response_code == MATCH_FOUND
+			response_message = "Match success. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
+		elsif response_code == MATCH_WINNER
+			response_message = "MATCH SUCCESS, WE HAVE A WINNER. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
 		end
 
 		response["has_json"] = 0
 		response["message"] = response_message
 		response["placement_code"] = response_code	
-		if response_code == PLACED_WON
-			response["win_code"] = board.win_code
-			Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_place_piece', {:has_json => 0, :win_code => board.win_code, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :coordinates => params[:coordinates]})
+		if response_code == MATCH_WINNER
+			Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:has_json => 0, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :coordinates => params[:coordinates]})
 		end
 
-		Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_place_piece', {:has_json => 0, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :coordinates => params[:coordinates]})
+		Pusher[@playdate.pusher_channel_name].trigger('games_memory_place_piece', {:has_json => 0, :placement_code => response_code, :playmate_id => current_user.id, :board_id => board.id, :coordinates => params[:coordinates]})
 
 		render :json => response
-	end
-
-	#request params board_id
-	def spaces_to_json
-		return render :json=>{:message=>"HTTP POST expects parameter \"board_id\" and an authentication_token. Refer to the API documentation for more info."} if params[:board_id].nil? || params[:authentication_token].nil?
-
-		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
-		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
-
-		dump = JSON.dump board.tictactoespaces
-		return render :json => dump 
-	end
-
-	#request params board_id
-	def indicators_to_json
-		return render :json=>{:message=>"HTTP POST expects parameter \"board_id\" and an authentication_token. Refer to the API documentation for more info."} if params[:board_id].nil? || params[:authentication_token].nil?
-
-		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
-		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
-
-		dump = JSON.dump board.tictactoeindicators
-		return render :json => dump 
 	end
 
 	#request params board_id
 	def board_to_json
 		return render :json=>{:message=>"HTTP POST expects parameter \"board_id\" and an authentication_token. Refer to the API documentation for more info."} if params[:board_id].nil? || params[:authentication_token].nil?
 
-		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
+		board = Memoryboard.find_by_id(params[:board_id].to_i)
 		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
 
 		dump = JSON.dump board
@@ -157,12 +156,12 @@ class Api::MemoryController < ApplicationController
 		@playdate = Playdate.find_by_id(params[:playdate_id])
 		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if (@playdate.nil? && params[:playdate_id].nil? &&params[:user_id].nil?)
 
-		board = Tictactoeboard.find_by_id(params[:board_id].to_i)
+		board = Memoryboard.find_by_id(params[:board_id].to_i)
 		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?
 
-		board.game_cats_game #TODO fix this
+		board.game_ended_by_user #TODO fix this
 
-		Pusher[@playdate.pusher_channel_name].trigger('games_tictactoe_end_game', {:board_id => board.id, :playmate_id => current_user.id})
+		Pusher[@playdate.pusher_channel_name].trigger('games_memory_end_game', {:board_id => board.id, :playmate_id => current_user.id})
 
 		return render :json=>{:message=>"Game has been terminated."}
 	end

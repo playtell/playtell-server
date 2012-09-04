@@ -40,7 +40,7 @@ class Gamelet < ActiveRecord::Base
 		playmate = User.find_by_id(friend_2)
 		return -1 if creator.nil? || playmate.nil?
 
-		board = Tictactoeboard.create(:win_code => NIL_OR_ERROR, :status => OPEN_GAME, :num_pieces_placed => 0, :winner => nil, :created_by => creator.id, :playmate => playmate.id, :whose_turn => CREATORS_TURN) # it's the creator's turn first
+		board = Tictactoeboard.create(:gamelet_id => self.id, :win_code => NIL_OR_ERROR, :status => OPEN_GAME, :num_pieces_placed => 0, :winner => nil, :created_by => creator.id, :playmate => playmate.id, :whose_turn => CREATORS_TURN) # it's the creator's turn first
 
 		#create all spaces/indicators and init them
 		for i in 0..2
@@ -67,13 +67,15 @@ class Gamelet < ActiveRecord::Base
 	end
 
 	def new_memorygame_board(created_by, friend_2, total_num_cards)
+		return -1 if (total_num_cards < 4) || ((total_num_cards % 2) != 0) || (total_num_cards > 20)
 
 		#verify that created_by exists in the users table
 		creator = User.find_by_id(created_by)
 		playmate = User.find_by_id(friend_2)
 		return -1 if creator.nil? || playmate.nil?
 
-		board = Memoryboard.create(:win_code => NIL_OR_ERROR, :status => OPEN_GAME, :num_cards_left => total_num_cards, :winner => nil, :initiator_id => creator.id, :playmate_id => playmate.id, :whose_turn => CREATORS_TURN, :gamelet_id => self.id, :num_total_cards => num_total_cards) # it's the creator's turn first
+		board = Memoryboard.create(:win_code => NIL_OR_ERROR, :status => OPEN_GAME, :num_cards_left => total_num_cards, :winner => nil, :initiator_id => creator.id, :playmate_id => playmate.id, :whose_turn => CREATORS_TURN, :gamelet_id => self.id, :num_total_cards => total_num_cards) # it's the creator's turn first
+		board.init_card_array
 
 		return board.id
 	end

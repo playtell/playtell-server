@@ -1,15 +1,3 @@
-memory_gamelet:
-id: 10
-theme_id: 10
-
-memory_gamelet1:
-id: 11
-theme_id: 11
-
-memory_gamelet2:
-id: 12
-theme_id: 12
-
-memory_gamelet3:
-id: 13
-theme_id: 13
+open_game:
+ theme_id: 19
+ id: 19

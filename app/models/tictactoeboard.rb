@@ -127,6 +127,7 @@ class Tictactoeboard < ActiveRecord::Base
 	## -End board active-record getters.
 
 	## -Start board setters
+	#sets whose_turn to the id of the other player
 	def set_turn(user_id)
 		if is_game_creator(user_id)
 			self.whose_turn = PLAYMATES_TURN
