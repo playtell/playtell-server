@@ -38,9 +38,8 @@ class Tictactoeboard < ActiveRecord::Base
 	NIL_OR_ERROR = 99
 
 	# ---- validations ----
-
 	attr_accessible :status, :num_pieces_placed, :winner, :whose_turn, :created_by, :playmate, :win_code
-	belongs_to :tictactoe
+	belongs_to :gamelet
 	has_many :tictactoespaces, :dependent => :destroy
 	has_many :tictactoeindicators, :dependent => :destroy
 
@@ -120,9 +119,15 @@ class Tictactoeboard < ActiveRecord::Base
 		self.save
 	end
 
+	def game_ended_by_user
+		self.status = CLOSED_UNFINISHED
+		self.save
+	end
+
 	## -End board active-record getters.
 
 	## -Start board setters
+	#sets whose_turn to the id of the other player
 	def set_turn(user_id)
 		if is_game_creator(user_id)
 			self.whose_turn = PLAYMATES_TURN

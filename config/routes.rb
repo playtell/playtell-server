@@ -50,12 +50,20 @@ Semiralabs::Application.routes.draw do
     match 'contacts/show' => 'contacts#show'
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'
+    match 'friendship/create' => 'friendships#create'
+    match 'friendship/accept' => 'friendships#accept'
+    match 'friendship/decline' => 'friendships#decline'
+
     match 'games/tictactoe/new_game' => 'tictactoe#new_game'
     match 'games/tictactoe/place_piece' => 'tictactoe#place_piece'
     match 'games/tictactoe/spaces_to_json' => 'tictactoe#spaces_to_json'
     match 'games/tictactoe/indicators_to_json' => 'tictactoe#indicators_to_json'
     match 'games/tictactoe/board_to_json' => 'tictactoe#board_to_json'
     match 'games/tictactoe/end_game' => 'tictactoe#end_game'
+
+    match 'games/memory/new_game' => 'memory#new_game'
+    match 'games/memory/play_turn' => 'memory#play_turn'
+    match 'games/memory/end_game' => 'memory#end_game'
 
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'
@@ -69,6 +77,8 @@ Semiralabs::Application.routes.draw do
   match 'pusher/auth' => 'pusher#auth'
   match '/ipad' => 'ipad#index'
   match '/iPad' => 'ipad#index'
+  match '/iPad-tictactoe' => 'ipad#index'
+
   
   match 'early_access' => 'application#earlyAccess' 
   match 'timeline' => 'application#timeline'  

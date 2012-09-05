@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   
   has_one :playdate  
   has_many :friendships
-  has_many :friends, :through => :friendships
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :friends, :through => :friendships
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   has_many :device_tokens
   has_many :playdate_photos
@@ -68,19 +68,20 @@ class User < ActiveRecord::Base
     end
   end
   
-  def allFriends
-    self.friends + self.inverse_friends
+  def allFriends # returns only all approved friends!
+    self.friends.where("friendships.status is true") + self.inverse_friends.where("friendships.status is true")
+  end
+
+  def allPendingFriends
+    self.friends.where("friendships.status is null") + self.inverse_friends.where("friendships.status is null")
+  end
+
+  def allApprovedAndPendingFriends
+    self.friends.where("friendships.status is not false") + self.inverse_friends.where("friendships.status is not false")
   end
   
-  def allFriendships
-    all_ids = []
-    for f in self.friendships 
-      all_ids << f.friend_id
-    end
-    for i in self.inverse_friendships
-      all_ids << i.user_id
-    end
-    return all_ids
+  def allApprovedAndPendingFriendships
+    self.friendships.where("status is not false") + self.inverse_friendships.where("status is not false")
   end
   
   def isFriend? (user)
@@ -115,8 +116,8 @@ class User < ActiveRecord::Base
   
   # used for token authentication, for the apis. assigns the user a token that the api can use to auth, rather than having the user sign in
   def ensure_authentication_token!   
-      reset_authentication_token! if authentication_token.blank?   
-    end
+    reset_authentication_token! if authentication_token.blank?   
+  end
   
   #overriding to add the display name and profile pic
   def as_json(options={})
@@ -126,6 +127,48 @@ class User < ActiveRecord::Base
       :displayName => self.displayName,
       :fullName => self.fullName,
       :profilePhoto => self.profile_photo }      
+  end
+
+  def as_playmate(friendship)
+    # Friendship status
+    friendshipStatus = friendship.status.nil? ? 'pending' : 'confirmed'
+    if friendship.user_id == self.id
+      friend_id = friendship.friend_id
+      friendshipStatus = "pending-you" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
+    else
+      friend_id = friendship.user_id
+      friendshipStatus = "pending-them" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
+    end
+
+    # Find the user
+    friend = User.find(friend_id)
+    return nil if friend.nil?
+
+    # User status
+    userStatus = self.userStatus
+
+    # Privacy concern: only show that user is in playdate if you're confirmed friends
+    if userStatus == 'playdate' && friendshipStatus != 'confirmed'
+      userStatus = 'available'
+    end
+
+    selfHash = self.as_json
+    selfHash[:friendshipStatus] = friendshipStatus
+    selfHash[:userStatus] = userStatus
+    return selfHash
+  end
+
+  def userStatus
+    if (self.status != User::CONFIRMED)
+      # User is pending (aka. hasn't installed the app yet)
+      return 'pending'
+    elsif Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status != ?", self.id, self.id, Playdate::DISCONNECTED]) > 0
+      # User is either connecting to a playdate or in a playdate
+      return 'playdate'
+    else
+      # User is available
+      return 'available'
+    end
   end
   
 end

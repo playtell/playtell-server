@@ -6,6 +6,7 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
+App.delete_all
 Book.delete_all
 Page.delete_all
 =begin
@@ -299,6 +300,9 @@ Page.create({:book_id => t.id,
            :page_text => "And now, every time Thomas passes a signal, he checks it twice, just to be safe. Gordon likes to tease him. \"Fussy little Thomas certainly is fussy about signals.\"\n\"Peep, peep!\" says Thomas. \"Safety is our first concern.\""
            })
            
+# create tic tac toe
+Game.delete_all
+Game.create({:title => "Tic Tac Toe"})
            
 # create users
 if !User.find_by_username(DEFAULT_FRIEND_NAME)

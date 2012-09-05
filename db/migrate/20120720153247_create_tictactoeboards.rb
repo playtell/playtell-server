@@ -8,8 +8,8 @@ class CreateTictactoeboards < ActiveRecord::Migration
    		t.integer :tictactoe_game_id
       t.integer :created_by
       t.integer :playmate
-   		t.integer :tictactoe_id # TODO remove once renamed properly
-
+   		t.integer :gamelet_id 
+      
       t.timestamps
     end
   end

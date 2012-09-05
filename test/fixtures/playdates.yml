@@ -1,15 +1,15 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+# # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  player1_id: 1
-  player2_id: 1
-  book_id: 1
-  page_num: 1
-  video_session_id: MyString
+# one:
+#   player1_id: 1
+#   player2_id: 1
+#   book_id: 1
+#   page_num: 1
+#   video_session_id: MyString
 
-two:
-  player1_id: 1
-  player2_id: 1
-  book_id: 1
-  page_num: 1
-  video_session_id: MyString
+# two:
+#   player1_id: 1
+#   player2_id: 1
+#   book_id: 1
+#   page_num: 1
+#   video_session_id: MyString

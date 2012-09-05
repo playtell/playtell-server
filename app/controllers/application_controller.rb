@@ -62,32 +62,32 @@ class ApplicationController < ActionController::Base
   def timeline
   end
   
-  # to be moved to activities controller
+  # to be moved to apps controller
+  # returns num_books, num_crates, a list of all activities ordered by crate, and then all activities not in a crate 
   def getAllActivities
-
-    books = Book.order(:created_at).all
-        
     activities = []
-    
+
+    books = Book.order(:created_at).all    
     books.each do |book|
       activities << {
-        :activity_id        => book.id,
+        :activity_id        => book.id, 
         :activity_logo_url  => "#{S3_BUCKET_NAME}/books/#{book.image_directory}/cover_front.jpg",
         :activity_name      => book.title
         #:total_pages  => book.pages.count
       }
     end
-    #TODO add tic tac toe activity
 
-    a = {
-      :activity_id        => 100,
-      :activity_logo_url  => "#{S3_BUCKET_NAME}/toybox/TTT-logo.png",
-      :activity_name      => "Tic Tac Toe"
-    }
-    activities << a
+    games = Game.order(:created_at).all
+    games.each do |game|
+      activities << {
+        :activity_id        => game.id, 
+        #:activity_logo_url  => "#{S3_BUCKET_NAME}/books/#{book.image_directory}/cover_front.jpg",
+        :activity_name      => game.title
+      }
+    end
     
     response = {
-      :num_activities => books.count,
+      :num_activities => activities.count,
       :num_crates => 0,
       :activites => activities,
       :crates => []

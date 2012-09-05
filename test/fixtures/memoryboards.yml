@@ -1,0 +1,21 @@
+open_game:
+ status: 0 #open game
+ winner: nil
+ whose_turn: 0 #creator's turn
+ num_cards_left: 10
+ win_code: -1
+ gamelet_id: 12
+ playdate_id: 13
+ playmate_id: 10
+ initiator_id: 19
+
+closed_won_game:
+ status: 2 #closed_won
+ winner: 10
+ whose_turn: 0 #creator's turn
+ num_cards_left: 10
+ win_code: -1
+ gamelet_id: 12
+ playdate_id: 13
+ playmate_id: 10
+ initiator_id: 19

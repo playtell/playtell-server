@@ -1,9 +1,7 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+init:
+ id: 34 #open game
+ email: "herro@aol.com"
 
-one:
-  username: MyString
-  user_session: MyString
-
-two:
-  username: MyString
-  user_session: MyString
+play:
+ id: 35 #open game
+ email: "herro2@aol.com"

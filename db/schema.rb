@@ -10,7 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808064421) do
+ActiveRecord::Schema.define(:version => 20120831011739) do
+
+  create_table "apps", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+  end
 
   create_table "boards", :force => true do |t|
     t.datetime "created_at"
@@ -23,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20120808064421) do
     t.datetime "updated_at"
     t.string   "image_directory"
     t.integer  "image_only",      :default => 0
+    t.integer  "app_id"
   end
 
   create_table "cardgames", :force => true do |t|
@@ -90,14 +97,21 @@ ActiveRecord::Schema.define(:version => 20120808064421) do
     t.integer  "friend_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "status"
+    t.datetime "responded_at"
+  end
+
+  create_table "gamelets", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "theme_id"
   end
 
   create_table "games", :force => true do |t|
-    t.integer  "type"
-    t.integer  "playdate_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "tictactoe_number"
+    t.integer  "app_id"
+    t.string   "title"
   end
 
   create_table "games_boards", :force => true do |t|
@@ -168,6 +182,21 @@ ActiveRecord::Schema.define(:version => 20120808064421) do
     t.datetime "updated_at"
   end
 
+  create_table "memoryboards", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "status"
+    t.integer  "winner"
+    t.integer  "whose_turn"
+    t.integer  "num_cards_left"
+    t.integer  "win_code"
+    t.integer  "gamelet_id"
+    t.integer  "playdate_id"
+    t.integer  "playmate_id"
+    t.integer  "initiator_id"
+    t.integer  "num_total_cards"
+  end
+
   create_table "pages", :force => true do |t|
     t.integer  "book_id"
     t.integer  "page_num"
@@ -229,6 +258,7 @@ ActiveRecord::Schema.define(:version => 20120808064421) do
     t.integer  "created_by"
     t.integer  "playmate"
     t.integer  "win_code"
+    t.integer  "gamelet_id"
   end
 
   create_table "tictactoeindicators", :force => true do |t|
