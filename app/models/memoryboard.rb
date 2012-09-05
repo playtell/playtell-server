@@ -27,7 +27,7 @@ class Memoryboard < ActiveRecord::Base
 	@@a = "hi"
 
 	# ---- validations ----
-	attr_accessible :status, :winner, :whose_turn, :num_cards_left, :win_code, :gamelet_id, :playdate_id, :initiator_id, :num_total_cards
+	attr_accessible :status, :card_array_string, :winner, :whose_turn, :num_cards_left, :win_code, :gamelet_id, :playdate_id, :initiator_id, :num_total_cards
 	belongs_to :gamelet
 
 	## -Start board verification methods. These are bools giving the client info about the board
@@ -79,14 +79,17 @@ class Memoryboard < ActiveRecord::Base
 	end
 
 	def mark_index(index, initiator_id) #marks index as unavailable
+		cards = self.card_array_from_string(self.card_array_string)
 		if self.index_in_bounds(index)
-			if (@@cards[index] == CARD_UNAVAILABLE)
+			if (cards[index] == CARD_UNAVAILABLE)
 				puts "ERROR: index " + index.to_s + " is already marked"
 				return false
 			end
-			@@cards[index] = CARD_UNAVAILABLE
+			cards[index] = CARD_UNAVAILABLE
 			set_turn(initiator_id)
 			self.num_cards_left = (self.num_cards_left - 1)
+			self.card_array_string = self.card_array_to_string(cards)
+			self.save
 			return true
 		end
 		return false
@@ -105,12 +108,12 @@ class Memoryboard < ActiveRecord::Base
 		stack_of_artwork_ids = stack_of_artwork_ids.shuffle #randomize array
 
 		@@cards = stack_of_artwork_ids
-		sef.card_array_string = self.card_array_to_string
+		sef.card_array_string = self.card_array_to_string(@@cards)
 		self.save
 	end
 
-	def card_array_to_string
-		@@cards.map {|i| i.to_s}.join
+	def card_array_to_string(array)
+		array.map {|i| i.to_s}.join
 	end
 
 	#filename format is theme[theme_id]artwork[artwork_id].png
@@ -126,8 +129,9 @@ class Memoryboard < ActiveRecord::Base
 	end
 
 	def valid_card_at_index(index)
+		cards = self.card_array_from_string(self.card_array_string)
 		if self.index_in_bounds(index)
-			if (@@cards[index] == CARD_UNAVAILABLE)
+			if (cards[index] == CARD_UNAVAILABLE)
 				return false
 			else 
 				true
