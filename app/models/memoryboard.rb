@@ -24,10 +24,9 @@ class Memoryboard < ActiveRecord::Base
 
 	#instance variable representing card array
 	@@cards
-	@@a = "hi"
 
 	# ---- validations ----
-	attr_accessible :status, :card_array_string, :winner, :whose_turn, :num_cards_left, :win_code, :gamelet_id, :playdate_id, :initiator_id, :num_total_cards
+	attr_accessible :status, :card_array_string, :winner, :whose_turn, :num_cards_left, :win_code, :gamelet_id, :playmate_id, :playdate_id, :initiator_id, :num_total_cards
 	belongs_to :gamelet
 
 	## -Start board verification methods. These are bools giving the client info about the board
@@ -35,7 +34,7 @@ class Memoryboard < ActiveRecord::Base
 		if self.whose_turn == CREATORS_TURN
 			return initiator_id == self.initiator_id
 		else
-			return initiator_id == self.playmate
+			return initiator_id == self.playmate_id
 		end
 	end
 
@@ -48,7 +47,7 @@ class Memoryboard < ActiveRecord::Base
 	end
 
 	def index_in_bounds(index)
-		(index >= 0) && (index <= (self.num_cards_left - 1))
+		(index >= 0) && (index <= (self.num_total_cards - 1))
 	end
 
 	## -Start board setters
@@ -86,12 +85,13 @@ class Memoryboard < ActiveRecord::Base
 				return false
 			end
 			cards[index] = CARD_UNAVAILABLE
-			set_turn(initiator_id)
 			self.num_cards_left = (self.num_cards_left - 1)
 			self.card_array_string = self.card_array_to_string(cards)
 			self.save
+			puts "card array string: " + self.card_array_string
 			return true
 		end
+		puts "index out of bounds!"
 		return false
 	end
 
@@ -131,17 +131,33 @@ class Memoryboard < ActiveRecord::Base
 	def valid_card_at_index(index)
 		cards = self.card_array_from_string(self.card_array_string)
 		if self.index_in_bounds(index)
-			if (cards[index] == CARD_UNAVAILABLE)
+
+			if (cards[index].to_s != CARD_UNAVAILABLE.to_s)
+				puts "card still on board"
+				return true
+			else
+				puts "Error: card NOT on board"
 				return false
-			else 
-				true
 			end
 		end
-		false
+		return false
+		puts "Error: index NOT on board"
 	end
 
 	def is_a_match(a,b)
-		@@cards[a] == @@cards[b]
+		if (self.valid_card_at_index(a) && self.valid_card_at_index(b))
+			cards = self.card_array_from_string(self.card_array_string)
+			if (cards[a] == cards[b])
+				puts "is_a_match found IT IS A MATCH"
+				return true
+			else
+				puts "is_a_match found IT IS NOT a MATCH"
+				return false
+			end
+		else
+			puts "is_a_match found that one index is not valid"
+			return false
+		end
 	end
 
 	def we_have_a_winner
