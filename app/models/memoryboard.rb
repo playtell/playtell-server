@@ -105,6 +105,8 @@ class Memoryboard < ActiveRecord::Base
 		stack_of_artwork_ids = stack_of_artwork_ids.shuffle #randomize array
 
 		@@cards = stack_of_artwork_ids
+		sef.card_array_string = self.card_array_to_string
+		self.save
 	end
 
 	def card_array_to_string
@@ -141,4 +143,9 @@ class Memoryboard < ActiveRecord::Base
 	def we_have_a_winner
 		self.num_cards_left <= 1
 	end
+
+	def card_array_from_string(string)
+		@@cards = string.split(//).map {|i| i.to_i}
+	end
+
 end
