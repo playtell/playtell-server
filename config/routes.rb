@@ -62,8 +62,8 @@ Semiralabs::Application.routes.draw do
     match 'games/tictactoe/end_game' => 'tictactoe#end_game'
 
     match 'games/memory/new_game' => 'memory#new_game'
-    match 'games/tictactoe/play_turn' => 'memory#play_turn'
-    match 'games/tictactoe/end_game' => 'memory#end_game'
+    match 'games/memory/play_turn' => 'memory#play_turn'
+    match 'games/memory/end_game' => 'memory#end_game'
 
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'
