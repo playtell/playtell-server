@@ -11,7 +11,7 @@ class Api::MemoryController < ApplicationController
 
 	#request params initiator_id, playmate_id, authentication_token, playdate_id, already_playing, theme_id, num_total_cards
 	def new_game
-		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, initiator_id, authentication_token, and theme_id. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:initiator_id].nil? || params[:num_total_cards].nil? || params[:theme_id].nil?
+		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, initiator_id, num_total_cards, authentication_token, and theme_id. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:initiator_id].nil? || params[:num_total_cards].nil? || params[:theme_id].nil?
 		
 		# grab the current playdate! 
 		@playdate = Playdate.find_by_id(params[:playdate_id])

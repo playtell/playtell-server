@@ -78,7 +78,7 @@ class Gamelet < ActiveRecord::Base
 		return board.id
 	end
 
-	def memorygame_num_total_cards_valid
+	def memorygame_num_total_cards_valid(total_num_cards)
 		return (total_num_cards > 4) || ((total_num_cards % 2) == 0) || (total_num_cards < 20)
 	end
 
