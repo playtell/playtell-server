@@ -108,7 +108,7 @@ class Memoryboard < ActiveRecord::Base
 		stack_of_artwork_ids = stack_of_artwork_ids.shuffle #randomize array
 
 		@@cards = stack_of_artwork_ids
-		sef.card_array_string = self.card_array_to_string(@@cards)
+		self.card_array_string = self.card_array_to_string(@@cards)
 		self.save
 	end
 
