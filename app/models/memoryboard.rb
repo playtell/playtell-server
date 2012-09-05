@@ -33,7 +33,7 @@ class Memoryboard < ActiveRecord::Base
 	## -Start board verification methods. These are bools giving the client info about the board
 	def is_playmates_turn(initiator_id)
 		if self.whose_turn == CREATORS_TURN
-			return initiator_id == self.created_by
+			return initiator_id == self.initiator_id
 		else
 			return initiator_id == self.playmate
 		end
