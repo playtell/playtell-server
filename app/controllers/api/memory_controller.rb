@@ -26,7 +26,7 @@ class Api::MemoryController < ApplicationController
 
 		#verify num_total_cards is valid
 		num_total_cards = params[:num_total_cards].to_i
-		return render :json=>{:message=>"num_total_cards needs to be between 4 and 20 and must be an even number"} -1 if !gamelet.memorygame_num_total_cards_valid(num_total_cards)
+		return render :json=>{:message=>"num_total_cards needs to be between 4 and 20 and must be an even number"} -1 if (num_total_cards < 4) || ((num_total_cards % 2) != 0) || (num_total_cards > 20)
 
 		## get playmate and intiator
 		playmate = User.find_by_id(params[:playmate_id].to_i)
