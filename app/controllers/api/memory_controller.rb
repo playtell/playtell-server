@@ -37,12 +37,17 @@ class Api::MemoryController < ApplicationController
 
 		board_id = gamelet.new_memorygame_board(initiator.id, playmate.id, num_total_cards)
 
+		board = Memoryboard.find_by_id(board_id)
+
+		filename_array = board.get_array_of_card_backside_filenames
+		filename_dump = JSON.dump filename_array
+
 		if !params[:already_playing].nil?
-			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {:initiator_id => initiator.id, :board_id => board_id})
-      		render :json=>{:message=>"Memoryboard successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id}
+			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {:filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
+      		render :json=>{:message=>"Memoryboard successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id, :filename_dump => filename_dump}
       	else
-      		Pusher[@playdate.pusher_channel_name].trigger('games_memory_new_game', {:initiator_id => initiator.id, :board_id => board_id})
-			render :json=>{:message=>"Memoryboard successfully initialized, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id}
+      		Pusher[@playdate.pusher_channel_name].trigger('games_memory_new_game', {:filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
+			render :json=>{:message=>"Memoryboard successfully initialized, playdate id is " + @playdate.id.to_s, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id}
 		end
 
 	end
@@ -96,8 +101,7 @@ class Api::MemoryController < ApplicationController
 
 		#default responses
 		response_message = ""
-		filename_array = board.get_array_of_card_backside_filenames
-		filename_array_json_dump = JSON.dump filename_array
+		board_dump = JSON.dump board
 
 		#get response
 		if (touched_only_one_card)
@@ -129,13 +133,13 @@ class Api::MemoryController < ApplicationController
 			elsif response_code == MATCH_WINNER
 				response_message = "MATCH SUCCESS, WE HAVE A WINNER. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
 			end
-			Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:filename_array_json_dump => filename_array_json_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+			Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
 		end
 
 		response["has_json"] = 0
 		response["message"] = response_message
 		response["placement_status"] = response_code
-		response["filename_array_json_dump"] = filename_array_json_dump
+		response["board_dump"] = board_dump
 
 
 		render :json => response
