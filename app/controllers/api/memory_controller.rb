@@ -52,7 +52,7 @@ class Api::MemoryController < ApplicationController
 		touched_only_one_card = false
 
 		##start PARAM validation start
-		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, coordinates, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:card2_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
+		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, card1_index, card2_index, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:card2_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
 
 		current_user = User.find_by_id(params[:user_id])
 		return render :json=>{:message=>"Playmate cannot be found."} if current_user.nil?
@@ -96,6 +96,8 @@ class Api::MemoryController < ApplicationController
 
 		#default responses
 		response_message = ""
+		filename_array = board.get_array_of_card_backside_filenames
+		filename_array_json_dump = JSON.dump filename_array
 
 		#get response
 		if (touched_only_one_card)
@@ -127,12 +129,13 @@ class Api::MemoryController < ApplicationController
 			elsif response_code == MATCH_WINNER
 				response_message = "MATCH SUCCESS, WE HAVE A WINNER. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
 			end
-
-			response["has_json"] = 0
-			response["message"] = response_message
-			response["placement_status"] = response_code	
-			Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+			Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:filename_array_json_dump => filename_array_json_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
 		end
+
+		response["has_json"] = 0
+		response["message"] = response_message
+		response["placement_status"] = response_code
+		response["filename_array_json_dump"] = filename_array_json_dump
 
 
 		render :json => response
