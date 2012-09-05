@@ -26,7 +26,7 @@ class Memoryboard < ActiveRecord::Base
 	@@cards
 
 	# ---- validations ----
-	attr_accessible :status, :card_array_string, :winner, :whose_turn, :num_cards_left, :win_code, :gamelet_id, :playmate_id, :playdate_id, :initiator_id, :num_total_cards
+	attr_accessible :initiator_score, :playmate_score, :status, :card_array_string, :winner, :whose_turn, :num_cards_left, :win_code, :gamelet_id, :playmate_id, :playdate_id, :initiator_id, :num_total_cards
 	belongs_to :gamelet
 
 	## -Start board verification methods. These are bools giving the client info about the board
@@ -166,6 +166,24 @@ class Memoryboard < ActiveRecord::Base
 
 	def card_array_from_string(mystring)
 		mystring.split(//).map {|i| i.to_i}
+	end
+
+	def set_winner
+		if self.initiator_score > self.playmate_score
+			self.winner = initiator_id
+		else
+			self.winner = playmate_id
+		end
+		self.save
+	end
+
+	def increment_score(user_id)
+		if user_id == self.initiator_id
+			self.initiator_score = self.initiator_score + 1
+		elsif user_id == self.playmate_id
+			self.playmate_score = self.playmate_score + 1
+		end
+		self.save
 	end
 
 end

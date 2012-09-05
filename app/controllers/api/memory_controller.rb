@@ -112,12 +112,14 @@ class Api::MemoryController < ApplicationController
 				if ((response_code_card1) && (response_code_card2))
 					response_code = MATCH_FOUND
 					# board.set_turn(current_user.id) #TODO, does is it your turn till you get a match wrong?
+					board.increment_score(current_user.id)
 
 					if (board.we_have_a_winner)
 						response_code = MATCH_WINNER
+						board.set_winner
 					end
 				else
-					response_code == MATCH_ERROR
+					response_code == MATCH_ERROR					
 					response_message = "Match, but those spaces already marked."
 					board.set_turn(current_user.id)
 				end
@@ -132,13 +134,20 @@ class Api::MemoryController < ApplicationController
 			elsif response_code == MATCH_WINNER
 				response_message = "MATCH SUCCESS, WE HAVE A WINNER. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
 			end
-			Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+			if response_code == MATCH_WINNER
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:winner_id => board.winner, :board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+			else
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+			end
 		end
 
 		response["has_json"] = 0
 		response["message"] = response_message
 		response["placement_status"] = response_code
 		response["board_dump"] = board_dump
+		if MATCH_WINNER == response_code
+			response["winner_id"] = board.winner
+		end
 
 		render :json => response
 	end
