@@ -148,8 +148,8 @@ class Memoryboard < ActiveRecord::Base
 		self.num_cards_left <= 1
 	end
 
-	def card_array_from_string(string)
-		@@cards = string.split(//).map {|i| i.to_i}
+	def card_array_from_string(mystring)
+		mystring.split(//).map {|i| i.to_i}
 	end
 
 end
