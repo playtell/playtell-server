@@ -9,9 +9,9 @@ class Api::MemoryController < ApplicationController
 	 FLIP_FIRST_CARD = 2
 	 MATCH_WINNER = 3
 
-	#request params initiator_id, playmate_id, authentication_token, playdate_id, already_playing, theme_id
+	#request params initiator_id, playmate_id, authentication_token, playdate_id, already_playing, theme_id, num_total_cards
 	def new_game
-		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, initiator_id, authentication_token, and theme_id. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:initiator_id].nil? || params[:theme_id].nil?
+		return render :json=>{:message=>"API expects the following: playmate_id, playdate_id, initiator_id, authentication_token, and theme_id. already_playing is optional. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:initiator_id].nil? || params[:num_total_cards].nil? || params[:theme_id].nil?
 		
 		# grab the current playdate! 
 		@playdate = Playdate.find_by_id(params[:playdate_id])
@@ -24,6 +24,10 @@ class Api::MemoryController < ApplicationController
 		# create a new gamelet
 		gamelet = Gamelet.create(:theme_id => theme_id)
 
+		#verify num_total_cards is valid
+		num_total_cards = params[:num_total_cards].to_i
+		return render :json=>{:message=>"num_total_cards needs to be between 4 and 20 and must be an even number"} -1 if !gamelet.memorygame_num_total_cards_valid(num_total_cards)
+
 		## get playmate and intiator
 		playmate = User.find_by_id(params[:playmate_id].to_i)
 		initiator = User.find_by_id(params[:initiator_id].to_i)
@@ -31,14 +35,14 @@ class Api::MemoryController < ApplicationController
 		return render :json=>{:message=>"Initiator playmate with id: " + params[:initiator_id] + " not found."} if initiator.nil?
 		return render :json=>{:message=>"Playmate with id: " + params[:playmate_id] + " not found."} if playmate.nil?
 
-		board_id = gamelet.new_memorygame_board(initiator.id, playmate.id, theme_id)
+		board_id = gamelet.new_memorygame_board(initiator.id, playmate.id, num_total_cards)
 
 		if !params[:already_playing].nil?
 			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {:initiator_id => initiator.id, :board_id => board_id})
-      		render :json=>{:message=>"Board successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id}
+      		render :json=>{:message=>"Memoryboard successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id}
       	else
       		Pusher[@playdate.pusher_channel_name].trigger('games_memory_new_game', {:initiator_id => initiator.id, :board_id => board_id})
-			render :json=>{:message=>"Board successfully initialized, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id}
+			render :json=>{:message=>"Memoryboard successfully initialized, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id}
 		end
 
 	end

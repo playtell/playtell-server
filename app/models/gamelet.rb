@@ -67,8 +67,6 @@ class Gamelet < ActiveRecord::Base
 	end
 
 	def new_memorygame_board(created_by, friend_2, total_num_cards)
-		return -1 if (total_num_cards < 4) || ((total_num_cards % 2) != 0) || (total_num_cards > 20)
-
 		#verify that created_by exists in the users table
 		creator = User.find_by_id(created_by)
 		playmate = User.find_by_id(friend_2)
@@ -79,6 +77,11 @@ class Gamelet < ActiveRecord::Base
 
 		return board.id
 	end
+
+	def memorygame_num_total_cards_valid
+		return (total_num_cards > 4) || ((total_num_cards % 2) == 0) || (total_num_cards < 20)
+	end
+
 
 
 end

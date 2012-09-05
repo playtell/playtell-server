@@ -141,5 +141,4 @@ class Memoryboard < ActiveRecord::Base
 	def we_have_a_winner
 		self.num_cards_left <= 1
 	end
-
 end
