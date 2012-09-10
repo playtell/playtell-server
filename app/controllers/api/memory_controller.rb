@@ -54,7 +54,7 @@ class Api::MemoryController < ApplicationController
 
 	#request params card1_index, card2_index, board_id, playdate_id, authentication_token, user_id
 	def play_turn
-		touched_only_one_card = false
+		touched_only_one_card = true
 
 		##start PARAM validation start
 		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, card1_index, card2_index, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:card2_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
@@ -73,11 +73,11 @@ class Api::MemoryController < ApplicationController
 		return render :json=>{:placement_status => 0, :message=>"Error: Board with that board id not found."} if board.nil?
 
 		card1_index = params[:card1_index].to_i
-		card2_index = params[:card2_index].to_i
 		return render :json=>{:placement_status => 0, :message=>"Error: Card1Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card1_index)
-		if (card2_index != 0)
+		if (!params[:card2_index].nil?)
+			card2_index = params[:card2_index].to_i
 			return render :json=>{:placement_status => 0, :message=>"Error: Card2Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card2_index)
-			touched_only_one_card = true
+			touched_only_one_card = false
 		end
 		return render :json=>{:placement_status => 0, :message=>"Error: Playmate with id" + current_user.id.to_s() +  "is not authorized to change this board"} if !board.user_authorized(current_user.id)
 		return render :json=>{:placement_status => 0, :message=>"Error: It is not " + current_user.username.to_s + "'s turn! Try again after opponent makes move."} if !board.is_playmates_turn(current_user.id)
@@ -104,34 +104,50 @@ class Api::MemoryController < ApplicationController
 				response_message = "Flip error: index not valid"
 
 			end
-		else
-
+		else #make sure that turn is delegated
 			# do they match?
 			if (board.is_a_match(card1_index, card2_index))
 				response_code_card1 = board.mark_index(card1_index, current_user.id)
-				response_code_card2 = board.mark_index(card1_index, current_user.id)
+				response_code_card2 = board.mark_index(card2_index, current_user.id)
 				if ((response_code_card1) && (response_code_card2))
 					response_code = MATCH_FOUND
+					# board.set_turn(current_user.id) #TODO, does is it your turn till you get a match wrong?
+					board.increment_score(current_user.id)
+
 					if (board.we_have_a_winner)
 						response_code = MATCH_WINNER
+						board.set_winner
 					end
+				else
+					response_code == MATCH_ERROR					
+					response_message = "Match, but those spaces already marked."
+					board.set_turn(current_user.id)
 				end
+			else
+				response_code == MATCH_ERROR
+				response_message = "Not a match."
+				board.set_turn(current_user.id)
 			end
 
-			if response_code == MATCH_ERROR
-				response_message = "Error: Match not made one or more of your card indexes was invalid."
-			elsif response_code == MATCH_FOUND
+			if response_code == MATCH_FOUND
 				response_message = "Match success. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
 			elsif response_code == MATCH_WINNER
 				response_message = "MATCH SUCCESS, WE HAVE A WINNER. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
 			end
-			Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+			if response_code == MATCH_WINNER
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:winner_id => board.winner, :board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+			else
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+			end
 		end
 
 		response["has_json"] = 0
 		response["message"] = response_message
 		response["placement_status"] = response_code
 		response["board_dump"] = board_dump
+		if MATCH_WINNER == response_code
+			response["winner_id"] = board.winner
+		end
 
 		render :json => response
 	end
