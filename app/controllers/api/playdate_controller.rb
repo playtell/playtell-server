@@ -328,7 +328,6 @@ class Api::PlaydateController < ApplicationController
       @@opentok = OpenTok::OpenTokSDK.new 335312, @api_key
       # @@opentok.api_url = 'https://staging.tokbox.com/hl'
     end
-    puts @@opentok.api_url
   end
   
 end
