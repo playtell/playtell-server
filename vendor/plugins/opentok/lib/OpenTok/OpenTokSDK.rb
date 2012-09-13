@@ -78,7 +78,7 @@ module OpenTok
     @@TOKEN_SENTINEL = "T1=="
     @@SDK_VERSION = "tbruby-%s" % [ VERSION ]
 
-    # @@API_URL = API_URL
+    @@API_URL = API_URL
 
     def initialize(partner_id, partner_secret)
       @api_url = API_URL
