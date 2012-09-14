@@ -1,7 +1,21 @@
 class Api::UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:create]
   respond_to :json
+
+  # required params: name, email, password, photo, birthdate, isAccountForChild
+  def create
+    user = User.new
+    user.username = params[:name]
+    user.email = params[:email]
+    user.password = params[:password]
+
+    if user.save
+      return render :status => 200, :json => {:message => "User created #{user.id}"}
+    else
+      return render :status => 153, :json => {:message => "User cannot be created at this time."}
+    end
+  end
 
   # required params: user_id
   # returns user objects for all of the given user's friends

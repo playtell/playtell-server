@@ -45,6 +45,7 @@ Semiralabs::Application.routes.draw do
     match 'users/all_friends' => 'users#all_friends'
     match 'users/get_status' => 'users#get_status'
     match 'users/create_friendship' => 'users#create_friendship'
+    match 'users/create' => 'users#create'
     match 'pusher/hook' => 'pusher#hook'
     match 'contacts/create_list' => 'contacts#create_list'
     match 'contacts/show' => 'contacts#show'
