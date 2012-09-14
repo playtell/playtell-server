@@ -37,18 +37,20 @@ class Api::ContactsController < ApplicationController
 
   # Show all contacts
   def show
-    current_friends = current_user.allApprovedAndPendingFriends.map!{|user| user.id}
+    approved_friends = current_user.allFriends.map!{|user| user.id}
+    pending_friends = current_user.allPendingFriends.map!{|user| user.id}
     contacts = []
     current_user.contacts.each do |contact|
       # Rehash contact
       currentContact = {
-        :uid           => Digest::MD5.hexdigest(contact.id.to_s),
-        :name          => contact.name,
-        :email         => contact.email,
-        :source        => contact.source,
-        :user_id       => nil,
-        :is_friend     => false,
-        :profile_photo => nil
+        :uid                 => Digest::MD5.hexdigest(contact.id.to_s),
+        :name                => contact.name,
+        :email               => contact.email,
+        :source              => contact.source,
+        :user_id             => nil,
+        :is_confirmed_friend => false,
+        :is_pending_friend   => false,
+        :profile_photo       => nil
       }
       
       # Check if contact is already a registered user
@@ -61,8 +63,9 @@ class Api::ContactsController < ApplicationController
         currentContact[:user_id] = users.first.id
         currentContact[:email] = nil
 
-        # Check if contact is already a friend
-        currentContact[:is_friend] = current_friends.include?(users.first.id)
+        # Check if contact is already a friend (confirmed or pending)
+        currentContact[:is_confirmed_friend] = approved_friends.include?(users.first.id)
+        currentContact[:is_pending_friend] = pending_friends.include?(users.first.id)
         
         # Load profile photo
         currentContact[:profile_photo] = users.first.profile_photo
@@ -76,7 +79,8 @@ class Api::ContactsController < ApplicationController
   
   # Show only related contacts (based on last name match)
   def show_related
-    current_friends = current_user.allApprovedAndPendingFriends.map!{|user| user.id}
+    approved_friends = current_user.allFriends.map!{|user| user.id}
+    pending_friends = current_user.allPendingFriends.map!{|user| user.id}
     contacts = []
     filtered_contacts = current_user.contacts.where("contacts.name ilike '%#{current_user.lastname}%'").joins('inner join users on users.email = contacts.email')
     filtered_contacts.each do |contact|
@@ -87,13 +91,14 @@ class Api::ContactsController < ApplicationController
 
       # Rehash contact
       currentContact = {
-        :uid           => Digest::MD5.hexdigest(contact.id.to_s),
-        :name          => contact.name,
-        :email         => contact.email,
-        :source        => contact.source,
-        :user_id       => user.id,
-        :is_friend     => current_friends.include?(user.id),
-        :profile_photo => user.profile_photo
+        :uid                 => Digest::MD5.hexdigest(contact.id.to_s),
+        :name                => contact.name,
+        :email               => contact.email,
+        :source              => contact.source,
+        :user_id             => user.id,
+        :is_confirmed_friend => approved_friends.include?(user.id),
+        :is_pending_friend   => pending_friends.include?(user.id),
+        :profile_photo       => user.profile_photo
       }
 
       # Add to contacts list
