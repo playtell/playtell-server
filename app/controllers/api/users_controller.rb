@@ -18,7 +18,14 @@ class Api::UsersController < ApplicationController
     end
 
     # Upload profile photo
+    profilePhoto = PlaydatePhoto.new(:user_id => user.id)
+    profilePhoto.photo = params[:photo]
+    puts profilePhoto.inspect
     
+    if !playdatePhoto.save
+      puts playdatePhoto.errors.inspect
+      return render :status => 154, :json => {:message => "User photo cannot be created at this time."}
+    end
 
     render :status => 200, :json => {:message => "User created #{user.id}"}
   end
