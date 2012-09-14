@@ -22,8 +22,8 @@ class Api::UsersController < ApplicationController
     profilePhoto.photo = params[:photo]
     puts profilePhoto.inspect
     
-    if !playdatePhoto.save
-      puts playdatePhoto.errors.inspect
+    if !profilePhoto.save
+      puts profilePhoto.errors.inspect
       return render :status => 154, :json => {:message => "User photo cannot be created at this time."}
     end
 
