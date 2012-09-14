@@ -12,6 +12,7 @@ class Api::UsersController < ApplicationController
     user.password = params[:password]
 
     if !user.save
+      puts user.errors.inspect
       return render :status => 153, :json => {:message => "User cannot be created at this time."}
     end
 
