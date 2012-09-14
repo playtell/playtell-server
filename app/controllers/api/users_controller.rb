@@ -10,6 +10,7 @@ class Api::UsersController < ApplicationController
     user.username = params[:name]
     user.email = params[:email]
     user.password = params[:password]
+    puts user.inspect
 
     if !user.save
       puts user.errors.inspect
