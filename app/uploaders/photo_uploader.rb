@@ -49,8 +49,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
     random_filename = Digest::MD5.hexdigest(rand(1234567).to_s)
-    ext_name = File.extname(super)
-    "#{random_filename}.#{ext_name}" if original_filename
+    "#{random_filename}.png" if original_filename
   end
 
 end
