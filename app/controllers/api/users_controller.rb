@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!, :except => [:create]
+  before_filter :authenticate_user!, :except => [:create, :email_check]
   respond_to :json
 
   # required params: name, email, password, photo, birthdate, isAccountForChild
@@ -110,6 +110,12 @@ class Api::UsersController < ApplicationController
     
     # Return all statuses
     render :status => 200, :json => {:status => user_statuses}
+  end
+
+  # required params: email
+  def email_check
+    user = User.find_by_email(params[:email])
+    render :status => 200, :json => {:available => user.nil?}
   end
 
   # DEPRECIATED: Reimplemented in api/friendships_controller.rb > 'create'
