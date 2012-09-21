@@ -1,7 +1,7 @@
 class Api::PlaydateController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!
-  before_filter :initOpenTok, :only => [:create]
+  before_filter :authenticate_user!, :except => [:generate_ot_session]
+  before_filter :initOpenTok, :only => [:create, :generate_ot_session]
   respond_to :json
   
   @@opentok = nil
@@ -319,6 +319,12 @@ class Api::PlaydateController < ApplicationController
       stats = Pusher[@playdate.pusher_channel_name].stats
       render :status=>200, :json=>{:message => "Pusher channel {#{@playdate.pusher_channel_name}} stats", :stats => stats}
     end
+  end
+  
+  def generate_ot_session
+    video_session = @@opentok.create_session '127.0.0.1'
+    token = @@opentok.generate_token(:session_id => video_session.session_id)
+    render :status=>200, :json=>{:session_id => video_session.session_id, :token => token}
   end
   
   private
