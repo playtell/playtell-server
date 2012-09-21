@@ -18,10 +18,14 @@ class Api::UsersController < ApplicationController
     end
 
     # Upload profile photo
-    profilePhoto = PlaydatePhoto.new(:user_id => user.id)
-    profilePhoto.photo = params[:photo]
-    profilePhoto.save!
-    puts profilePhoto.inspect
+    uploader = PhotoUploader.new
+    uploader.store!(params[:photo])
+    puts uploader.inspect
+
+    # profilePhoto = PlaydatePhoto.new(:user_id => user.id)
+    # profilePhoto.photo = params[:photo]
+    # profilePhoto.save!
+    # puts profilePhoto.inspect
 
     # if profilePhoto.save!
     #   puts profilePhoto.errors.inspect
