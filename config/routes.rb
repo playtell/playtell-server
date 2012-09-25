@@ -4,10 +4,6 @@ Semiralabs::Application.routes.draw do
   match 'update_playdate' => 'games#updatePlaydate'
   match 'feedbacks' => 'feedback#create'
 
-  namespace :api do
-    match 'sessions/create' => 'sessions#create'
-  end
-  
   devise_for :users, :controllers => { :sessions => "sessions" }
   resources :users, :only => [:show] do
     collection do
@@ -52,6 +48,7 @@ Semiralabs::Application.routes.draw do
     match 'users/create_friendship' => 'users#create_friendship'
     match 'users/create' => 'users#create'
     match 'users/email_check' => 'users#email_check'
+    match 'users/sign_in' => 'users#sign_in'
     match 'pusher/hook' => 'pusher#hook'
     match 'contacts/create_list' => 'contacts#create_list'
     match 'contacts/show' => 'contacts#show'
