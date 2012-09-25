@@ -3,7 +3,11 @@ Semiralabs::Application.routes.draw do
   match 'playdate' => 'games#playdate'
   match 'update_playdate' => 'games#updatePlaydate'
   match 'feedbacks' => 'feedback#create'
-      
+
+  namespace :api do
+    match 'sessions/create' => 'sessions#create'
+  end
+  
   devise_for :users, :controllers => { :sessions => "sessions" }
   resources :users, :only => [:show] do
     collection do
@@ -24,7 +28,7 @@ Semiralabs::Application.routes.draw do
     resources :tokens, :only => [:create, :destroy]
     resources :playdatephotos, :only => [:create]
     match 'update_settings' => 'settings#update'
-    match 'twilio_incoming' => 'twilio#incoming' 
+    match 'twilio_incoming' => 'twilio#incoming'
     match 'twilio_token' => 'twilio#capability_token'
     match 'tokbox_tokens' => 'tokbox#tokbox_tokens'
     match 'playdate_players' => 'playdate#playdate_players'
@@ -70,8 +74,6 @@ Semiralabs::Application.routes.draw do
 
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'
-    
-    match 'sessions/create' => 'sessions#create'
     
     #resources :settings, :only => [:update]
   end
