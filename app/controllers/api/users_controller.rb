@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  include Devise::Controllers::InternalHelpers
+  # include Devise::Controllers::InternalHelpers
   skip_before_filter :verify_authenticity_token
   before_filter :authenticate_user!, :except => [:create, :email_check, :sign_in]
   respond_to :json
