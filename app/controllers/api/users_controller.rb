@@ -1,5 +1,4 @@
 class Api::UsersController < ApplicationController
-  # include Devise::Controllers::InternalHelpers
   skip_before_filter :verify_authenticity_token
   before_filter :authenticate_user!, :except => [:create, :email_check, :sign_in]
   respond_to :json
@@ -115,20 +114,6 @@ class Api::UsersController < ApplicationController
   def email_check
     user = User.find_by_email(params[:email])
     render :status => 200, :json => {:available => user.nil?}
-  end
-
-  # required params: email, password
-  def sign_in
-    build_resource
-    resource = User.find_for_database_authentication(:login=>params[:email])
-    return render :status => 155, :json => {:message => "Invalid email"} unless resource
-
-    if resource.valid_password?(params[:password])
-      sign_in("user", resource)
-      return render :status => 200, :json => {:success=>true, :auth_token=>resource.authentication_token, :login=>resource.login, :email=>resource.email}
-    end
-    
-    render :status => 156, :json => {:message => "Invalid password"}
   end
 
   # DEPRECIATED: Reimplemented in api/friendships_controller.rb > 'create'
