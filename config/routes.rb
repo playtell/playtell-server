@@ -71,6 +71,7 @@ Semiralabs::Application.routes.draw do
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'
     
+    match 'sessions/create' => 'sessions#create'
     
     #resources :settings, :only => [:update]
   end
