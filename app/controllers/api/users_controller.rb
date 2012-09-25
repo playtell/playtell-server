@@ -24,6 +24,22 @@ class Api::UsersController < ApplicationController
       return render :status => 154, :json => {:message => "User photo cannot be created at this time."}
     end
 
+    # Check if someone invited this user to PlayTell
+    # If so, make a joint friendship between them
+    contactNotification = ContactNotification.where("email = ?", user.email).order('created_at desc').first
+    unless contactNotification.nil?
+      friend = User.find(contactNotification.user_id)
+      unless friend.nil?
+        # Create a new friendship
+        friendship = Friendship.new
+        friendship.user_id = friend.id
+        friendship.friend_id = user.id
+        friendship.status = true
+        friendship.responded_at = DateTime.now
+        friendship.save
+      end
+    end
+
     render :status => 200, :json => {:message => "User created #{user.id}"}
   end
 
