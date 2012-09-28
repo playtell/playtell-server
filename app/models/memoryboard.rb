@@ -21,7 +21,6 @@ class Memoryboard < ActiveRecord::Base
 	CREATORS_TURN = 0
 	PLAYMATES_TURN = 1
 
-
 	#instance variable representing card array
 	@@cards
 

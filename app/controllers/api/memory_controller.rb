@@ -26,7 +26,7 @@ class Api::MemoryController < ApplicationController
 
 		#verify num_total_cards is valid
 		num_total_cards = params[:num_total_cards].to_i
-		return render :json=>{:message=>"num_total_cards needs to be between 4 and 20 and must be an even number"} if (num_total_cards < 4) || ((num_total_cards % 2) != 0) || (num_total_cards > 20)
+		return render :json=>{:message=>"num_total_cards needs to be between 4 and 20 and must be an even number"} if (num_total_cards < 4) || ((num_total_cards % 2) != 0) || (num_total_cards > 12)
 
 		## get playmate and intiator
 		playmate = User.find_by_id(params[:playmate_id].to_i)
@@ -43,11 +43,11 @@ class Api::MemoryController < ApplicationController
 		filename_dump = JSON.dump filename_array
 
 		if !params[:already_playing].nil?
-			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {:filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
-      		render :json=>{:message=>"Memoryboard successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id, :filename_dump => filename_dump}
+			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {:card_array_string => board.card_array_string, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
+      		render :json=>{:card_array_string => board.card_array_string, :message=>"Memoryboard successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id, :filename_dump => filename_dump}
       	else
-      		Pusher[@playdate.pusher_channel_name].trigger('games_memory_new_game', {:filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
-			render :json=>{:message=>"Memoryboard successfully initialized, playdate id is " + @playdate.id.to_s, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id}
+      		Pusher[@playdate.pusher_channel_name].trigger('games_memory_new_game', {:card_array_string => board.card_array_string, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
+			render :json=>{:card_array_string => board.card_array_string, :message=>"Memoryboard successfully initialized, playdate id is " + @playdate.id.to_s, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id}
 		end
 
 	end
