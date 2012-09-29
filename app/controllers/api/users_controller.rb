@@ -1,7 +1,47 @@
 class Api::UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:create, :email_check, :sign_in]
   respond_to :json
+
+  # required params: name, email, password, photo, birthdate, isAccountForChild
+  def create
+    # Create the user
+    user = User.new
+    user.username = params[:name]
+    user.email = params[:email]
+    user.password = params[:password]
+
+    if !user.save
+      puts user.errors.inspect
+      return render :status => 153, :json => {:message => "User cannot be created at this time."}
+    end
+
+    # Upload profile photo
+    playdatePhoto = PlaydatePhoto.new(:user_id => user.id)
+    playdatePhoto.photo = params[:photo]
+
+    if !playdatePhoto.save
+      return render :status => 154, :json => {:message => "User photo cannot be created at this time."}
+    end
+
+    # Check if someone invited this user to PlayTell
+    # If so, make a joint friendship between them
+    contactNotification = ContactNotification.where("email = ?", user.email).order('created_at desc').first
+    unless contactNotification.nil?
+      friend = User.find(contactNotification.user_id)
+      unless friend.nil?
+        # Create a new friendship
+        friendship = Friendship.new
+        friendship.user_id = friend.id
+        friendship.friend_id = user.id
+        friendship.status = true
+        friendship.responded_at = DateTime.now
+        friendship.save
+      end
+    end
+
+    render :status => 200, :json => {:message => "User created #{user.id}"}
+  end
 
   # required params: user_id
   # returns user objects for all of the given user's friends
@@ -72,7 +112,8 @@ class Api::UsersController < ApplicationController
       if (user.status != User::CONFIRMED)
         # User is pending (aka. hasn't installed the app yet)
         user_statuses << {:id => id, :status => 'pending'}
-      elsif Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status != ?", id, id, Playdate::DISCONNECTED]) > 0
+      elsif Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status != ? and !(player1_id = ? or player2_id = ?)",
+        id, id, Playdate::DISCONNECTED, current_user.id, current_user.id]) > 0
         # User is either connecting to a playdate or in a playdate
         user_statuses << {:id => id, :status => 'playdate'}
       else
@@ -83,6 +124,12 @@ class Api::UsersController < ApplicationController
     
     # Return all statuses
     render :status => 200, :json => {:status => user_statuses}
+  end
+
+  # required params: email
+  def email_check
+    user = User.find_by_email(params[:email])
+    render :status => 200, :json => {:available => user.nil?}
   end
 
   # DEPRECIATED: Reimplemented in api/friendships_controller.rb > 'create'

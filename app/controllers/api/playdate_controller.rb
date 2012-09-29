@@ -1,7 +1,7 @@
 class Api::PlaydateController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!
-  before_filter :initOpenTok, :only => [:create]
+  before_filter :authenticate_user!, :except => [:generate_ot_session]
+  before_filter :initOpenTok, :only => [:create, :generate_ot_session]
   respond_to :json
   
   @@opentok = nil
@@ -321,12 +321,17 @@ class Api::PlaydateController < ApplicationController
     end
   end
   
+  def generate_ot_session
+    video_session = @@opentok.create_session '127.0.0.1'
+    token = @@opentok.generate_token(:session_id => video_session.session_id)
+    render :status=>200, :json=>{:session_id => video_session.session_id, :token => token}
+  end
+  
   private
   def initOpenTok
     @api_key = "4f5e85254a3c12ae46a8fe32ba01ff8c8008e55d"
     if @@opentok.nil?
       @@opentok = OpenTok::OpenTokSDK.new 335312, @api_key
-      @@opentok.api_url = 'https://staging.tokbox.com/hl'
     end
   end
   

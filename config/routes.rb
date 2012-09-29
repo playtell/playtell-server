@@ -3,7 +3,7 @@ Semiralabs::Application.routes.draw do
   match 'playdate' => 'games#playdate'
   match 'update_playdate' => 'games#updatePlaydate'
   match 'feedbacks' => 'feedback#create'
-      
+
   devise_for :users, :controllers => { :sessions => "sessions" }
   resources :users, :only => [:show] do
     collection do
@@ -24,7 +24,7 @@ Semiralabs::Application.routes.draw do
     resources :tokens, :only => [:create, :destroy]
     resources :playdatephotos, :only => [:create]
     match 'update_settings' => 'settings#update'
-    match 'twilio_incoming' => 'twilio#incoming' 
+    match 'twilio_incoming' => 'twilio#incoming'
     match 'twilio_token' => 'twilio#capability_token'
     match 'tokbox_tokens' => 'tokbox#tokbox_tokens'
     match 'playdate_players' => 'playdate#playdate_players'
@@ -40,11 +40,15 @@ Semiralabs::Application.routes.draw do
     match 'playdate/join' => 'playdate#join'
     match 'playdate/check_for_playdate' => 'playdate#check_for_playdate'
     match 'playdate/channel_stats' => 'playdate#channel_stats'
+    match 'playdate/generate_ot_session' => 'playdate#generate_ot_session'
     match 'books/list' => 'books#list'
     match 'books/get_nux_book' => 'books#get_nux_book'
     match 'users/all_friends' => 'users#all_friends'
     match 'users/get_status' => 'users#get_status'
     match 'users/create_friendship' => 'users#create_friendship'
+    match 'users/create' => 'users#create'
+    match 'users/email_check' => 'users#email_check'
+    match 'users/sign_in' => 'users#sign_in'
     match 'pusher/hook' => 'pusher#hook'
     match 'contacts/create_list' => 'contacts#create_list'
     match 'contacts/show' => 'contacts#show'
@@ -67,7 +71,6 @@ Semiralabs::Application.routes.draw do
 
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'
-    
     
     #resources :settings, :only => [:update]
   end

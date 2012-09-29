@@ -1,7 +1,6 @@
 class Api::BooksController < ApplicationController
   include Rails.application.routes.url_helpers
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!
   respond_to :json
 
   def list
