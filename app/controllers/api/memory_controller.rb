@@ -57,7 +57,7 @@ class Api::MemoryController < ApplicationController
 		touched_only_one_card = true
 
 		##start PARAM validation start
-		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, card1_index, card2_index, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:card2_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
+		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, card1_index, card2_index, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
 		current_user = User.find_by_id(params[:user_id])
 		return render :json=>{:message=>"Playmate cannot be found."} if current_user.nil?
 		#set json response (yes send json w/ response or no)
