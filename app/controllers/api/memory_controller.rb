@@ -99,7 +99,7 @@ class Api::MemoryController < ApplicationController
 				response_code = FLIP_FIRST_CARD
 				response_message = "FLIP first card. Pusher sent!"
 
-				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:message => response_message, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index]})
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:message => response_message, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => "-1"})
 			else
 				response_message = "Flip error: index not valid"
 
