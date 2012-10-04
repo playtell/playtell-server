@@ -26,7 +26,7 @@ class Api::MemoryController < ApplicationController
 
 		#verify num_total_cards is valid
 		num_total_cards = params[:num_total_cards].to_i
-		return render :json=>{:message=>"num_total_cards needs to be between 4 and 20 and must be an even number"} if (num_total_cards < 4) || ((num_total_cards % 2) != 0) || (num_total_cards > 20)
+		return render :json=>{:message=>"num_total_cards needs to be between 4 and 20 and must be an even number"} if (num_total_cards < 4) || ((num_total_cards % 2) != 0) || (num_total_cards > 12)
 
 		## get playmate and intiator
 		playmate = User.find_by_id(params[:playmate_id].to_i)
@@ -43,11 +43,11 @@ class Api::MemoryController < ApplicationController
 		filename_dump = JSON.dump filename_array
 
 		if !params[:already_playing].nil?
-			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {:filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
-      		render :json=>{:message=>"Memoryboard successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id, :filename_dump => filename_dump}
+			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {:card_array_string => board.card_array_string, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
+      		render :json=>{:card_array_string => board.card_array_string, :message=>"Memoryboard successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id, :filename_dump => filename_dump, :num_cards => num_total_cards}
       	else
-      		Pusher[@playdate.pusher_channel_name].trigger('games_memory_new_game', {:filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
-			render :json=>{:message=>"Memoryboard successfully initialized, playdate id is " + @playdate.id.to_s, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id}
+      		Pusher[@playdate.pusher_channel_name].trigger('games_memory_new_game', {:card_array_string => board.card_array_string, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
+			render :json=>{:card_array_string => board.card_array_string, :message=>"Memoryboard successfully initialized, playdate id is " + @playdate.id.to_s, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id, :num_cards => num_total_cards}
 		end
 
 	end
@@ -57,7 +57,7 @@ class Api::MemoryController < ApplicationController
 		touched_only_one_card = true
 
 		##start PARAM validation start
-		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, card1_index, card2_index, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:card2_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
+		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, card1_index, card2_index, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
 		current_user = User.find_by_id(params[:user_id])
 		return render :json=>{:message=>"Playmate cannot be found."} if current_user.nil?
 		#set json response (yes send json w/ response or no)
@@ -99,7 +99,7 @@ class Api::MemoryController < ApplicationController
 				response_code = FLIP_FIRST_CARD
 				response_message = "FLIP first card. Pusher sent!"
 
-				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:message => response_message, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index]})
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:message => response_message, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => "-1"})
 			else
 				response_message = "Flip error: index not valid"
 
