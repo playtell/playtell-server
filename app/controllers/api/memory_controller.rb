@@ -87,6 +87,7 @@ class Api::MemoryController < ApplicationController
 
 		if (touched_only_one_card)
 			if (board.valid_card_at_index(card1_index))
+				puts "GOT HERE 1"
 				response_code = FLIP_FIRST_CARD
 				response_message = "First card flipped"
 
@@ -98,6 +99,7 @@ class Api::MemoryController < ApplicationController
 					:card1_index => params[:card1_index],
 					:card2_index => nil
 				})
+				puts "GOT HERE 2"
 			else
 				response_message = "Flip error: improper card index"
 			end
@@ -152,10 +154,9 @@ class Api::MemoryController < ApplicationController
 			end
 		end
 
-		response["message"] = response_message
-		response["placement_status"] = response_code
+		puts "GOT HERE 3"
 		response = {
-			:messages => response_message,
+			:message => response_message,
 			:status => response_code,
 			:card1_index => params[:card1_index],
 			:card2_index => params[:card2_index]
