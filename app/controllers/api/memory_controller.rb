@@ -81,30 +81,28 @@ class Api::MemoryController < ApplicationController
 		return render :json=>{:placement_status => 0, :message=>"Error: Playmate with id" + current_user.id.to_s() +  "is not authorized to change this board"} if !board.user_authorized(current_user.id)
 		return render :json=>{:placement_status => 0, :message=>"Error: It is not " + current_user.username.to_s + "'s turn! Try again after opponent makes move."} if !board.is_playmates_turn(current_user.id)
 		
-		##start RESPONSE formation
-		response = {}
-		#default responses
-		response_message = ""
-		board_dump = JSON.dump board
-		status_dump = {:has_json => 1,:board_dump => board_dump}
-		response.merge(status_dump)
-
-		#get response
+		# Form default response
 		response_code = MATCH_ERROR
 		response_message = "Error: Unspecified."
 
 		if (touched_only_one_card)
 			if (board.valid_card_at_index(card1_index))
 				response_code = FLIP_FIRST_CARD
-				response_message = "FLIP first card. Pusher sent!"
+				response_message = "First card flipped"
 
-				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:message => response_message, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => "-1"})
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {
+					:message => response_message,
+					:status => response_code,
+					:playmate_id => current_user.id,
+					:board_id => board.id,
+					:card1_index => params[:card1_index],
+					:card2_index => nil
+				})
 			else
-				response_message = "Flip error: index not valid"
-
+				response_message = "Flip error: improper card index"
 			end
-		else #make sure that turn is delegated
-			# do they match?
+		else
+			# Check if cards match
 			if (board.is_a_match(card1_index, card2_index))
 				response_code_card1 = board.mark_index(card1_index, current_user.id)
 				response_code_card2 = board.mark_index(card2_index, current_user.id)
@@ -133,20 +131,36 @@ class Api::MemoryController < ApplicationController
 			elsif response_code == MATCH_WINNER
 				response_message = "MATCH SUCCESS, WE HAVE A WINNER. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
 			end
+			
 			if response_code == MATCH_WINNER
-				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:winner_id => board.winner, :board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {
+					:winner_id => board.winner,
+					:status => response_code,
+					:playmate_id => current_user.id,
+					:board_id => board.id,
+					:card1_index => params[:card1_index],
+					:card2_index => params[:card2_index]
+				})
 			else
-				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {
+					:status => response_code,
+					:playmate_id => current_user.id,
+					:board_id => board.id,
+					:card1_index => params[:card1_index],
+					:card2_index => params[:card2_index]
+				})
 			end
 		end
 
-		response["has_json"] = 0
 		response["message"] = response_message
 		response["placement_status"] = response_code
-		response["board_dump"] = board_dump
-		if MATCH_WINNER == response_code
-			response["winner_id"] = board.winner
-		end
+		response = {
+			:messages => response_message,
+			:status => response_code,
+			:card1_index => params[:card1_index],
+			:card2_index => params[:card2_index]
+		}
+		response[:winner_id] = board.winner if MATCH_WINNER == response_code
 
 		render :json => response
 	end
