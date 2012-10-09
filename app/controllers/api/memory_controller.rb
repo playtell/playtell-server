@@ -66,20 +66,20 @@ class Api::MemoryController < ApplicationController
 		end
 		@playdate = Playdate.find_by_id(params[:playdate_id])
 		board = Memoryboard.find_by_id(params[:board_id].to_i)
-		return render :json=>{:placement_status => 0, :message=>"Error: Game has already ended or game is invalid"} if board.status != 0
+		return render :json=>{:status => 0, :message=>"Error: Game has already ended or game is invalid"} if board.status != 0
 		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if @playdate.nil?
-		return render :json=>{:placement_status => 0, :message=>"Error: Playmate cannot be found."} if current_user.nil? #TODO figure out why json status messages don't work in browser
-		return render :json=>{:placement_status => 0, :message=>"Error: Board with that board id not found."} if board.nil?
+		return render :json=>{:status => 0, :message=>"Error: Playmate cannot be found."} if current_user.nil? #TODO figure out why json status messages don't work in browser
+		return render :json=>{:status => 0, :message=>"Error: Board with that board id not found."} if board.nil?
 
 		card1_index = params[:card1_index].to_i
-		return render :json=>{:placement_status => 0, :message=>"Error: Card1Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card1_index)
+		return render :json=>{:status => 0, :message=>"Error: Card1Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card1_index)
 		if (!params[:card2_index].nil?)
 			card2_index = params[:card2_index].to_i
-			return render :json=>{:placement_status => 0, :message=>"Error: Card2Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card2_index)
+			return render :json=>{:status => 0, :message=>"Error: Card2Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card2_index)
 			touched_only_one_card = false
 		end
-		return render :json=>{:placement_status => 0, :message=>"Error: Playmate with id" + current_user.id.to_s() +  "is not authorized to change this board"} if !board.user_authorized(current_user.id)
-		return render :json=>{:placement_status => 0, :message=>"Error: It is not " + current_user.username.to_s + "'s turn! Try again after opponent makes move."} if !board.is_playmates_turn(current_user.id)
+		return render :json=>{:status => 0, :message=>"Error: Playmate with id" + current_user.id.to_s() +  "is not authorized to change this board"} if !board.user_authorized(current_user.id)
+		return render :json=>{:status => 0, :message=>"Error: It is not " + current_user.username.to_s + "'s turn! Try again after opponent makes move."} if !board.is_playmates_turn(current_user.id)
 		
 		# Form default response
 		response_code = MATCH_ERROR
