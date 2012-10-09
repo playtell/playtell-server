@@ -90,13 +90,15 @@ class Api::MemoryController < ApplicationController
 				response_code = FLIP_FIRST_CARD
 				response_message = "First card flipped"
 
+				# PUSHER: First card flip case
 				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {
 					:message => response_message,
 					:status => response_code,
 					:playmate_id => current_user.id,
 					:board_id => board.id,
 					:card1_index => params[:card1_index],
-					:card2_index => nil
+					:card2_index => nil,
+					:turn => board.whose_turn
 				})
 			else
 				response_message = "Flip error: improper card index"
@@ -134,21 +136,25 @@ class Api::MemoryController < ApplicationController
 			end
 			
 			if response_code == MATCH_WINNER
+				# PUSHER: Winner case
 				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {
 					:winner_id => board.winner,
 					:status => response_code,
 					:playmate_id => current_user.id,
 					:board_id => board.id,
 					:card1_index => params[:card1_index],
-					:card2_index => params[:card2_index]
+					:card2_index => params[:card2_index],
+					:turn => board.whose_turn
 				})
 			else
+				# PUSHER: 2nd card NOT A MATCH case
 				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {
 					:status => response_code,
 					:playmate_id => current_user.id,
 					:board_id => board.id,
 					:card1_index => params[:card1_index],
-					:card2_index => params[:card2_index]
+					:card2_index => params[:card2_index],
+					:turn => board.whose_turn
 				})
 			end
 		end
@@ -157,7 +163,8 @@ class Api::MemoryController < ApplicationController
 			:message => response_message,
 			:status => response_code,
 			:card1_index => params[:card1_index],
-			:card2_index => params[:card2_index]
+			:card2_index => params[:card2_index],
+			:turn => board.whose_turn
 		}
 		response[:winner_id] = board.winner if MATCH_WINNER == response_code
 
