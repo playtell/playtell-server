@@ -131,7 +131,10 @@ class Api::PlaydateController < ApplicationController
       :initiatorID => initiator.id,
       :initiator => initiator.username,
       :playmateID => current_user.id,
-      :playmateName => current_user.username }
+      :playmateName => current_user.username,
+      :tokboxSessionID => @playdate.video_session_id,
+      :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+      :tokboxPlaymateToken => @playdate.tokbox_playmate_token }
     )
     
     # JSON reply
