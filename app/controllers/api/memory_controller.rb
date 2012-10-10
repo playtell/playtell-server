@@ -98,7 +98,9 @@ class Api::MemoryController < ApplicationController
 					:board_id => board.id,
 					:card1_index => params[:card1_index],
 					:card2_index => nil,
-					:turn => board.whose_turn
+					:turn => board.whose_turn,
+					:initiator_score => board.initiator_score,
+					:playmate_score => board.playmate_score
 				})
 			else
 				response_message = "Flip error: improper card index"
@@ -144,7 +146,9 @@ class Api::MemoryController < ApplicationController
 					:board_id => board.id,
 					:card1_index => params[:card1_index],
 					:card2_index => params[:card2_index],
-					:turn => board.whose_turn
+					:turn => board.whose_turn,
+					:initiator_score => board.initiator_score,
+					:playmate_score => board.playmate_score
 				})
 			else
 				# PUSHER: 2nd card NOT A MATCH case
@@ -154,7 +158,9 @@ class Api::MemoryController < ApplicationController
 					:board_id => board.id,
 					:card1_index => params[:card1_index],
 					:card2_index => params[:card2_index],
-					:turn => board.whose_turn
+					:turn => board.whose_turn,
+					:initiator_score => board.initiator_score,
+					:playmate_score => board.playmate_score
 				})
 			end
 		end
@@ -164,7 +170,9 @@ class Api::MemoryController < ApplicationController
 			:status => response_code,
 			:card1_index => params[:card1_index],
 			:card2_index => params[:card2_index],
-			:turn => board.whose_turn
+			:turn => board.whose_turn,
+			:initiator_score => board.initiator_score,
+			:playmate_score => board.playmate_score
 		}
 		response[:winner_id] = board.winner if MATCH_WINNER == response_code
 
