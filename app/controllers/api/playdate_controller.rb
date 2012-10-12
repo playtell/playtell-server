@@ -57,7 +57,9 @@ class Api::PlaydateController < ApplicationController
          }
        }
        # logger.info("Push notification sent: " + "playdate id: " + @playdate.id.to_s + " device token: " + notification[:device_tokens][0] + " url: " + notification[:aps][:playdate_url] + " initiator: " + notification[:aps][:initiator] + " playmate: " + notification[:aps][:playmate])
-       Urbanairship.push(notification)
+
+       # Temporarity disabled by Dimitry 10/12/12
+       # Urbanairship.push(notification)
      end
      
      # Notify
