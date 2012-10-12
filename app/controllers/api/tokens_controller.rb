@@ -47,7 +47,7 @@ class Api::TokensController  < ApplicationController
   def update
     device_token = params[:device_token] if params[:device_token]
     if !device_token.blank?
-        d = DeviceToken.find_or_create_by_user_id({ :user_id => @user.id })
+        d = DeviceToken.find_or_create_by_user_id({ :user_id => current_user.id })
         if d.token != device_token
           d.token = device_token
           d.save!
