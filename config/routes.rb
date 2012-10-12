@@ -21,7 +21,8 @@ Semiralabs::Application.routes.draw do
   match "remove_friendship" => 'friendships#remove'
 
   namespace :api do
-    resources :tokens, :only => [:create, :update, :destroy]
+    match 'token/update' => 'tokens#update'
+    resources :tokens, :only => [:create, :destroy]
     resources :playdatephotos, :only => [:create]
     match 'update_settings' => 'settings#update'
     match 'twilio_incoming' => 'twilio#incoming'
