@@ -1,5 +1,6 @@
 class Api::TokensController  < ApplicationController 
   skip_before_filter :verify_authenticity_token
+  before_filter :authenticate_user!, :only => [:update]
   respond_to :json
   
   def create
@@ -41,6 +42,19 @@ class Api::TokensController  < ApplicationController
       end
       render :status=>200, :json=>{:token=>@user.authentication_token, :user_id=>@user.id, :profilePhoto=>@user.profile_photo} 
     end
+  end
+
+  def update
+    device_token = params[:device_token] if params[:device_token]
+    if !device_token.blank?
+        d = DeviceToken.find_or_create_by_user_id({ :user_id => @user.id })
+        if d.token != device_token
+          d.token = device_token
+          d.save!
+          Urbanairship.register_device(params[:device_token])
+        end
+      end
+      render :status=>200, :json=>{:status => "Success"}
   end
   
   def destroy
