@@ -35,7 +35,7 @@ class Api::FriendshipsController < ApplicationController
       })
 
       # Log analytics event
-      @mixpanel.track_event("Friendship Accepted",
+      @mixpanel.track("Friendship Accepted",
         :distinct_id => current_user.username,
         :user_id => current_user.id,
         :friend_username => user.username,
@@ -58,7 +58,7 @@ class Api::FriendshipsController < ApplicationController
     })
 
     # Log analytics event
-    @mixpanel.track_event("Friendship Requested",
+    @mixpanel.track("Friendship Requested",
       :distinct_id => current_user.username,
       :user_id => current_user.id,
       :friend_username => user.username,
@@ -93,7 +93,7 @@ class Api::FriendshipsController < ApplicationController
     })
 
     # Log analytics event
-    @mixpanel.track_event("Friendship Accepted",
+    @mixpanel.track("Friendship Accepted",
       :distinct_id => current_user.username,
       :user_id => current_user.id,
       :friend_username => user.username,
@@ -128,7 +128,7 @@ class Api::FriendshipsController < ApplicationController
     })
 
     # Log analytics event
-    @mixpanel.track_event("Friendship Declined",
+    @mixpanel.track("Friendship Declined",
       :distinct_id => current_user.username,
       :user_id => current_user.id,
       :friend_username => user.username,
