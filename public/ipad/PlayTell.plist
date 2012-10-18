@@ -29,7 +29,7 @@
 			<key>metadata</key>
 			<dict>
 				<key>bundle-identifier</key>
-				<string>com.playtell.playtellipad</string>
+				<string>com.playtell.playdateipad</string>
 				<key>bundle-version</key>
 				<string>1.0</string>
 				<key>kind</key>
@@ -37,7 +37,7 @@
 				<key>subtitle</key>
 				<string>PlayTell</string>
 				<key>title</key>
-				<string>PlayTell</string>
+				<string>Playdate</string>
 			</dict>
 		</dict>
 	</array>
