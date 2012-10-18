@@ -35,7 +35,11 @@ class Api::FriendshipsController < ApplicationController
       })
 
       # Log analytics event
-      @mixpanel.track_event("Friendship Accepted", :distinct_id => current_user.username, :user_id => current_user.id, :friend_id => user.id)
+      @mixpanel.track_event("Friendship Accepted",
+        :distinct_id => current_user.username,
+        :user_id => current_user.id,
+        :friend_username => user.username,
+        :friend_id => user.id)
 
       return render :status => 200, :json => {:message => "Friendship accepted"}
     end
@@ -54,7 +58,11 @@ class Api::FriendshipsController < ApplicationController
     })
 
     # Log analytics event
-    @mixpanel.track_event("Friendship Requested", :distinct_id => current_user.username, :user_id => current_user.id, :friend_id => user.id)
+    @mixpanel.track_event("Friendship Requested",
+      :distinct_id => current_user.username,
+      :user_id => current_user.id,
+      :friend_username => user.username,
+      :friend_id => user.id)
 
     render :status => 200, :json => {:message => "Friendship request created"}
   end
@@ -85,7 +93,11 @@ class Api::FriendshipsController < ApplicationController
     })
 
     # Log analytics event
-    @mixpanel.track_event("Friendship Accepted", :distinct_id => current_user.username, :user_id => current_user.id, :friend_id => user.id)
+    @mixpanel.track_event("Friendship Accepted",
+      :distinct_id => current_user.username,
+      :user_id => current_user.id,
+      :friend_username => user.username,
+      :friend_id => user.id)
 
     render :status => 200, :json => {:message => "Friendship accepted"}
   end
@@ -116,7 +128,11 @@ class Api::FriendshipsController < ApplicationController
     })
 
     # Log analytics event
-    @mixpanel.track_event("Friendship Declined", :distinct_id => current_user.username, :user_id => current_user.id, :friend_id => user.id)
+    @mixpanel.track_event("Friendship Declined",
+      :distinct_id => current_user.username,
+      :user_id => current_user.id,
+      :friend_username => user.username,
+      :friend_id => user.id)
 
     render :status => 200, :json => {:message => "Friendship declined"}
   end
