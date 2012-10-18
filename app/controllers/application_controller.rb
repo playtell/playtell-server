@@ -232,5 +232,10 @@ private
     # DB update
     @playdate.disconnect
   end
+
+  protected
+  def mixpanel
+    @mixpanel ||= Mixpanel::Tracker.new(ENV['MIXPANEL_KEY'], {:env => request.env})
+  end
   
 end
