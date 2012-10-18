@@ -236,7 +236,7 @@ private
 
   private
   def initialize_mixpanel
-    @mixpanel = Mixpanel::Tracker.new(ENV['MIXPANEL_KEY'], request.env)
+    @mixpanel = Mixpanel::Tracker.new(ENV['MIXPANEL_KEY'], { :env => request.env })
   end
   
 end
