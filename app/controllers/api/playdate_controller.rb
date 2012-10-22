@@ -111,8 +111,21 @@ class Api::PlaydateController < ApplicationController
     # Find playmate and notify via pusher
     initiator = @playdate.getOtherPlayer(current_user)
     
-    # Send pusher notification
+    # Send pusher notification on rendezvous channel
     Pusher["presence-rendezvous-channel"].trigger('playdate_joined', {
+      :playdateID => @playdate.id,
+      :pusherChannelName => @playdate.pusher_channel_name,
+      :initiatorID => initiator.id,
+      :initiator => initiator.username,
+      :playmateID => current_user.id,
+      :playmateName => current_user.username,
+      :tokboxSessionID => @playdate.video_session_id,
+      :tokboxInitiatorToken => @playdate.tokbox_initiator_token,
+      :tokboxPlaymateToken => @playdate.tokbox_playmate_token }
+    )
+    
+    # Send pusher notification on private playdate channel
+    Pusher[@playdate.pusher_channel_name].trigger('playdate_joined', {
       :playdateID => @playdate.id,
       :pusherChannelName => @playdate.pusher_channel_name,
       :initiatorID => initiator.id,
@@ -332,6 +345,7 @@ class Api::PlaydateController < ApplicationController
     @api_key = "4f5e85254a3c12ae46a8fe32ba01ff8c8008e55d"
     if @@opentok.nil?
       @@opentok = OpenTok::OpenTokSDK.new 335312, @api_key
+      # @@opentok.api_url = 'https://staging.tokbox.com/hl'
     end
   end
   

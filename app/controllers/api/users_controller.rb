@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!, :except => [:create, :email_check]
+  before_filter :authenticate_user!, :except => [:create, :email_check, :sign_in]
   respond_to :json
 
   # required params: name, email, password, photo, birthdate, isAccountForChild
@@ -10,7 +10,6 @@ class Api::UsersController < ApplicationController
     user.username = params[:name]
     user.email = params[:email]
     user.password = params[:password]
-    puts user.inspect
 
     if !user.save
       puts user.errors.inspect
@@ -18,12 +17,27 @@ class Api::UsersController < ApplicationController
     end
 
     # Upload profile photo
-    profilePhoto = PlaydatePhoto.new(:user_id => user.id)
+    playdatePhoto = PlaydatePhoto.new(:user_id => user.id)
+    playdatePhoto.photo = params[:photo]
 
-    if !profilePhoto.store!(params[:photo])
-      puts profilePhoto.inspect
-      puts profilePhoto.errors.inspect
+    if !playdatePhoto.save
       return render :status => 154, :json => {:message => "User photo cannot be created at this time."}
+    end
+
+    # Check if someone invited this user to PlayTell
+    # If so, make a joint friendship between them
+    contactNotification = ContactNotification.where("email = ?", user.email).order('created_at desc').first
+    unless contactNotification.nil?
+      friend = User.find(contactNotification.user_id)
+      unless friend.nil?
+        # Create a new friendship
+        friendship = Friendship.new
+        friendship.user_id = friend.id
+        friendship.friend_id = user.id
+        friendship.status = true
+        friendship.responded_at = DateTime.now
+        friendship.save
+      end
     end
 
     render :status => 200, :json => {:message => "User created #{user.id}"}

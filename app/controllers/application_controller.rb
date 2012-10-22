@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :resource, :resource_name, :devise_mapping, :tablet_device?
     
   before_filter :pusher, :only => [:turnPage]
+  before_filter :initialize_mixpanel
   
   def index 
      @earlyUser = EarlyUser.new
@@ -231,6 +232,11 @@ private
     
     # DB update
     @playdate.disconnect
+  end
+
+  private
+  def initialize_mixpanel
+    @mixpanel = Mixpanel::Tracker.new(ENV['MIXPANEL_KEY'], { :env => request.env })
   end
   
 end

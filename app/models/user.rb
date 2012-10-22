@@ -6,12 +6,12 @@ class User < ActiveRecord::Base
   attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname, :authentication_token, :status 
   
   before_create :set_defaults
-  after_create :create_profile_photo, :add_first_friend
+  after_create :create_profile_photo #, :add_first_friend
   before_save :ensure_authentication_token!, :update_status
   
   has_one :playdate  
-  has_many :friendships
-  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :friendships, :dependent => :destroy
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id", :dependent => :destroy
   has_many :friends, :through => :friendships
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   has_many :device_tokens
@@ -33,7 +33,9 @@ class User < ActiveRecord::Base
   # auto-adds Test as this user's first friend
   def add_first_friend
     if User.count > 0
-      self.friendships.create!(:friend_id => User.find_by_username(DEFAULT_FRIEND_NAME).id)
+      f = self.friendships.create!(:friend_id => User.find_by_username(DEFAULT_FRIEND_NAME).id)
+      f.status=true;
+      f.save
     end
   end
   
@@ -48,7 +50,7 @@ class User < ActiveRecord::Base
   # uses the most recently taken photo as this user's profile photo
   def profile_photo
     photos = self.playdate_photos
-    photos.empty? ? nil : photos.first.photo.url 
+    photos.empty? ? nil : photos.last.photo.url 
   end
 
   def fullName

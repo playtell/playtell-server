@@ -26,7 +26,7 @@ class Api::MemoryController < ApplicationController
 
 		#verify num_total_cards is valid
 		num_total_cards = params[:num_total_cards].to_i
-		return render :json=>{:message=>"num_total_cards needs to be between 4 and 20 and must be an even number"} if (num_total_cards < 4) || ((num_total_cards % 2) != 0) || (num_total_cards > 20)
+		return render :json=>{:message=>"num_total_cards needs to be between 4 and 12 and must be an even number"} if (num_total_cards < 4) || ((num_total_cards % 2) != 0) || (num_total_cards > 12)
 
 		## get playmate and intiator
 		playmate = User.find_by_id(params[:playmate_id].to_i)
@@ -43,13 +43,26 @@ class Api::MemoryController < ApplicationController
 		filename_dump = JSON.dump filename_array
 
 		if !params[:already_playing].nil?
-			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {:filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
-      		render :json=>{:message=>"Memoryboard successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id, :filename_dump => filename_dump}
+			Pusher[@playdate.pusher_channel_name].trigger('games_memory_refresh_game', {
+				:card_array_string => board.card_array_string,
+				:filename_dump => filename_dump,
+				:initiator_id => initiator.id,
+				:playmate_id => playmate.id,
+				:board_id => board_id,
+				:num_cards => num_total_cards
+			})
+      		render :json=>{:card_array_string => board.card_array_string, :message=>"Memoryboard successfully refreshed, playdate id is " + @playdate.id.to_s, :initiator_id => initiator.id, :board_id => board_id, :filename_dump => filename_dump, :num_cards => num_total_cards}
       	else
-      		Pusher[@playdate.pusher_channel_name].trigger('games_memory_new_game', {:filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id})
-			render :json=>{:message=>"Memoryboard successfully initialized, playdate id is " + @playdate.id.to_s, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id}
+      		Pusher[@playdate.pusher_channel_name].trigger('games_memory_new_game', {
+      			:card_array_string => board.card_array_string,
+      			:filename_dump => filename_dump,
+      			:initiator_id => initiator.id,
+      			:playmate_id => playmate.id,
+      			:board_id => board_id,
+      			:num_cards => num_total_cards
+      		})
+			render :json=>{:card_array_string => board.card_array_string, :message=>"Memoryboard successfully initialized, playdate id is " + @playdate.id.to_s, :filename_dump => filename_dump, :initiator_id => initiator.id, :board_id => board_id, :num_cards => num_total_cards}
 		end
-
 	end
 
 	#request params card1_index, card2_index, board_id, playdate_id, authentication_token, user_id
@@ -57,7 +70,7 @@ class Api::MemoryController < ApplicationController
 		touched_only_one_card = true
 
 		##start PARAM validation start
-		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, card1_index, card2_index, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:card2_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
+		return render :json=>{:message=>"API expects the following: board_id, playdate_id, authentication_token, card1_index, card2_index, and user_id. Refer to the API documentation for more info."} if params[:user_id].nil? || params[:board_id].nil? || params[:card1_index].nil?  || params[:playdate_id].nil? || params[:authentication_token].nil?
 		current_user = User.find_by_id(params[:user_id])
 		return render :json=>{:message=>"Playmate cannot be found."} if current_user.nil?
 		#set json response (yes send json w/ response or no)
@@ -67,45 +80,47 @@ class Api::MemoryController < ApplicationController
 		end
 		@playdate = Playdate.find_by_id(params[:playdate_id])
 		board = Memoryboard.find_by_id(params[:board_id].to_i)
-		return render :json=>{:placement_status => 0, :message=>"Error: Game has already ended or game is invalid"} if board.status != 0
+		return render :json=>{:status => 0, :message=>"Error: Game has already ended or game is invalid"} if board.status != 0
 		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if @playdate.nil?
-		return render :json=>{:placement_status => 0, :message=>"Error: Playmate cannot be found."} if current_user.nil? #TODO figure out why json status messages don't work in browser
-		return render :json=>{:placement_status => 0, :message=>"Error: Board with that board id not found."} if board.nil?
+		return render :json=>{:status => 0, :message=>"Error: Playmate cannot be found."} if current_user.nil? #TODO figure out why json status messages don't work in browser
+		return render :json=>{:status => 0, :message=>"Error: Board with that board id not found."} if board.nil?
 
 		card1_index = params[:card1_index].to_i
-		return render :json=>{:placement_status => 0, :message=>"Error: Card1Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card1_index)
+		return render :json=>{:status => 0, :message=>"Error: Card1Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card1_index)
 		if (!params[:card2_index].nil?)
 			card2_index = params[:card2_index].to_i
-			return render :json=>{:placement_status => 0, :message=>"Error: Card2Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card2_index)
+			return render :json=>{:status => 0, :message=>"Error: Card2Index is invalid. Please pass a two digit int in string format e.g. \"12\""} if !board.index_in_bounds(card2_index)
 			touched_only_one_card = false
 		end
-		return render :json=>{:placement_status => 0, :message=>"Error: Playmate with id" + current_user.id.to_s() +  "is not authorized to change this board"} if !board.user_authorized(current_user.id)
-		return render :json=>{:placement_status => 0, :message=>"Error: It is not " + current_user.username.to_s + "'s turn! Try again after opponent makes move."} if !board.is_playmates_turn(current_user.id)
+		return render :json=>{:status => 0, :message=>"Error: Playmate with id" + current_user.id.to_s() +  "is not authorized to change this board"} if !board.user_authorized(current_user.id)
+		return render :json=>{:status => 0, :message=>"Error: It is not " + current_user.username.to_s + "'s turn! Try again after opponent makes move."} if !board.is_playmates_turn(current_user.id)
 		
-		##start RESPONSE formation
-		response = {}
-		#default responses
-		response_message = ""
-		board_dump = JSON.dump board
-		status_dump = {:has_json => 1,:board_dump => board_dump}
-		response.merge(status_dump)
-
-		#get response
+		# Form default response
 		response_code = MATCH_ERROR
 		response_message = "Error: Unspecified."
 
 		if (touched_only_one_card)
 			if (board.valid_card_at_index(card1_index))
 				response_code = FLIP_FIRST_CARD
-				response_message = "FLIP first card. Pusher sent!"
+				response_message = "First card flipped"
 
-				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:message => response_message, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index]})
+				# PUSHER: First card flip case
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {
+					:message => response_message,
+					:status => response_code,
+					:playmate_id => current_user.id,
+					:board_id => board.id,
+					:card1_index => params[:card1_index],
+					:card2_index => nil,
+					:turn => board.whose_turn,
+					:initiator_score => board.initiator_score,
+					:playmate_score => board.playmate_score
+				})
 			else
-				response_message = "Flip error: index not valid"
-
+				response_message = "Flip error: improper card index"
 			end
-		else #make sure that turn is delegated
-			# do they match?
+		else
+			# Check if cards match
 			if (board.is_a_match(card1_index, card2_index))
 				response_code_card1 = board.mark_index(card1_index, current_user.id)
 				response_code_card2 = board.mark_index(card2_index, current_user.id)
@@ -126,6 +141,7 @@ class Api::MemoryController < ApplicationController
 			else
 				response_code == MATCH_ERROR
 				response_message = "Not a match."
+				puts "NOT A MATCH -> TURN SWITCH"
 				board.set_turn(current_user.id)
 			end
 
@@ -134,20 +150,45 @@ class Api::MemoryController < ApplicationController
 			elsif response_code == MATCH_WINNER
 				response_message = "MATCH SUCCESS, WE HAVE A WINNER. Card1: " + params[:card1_index] + " Card2: " + params[:card2_index]
 			end
+			
 			if response_code == MATCH_WINNER
-				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:winner_id => board.winner, :board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+				# PUSHER: Winner case
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {
+					:winner_id => board.winner,
+					:status => response_code,
+					:playmate_id => current_user.id,
+					:board_id => board.id,
+					:card1_index => params[:card1_index],
+					:card2_index => params[:card2_index],
+					:turn => board.whose_turn,
+					:initiator_score => board.initiator_score,
+					:playmate_score => board.playmate_score
+				})
 			else
-				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {:board_dump => board_dump, :has_json => 0, :placement_status => response_code, :playmate_id => current_user.id, :board_id => board.id, :card1_index => params[:card1_index], :card2_index => params[:card2_index]})
+				# PUSHER: 2nd card NOT A MATCH case
+				Pusher[@playdate.pusher_channel_name].trigger('games_memory_play_turn', {
+					:status => response_code,
+					:playmate_id => current_user.id,
+					:board_id => board.id,
+					:card1_index => params[:card1_index],
+					:card2_index => params[:card2_index],
+					:turn => board.whose_turn,
+					:initiator_score => board.initiator_score,
+					:playmate_score => board.playmate_score
+				})
 			end
 		end
 
-		response["has_json"] = 0
-		response["message"] = response_message
-		response["placement_status"] = response_code
-		response["board_dump"] = board_dump
-		if MATCH_WINNER == response_code
-			response["winner_id"] = board.winner
-		end
+		response = {
+			:message => response_message,
+			:status => response_code,
+			:card1_index => params[:card1_index],
+			:card2_index => params[:card2_index],
+			:turn => board.whose_turn,
+			:initiator_score => board.initiator_score,
+			:playmate_score => board.playmate_score
+		}
+		response[:winner_id] = board.winner if MATCH_WINNER == response_code
 
 		render :json => response
 	end
@@ -172,7 +213,7 @@ class Api::MemoryController < ApplicationController
 
 		# grab the current playdate! 
 		@playdate = Playdate.find_by_id(params[:playdate_id])
-		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if (@playdate.nil? && params[:playdate_id].nil? &&params[:user_id].nil?)
+		return render :json=>{:message=>"Playdate with id: " + params[:playdate_id] + " not found."} if (@playdate.nil? || params[:playdate_id].nil? || params[:user_id].nil?)
 
 		board = Memoryboard.find_by_id(params[:board_id].to_i)
 		return render :json=>{:message=>"Error: Board with that board id not found."} if board.nil?

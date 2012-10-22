@@ -34,6 +34,13 @@ class Api::FriendshipsController < ApplicationController
         :friendID    => user.id
       })
 
+      # Log analytics event
+      @mixpanel.track("Friendship Accepted",
+        :distinct_id => current_user.username,
+        :user_id => current_user.id,
+        :friend_username => user.username,
+        :friend_id => user.id)
+
       return render :status => 200, :json => {:message => "Friendship accepted"}
     end
 
@@ -49,6 +56,13 @@ class Api::FriendshipsController < ApplicationController
       :friend      => user.as_playmate(friendship),
       :friendID    => user.id
     })
+
+    # Log analytics event
+    @mixpanel.track("Friendship Requested",
+      :distinct_id => current_user.username,
+      :user_id => current_user.id,
+      :friend_username => user.username,
+      :friend_id => user.id)
 
     render :status => 200, :json => {:message => "Friendship request created"}
   end
@@ -78,6 +92,13 @@ class Api::FriendshipsController < ApplicationController
       :friendID    => current_user.id
     })
 
+    # Log analytics event
+    @mixpanel.track("Friendship Accepted",
+      :distinct_id => current_user.username,
+      :user_id => current_user.id,
+      :friend_username => user.username,
+      :friend_id => user.id)
+
     render :status => 200, :json => {:message => "Friendship accepted"}
   end
 
@@ -105,6 +126,13 @@ class Api::FriendshipsController < ApplicationController
       :initiatorID => user.id,
       :friendID    => current_user.id
     })
+
+    # Log analytics event
+    @mixpanel.track("Friendship Declined",
+      :distinct_id => current_user.username,
+      :user_id => current_user.id,
+      :friend_username => user.username,
+      :friend_id => user.id)
 
     render :status => 200, :json => {:message => "Friendship declined"}
   end

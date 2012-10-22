@@ -21,7 +21,6 @@ class Memoryboard < ActiveRecord::Base
 	CREATORS_TURN = 0
 	PLAYMATES_TURN = 1
 
-
 	#instance variable representing card array
 	@@cards
 
@@ -81,17 +80,17 @@ class Memoryboard < ActiveRecord::Base
 		cards = self.card_array_from_string(self.card_array_string)
 		if self.index_in_bounds(index)
 			if (cards[index] == CARD_UNAVAILABLE)
-				puts "ERROR: index " + index.to_s + " is already marked"
+				# puts "ERROR: index " + index.to_s + " is already marked"
 				return false
 			end
 			cards[index] = CARD_UNAVAILABLE
 			self.num_cards_left = (self.num_cards_left - 1)
 			self.card_array_string = self.card_array_to_string(cards)
 			self.save
-			puts "card array string: " + self.card_array_string
+			# puts "card array string: " + self.card_array_string
 			return true
 		end
-		puts "index out of bounds!"
+		# puts "index out of bounds!"
 		return false
 	end
 
@@ -133,29 +132,23 @@ class Memoryboard < ActiveRecord::Base
 		if self.index_in_bounds(index)
 
 			if (cards[index].to_s != CARD_UNAVAILABLE.to_s)
-				puts "card still on board"
 				return true
 			else
-				puts "Error: card NOT on board"
 				return false
 			end
 		end
 		return false
-		puts "Error: index NOT on board"
 	end
 
 	def is_a_match(a,b)
 		if (self.valid_card_at_index(a) && self.valid_card_at_index(b))
 			cards = self.card_array_from_string(self.card_array_string)
 			if (cards[a] == cards[b])
-				puts "is_a_match found IT IS A MATCH"
 				return true
 			else
-				puts "is_a_match found IT IS NOT a MATCH"
 				return false
 			end
 		else
-			puts "is_a_match found that one index is not valid"
 			return false
 		end
 	end

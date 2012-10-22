@@ -1,6 +1,4 @@
 # encoding: utf-8
-require 'digest/md5'
-
 class PhotoUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
@@ -13,10 +11,11 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
-  #def store_dir
-    #"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-  #  "#{Rails.root}/tmp/uploads"
-  #end
+  def store_dir
+    # "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    # "#{Rails.root}/tmp/uploads"
+    "uploads"
+  end
   
   def cache_dir
     "#{Rails.root}/tmp/uploads"
@@ -48,8 +47,13 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    random_filename = Digest::MD5.hexdigest(rand(1234567).to_s)
-    "#{random_filename}.png" if original_filename
+    @name ||= "#{secure_token}.#{file.extension}" if original_filename.present?
+  end
+
+  protected
+  def secure_token
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
   end
 
 end

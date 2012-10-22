@@ -18,3 +18,5 @@ test/fixtures/user_settings.yml
 test/unit/card_test.rb
 test/unit/cardgame_test.rb
 test/unit/user_setting_test.rb
+.vagrant
+Vagrantfile
