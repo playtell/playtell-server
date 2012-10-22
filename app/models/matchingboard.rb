@@ -60,7 +60,6 @@ class Memoryboard < ActiveRecord::Base
 		user_id == self.initiator_id
 	end
 
-	## -Start board setters
 	#sets whose_turn to the id of the other player
 	def set_turn(user_id)
 		if is_game_creator(user_id)
@@ -75,14 +74,13 @@ class Memoryboard < ActiveRecord::Base
 		cards = self.card_array_from_string(self.card_array_string)
 		if self.index_in_bounds(index)
 			if (cards[index] == CARD_UNAVAILABLE)
-				# puts "ERROR: index " + index.to_s + " is already marked"
+				# Card is already unavailable
 				return false
 			end
 			cards[index] = CARD_UNAVAILABLE
 			self.num_cards_left = (self.num_cards_left - 1)
 			self.card_array_string = self.card_array_to_string(cards)
 			self.save
-			# puts "card array string: " + self.card_array_string
 			return true
 		end
 		# puts "index out of bounds!"
@@ -96,10 +94,10 @@ class Memoryboard < ActiveRecord::Base
 		stack_of_artwork_ids = Array.new
 
 		(1..(self.num_total_cards / 2)).each do |i|
-			stack_of_artwork_ids.push(i) #these correspond to the CARD_ARTWORK constants defined at the top of this file
+			stack_of_artwork_ids.push(i)
 			stack_of_artwork_ids.push(i)
 		end
-		stack_of_artwork_ids = stack_of_artwork_ids.shuffle #randomize array
+		stack_of_artwork_ids = stack_of_artwork_ids.shuffle # Shuffle the numbers randomly
 
 		@@cards = stack_of_artwork_ids
 		self.card_array_string = self.card_array_to_string(@@cards)
@@ -125,7 +123,6 @@ class Memoryboard < ActiveRecord::Base
 	def valid_card_at_index(index)
 		cards = self.card_array_from_string(self.card_array_string)
 		if self.index_in_bounds(index)
-
 			if (cards[index].to_s != CARD_UNAVAILABLE.to_s)
 				return true
 			else

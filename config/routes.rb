@@ -70,6 +70,10 @@ Semiralabs::Application.routes.draw do
     match 'games/memory/play_turn' => 'memory#play_turn'
     match 'games/memory/end_game' => 'memory#end_game'
 
+    match 'games/matching/new_game' => 'matching#new_game'
+    match 'games/matching/play_turn' => 'matching#play_turn'
+    match 'games/matching/end_game' => 'matching#end_game'
+
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'
     
