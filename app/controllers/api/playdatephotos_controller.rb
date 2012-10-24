@@ -9,12 +9,11 @@ class Api::PlaydatephotosController < ApplicationController
     @playdatePhoto = PlaydatePhoto.new
   end
 
-  # photo will come in with user_id, playdate_id, photo, and counter (num photo taken in the playdate) 
+  # photo will come in with user_id, playdate_id, photo 
   # [:playdate_photo]
   def create
     user_id = params[:user_id]
     playdate_id = params[:playdate_id] 
-    count = params[:count] 
     photo = params[:photo]
     
 #    if request.format != :json
