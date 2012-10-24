@@ -1,4 +1,4 @@
-class Memoryboard < ActiveRecord::Base
+class Matchingboard < ActiveRecord::Base
 	# ---- CONSTANTS ----
 	# game status
 	OPEN_GAME = 0
