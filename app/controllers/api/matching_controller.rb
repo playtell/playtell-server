@@ -127,9 +127,9 @@ class Api::MatchingController < ApplicationController
 
 		# Find the playdate
 		playdate = Playdate.find(board.playdate_id)
-		return render :json => {:message=>"Playdate with id: #{board.playdate_id} not found."} if playdate.nil?
-		return render :json => {:status => 0, :message=>"Error: Playmate with id #{current_user.id.to_s} is not authorized to change this board"} if !board.user_authorized(current_user.id)
-		return render :json => {:status => 0, :message=>"Error: It is not #{current_user.username.to_s}'s turn!"} if !board.is_playmates_turn(current_user.id)
+		return render :json => {:message => "Playdate with id: #{board.playdate_id} not found."} if playdate.nil?
+		return render :json => {:status => 0, :message => "Error: Playmate with id #{current_user.id.to_s} is not authorized to change this board"} if !board.user_authorized(current_user.id)
+		return render :json => {:status => 0, :message => "Error: It is not #{current_user.username.to_s}'s turn!"} if !board.is_playmates_turn(current_user.id)
 
 		# Verify 1st card
 		card1_index = params[:card1_index].to_i
