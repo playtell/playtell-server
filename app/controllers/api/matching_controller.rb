@@ -35,7 +35,7 @@ class Api::MatchingController < ApplicationController
 		return render :json => {:message => "Playmate with id: #{params[:playmate_id]} not found."} if playmate.nil?
 
 		# Generate new matching board via Gamelet
-		board_id = gamelet.new_matchinggame_board(initiator.id, playmate.id, num_total_cards)
+		board_id = gamelet.new_matchinggame_board(initiator.id, playmate.id, playdate.id, num_total_cards)
 		board = Matchingboard.find(board_id)
 
 		# Collect all the filenames for this board + theme
