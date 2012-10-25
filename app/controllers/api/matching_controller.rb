@@ -9,10 +9,10 @@ class Api::MatchingController < ApplicationController
 	FLIP_FIRST_CARD = 2
 	MATCH_WINNER = 3
 
-	#request params initiator_id, playmate_id, playdate_id, already_playing, theme_id, num_total_cards
+	#request params playmate_id, playdate_id, already_playing, theme_id, num_total_cards
 	def new_game
 		# Verify params
-		return render :json => {:message => "API expects the following: playdate_id, initiator_id, playmate_id num_total_cards, theme_id. Optional values: already_playing. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:initiator_id].nil? || params[:num_total_cards].nil? || params[:theme_id].nil?
+		return render :json => {:message => "API expects the following: playdate_id, playmate_id num_total_cards, theme_id. Optional values: already_playing. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:num_total_cards].nil? || params[:theme_id].nil?
 		
 		# Find the playdate
 		playdate = Playdate.find(params[:playdate_id])
@@ -30,9 +30,8 @@ class Api::MatchingController < ApplicationController
 		return render :json => {:message => "num_total_cards needs to be between 4 and 12 and must be an even number"} if num_total_cards_valid
 
 		# Find the game players
-		initiator = User.find(params[:initiator_id])
+		initiator = current_user
 		playmate = User.find(params[:playmate_id])
-		return render :json => {:message => "Initiator playmate with id: #{params[:initiator_id]} not found."} if initiator.nil?
 		return render :json => {:message => "Playmate with id: #{params[:playmate_id]} not found."} if playmate.nil?
 
 		# Generate new matching board via Gamelet
