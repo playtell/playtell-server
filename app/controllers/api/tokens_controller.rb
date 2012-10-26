@@ -44,17 +44,36 @@ class Api::TokensController  < ApplicationController
     end
   end
 
+#required params: ua_token, pt_token, version
+#ua_token is device_token
   def update
-    device_token = params[:device_token] if params[:device_token]
-    if !device_token.blank?
-        d = DeviceToken.find_or_create_by_user_id({ :user_id => current_user.id })
-        if d.token != device_token
-          d.token = device_token
-          d.save!
-          Urbanairship.register_device(params[:device_token])
-        end
-      end
-      render :status=>200, :json=>{:status => "Success"}
+    
+    version = params[:version]
+    pttoken = params[:PT_token]
+    device_token = params[:UA_token] 
+    
+    if pttoken.nil? or device_token.blank? or version.blank? 
+      render :status=>400, :json=>{:message=>"The request must contain the PT_token, UA_token, and version number."}
+      return
+    end
+    
+    #create or update device record in db    
+    d = DeviceToken.find_or_create_by_user_id({ :user_id => current_user.id })
+    if d.token != device_token
+      d.token = device_token
+      d.PT_token = params[:PT_token]
+      d.version = params[:version]
+      d.save!
+      Urbanairship.register_device(params[:device_token])
+    end
+    
+    #check against current major version of app
+    v = version.split(".")[0]
+    if CURRENT_MAJOR_VERSION.to_i > v.to_i
+      render :status=>600, :json=>{:status => "Needs to upgrade to latest major version"}
+      return
+    end
+    render :status=>200, :json=>{:status => "Success"}
   end
   
   def destroy
