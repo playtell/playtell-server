@@ -41,7 +41,12 @@ class Api::PlaydatephotosController < ApplicationController
 #      end
 #    end
 
-  render :status=>200, :json=>{:photo=>@playdatePhoto}
+  if @playdatePhoto.save
+    render :status=>200, :json=>{:photo=>@playdatePhoto}
+  else
+    render :status=>400, :json=>{:message=>"error"}
+  end
+  
   end
 
   def create_old
