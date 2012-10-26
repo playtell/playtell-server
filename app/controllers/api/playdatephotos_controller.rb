@@ -34,7 +34,7 @@ class Api::PlaydatephotosController < ApplicationController
     respond_to do |format|
       if @playdatePhoto.save
         format.html { redirect_to user_path current_user, flash[:notice] = "Successfully created photo." }
-        format.json { render :json => {:photo=>@playdatePhoto}  }
+        format.json { render :status => 200, :json => {:photo=>@playdatePhoto}  }
       else
         format.html { redirect_to user_path current_user, flash[:notice] = "Failed to create photo." }
         format.json { render :json => {:message=>"error"}  }
