@@ -28,7 +28,7 @@ class Api::PlaydatephotosController < ApplicationController
     
     #user = User.find(user_id)
     
-    @playdatePhoto = PlaydatePhoto.new(:user_id => user_id, :playdate_id => playdate_id, :count => count )
+    @playdatePhoto = PlaydatePhoto.new(:user_id => user_id, :playdate_id => playdate_id)
     @playdatePhoto.photo = photo
     
     respond_to do |format|
