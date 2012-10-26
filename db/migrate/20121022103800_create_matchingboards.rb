@@ -1,6 +1,6 @@
 class CreateMatchingboards < ActiveRecord::Migration
 	def self.up
-		create_table :memoryboards do |t|
+		create_table :matchingboards do |t|
 			t.integer :gamelet_id
 			t.integer :playdate_id
 			t.integer :initiator_id

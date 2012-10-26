@@ -83,27 +83,22 @@ class Gamelet < ActiveRecord::Base
 		return (total_num_cards > 4) || ((total_num_cards % 2) == 0) || (total_num_cards < 20)
 	end
 
-	def new_matchinggame_board(created_by, friend_2, total_num_cards)
-		#verify that created_by exists in the users table
-		creator = User.find_by_id(created_by)
-		playmate = User.find_by_id(friend_2)
-		return -1 if creator.nil? || playmate.nil?
-
+	def new_matchinggame_board(initiator_id, playmate_id, playdate_id, total_num_cards)
 		board = Matchingboard.create(
+			:gamelet_id => self.id,
+			:playdate_id => playdate_id,
+			:initiator_id => initiator_id,
+			:playmate_id => playmate_id,
 			:initiator_score => 0,
 			:playmate_score => 0,
 			:win_code => NIL_OR_ERROR,
 			:status => OPEN_GAME,
 			:num_cards_left => total_num_cards,
 			:winner => nil,
-			:initiator_id => creator.id,
-			:playmate_id => playmate.id,
 			:whose_turn => CREATORS_TURN,
-			:gamelet_id => self.id,
 			:num_total_cards => total_num_cards
-		) # it's the creator's turn first
+		)
 		board.init_card_array
-
 		return board.id
 	end
 
