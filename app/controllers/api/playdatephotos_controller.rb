@@ -31,15 +31,22 @@ class Api::PlaydatephotosController < ApplicationController
     @playdatePhoto = PlaydatePhoto.new(:user_id => user_id, :playdate_id => playdate_id)
     @playdatePhoto.photo = photo
     
-    respond_to do |format|
-      if @playdatePhoto.save
-        format.html { redirect_to user_path current_user, flash[:notice] = "Successfully created photo." }
-        format.json { render :json => {:photo=>@playdatePhoto}  }
-      else
-        format.html { redirect_to user_path current_user, flash[:notice] = "Failed to create photo." }
-        format.json { render :json => {:message=>"error"}  }
-      end
-    end
+#    respond_to do |format|
+#      if @playdatePhoto.save
+#        format.html { redirect_to user_path current_user, flash[:notice] = "Successfully created photo." }
+#        format.json { render :status => 200, :json => {:photo=>@playdatePhoto}  }
+#      else
+#        format.html { redirect_to user_path current_user, flash[:notice] = "Failed to create photo." }
+#        format.json { render :json => {:message=>"error"}  }
+#      end
+#    end
+
+  if @playdatePhoto.save
+    render :status=>200, :json=>{:photo=>@playdatePhoto}
+  else
+    render :status=>400, :json=>{:message=>"error"}
+  end
+  
   end
 
   def create_old
