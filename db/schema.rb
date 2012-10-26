@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120905203006) do
+ActiveRecord::Schema.define(:version => 20121026182417) do
 
   create_table "apps", :force => true do |t|
     t.datetime "created_at"
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(:version => 20120905203006) do
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "PT_token"
+    t.string   "version"
   end
 
   create_table "early_users", :force => true do |t|
@@ -178,6 +180,24 @@ ActiveRecord::Schema.define(:version => 20120905203006) do
   end
 
   create_table "indicators", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "matchingboards", :force => true do |t|
+    t.integer  "gamelet_id"
+    t.integer  "playdate_id"
+    t.integer  "initiator_id"
+    t.integer  "playmate_id"
+    t.integer  "initiator_score"
+    t.integer  "playmate_score"
+    t.integer  "status"
+    t.integer  "winner"
+    t.integer  "whose_turn"
+    t.integer  "num_cards_left"
+    t.integer  "win_code"
+    t.integer  "num_total_cards"
+    t.string   "card_array_string"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

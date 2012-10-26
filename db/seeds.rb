@@ -9,54 +9,6 @@
 App.delete_all
 Book.delete_all
 Page.delete_all
-=begin
-t = Book.create( {:title => "James and the Red Balloon", :image_directory => "james-and-the-red-balloon"} )
-Page.create({:book_id => t.id,
-             :page_num => 1,
-             :page_text => "It is summer holiday time on the Island of Sodor. Vacationers come from far and wide to
-             enjoy the beauty of the island. It is the busiest time of the year for Sir Topham Hatt\'s engines.
-             Thomas was excited. Sir Topham Hatt had sent him to pick up a special delivery to Dryaw
-             Airfield."})
-Page.create({:book_id => t.id,
-             :page_num => 2,
-             :page_text => "\"What have you got there?\" tooted Percy. \"A balloon,\" replied Thomas. \"A party             balloon?\" asked Percy excitedly. \"No,\" said Thomas. \"This is a very special balloon.\" And he chuffed away."})
-Page.create({ :book_id => t.id,
-              :page_num => 3,
-              :page_text => "Soon Thomas arrived at the airfield. And hot air was puffed into the balloon.\n\"What is that?\" huffed James. \"A hot-air balloon,\" said Thomas. \"It will take vacationers on rides around the island!\""})
-Page.create({ :book_id => t.id,
-              :page_num => 4,
-              :page_text => "\"Taking vacationers on rides around the island is our job,\" wheeshed James jealously. Then, as if by magic, the hot-air balloon rose silently up into the sky. \"What if the hot-air balloon takes our passengers away?\" chuffed James. \"What will happen to us then?\""})             
-Page.create({ :book_id => t.id,
-              :page_num => 5,
-              :page_text => "This made Thomas worry. Suddenly he wasn\'t so excited about the balloon. The balloon could be seen by everyone on the Island of Sodor. Duck gazed at it for so long, he ran into the back of Stepney. \"Why, it\'s a floating basket with folks in it,\" said Donald. \"Whatever will they dream up next?\" said Douglas."})
-Page.create({ :book_id => t.id,
-              :page_num => 6,
-              :page_text => "James and Thomas were waiting at the level crossing. They were still worried about the hot-air balloon. \"If it takes our passengers away,\" chuffed Thomas, \"there\'ll be no use for us engines.\" \"Passengers should travel on trains!\" huffed James. \"Not in silly balloons.\""})
-Page.create({ :book_id => t.id,
-              :page_num => 7,
-              :page_text => "Then something big and round and red drifted straight towards them. \"We\'re out of hot air!\" shouted a voice.\n\"ARRRRGGGGGGGHHHHH!\" Cried James. \"What\'s happening?\" Crash! Bang! Wallop! Went the balloon, and landed right on top of James. He was so scared he let out a huge burst of steam, which blew the balloon up again."})                            
-              Page.create({ :book_id => t.id,
-              :page_num => 8,
-              :page_text => "The balloon rose into the air once more. \"Well done, James!\" called his driver. \"Your hot air did the trick.\" \"Oh, no James!\" cried Thomas. \"You saved the hot-air balloon!\""})                            
-Page.create({ :book_id => t.id,
-              :page_num => 9,
-              :page_text => "\"I didn\'t mean to!\" groaned James. \"Now it\'s sure to take our passengers.\" Wherever James went, he could see the balloon carrying vacationers across the island. He felt he should be taking those passengers. \"Rails are better than hot air any day.\""})                            
-Page.create({ :book_id => t.id,
-              :page_num => 10,
-              :page_text => "James arrived back at the station. There were lots of people on the platform. Sir Topham Hatt was waiting, too. \"Well done, James!\" \n\"But now the passengers will ride the hot-air balloon.\""})
-Page.create({ :book_id => t.id,
-              :page_num => 11,
-              :page_text => "Sir Topham Hatt laughed. \"You\'re right, James\" he said. \"but they will need a ride home - in a train!\" James was delighted."})
-Page.create({ :book_id => t.id,
-              :page_num => 12,
-              :page_text => "Sir Topham Hatt was right. The engines were busier than ever taking vacationers to and from the airfield."})                                                        
-Page.create({ :book_id => t.id,
-              :page_num => 13,
-              :page_text => "Whenever James sees the red balloon, he whistles and toots. And sometimes, when he\'s asleep at night, James dreams he can fly too..."})
-Page.create({ :book_id => t.id,
-              :page_num => 14,
-              :page_text => "...Just like the red balloon!"})
-=end
 
 b = Book.create( {:title => "Koda's Adventure", :image_directory => "kodas-adventure", :image_only => 1} )
 Page.create({:book_id => b.id, 
@@ -106,7 +58,72 @@ Page.create({:book_id => b.id,
 Page.create({:book_id => b.id, 
             :page_num => 12, 
             :page_text => ""})
-                                                                                      
+
+
+b = Book.create( {:title => "Transportation Picture Book", :image_directory => "picture-book-transportation", :image_only => 1} )
+Page.create({:book_id => b.id, 
+            :page_num => 1, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 2, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 3, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 4, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 5, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 6, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 7, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 8, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 9, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 10, 
+            :page_text => ""}) 
+            
+b = Book.create( {:title => "One to Ten", :image_directory => "OneToTen", :image_only => 1} )
+Page.create({:book_id => b.id, 
+            :page_num => 1, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 2, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 3, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 4, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 5, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 6, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 7, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 8, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 9, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 10, 
+            :page_text => ""})                                                       
+
 b = Book.create({ :title => "Little Red Riding Hood", :image_directory => "little-red-riding-hood" })
 Page.create({:book_id => b.id, 
                          :page_num => 1, 
@@ -139,31 +156,7 @@ Page.create({:book_id => b.id,
                          :page_num => 10, 
                          :page_text => "\"Oh Grandma, I was so scared!\"  sobbed Little Red Riding Hood, \"I'll never speak to strangers or dawdle in the forest again.\"\n\"There, there, child.  You've learned an important lesson.  Thank goodness you shouted loud enough for this kind woodsman to hear you!\"\nThe woodsman knocked out the wolf and carried him deep into the forest where he wouldn't bother people any longer.\nLittle Red Riding Hood and her Grandmother had a nice lunch and a long chat."}) 
 
- b = Book.create( {:title => "Monday's Child", :image_directory => "Mondays-Child", :image_only => 1} )
-
- Page.create({:book_id => b.id, 
-              :page_num => 1, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 2, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 3, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 4, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 5, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 6, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 7, 
-              :page_text => ""})
-
-
+=begin
  b = Book.create( {:title => "This Old Man", :image_directory => "this-old-man", :image_only => 1} )
 
  Page.create({:book_id => b.id, 
@@ -196,6 +189,7 @@ Page.create({:book_id => b.id,
  Page.create({:book_id => b.id, 
               :page_num => 10, 
               :page_text => ""})
+
 
 t = Book.create( {:title => "Thomas Breaks a Promise", :image_directory => "thomas-breaks-a-promise"} )
 Page.create({:book_id => t.id, 
@@ -288,13 +282,14 @@ Page.create({:book_id => t.id,
            :page_num => 23, 
            :page_text => "And now, every time Thomas passes a signal, he checks it twice, just to be safe. Gordon likes to tease him. \"Fussy little Thomas certainly is fussy about signals.\"\n\"Peep, peep!\" says Thomas. \"Safety is our first concern.\""
            })
-           
+=end
+      
 # create tic tac toe
-Game.delete_all
-Game.create({:title => "Tic Tac Toe"})
+#Game.delete_all
+#Game.create({:title => "Tic Tac Toe"})
            
 # create users
 if !User.find_by_username(DEFAULT_FRIEND_NAME)
-  u = User.create(:email => "jason@playtell.com", :password => "rg", :username => "jason")
+  u = User.create(:email => "jason@playtell.com", :password => "rg", :username => DEFAULT_FRIEND_NAME)
   u.confirmed
 end
