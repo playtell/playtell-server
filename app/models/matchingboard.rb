@@ -91,15 +91,17 @@ class Matchingboard < ActiveRecord::Base
 		@@cards = Array.new(self.num_total_cards)
 
 		#load up artwork stack
-		stack_of_artwork_ids = Array.new
+		stack_of_artwork_ids_pairing = Array.new
+		stack_of_artwork_ids_available = Array.new
 
 		(1..(self.num_total_cards / 2)).each do |i|
-			stack_of_artwork_ids.push(i)
-			stack_of_artwork_ids.push(i)
+			stack_of_artwork_ids_pairing.push(i)
+			stack_of_artwork_ids_available.push(i)
 		end
-		stack_of_artwork_ids = stack_of_artwork_ids.shuffle # Shuffle the numbers randomly
+		stack_of_artwork_ids_pairing = stack_of_artwork_ids_pairing.shuffle # Shuffle the numbers randomly
+		stack_of_artwork_ids_available = stack_of_artwork_ids_available.shuffle # Shuffle the numbers randomly
 
-		@@cards = stack_of_artwork_ids
+		@@cards = stack_of_artwork_ids_pairing + stack_of_artwork_ids_available
 		self.card_array_string = self.card_array_to_string(@@cards)
 		self.save
 	end
