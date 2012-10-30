@@ -12,14 +12,14 @@ class AddStuffToMemoryBoard < ActiveRecord::Migration
   end
 
   def self.down
-  	remove_column :memoryboards, :status, :integer
-  	remove_column :memoryboards, :winner, :integer
-  	remove_column :memoryboards, :whose_turn, :integer
-  	remove_column :memoryboards, :num_cards_left, :integer
-  	remove_column :memoryboards, :win_code, :integer
-  	remove_column :memoryboards, :gamelet_id, :integer
-  	remove_column :memoryboards, :playdate_id, :integer
-  	remove_column :memoryboards, :playmate_id, :integer
-  	remove_column :memoryboards, :initiator_id, :integer
+  	remove_column :memoryboards, :status
+  	remove_column :memoryboards, :winner
+  	remove_column :memoryboards, :whose_turn
+  	remove_column :memoryboards, :num_cards_left
+  	remove_column :memoryboards, :win_code
+  	remove_column :memoryboards, :gamelet_id
+  	remove_column :memoryboards, :playdate_id
+  	remove_column :memoryboards, :playmate_id
+  	remove_column :memoryboards, :initiator_id
   end
 end
