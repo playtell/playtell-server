@@ -116,8 +116,8 @@ class Matchingboard < ActiveRecord::Base
 		themeid = Gamelet.find_by_id(self.gamelet).theme_id
 		totalCardsInSet = self.num_total_cards/2
 
-		@@cards.each do |i|
-			leftOrRight = (i < totalCardsInSet) ? "_r" : "_l"
+		@@cards.each_with_index do |i, index|
+			leftOrRight = (index < totalCardsInSet) ? "_r" : "_l"
 			filename = "theme" + themeid.to_s + "artwork" + i.to_s + leftOrRight + ".png"
 			filename_array.push(filename)
 		end
