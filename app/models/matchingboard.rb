@@ -110,13 +110,15 @@ class Matchingboard < ActiveRecord::Base
 		array.map {|i| i.to_s}.join
 	end
 
-	#filename format is theme[theme_id]artwork[artwork_id].png
+	#filename format is theme[theme_id]artwork[artwork_id]_l.png (or _r.png)
 	def get_array_of_card_backside_filenames
 		filename_array = Array.new
 		themeid = Gamelet.find_by_id(self.gamelet).theme_id
+		totalCardsInSet = self.num_total_cards/2
 
 		@@cards.each do |i|
-			filename = "theme" + themeid.to_s + "artwork" + i.to_s + ".png"
+			leftOrRight = (i < totalCardsInSet) ? "_r" : "_l"
+			filename = "theme" + themeid.to_s + "artwork" + i.to_s + leftOrRight + ".png"
 			filename_array.push(filename)
 		end
 		return filename_array
