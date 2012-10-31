@@ -160,7 +160,7 @@ class Matchingboard < ActiveRecord::Base
 	def set_winner
 		if self.initiator_score > self.playmate_score
 			self.winner = initiator_id
-		elsif self.playmate_score < self.initiator_score
+		elsif self.playmate_score > self.initiator_score
 			self.winner = playmate_id
 		elsif self.initiator_score == self.playmate_score
 			self.winner = -1 # draw
