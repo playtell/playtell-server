@@ -164,11 +164,14 @@ class Api::MatchingController < ApplicationController
 					# Increment user score
 					board.increment_score(current_user.id)
 
-					# Is the game over?
+					# Is the game over? If not, switch turn
 					if (board.we_have_a_winner)
 						response_code = MATCH_WINNER
 						response_message = "Match success. Game over. Card1: #{params[:card1_index]} Card2: #{params[:card2_index]}"
 						board.set_winner
+					else
+						# Switch turn
+						board.set_turn(current_user.id)
 					end
 				else
 					# Card already matched
