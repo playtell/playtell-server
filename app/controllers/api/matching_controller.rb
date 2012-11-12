@@ -12,7 +12,13 @@ class Api::MatchingController < ApplicationController
 	#request params playmate_id, playdate_id, already_playing, theme_id, num_total_cards
 	def new_game
 		# Verify params
-		return render :json => {:message => "API expects the following: playdate_id, playmate_id num_total_cards, theme_id. Optional values: already_playing. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:num_total_cards].nil? || params[:theme_id].nil?
+		return render :json => {:message => "API expects the following: playdate_id, playmate_id num_total_cards, theme_id. Optional values: already_playing, game_name. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:num_total_cards].nil? || params[:theme_id].nil?
+
+		# Figure out game name
+		game_name = 'matching'
+		if !params[:game_name].nil?
+			game_name = params[:game_name]
+		end
 		
 		# Find the playdate
 		playdate = Playdate.find(params[:playdate_id])
@@ -51,7 +57,8 @@ class Api::MatchingController < ApplicationController
 				:board_id => board_id,
 				:card_array_string => board.card_array_string,
 				:filename_dump => filename_dump,
-				:num_cards => num_total_cards
+				:num_cards => num_total_cards,
+				:game_name => game_name
 			})
       		render :json => {
       			:message => "Matchingboard successfully refreshed, playdate id is #{playdate.id.to_s}",
@@ -60,7 +67,8 @@ class Api::MatchingController < ApplicationController
       			:board_id => board_id,
       			:card_array_string => board.card_array_string,
       			:filename_dump => filename_dump,
-      			:num_cards => num_total_cards
+      			:num_cards => num_total_cards,
+      			:game_name => game_name
       		}
       	else
       		# If not already playing, new game
@@ -70,7 +78,8 @@ class Api::MatchingController < ApplicationController
 				:board_id => board_id,
 				:card_array_string => board.card_array_string,
 				:filename_dump => filename_dump,
-				:num_cards => num_total_cards
+				:num_cards => num_total_cards,
+				:game_name => game_name
       		})
 			render :json => {:card_array_string => board.card_array_string,
 				:message => "Matchingboard successfully initialized, playdate id is #{playdate.id.to_s}",
@@ -79,7 +88,8 @@ class Api::MatchingController < ApplicationController
 				:board_id => board_id,
 				:card_array_string => board.card_array_string,
 				:filename_dump => filename_dump,
-				:num_cards => num_total_cards
+				:num_cards => num_total_cards,
+				:game_name => game_name
 			}
 		end
 	end
