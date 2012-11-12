@@ -14,7 +14,7 @@ class Api::MatchingController < ApplicationController
 		# Verify params
 		return render :json => {:message => "API expects the following: playdate_id, playmate_id num_total_cards, theme_id. Optional values: already_playing, game_name. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:num_total_cards].nil? || params[:theme_id].nil?
 
-		# Figure out game name
+		# Figure out game name (matching, math)
 		game_name = 'matching'
 		if !params[:game_name].nil?
 			game_name = params[:game_name]
@@ -32,7 +32,11 @@ class Api::MatchingController < ApplicationController
 
 		# Verify num_total_cards
 		num_total_cards = params[:num_total_cards].to_i
-		num_total_cards_valid = (num_total_cards < 4) || ((num_total_cards % 2) != 0) || (num_total_cards > 12)
+		if game_name == 'matching'
+			num_total_cards_valid = ((num_total_cards % 2) != 0) || (num_total_cards < 4) || (num_total_cards > 12)
+		elsif game_name == 'math'
+			num_total_cards_valid = ((num_total_cards % 2) != 0) || (num_total_cards < 10) || (num_total_cards > 40)
+		end
 		return render :json => {:message => "num_total_cards needs to be between 4 and 12 and must be an even number"} if num_total_cards_valid
 
 		# Find the game players
