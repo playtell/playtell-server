@@ -19,6 +19,11 @@ class Matchingboard < ActiveRecord::Base
 	#instance variable representing card array
 	@@cards
 
+	# duplicates:
+	# this game has a lot of duplicates (ex. $0.01 vs 'one cent')
+	# those still have to match even though technically they have different asset ids
+	@duplicates = [[1,2], [3,4], [5,21], [6,7], [8,9], [10,11], [12,13], [14,15], [16,17], [18,19]]
+
 	# ---- validations ----
 	attr_accessible :initiator_score, :playmate_score, :status, :card_array_string, :winner, :whose_turn, :num_cards_left, :win_code, :gamelet_id, :playmate_id, :playdate_id, :initiator_id, :num_total_cards
 	belongs_to :gamelet
@@ -137,12 +142,25 @@ class Matchingboard < ActiveRecord::Base
 	end
 
 	def is_a_match(a,b)
-		puts "---- is_a_match: #{a.to_s} vs. #{b.to_s}"
 		if (self.valid_card_at_index(a) && self.valid_card_at_index(b))
 			cards = self.card_array_from_string(self.card_array_string)
 			if (cards[a] == cards[b])
 				return true
 			else
+				# Check all the duplicates. If this is one of them, verify card against duplicate value
+				@duplicates.each do |dup_arr|
+					if dup_arr.include?(cards[b])
+						dup_card = dup_arr.index(cards[b]) == 0 ? dup_arr[1] : dup_arr[0]
+						if cards[a] == dup_card
+							# Duplicate card is a match!
+							return true
+						else
+							# Neither original nor duplicate card matched
+							return false
+						end
+					end
+				end
+				# Original card didn't match and didn't find any duplicates to match against
 				return false
 			end
 		else
