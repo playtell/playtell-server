@@ -107,7 +107,7 @@ class Matchingboard < ActiveRecord::Base
 	end
 
 	def card_array_to_string(array)
-		array.map {|i| i.to_s}.join
+		array.map {|i| i.to_s}.join(',')
 	end
 
 	#filename format is theme[theme_id]artwork[artwork_id]_l.png (or _r.png)
@@ -154,7 +154,7 @@ class Matchingboard < ActiveRecord::Base
 	end
 
 	def card_array_from_string(mystring)
-		mystring.split(//).map {|i| i.to_i}
+		mystring.split(',').map {|i| i.to_i}
 	end
 
 	def set_winner
