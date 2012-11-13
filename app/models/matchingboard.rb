@@ -22,7 +22,7 @@ class Matchingboard < ActiveRecord::Base
 	# duplicates:
 	# this game has a lot of duplicates (ex. $0.01 vs 'one cent')
 	# those still have to match even though technically they have different asset ids
-	@duplicates = [[1,2], [3,4], [5,21], [6,7], [8,9], [10,11], [12,13], [14,15], [16,17], [18,19]]
+	DUPLICATES = [[1,2], [3,4], [5,21], [6,7], [8,9], [10,11], [12,13], [14,15], [16,17], [18,19]]
 
 	# ---- validations ----
 	attr_accessible :initiator_score, :playmate_score, :status, :card_array_string, :winner, :whose_turn, :num_cards_left, :win_code, :gamelet_id, :playmate_id, :playdate_id, :initiator_id, :num_total_cards
@@ -148,7 +148,7 @@ class Matchingboard < ActiveRecord::Base
 				return true
 			else
 				# Check all the duplicates. If this is one of them, verify card against duplicate value
-				@duplicates.each do |dup_arr|
+				DUPLICATES.each do |dup_arr|
 					if dup_arr.include?(cards[b])
 						dup_card = dup_arr.index(cards[b]) == 0 ? dup_arr[1] : dup_arr[0]
 						if cards[a] == dup_card
