@@ -137,6 +137,7 @@ class Matchingboard < ActiveRecord::Base
 	end
 
 	def is_a_match(a,b)
+		puts "---- is_a_match: #{a.to_s} vs. #{b.to_s}"
 		if (self.valid_card_at_index(a) && self.valid_card_at_index(b))
 			cards = self.card_array_from_string(self.card_array_string)
 			if (cards[a] == cards[b])
