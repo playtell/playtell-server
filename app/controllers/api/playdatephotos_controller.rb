@@ -10,7 +10,6 @@ class Api::PlaydatephotosController < ApplicationController
   end
 
   # photo will come in with user_id, playdate_id, photo 
-  # [:playdate_photo]
   def create
     user_id = params[:user_id]
     playdate_id = params[:playdate_id] 
@@ -30,50 +29,34 @@ class Api::PlaydatephotosController < ApplicationController
     
     @playdatePhoto = PlaydatePhoto.new(:user_id => user_id, :playdate_id => playdate_id)
     @playdatePhoto.photo = photo
-    
-#    respond_to do |format|
-#      if @playdatePhoto.save
-#        format.html { redirect_to user_path current_user, flash[:notice] = "Successfully created photo." }
-#        format.json { render :status => 200, :json => {:photo=>@playdatePhoto}  }
-#      else
-#        format.html { redirect_to user_path current_user, flash[:notice] = "Failed to create photo." }
-#        format.json { render :json => {:message=>"error"}  }
-#      end
-#    end
 
-  if @playdatePhoto.save
-    render :status=>200, :json=>{:photo=>@playdatePhoto}
-  else
-    render :status=>400, :json=>{:message=>"error"}
-  end
+    if @playdatePhoto.save
+      render :status=>200, :json=>{:photo=>@playdatePhoto}
+    else
+      puts @playdatePhoto.errors.inspect
+      render :status=>400, :json=>{:message=>"Error saving photo"}
+    end
   
   end
+  
+  # given a user_id, return a list of all photos
+  def all_photos
+    user_id = params[:user_id]
 
-  def create_old
-    unless params[:photo_data].blank? 
-      #kit = IMGKit.new(params[:photo_data])
-      #file = kit.to_file('tmp/uploads/test.png') 
-      #file = kit.to_file('public/images/photos/test.png') 
-      
-      #File.open('public/images/photos/test.gif', 'wb') do |f|
-      #  f.write(Base64.decode64(params[:photo_data]))
-      #end
-      
-      #img = Magick::Image.from_blob(params[:photo_data]) {
-      #  self.format = "png"
-      #}
-      #puts img.write('public/images/photos/test.png', 'png')
-      
-      #data = StringIO.new(Base64.decode64(params[:photo_data]))
-      #data.class.class_eval { attr_accessor :original_filename, :content_type }
-      #data.original_filename = "cover.png"
-      #data.content_type = "image/png"
-      
-      #@playdatePhoto = current_user.playdate_photos.new()
-      #@playdatePhoto.photo = data
-      #@playdatePhoto.save
+    if user_id.nil?
+      render :status=>400, :json=>{:message=>"The request must contain the user_id."}
+      return
     end
-    render :nothing => true
+
+    u = User.find(user_id)
+    if u.nil?
+      logger.info("User with email #{email} failed signin: user cannot be found.")
+      render :status=>401, :json=>{:message=>"User cannot be found."}
+      return
+    end
+    
+    render :status=>200, :json=>{:all_photos=>u.playdate_photos}
+
   end
 
 end
