@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127023614) do
+ActiveRecord::Schema.define(:version => 20121127195205) do
 
   create_table "apps", :force => true do |t|
     t.datetime "created_at"
@@ -261,6 +261,7 @@ ActiveRecord::Schema.define(:version => 20121127023614) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "viewed",      :default => false
+    t.string   "sender_name"
   end
 
   create_table "sessions", :force => true do |t|

@@ -18,8 +18,15 @@ class Api::PostcardsController < ApplicationController
       render :status=>400, :json=>{:message=>"The request must contain the receiver_id, sender_id, and photo."}
       return
     end
+    
+    r = User.find(receiver_id)
+    s = User.find(sender_id)
+    if r.nil? or s.nil?
+      render :status=>400, :json=>{:message=>"Sender or receiver doesn't exist with that ID."}
+      return
+    end
 
-    @postcard = Postcard.new(:receiver_id => receiver_id, :sender_id => sender_id)
+    @postcard = Postcard.new(:receiver_id => receiver_id, :sender_id => sender_id, :sender_name => s.fullName)
     @postcard.photo = photo
 
     if @postcard.save
