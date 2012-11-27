@@ -55,7 +55,7 @@ class Api::PlaydatephotosController < ApplicationController
       return
     end
     
-    render :status=>200, :json=>{:all_photos=>u.playdate_photos}
+    render :status=>200, :json=>u.playdate_photos
 
   end
 

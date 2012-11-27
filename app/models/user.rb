@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   has_many :device_tokens
   has_many :playdate_photos
+  has_many :postcards, :foreign_key => "receiver_id"
   has_many :contacts
   has_many :contact_notifications
 

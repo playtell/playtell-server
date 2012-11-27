@@ -23,10 +23,13 @@ Semiralabs::Application.routes.draw do
   namespace :api do
     match 'token/update' => 'tokens#update'
     resources :tokens, :only => [:create, :destroy]
+
     match 'playdatephoto/all_photos' => 'playdatephotos#all_photos'
     resources :playdatephotos, :only => [:create]
-    match 'postcard/all_photos' => 'postcard#all_photos'
-    match 'postcard/num_new_photos' => 'postcard#num_new_photos'
+
+    resources :postcards, :only => [:create]
+    match 'postcard/all_photos' => 'postcards#all_photos'
+    match 'postcard/num_new_photos' => 'postcards#num_new_photos'
 
     match 'update_settings' => 'settings#update'
     match 'twilio_incoming' => 'twilio#incoming'
