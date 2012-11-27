@@ -69,8 +69,9 @@ class Api::PostcardsController < ApplicationController
     end
     
     render :status=>200, :json => u.postcards
-    u.postcards.where("viewed = ?", false).each |p|
+    u.postcards.where("viewed = ?", false).each do |p|
       p.viewed = true
+      p.save
     end
   end
 
