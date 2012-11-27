@@ -22,7 +22,7 @@ class Api::PostcardsController < ApplicationController
     r = User.find(receiver_id)
     s = User.find(sender_id)
     if r.nil? or s.nil?
-      render :status=>400, :json=>{:message=>"Sender or receiver doesn't exist with that ID."}
+      render :status=>401, :json=>{:message=>"Sender or receiver doesn't exist with that ID."}
       return
     end
 
