@@ -75,7 +75,7 @@ class Api::PostcardsController < ApplicationController
       return
     end
     
-    render :status=>200, :json => u.postcards
+    render :status=>200, :json => u.postcards.order('created_at desc')
     u.postcards.where("viewed = ?", false).each do |p|
       p.viewed = true
       p.save
