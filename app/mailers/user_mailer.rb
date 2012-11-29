@@ -20,6 +20,6 @@ class UserMailer < ActionMailer::Base
   def contact_invitation(current_user, contact, message)
     @contact = contact
     @message = message
-    mail(:to => contact.email, :subject => "Join #{current_user.firstname} #{current_user.lastname} on PlayTell!")
+    mail(:to => contact.email, :subject => "Keeping in touch")
   end
 end
