@@ -9,10 +9,10 @@ class Api::PostcardsController < ApplicationController
     sender_id = params[:sender_id] 
     photo = params[:photo]
 
-  #    if request.format != :json
-  #        render :status=>406, :json=>{:message=>"The request must be json"}
-  #        return
-  #    end
+  if request.format != :json
+    render :status=>406, :json=>{:message=>"The request must be json"}
+    return
+  end
 
     if receiver_id.nil? or sender_id.nil? or photo.blank? 
       render :status=>400, :json=>{:message=>"The request must contain the receiver_id, sender_id, and photo."}
