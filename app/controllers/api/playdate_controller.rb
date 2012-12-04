@@ -9,7 +9,10 @@ class Api::PlaydateController < ApplicationController
   #request params expected: friend_id
   def create
     # Create new Playdate
-    video_session = @@opentok.create_session '127.0.0.1'  
+    sessionProperties = {OpenTok::SessionPropertyConstants::P2P_PREFERENCE => "enabled"}
+    video_session = @@opentok.createSession( request.ip, sessionProperties )
+    
+    #video_session = @@opentok.create_session '127.0.0.1'  
     tok_session_id = video_session.session_id
     
     # Verify friend
