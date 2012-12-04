@@ -9,7 +9,7 @@ class Api::PlaydateController < ApplicationController
   #request params expected: friend_id
   def create
     # Create new Playdate
-    sessionProperties = {OpenTok::SessionPropertyConstants::P2P_PREFERENCE => "enabled"}
+    sessionProperties = {"p2p.preference" => "enabled"}
     video_session = @@opentok.createSession( request.ip, sessionProperties )
     
     #video_session = @@opentok.create_session '127.0.0.1'  
@@ -348,7 +348,6 @@ class Api::PlaydateController < ApplicationController
     @api_key = "4f5e85254a3c12ae46a8fe32ba01ff8c8008e55d"
     if @@opentok.nil?
       @@opentok = OpenTok::OpenTokSDK.new 335312, @api_key
-      # @@opentok.api_url = 'https://staging.tokbox.com/hl'
     end
   end
   
