@@ -47,7 +47,8 @@ class Api::FriendshipsController < ApplicationController
     # Create a friendship request
     friendship = current_user.friendships.create!(:friend_id => user.id)
 
-    # TODO: Notify user_id of new friendship request
+    # Notify user_id of new friendship request
+    UserMailer.friendship_invitation(current_user, user).deliver
 
     # Notify Pusher rendezvous channel
     Pusher["presence-rendezvous-channel"].trigger('friendship_requested', {
@@ -84,7 +85,8 @@ class Api::FriendshipsController < ApplicationController
     friendship.responded_at = DateTime.now
     friendship.save
 
-    # TODO: Notify user_id of friendship acceptance
+    # Notify user_id of friendship acceptance
+    UserMailer.friendship_accepted(current_user, user).deliver
 
     # Notify Pusher rendezvous channel of friendship acceptance
     Pusher["presence-rendezvous-channel"].trigger('friendship_accepted', {
