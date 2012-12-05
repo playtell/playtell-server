@@ -108,6 +108,7 @@ class Api::ContactsController < ApplicationController
   end
 
   # Send invite message to a list of contacts
+  # params: message, emails
   def notify
     # Parse the message to send
     if params[:message].nil? || params[:message].empty?
