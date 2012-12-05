@@ -129,6 +129,12 @@ class Api::UsersController < ApplicationController
   # required params: email
   def email_check
     user = User.find_by_email(params[:email])
+
+    # Return user's id?
+    if !user.nil? && !params[:return_user].nil? && params[:return_user] == 'true'
+      return render :status => 200, :json => {:available => false, :user_id => user.id}
+    end
+    
     render :status => 200, :json => {:available => user.nil?}
   end
 
