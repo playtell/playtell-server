@@ -24,4 +24,10 @@ class UserMailer < ActionMailer::Base
     @current_user = current_user
     mail(:to => contact.email, :subject => "Keeping in touch")
   end
+
+  def friendship_invitation(current_user, invitee)
+    @invitee = invitee
+    @current_user = current_user
+    mail(:to => invitee.email, :subject => "New friend request")
+  end
 end
