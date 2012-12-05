@@ -20,6 +20,8 @@ class UserMailer < ActionMailer::Base
   def contact_invitation(current_user, contact, message)
     @contact = contact
     @message = message
+    @app_store_link = APP_STORE_LINK
+    @current_user = current_user
     mail(:to => contact.email, :subject => "Keeping in touch")
   end
 end
