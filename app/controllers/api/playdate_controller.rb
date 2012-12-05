@@ -349,9 +349,9 @@ class Api::PlaydateController < ApplicationController
   end
   
   def create_video_session
-    #sessionProperties = {"p2p.preference" => "enabled"}
-    #@video_session = @@opentok.createSession( request.ip, sessionProperties )
-    @video_session = @@opentok.create_session request.ip #'127.0.0.1'  
+    sessionProperties = {OpenTok::SessionPropertyConstants::P2P_PREFERENCE => "enabled"}
+    @video_session = @@opentok.create_session( request.ip, sessionProperties )
+    #@video_session = @@opentok.create_session request.ip #'127.0.0.1'  
   end
   
 end
