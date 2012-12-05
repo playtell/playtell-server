@@ -85,7 +85,8 @@ class Api::FriendshipsController < ApplicationController
     friendship.responded_at = DateTime.now
     friendship.save
 
-    # TODO: Notify user_id of friendship acceptance
+    # Notify user_id of friendship acceptance
+    UserMailer.friendship_accepted(current_user, user).deliver
 
     # Notify Pusher rendezvous channel of friendship acceptance
     Pusher["presence-rendezvous-channel"].trigger('friendship_accepted', {

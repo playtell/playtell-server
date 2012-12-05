@@ -30,4 +30,10 @@ class UserMailer < ActionMailer::Base
     @current_user = current_user
     mail(:to => invitee.email, :subject => "New friend request")
   end
+
+  def friendship_accepted(current_user, friendship_with_user)
+    @friendship_with_user = friendship_with_user
+    @current_user = current_user
+    mail(:to => friendship_with_user.email, :subject => "Friendship accepted")
+  end
 end
