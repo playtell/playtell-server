@@ -7,9 +7,11 @@ class Api::PlaydateController < ApplicationController
   @@opentok = nil
   
   #request params expected: friend_id
+  #optional param: p2p_enabled  <--- for opentok
   def create
     # Create new Playdate
-    create_video_session
+    p2p = params[:p2p_enabled] ? params[:p2p_enabled] : false
+    create_video_session(p2p)
     tok_session_id = @video_session.session_id
     
     # Verify friend
@@ -334,8 +336,10 @@ class Api::PlaydateController < ApplicationController
     end
   end
   
+  # takes in optional boolean param p2p_enabled
   def generate_ot_session
-    create_video_session
+    p2p = params[:p2p_enabled] ? param[:p2p_enabled] : false
+    create_video_session(p2p)
     token = @@opentok.generate_token(:session_id => @video_session.session_id)
     render :status=>200, :json=>{:session_id => @video_session.session_id, :token => token}
   end
@@ -348,11 +352,10 @@ class Api::PlaydateController < ApplicationController
     end
   end
   
-  def create_video_session
-    sessionProperties = {OpenTok::SessionPropertyConstants::P2P_PREFERENCE => "enabled"}
-    @video_session = @@opentok.createSession( request.ip, 
-                                              { OpenTok::SessionPropertyConstants::P2P_PREFERENCE => "enabled" } )
-    #@video_session = @@opentok.create_session request.ip #'127.0.0.1'  
+  def create_video_session(p2p_enabled)
+    sessionProperties = p2p_enabled ? {OpenTok::SessionPropertyConstants::P2P_PREFERENCE => "enabled"} : {}
+    puts sessionProperties
+    @video_session = @@opentok.createSession( request.ip, sessionProperties )
   end
   
 end
