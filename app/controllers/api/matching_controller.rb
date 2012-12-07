@@ -164,6 +164,9 @@ class Api::MatchingController < ApplicationController
 					# Increment user score
 					board.increment_score(current_user.id)
 
+					# # Switch turn
+					# board.set_turn(current_user.id)
+
 					# Is the game over?
 					if (board.we_have_a_winner)
 						response_code = MATCH_WINNER
@@ -175,18 +178,21 @@ class Api::MatchingController < ApplicationController
 					response_code == MATCH_ERROR					
 					response_message = "Match, but those spaces already marked."
 
-					# Switch turn
-					board.set_turn(current_user.id)
+					# # Switch turn
+					# board.set_turn(current_user.id)
 				end
 			else
 				# Match not found!
 				response_code == MATCH_ERROR
 				response_message = "Not a match."
 
-				# Switch turn
-				board.set_turn(current_user.id)
+				# # Switch turn
+				# board.set_turn(current_user.id)
 			end
 		end
+
+		# Whatever the action is, switch turn
+		board.set_turn(current_user.id)
 
 		# Prepare response
 		response = {
