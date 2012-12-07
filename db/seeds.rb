@@ -10,7 +10,8 @@ App.delete_all
 Book.delete_all
 Page.delete_all
 
-b = Book.create( {:title => "Koda's Adventure", :image_directory => "kodas-adventure", :image_only => 1} )
+b = Book.create( {:title => "Three Little Pigs", :image_directory => "three-little-pigs", :image_only => 1} )
+
 Page.create({:book_id => b.id, 
              :page_num => 1, 
              :page_text => ""})
@@ -20,6 +21,91 @@ Page.create({:book_id => b.id,
 Page.create({:book_id => b.id, 
              :page_num => 3, 
              :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 4, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 5, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 6, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 7, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 8, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 9, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 10, 
+             :page_text => ""})
+             
+b = Book.create( {:title => "One to Ten", :image_directory => "OneToTen", :image_only => 1} )
+Page.create({:book_id => b.id, 
+            :page_num => 1, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 2, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 3, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 4, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 5, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 6, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 7, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 8, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 9, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 10, 
+            :page_text => ""})
+
+b = Book.create( {:title => "Transportation Picture Book", :image_directory => "picture-book-transportation", :image_only => 1} )
+Page.create({:book_id => b.id, 
+            :page_num => 1, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 2, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 3, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 4, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 5, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 6, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 7, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 8, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 9, 
+            :page_text => ""})
+Page.create({:book_id => b.id, 
+            :page_num => 10, 
+            :page_text => ""})
 
 b = Book.create( {:title => "Signs All Around Us", :image_directory => "street-signs", :image_only => 1} )
 Page.create({:book_id => b.id, 
@@ -57,72 +143,7 @@ Page.create({:book_id => b.id,
             :page_text => ""})
 Page.create({:book_id => b.id, 
             :page_num => 12, 
-            :page_text => ""})
-
-
-b = Book.create( {:title => "Transportation Picture Book", :image_directory => "picture-book-transportation", :image_only => 1} )
-Page.create({:book_id => b.id, 
-            :page_num => 1, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 2, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 3, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 4, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 5, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 6, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 7, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 8, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 9, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 10, 
-            :page_text => ""}) 
-            
-b = Book.create( {:title => "One to Ten", :image_directory => "OneToTen", :image_only => 1} )
-Page.create({:book_id => b.id, 
-            :page_num => 1, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 2, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 3, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 4, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 5, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 6, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 7, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 8, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 9, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 10, 
-            :page_text => ""})                                                       
+            :page_text => ""})                                                     
 
 b = Book.create({ :title => "Little Red Riding Hood", :image_directory => "little-red-riding-hood" })
 Page.create({:book_id => b.id, 
@@ -157,40 +178,29 @@ Page.create({:book_id => b.id,
                          :page_text => "\"Oh Grandma, I was so scared!\"  sobbed Little Red Riding Hood, \"I'll never speak to strangers or dawdle in the forest again.\"\n\"There, there, child.  You've learned an important lesson.  Thank goodness you shouted loud enough for this kind woodsman to hear you!\"\nThe woodsman knocked out the wolf and carried him deep into the forest where he wouldn't bother people any longer.\nLittle Red Riding Hood and her Grandmother had a nice lunch and a long chat."}) 
 
 =begin
- b = Book.create( {:title => "This Old Man", :image_directory => "this-old-man", :image_only => 1} )
 
- Page.create({:book_id => b.id, 
-              :page_num => 1, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 2, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 3, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 4, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 5, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 6, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 7, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 8, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 9, 
-              :page_text => ""})
- Page.create({:book_id => b.id, 
-              :page_num => 10, 
-              :page_text => ""})
+b = Book.create( {:title => "One, Two, Buckle My Shoe", :image_directory => "buckle-my-shoe", :image_only => 1} )
+Page.create({:book_id => b.id, 
+             :page_num => 1, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 2, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 3, 
+             :page_text => ""})
 
-
+b = Book.create( {:title => "Koda's Adventure", :image_directory => "kodas-adventure", :image_only => 1} )
+Page.create({:book_id => b.id, 
+             :page_num => 1, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 2, 
+             :page_text => ""})
+Page.create({:book_id => b.id, 
+             :page_num => 3, 
+             :page_text => ""})
+             
 t = Book.create( {:title => "Thomas Breaks a Promise", :image_directory => "thomas-breaks-a-promise"} )
 Page.create({:book_id => t.id, 
             :page_num => 1, 
