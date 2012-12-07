@@ -19,6 +19,11 @@ class Matchingboard < ActiveRecord::Base
 	#instance variable representing card array
 	@@cards
 
+	# duplicates:
+	# this game has a lot of duplicates (ex. $0.01 vs 'one cent')
+	# those still have to match even though technically they have different asset ids
+	DUPLICATES = [[1,2], [3,4], [5,21], [6,7], [8,9], [10,11], [12,13], [14,15], [16,17], [18,19]]
+
 	# ---- validations ----
 	attr_accessible :initiator_score, :playmate_score, :status, :card_array_string, :winner, :whose_turn, :num_cards_left, :win_code, :gamelet_id, :playmate_id, :playdate_id, :initiator_id, :num_total_cards
 	belongs_to :gamelet
@@ -107,16 +112,18 @@ class Matchingboard < ActiveRecord::Base
 	end
 
 	def card_array_to_string(array)
-		array.map {|i| i.to_s}.join
+		array.map {|i| i.to_s}.join(',')
 	end
 
-	#filename format is theme[theme_id]artwork[artwork_id].png
+	#filename format is theme[theme_id]artwork[artwork_id]_l.png (or _r.png)
 	def get_array_of_card_backside_filenames
 		filename_array = Array.new
 		themeid = Gamelet.find_by_id(self.gamelet).theme_id
+		totalCardsInSet = self.num_total_cards/2
 
-		@@cards.each do |i|
-			filename = "theme" + themeid.to_s + "artwork" + i.to_s + ".png"
+		@@cards.each_with_index do |i, index|
+			leftOrRight = (index < totalCardsInSet) ? "_r" : "_l"
+			filename = "theme" + themeid.to_s + "artwork" + i.to_s + leftOrRight + ".png"
 			filename_array.push(filename)
 		end
 		return filename_array
@@ -140,6 +147,20 @@ class Matchingboard < ActiveRecord::Base
 			if (cards[a] == cards[b])
 				return true
 			else
+				# Check all the duplicates. If this is one of them, verify card against duplicate value
+				DUPLICATES.each do |dup_arr|
+					if dup_arr.include?(cards[b])
+						dup_card = dup_arr.index(cards[b]) == 0 ? dup_arr[1] : dup_arr[0]
+						if cards[a] == dup_card
+							# Duplicate card is a match!
+							return true
+						else
+							# Neither original nor duplicate card matched
+							return false
+						end
+					end
+				end
+				# Original card didn't match and didn't find any duplicates to match against
 				return false
 			end
 		else
@@ -152,14 +173,16 @@ class Matchingboard < ActiveRecord::Base
 	end
 
 	def card_array_from_string(mystring)
-		mystring.split(//).map {|i| i.to_i}
+		mystring.split(',').map {|i| i.to_i}
 	end
 
 	def set_winner
 		if self.initiator_score > self.playmate_score
 			self.winner = initiator_id
-		else
+		elsif self.playmate_score > self.initiator_score
 			self.winner = playmate_id
+		elsif self.initiator_score == self.playmate_score
+			self.winner = -1 # draw
 		end
 		self.save
 	end

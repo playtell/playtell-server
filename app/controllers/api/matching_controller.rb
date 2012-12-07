@@ -12,7 +12,13 @@ class Api::MatchingController < ApplicationController
 	#request params playmate_id, playdate_id, already_playing, theme_id, num_total_cards
 	def new_game
 		# Verify params
-		return render :json => {:message => "API expects the following: playdate_id, playmate_id num_total_cards, theme_id. Optional values: already_playing. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:num_total_cards].nil? || params[:theme_id].nil?
+		return render :json => {:message => "API expects the following: playdate_id, playmate_id num_total_cards, theme_id. Optional values: already_playing, game_name. Refer to the API documentation for more info."} if params[:authentication_token].nil? || params[:playmate_id].nil? || params[:playdate_id].nil? || params[:num_total_cards].nil? || params[:theme_id].nil?
+
+		# Figure out game name (matching, math)
+		game_name = 'matching'
+		if !params[:game_name].nil?
+			game_name = params[:game_name]
+		end
 		
 		# Find the playdate
 		playdate = Playdate.find(params[:playdate_id])
@@ -26,7 +32,11 @@ class Api::MatchingController < ApplicationController
 
 		# Verify num_total_cards
 		num_total_cards = params[:num_total_cards].to_i
-		num_total_cards_valid = (num_total_cards < 4) || ((num_total_cards % 2) != 0) || (num_total_cards > 12)
+		if game_name == 'matching'
+			num_total_cards_valid = ((num_total_cards % 2) != 0) || (num_total_cards < 4) || (num_total_cards > 12)
+		elsif game_name == 'math'
+			num_total_cards_valid = ((num_total_cards % 2) != 0) || (num_total_cards < 10) || (num_total_cards > 40)
+		end
 		return render :json => {:message => "num_total_cards needs to be between 4 and 12 and must be an even number"} if num_total_cards_valid
 
 		# Find the game players
@@ -51,7 +61,8 @@ class Api::MatchingController < ApplicationController
 				:board_id => board_id,
 				:card_array_string => board.card_array_string,
 				:filename_dump => filename_dump,
-				:num_cards => num_total_cards
+				:num_cards => num_total_cards,
+				:game_name => game_name
 			})
       		render :json => {
       			:message => "Matchingboard successfully refreshed, playdate id is #{playdate.id.to_s}",
@@ -60,7 +71,8 @@ class Api::MatchingController < ApplicationController
       			:board_id => board_id,
       			:card_array_string => board.card_array_string,
       			:filename_dump => filename_dump,
-      			:num_cards => num_total_cards
+      			:num_cards => num_total_cards,
+      			:game_name => game_name
       		}
       	else
       		# If not already playing, new game
@@ -70,7 +82,8 @@ class Api::MatchingController < ApplicationController
 				:board_id => board_id,
 				:card_array_string => board.card_array_string,
 				:filename_dump => filename_dump,
-				:num_cards => num_total_cards
+				:num_cards => num_total_cards,
+				:game_name => game_name
       		})
 			render :json => {:card_array_string => board.card_array_string,
 				:message => "Matchingboard successfully initialized, playdate id is #{playdate.id.to_s}",
@@ -79,7 +92,8 @@ class Api::MatchingController < ApplicationController
 				:board_id => board_id,
 				:card_array_string => board.card_array_string,
 				:filename_dump => filename_dump,
-				:num_cards => num_total_cards
+				:num_cards => num_total_cards,
+				:game_name => game_name
 			}
 		end
 	end
@@ -164,35 +178,32 @@ class Api::MatchingController < ApplicationController
 					# Increment user score
 					board.increment_score(current_user.id)
 
-					# # Switch turn
-					# board.set_turn(current_user.id)
-
-					# Is the game over?
+					# Is the game over? If not, switch turn
 					if (board.we_have_a_winner)
 						response_code = MATCH_WINNER
 						response_message = "Match success. Game over. Card1: #{params[:card1_index]} Card2: #{params[:card2_index]}"
 						board.set_winner
+					else
+						# Switch turn
+						board.set_turn(current_user.id)
 					end
 				else
 					# Card already matched
 					response_code == MATCH_ERROR					
 					response_message = "Match, but those spaces already marked."
 
-					# # Switch turn
-					# board.set_turn(current_user.id)
+					# Switch turn
+					board.set_turn(current_user.id)
 				end
 			else
 				# Match not found!
 				response_code == MATCH_ERROR
 				response_message = "Not a match."
 
-				# # Switch turn
-				# board.set_turn(current_user.id)
+				# Switch turn
+				board.set_turn(current_user.id)
 			end
 		end
-
-		# Whatever the action is, switch turn
-		board.set_turn(current_user.id)
 
 		# Prepare response
 		response = {
