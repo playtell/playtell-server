@@ -37,6 +37,19 @@ class Api::UsersController < ApplicationController
         friendship.status = true
         friendship.responded_at = DateTime.now
         friendship.save
+        
+        # Notify Pusher rendezvous channel of friendship approved
+        Pusher["presence-rendezvous-channel"].trigger('friendship_accepted', {
+          :initiatorID => friend.id,
+          :friendID    => user.id
+        })
+        
+        # Log analytics event
+        @mixpanel.track("Friendship Accepted",
+          :distinct_id => user.username,
+          :user_id => user.id,
+          :friend_username => friend.username,
+          :friend_id => friend.id)
       end
     end
 
