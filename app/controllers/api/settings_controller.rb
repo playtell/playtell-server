@@ -24,7 +24,7 @@ class Api::SettingsController < ApplicationController
   # note: this call is not authenticated
   def version_check
     version = params[:version]
-    return render :status=>400, :json=>{:message=>"The request must contain the PT_token, UA_token, and version number."} if version.blank?
+    return render :status=>400, :json=>{:message=>"The request must contain the a version number."} if version.blank?
 
     #check against current major version of app
     v = version.split(".")[0]
