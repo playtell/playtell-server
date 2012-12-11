@@ -1,14 +1,5 @@
 class HangmanBoard < ActiveRecord::Base
-	attr_accessible
-		:state,
-		:playdate_id,
-		:initiator_id,
-		:playmate_id,
-		:misses,
-		:whose_turn,
-		:winner,
-		:word,
-		:word_bits
+	attr_accessible :state, :playdate_id, :initiator_id, :playmate_id, :misses, :whose_turn, :winner, :word, :word_bits
 
 	def my_turn?(player_id)
 		if self.whose_turn == Api::HangmanController::WHOSE_TURN_INITIATOR
