@@ -60,47 +60,28 @@ class Api::UsersController < ApplicationController
   # returns user objects for all of the given user's friends
   def all_friends
     u = User.find(params[:user_id])
-    return render :status=>150, :json=>{ :message => "User not found." } if u.nil?
+    return render :status => 150, :json => {:message => "User not found."} if u.nil?
 
     # Give each friendship a status (confirmed, pending-them, or pending-you)
     # Give each a user status (available, playdate, pending)
     friends = []
     u.allApprovedAndPendingFriendships.each do |friendship|
-      # # Friendship status
-      # friendshipStatus = friendship.status.nil? ? 'pending' : 'confirmed'
+      # Friendship status
       if friendship.user_id == current_user.id
         friend_id = friendship.friend_id
-      #   friendshipStatus = "pending-them" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
       else
         friend_id = friendship.user_id
-      #   friendshipStatus = "pending-you" if friendshipStatus == 'pending' # Are we waiting for them to approve to you to approve?
       end
 
-      # # Find the user
-      friend = User.find(friend_id)
-      next if friend.nil?
+      # Find the user
+      begin
+        friend = User.find(friend_id)
+      rescue ActiveRecord::RecordNotFound => e
+        # Delete friendship if friend is not found!
+        friendship.destroy
+        next
+      end
 
-      # # User status
-      # if (friend.status != User::CONFIRMED)
-      #   # User is pending (aka. hasn't installed the app yet)
-      #   userStatus = 'pending'
-      # elsif Playdate.count(:conditions => ["(player1_id = ? or player2_id = ?) and status != ?", friend_id, friend_id, Playdate::DISCONNECTED]) > 0
-      #   # User is either connecting to a playdate or in a playdate
-      #   userStatus = 'playdate'
-      # else
-      #   # User is available
-      #   userStatus = 'available'
-      # end
-
-      # # Privacy concern: only show that user is in playdate if you're confirmed friends
-      # if userStatus == 'playdate' && friendshipStatus != 'confirmed'
-      #   userStatus = 'available'
-      # end
-
-      # # Find friend friendship status
-      # friendHash = friend.as_json
-      # friendHash[:friendshipStatus] = friendshipStatus
-      # friendHash[:userStatus] = userStatus
       friendHash = friend.as_playmate(friendship)
       friends << friendHash
     end
