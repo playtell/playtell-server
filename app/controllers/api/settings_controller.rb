@@ -19,4 +19,18 @@ class Api::SettingsController < ApplicationController
       render :status=>401, :json=>{:errors=>@user.errors.full_messages.as_json, :keys=>@user.errors.keys.as_json}
     end
   end
+
+  # required params: version
+  def version_check
+    version = params[:version]
+    return render :status=>400, :json=>{:message=>"The request must contain the PT_token, UA_token, and version number."} if version.blank?
+
+    #check against current major version of app
+    v = version.split(".")[0]
+    if CURRENT_MAJOR_VERSION.to_i > v.to_i
+      render :status=>600, :json=>{:status => "Needs to upgrade to latest major version"}
+      return
+    end
+    render :status=>200, :json=>{:status => "Success"}
+  end
 end

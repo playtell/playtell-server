@@ -47,7 +47,6 @@ class Api::TokensController  < ApplicationController
 #required params: ua_token, pt_token, version
 #ua_token is device_token
   def update
-    
     version = params[:version]
     pttoken = params[:PT_token]
     device_token = params[:UA_token] 
@@ -66,14 +65,6 @@ class Api::TokensController  < ApplicationController
       d.save!
       Urbanairship.register_device(params[:device_token])
     end
-    
-    #check against current major version of app
-    v = version.split(".")[0]
-    if CURRENT_MAJOR_VERSION.to_i > v.to_i
-      render :status=>600, :json=>{:status => "Needs to upgrade to latest major version"}
-      return
-    end
-    render :status=>200, :json=>{:status => "Success"}
   end
   
   def destroy
