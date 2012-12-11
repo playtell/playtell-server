@@ -32,6 +32,7 @@ Semiralabs::Application.routes.draw do
     match 'postcard/num_new_photos' => 'postcards#num_new_photos'
 
     match 'update_settings' => 'settings#update'
+    match 'settings/version_check' => 'settings#version_check'
     match 'twilio_incoming' => 'twilio#incoming'
     match 'twilio_token' => 'twilio#capability_token'
     match 'tokbox_tokens' => 'tokbox#tokbox_tokens'
