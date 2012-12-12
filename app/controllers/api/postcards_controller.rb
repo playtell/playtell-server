@@ -27,7 +27,7 @@ class Api::PostcardsController < ApplicationController
       return
     end
 
-    @postcard = Postcard.new(:receiver_id => receiver_id, :sender_id => sender_id, :sender_name => s.fullName)
+    @postcard = Postcard.new(:receiver_id => receiver_id, :sender_id => sender_id, :sender_name => s.displayName)
     @postcard.photo = photo
 
     if @postcard.save
