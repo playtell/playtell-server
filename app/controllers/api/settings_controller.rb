@@ -1,6 +1,6 @@
 class Api::SettingsController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:version_check]
   respond_to :json
   
   def edit
@@ -21,9 +21,10 @@ class Api::SettingsController < ApplicationController
   end
 
   # required params: version
+  # note: this call is not authenticated
   def version_check
     version = params[:version]
-    return render :status=>400, :json=>{:message=>"The request must contain the PT_token, UA_token, and version number."} if version.blank?
+    return render :status=>400, :json=>{:message=>"The request must contain the a version number."} if version.blank?
 
     #check against current major version of app
     v = version.split(".")[0]
