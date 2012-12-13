@@ -82,6 +82,10 @@ Semiralabs::Application.routes.draw do
     match 'games/matching/play_turn' => 'matching#play_turn'
     match 'games/matching/end_game' => 'matching#end_game'
 
+    match 'games/hangman/new_game'  => 'hangman#new_game'
+    match 'games/hangman/play_turn' => 'hangman#play_turn'
+    match 'games/hangman/end_game'  => 'hangman#end_game'
+
     match 'contacts/show_related' => 'contacts#show_related'
     match 'contacts/notify' => 'contacts#notify'
     
