@@ -13,8 +13,8 @@ class Api::HangmanController < ApplicationController
 	# Constants: Turn type - passed in to turn endpoint to register the type of turn
 	TURN_WORD_PICK    = 0 # Initiator has chosen a word
 	TURN_LETTER_PICK  = 1 # Playmate has guessed a letter
-	TURN_DRAW         = 3 # Initiator has drawn a shape
-	TURN_HANG         = 4 # Initiator has chosen to hang the man
+	TURN_DRAW         = 2 # Initiator has drawn a shape
+	TURN_HANG         = 3 # Initiator has chosen to hang the man
 
 	# Constants: Whose turn
 	WHOSE_TURN_INITIATOR = 0
