@@ -192,14 +192,15 @@ class Api::HangmanController < ApplicationController
 		# Prepare response
 		response = {
 			:board_id     => board.id,
-			:playdate_id  => playdate.id,
-			:initiator_id => board.initiator_id,
-			:playmate_id  => board.playmate_id,
+			:playmate_id  => current_user.id,
 			:state        => board.state,
 			:whose_turn   => board.whose_turn,
 			:winner       => board.winner
 		}
 		response.merge!(extra_response)
+		puts '================================='
+		puts response.inspect
+		puts '================================='
 
 		# Send response via Pusher and HTTP
 		Pusher[playdate.pusher_channel_name].trigger('games_hangman_play_turn', response)
