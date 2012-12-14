@@ -119,6 +119,10 @@ class Api::HangmanController < ApplicationController
 		# Get the turn type
 		turn_type = params[:turn_type].to_i
 
+		puts '================PARAMS================='
+		puts params.inspect
+		puts '======================================='
+
 		# Take action based on turn_type
 		extra_response = {}
 		if turn_type == TURN_WORD_PICK
@@ -201,9 +205,9 @@ class Api::HangmanController < ApplicationController
 			:winner       => board.winner
 		}
 		response.merge!(extra_response)
-		puts '================================='
+		puts '================RESPONSE================='
 		puts response.inspect
-		puts '================================='
+		puts '========================================='
 
 		# Send response via Pusher and HTTP
 		Pusher[playdate.pusher_channel_name].trigger('games_hangman_play_turn', response)
