@@ -35,7 +35,7 @@ class Api::HangmanController < ApplicationController
 		return render :json => {:message => "Playmate with id: #{params[:playmate_id]} not found."} if playmate.nil?
 
 		# Generate new hangman board via Gamelet
-		board = HangmandBoard.create({
+		board = HangmanBoard.create({
 			:state        => STATE_WORD_PICK,
 			:playdate_id  => playdate.id,
 			:initiator_id => initiator.id,
@@ -80,7 +80,7 @@ class Api::HangmanController < ApplicationController
 		return render :json => {:message => "HTTP POST expects parameter board_id. Refer to the API documentation for more info."} if params[:board_id].nil?
 	
 		# Find the current game board
-		board = HangmandBoard.find(params[:board_id].to_i)
+		board = HangmanBoard.find(params[:board_id].to_i)
 		return render :json => {:message => "Error: Board with that board id not found."} if board.nil?
 		
 		# Grab the current playdate!
@@ -106,7 +106,7 @@ class Api::HangmanController < ApplicationController
 		return render :json => {:status => false, :message => "API expects the following: board_id, turn_type. Refer to the API documentation for more info."} if params[:board_id].nil? || params[:turn_type].nil?
 
 		# Find the game board
-		board = HangmandBoard.find(params[:board_id].to_i)
+		board = HangmanBoard.find(params[:board_id].to_i)
 		return render :json => {:status => false, :message => "Error: Board with that board id not found."} if board.nil?
 		return render :json => {:status => false, :message => "Error: Game has already ended or game is invalid"} if [STATE_ENDED, STATE_FINISHED].include?(board.state)
 
