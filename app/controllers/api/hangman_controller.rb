@@ -41,7 +41,7 @@ class Api::HangmanController < ApplicationController
 			:initiator_id => initiator.id,
 			:playmate_id  => playmate.id,
 			:misses       => 0,
-			:whose_turn   => nil
+			:whose_turn   => WHOSE_TURN_INITIATOR
 		})
 
 		# Notify via pusher
