@@ -63,7 +63,7 @@ class Api::HangmanController < ApplicationController
       		Pusher[playdate.pusher_channel_name].trigger('games_hangman_new_game', {
 				:initiator_id => initiator.id,
 				:playmate_id  => playmate.id,
-				:board_id     => board_id
+				:board_id     => board.id
       		})
 			render :json => {
 				:message      => "Hangman successfully initialized, playdate id is #{playdate.id.to_s}",
