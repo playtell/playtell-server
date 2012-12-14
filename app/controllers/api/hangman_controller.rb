@@ -116,6 +116,9 @@ class Api::HangmanController < ApplicationController
 		return render :json => {:status => false, :message => "Error: Playmate with id #{current_user.id.to_s} is not authorized to change this board"} if !board.user_authorized?(current_user.id)
 		return render :json => {:status => false, :message => "Error: It is not #{current_user.username.to_s}'s turn!"} if !board.my_turn?(current_user.id)
 
+		# Get the turn type
+		turn_type = params[:turn_type].to_i
+
 		# Take action based on turn_type
 		extra_response = {}
 		if turn_type == TURN_WORD_PICK
