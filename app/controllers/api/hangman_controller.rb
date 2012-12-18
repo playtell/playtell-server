@@ -154,7 +154,16 @@ class Api::HangmanController < ApplicationController
 			word_bits = board.word_bits.split(',')
 			if word_bits.include?(letter)
 				# Yes, letter guessed correctly
-				word_bits.map!{|x| x == letter ? '' : x} # Removes guessed letter from array
+
+				# Find position of the letter (or letters)
+				# And remove its occurrence
+				pos = []
+				word_bits.each_with_index do |x, i|
+					if x == letter
+						pos << i
+						word_bits[i] = ''
+					end
+				end
 				board.word_bits = word_bits.join(',')
 
 				# Check if game is over
@@ -166,7 +175,7 @@ class Api::HangmanController < ApplicationController
 				board.save
 
 				# Response
-				extra_response = {:guessed => true}
+				extra_response = {:guessed => true, :positions => pos}
 			else
 				# No, letter is incorrect
 				board.whose_turn = WHOSE_TURN_INITIATOR
