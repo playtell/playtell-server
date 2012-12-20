@@ -131,7 +131,7 @@ class Api::HangmanController < ApplicationController
 
 			# Verify word length
 			word = params[:word].downcase
-			return render :json => {:status => false, :message => "Error: Word length must be more than 2 but not greater than 6"} if (word.length < 3 || word.length > 6)
+			return render :json => {:status => false, :message => "Error: Word length must be more than 0 but not greater than 6"} if (word.length < 1 || word.length > 6)
 
 			# Save word, switch turn, advance game state
 			board.word = word
