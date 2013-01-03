@@ -175,7 +175,7 @@ class Api::HangmanController < ApplicationController
 				board.save
 
 				# Response
-				extra_response = {:guessed => true, :positions => pos}
+				extra_response = {:letter => letter, :guessed => true, :positions => pos}
 			else
 				# No, letter is incorrect
 				board.whose_turn = WHOSE_TURN_INITIATOR
@@ -183,7 +183,7 @@ class Api::HangmanController < ApplicationController
 				board.save
 
 				# Response
-				extra_response = {:guessed => false}
+				extra_response = {:letter => letter, :guessed => false}
 			end
 		elsif turn_type == TURN_DRAW
 			# Verify state for this turn
