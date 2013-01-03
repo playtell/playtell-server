@@ -21,7 +21,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 html, body {
 	height: 100%;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 ol, ul {
@@ -1315,7 +1315,7 @@ button.green2, input[type="submit"].green2 {
   	margin: 8px;
 }
 
-/* NEW LANDING PAGE --------------------------------------------------------- */
+/* OLD LANDING PAGE --------------------------------------------------------- 
 
 .landing-page a, .landing-page p {
 	font-family: 'Lato', sans-serif;
@@ -1611,7 +1611,7 @@ input::-webkit-input-placeholder {
 	color: #A2A2A2;
 }
 
-/* SPRITE */
+/* OLD SPRITE 
 
 .homepage-sprite {
 	background: url("/images/homepage/sprite.png") no-repeat;
@@ -1643,3 +1643,39 @@ input::-webkit-input-placeholder {
 
 #step2 p a.cancel:active { background-position: 0 -188px; width: 85px; height: 36px; } 
 #step2 p a.cancel { background-position: 0 -234px; width: 85px; height: 38px; } 
+*/
+
+/* NEW LANDING PAGE */
+
+#block-splash {
+	background: url("http://playtell.s3.amazonaws.com/HomePage/background.png") center center no-repeat;
+	background-size: cover;
+}
+
+#block-splash img {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+footer {
+	background-color: black;
+	text-align: center;
+	padding: 20px 0px;
+}
+
+ul.nav-list {
+	display: inline;
+	padding-left: 100px;
+}
+
+ul.nav-list li {
+	display: inline;
+	list-style-type: none;
+	margin: 0px 15px;
+	font-size: 30px;
+}
+
+ul.nav-list li img {
+	vertical-align: bottom;
+}

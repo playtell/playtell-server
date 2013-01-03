@@ -1,323 +1,59 @@
 <% content_for :head do %>	
 
-	<script type="text/javascript">
-		var email_filter = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/;
-		
-	  	$(document).ready(function() {
+<script type="text/javascript">
 
-		    //scroll page for nav links 
-		    $(".home-link").click(function (event) {	
-				$(".homeContainer").animate(
-					{ scrollTop: $("#block-splash").offset().top }, "slow", "easeOutBack" );
-				event.preventDefault();
-				return false;
-			});
-			
-			$(".whatis-link").click(function (event) {	
-				$(".homeContainer").animate(
-					{ scrollTop: $("#block-how-it-works").offset().top }, "slow", "easeOutBack" );
-				event.preventDefault();
-				return false;
-			});		    
-			
-			$(".signup-link").click(function (event) {	
-				$(".homeContainer").animate(
-					{ scrollTop: $("#block-sign-up").offset().top }, "slow", "easeOutBack" );
-				event.preventDefault();
-				return false;
-			});
-			
-			//show selected feature 
-			$(".videochat-link").click(function (event) {
-				$('.feature-icon').removeClass('active');
-				$('.feature').fadeOut();
-				$('.videochat-link .feature-icon').addClass('active');
-				$('.videochat').fadeIn();
-				event.preventDefault();
-				return false;
-			});
-			
-			$(".bookshelf-link").click(function (event) {
-				$('.feature-icon').removeClass('active');
-				$('.feature').fadeOut();
-				$('.bookshelf-link .feature-icon').addClass('active');
-				$('.bookshelf').fadeIn();
-				event.preventDefault();
-				return false;
-			});
-			
-			$(".playspace-link").click(function (event) {
-				$('.feature-icon').removeClass('active');
-				$('.feature').fadeOut();
-				$('.playspace-link .feature-icon').addClass('active');
-				$('.book').fadeIn();
-				event.preventDefault();
-				return false;
-			});
-
-			var passes = true;
-			var name, email;	
-			//brings up the survey lightbox
-			$('.signup1 .early-access-submit').click(function() {
-				passes = true;
-				invisible('.signup1 .error-text-signup');
-				//clear errors
-				email = $('.signup1 #email').val();
-				if (!email_filter.test(email.toUpperCase())) {
-					visible('.signup1 .error-text-signup');
-					//make input textbox orange
-					passes = false;
-				}
-				name = $('.signup1 #name').val();
-				if (name == '') {
-					visible('.signup1 .error-text-signup');
-					//make name outline orange
-					passes = false;
-				}
-				if (passes) {
-					//clear errors
-					$('#beta-lightbox').lightbox_me({
-						onLoad: function() {
-							$('#beta-lightbox-text').find('input:first').focus();
-						},
-						onClose: function() {
-							$('#loader').hide();
-							$('#thank-you-active').hide();
-							$('#thank-you-early').hide();
-							$('#ext-sign-up-form').show();
-							
-						}
-					});
-				}
-			});
-			
-			$('.signup2 .early-access-submit').click(function() {
-				passes = true;
-				invisible('.signup2 .error-text-signup');
-				//make outlines of textboxes not orange
-				email = $('.signup2 #email').val();
-				if (!email_filter.test(email.toUpperCase())) {
-					visible('.signup2 .error-text-signup');
-					//make email outline orange
-					passes = false;
-				}
-				name = $('.signup2 #name').val();
-				if (name == '') {
-					visible('.signup2 .error-text-signup');
-					//make name outline orange
-					passes = false;
-				}
-				if (passes) {
-					//clear errors
-					$('#beta-lightbox').lightbox_me({
-				    	centered: false,
-						onLoad: function() {
-							$('#beta-lightbox-text').find('input:first').focus();
-						},
-						onClose: function() {
-							$('#loader').hide();
-							$('#thank-you-active').hide();
-							$('#thank-you-early').hide();
-							$('#ext-sign-up-form').show();
-						}
-					});
-				}
-			});
-			
-			var owns_iPad, has_kids;		
-			$('#beta-form-next').click(function() {
-				passes = true;
-				$('.error-text').hide();
-				if ($("input[name='owns_iPad']:checked").length <= 0) {
-					$('#owns_iPad .error-text-required').show();
-					passes = false;
-				}
-				if ($("input[name='has_kids']:checked").length <= 0) {
-					$('#has_kids .error-text-required').show();
-					passes = false;
-				}
-				if (passes) {
-					owns_iPad = $("input[name='owns_iPad']:checked").val();
-					has_kids = $("input[name='has_kids']:checked").val();
-					$('#step1').hide();
-					if (owns_iPad > 0 && has_kids > 0) {
-						$('.top-thanks-full').show();
-						$('#step2').show();
-					} else {
-						$('.top-thanks-individual').show();
-						$('#step3').show();
-						$.ajax({
-							url: "/early_access.json",
-							data: {
-								early_user: { username: name,
-											  email: email, 
-											  owns_iPad: owns_iPad,
-											  has_kids: has_kids },
-								user2: { username2: $('#username2').val(),
-										 email2: $('#email2').val() }
-							},
-							type: "POST",
-							success: function(data) {
-							},
-						});
-					}
-				}
-			});
-			
-			$('#beta-form-submit').click(function() {
-				passes = true;
-				$('.error-text').hide();
-				if (!email_filter.test($('#email2').val().toUpperCase())) {
-					$('.error-text-valid').show();
-					//make email outline orange
-					passes = false;
-				}
-				if ($('#username2').val() == '') {
-					$('.error-text-required').show();
-					//make name outline orange
-					passes = false;
-				}
-				if (passes) {
-					$('#step2').hide();
-					$('#step3').show();
-					$.ajax({
-						url: "/early_access.json",
-						data: {
-							early_user: { username: name,
-										  email: email, 
-										  owns_iPad: owns_iPad,
-										  has_kids: has_kids },
-							user2: { username2: $('#username2').val(),
-									 email2: $('#email2').val() }
-						},
-						type: "POST",
-						success: function(data) {
-						},
-					});
-				}
-			});
-			
-		  });
-	
-		//size the splash image to the window height
-		$(function () {
-			var h = $(window).height();
-			var w = $(window).width()-10;
-	
-			var imgH = h / 4 * 3;
+	//size the splash image to the window height
+$(document).ready(function() {
 		
-		  	var img = new Image();
-		  	$(img)
-		    	.load(function () {
-		      		$(this).hide();
-			  		$(this).appendTo('#block-splash');
-		      		$(this).show();
-		    	})
+		var h = $(window).height();
+		var winW = $(window).width();
 
-		    	.attr('src', '/images/homepage/dueling_ipads.png')
-		    	.attr('style', 'height: ' + imgH + 'px')
-		    	.attr('style', 'max-width: ' + w + 'px');
+		$('#block-splash').css({'height' : h});
+		$('#block-splash img').css({'height' : h});
+
+		$('img#slide_1').load(function() {
+			var imgW = $('img#slide_1').width();
+			var imgPos = (winW - imgW) / 2;
 		
-			var textPos = w / 7 * 4;
-		  	var img2 = new Image();
-		  	$(img2)
-		    	.load(function () {
-		      		$(this).hide();
-			  		$(this).appendTo('#never-miss-storytime-container');
-		      		$(this).show();
-		    	})
-
-		    	.attr('src', '/images/homepage/never_miss_storytime.png')
-		    	.attr('style', 'height: ' + imgH + 'px')
-		    	.attr('style', 'max-width: ' + w + 'px');
-			//$('#block-sign-up').attr('style', 'min-height: ' + imgH + 'px');
-			//$('#block-sign-up h1').css("right", textPos);
+			$('#block-splash img').offset( { top: 0, left: imgPos } );
+		
+			setTimeout(function() {
+				$('#slide_2').show();
+				$('#slide_1').hide("slide", { direction: "left" }, 'slow');
+				}, 4000);
+			setTimeout(function() {
+				$('#slide_3').show();
+				$('#slide_2').hide("slide", { direction: "left" }, 'slow');
+				}, 8000);
 			
-			var formLoc;
-			formLoc = $('#sign-up-form').offset();
-			$('.sign-up-badge').offset({left: formLoc.left-175});
-		});	
-		
-	 </script>
-	
+		});
+});
+
+</script>
+
 <% end %>
 
-<div class="homeContainer">
-<div class="landing-page" id="landingpage">
-	<div id="block-nav">
-		<%= image_tag "logo.png" %>
-		<ul class="nav-list primary-nav fr">
-			<li><a href="#" class="home-link">Home</a></li>
-			<li><a href="#" class="whatis-link">What is PlayTell?</a></li>
-			<li><a href="#" class="signup-link">Sign Up</a></li>
-		</ul>				
-	</div>
+<div class="splash-container">
 	<div id="block-splash" class="center">
-	</div>
-	<div class="signup1"><%= render :partial => "sign-up" %></div>
-	<div id="block-how-it-works">
-		<h1>Storytime, Anytime</h1>
-		<h3>PlayTell lets you read a book with your loved ones while you're in a video chat.</h3>
-		<div class="features-container">
-			<div class="features-icons-container fl">
-				<div class="playspace-link">
-					<p><a href="#" class="homepage-sprite feature-icon active"></a></p>
-					<p>Playspace</p>
-				</div>
-				<div class="videochat-link">
-					<p><a href="#" class="homepage-sprite feature-icon"></a></p>
-					<p>Video Chat</p>
-				</div>
-				<div class="bookshelf-link">
-					<p><a href="#" class="homepage-sprite feature-icon"></a></p>
-					<p>Bookshelf</p>
-				</div>
-			</div>
-			<div class="features-image-container">
-				<div><%= image_tag "homepage/playtell_bg.png" %></div>
-				<div><%= image_tag "homepage/playtell_bookdisabled.png", :class => "feature videochat hidden" %></div>
-				<div><%= image_tag "homepage/playtell_bookshelf.png", :class => "feature bookshelf hidden" %></div>
-				<div><%= image_tag "homepage/playtell_book.png", :class => "feature book" %></div>
-				<div><%= image_tag "homepage/playtell_videochat.png" %></div>
-			</div>
-		</div>
-	</div>
-	<div id="block-sign-up">
-		<div id="never-miss-storytime-container" class="inline-block"></div>	
-	</div>
-	<div class="signup2"><%= render :partial => "sign-up" %></div>
-	<div class="footer">
-		<div class="logo-container fl inline-block">
-			<%= image_tag "homepage/footer_logo.png" %>
-		</div>
-		<div class="nav-container">
-			<div class="top-row">
-				<ul class="nav-list primary-nav">
-					<li><a href="#" class="home-link">Home</a></li>
-					<li><a href="#" class="whatis-link">What is PlayTell?</a></li>
-					<li><a href="#" class="signup-link">Sign Up</a></li>
-				</ul>
-				<p class="inline-block fr">2012 &copy; PlayTell, Inc. Made in San Francisco.</p>
-			</div>
-			<hr>
-			<div class="bottom-row">
-				<ul class="nav-list secondary-nav">
-					<li><a href="mailto:info@playtell.com">Contact Us</a></li>
-					<li><a target="_blank" href="http://www.facebook.com/playtell">Facebook</a></li>
-					<li><a target="_blank" href="https://twitter.com/#!/GoPlayTell">Twitter</a></li>
-					<li><a target="_blank" href="http://angel.co/playtell">AngelList</a></li>
-				</ul>
-				<p class="inline-block fr"><a href="#">Terms of Service</a> | 
-				<a href="#">Privacy Policy</a></p>
-			</div>
-		</div>
-	</div>
-	
-	<div class="lightbox hidden" id="beta-lightbox">
-		<div id="beta-lightbox-text">
-			<%= render :partial => 'survey' %>
-		</div>
+		<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/book.png", :class => "center hidden", :id => "slide_3" 			%>
+		<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/game.png", :class => "center hidden", :id => "slide_2" 
+		%>
+		<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/dialpad.png", :class => "center", :id => "slide_1" 
+		%>
+		<%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/iPad-Ribbons.png", :class => "center"), 'http://itunes.apple.com/us/app/id570304295', :target => "_blank" %>
 	</div>
 </div>
-</div>
+<footer class="bottom-row">
+	<ul class="nav-list">
+		<li><%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/facebook.png", :class => "center"), 'http://www.facebook.com/playtell', :target => "_blank" %></li>
+		<li><%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/twitter.png", :class => "center"), 'https://twitter.com/#!/GoPlayTell', :target => "_blank" %></li>
+		<li><%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/pinterest.png", :class => "center"), 'http://pinterest.com/playtell/', :target => "_blank" %></li>
+		<li><%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/angellist.png", :class => "center"), 'http://angel.co/playtell', :target => "_blank" %></li>
+	</ul>
+	<div class="hidden">
+		<li><a href="mailto:info@playtell.com">Contact Us</a></li>
+		<li><a href="#">Terms of Service</a></li>
+		<li><a href="#">Privacy Policy</a></li>
+	</div>
+</footer>
 
