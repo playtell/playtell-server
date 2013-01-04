@@ -119,10 +119,6 @@ class Api::HangmanController < ApplicationController
 		# Get the turn type
 		turn_type = params[:turn_type].to_i
 
-		puts '================PARAMS================='
-		puts params.inspect
-		puts '======================================='
-
 		# Take action based on turn_type
 		extra_response = {}
 		if turn_type == TURN_WORD_PICK
@@ -189,8 +185,6 @@ class Api::HangmanController < ApplicationController
 			# Verify state for this turn
 			return render :json => {:status => false, :message => "Error: Invalid game state for this turn type"} if board.state != STATE_DRAW
 
-			# TODO: Save drawing
-
 			# Update board
 			board.whose_turn = WHOSE_TURN_PLAYMATE
 			board.state = STATE_LETTER_PICK
@@ -203,6 +197,9 @@ class Api::HangmanController < ApplicationController
 			board.winner = WHOSE_TURN_INITIATOR
 			board.state = STATE_FINISHED
 			board.save
+
+			# Response
+			extra_response = {:word_bits => board.word_bits}
 		end
 
 		# Prepare response
@@ -214,9 +211,6 @@ class Api::HangmanController < ApplicationController
 			:winner       => board.winner
 		}
 		response.merge!(extra_response)
-		puts '================RESPONSE================='
-		puts response.inspect
-		puts '========================================='
 
 		# Send response via Pusher and HTTP
 		Pusher[playdate.pusher_channel_name].trigger('games_hangman_play_turn', response)
