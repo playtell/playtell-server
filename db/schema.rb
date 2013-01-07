@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127195205) do
+ActiveRecord::Schema.define(:version => 20121211170700) do
 
   create_table "apps", :force => true do |t|
     t.datetime "created_at"
@@ -175,6 +175,20 @@ ActiveRecord::Schema.define(:version => 20121127195205) do
   create_table "games_tictactoes", :force => true do |t|
     t.integer  "num_boards"
     t.integer  "num_active_games"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "hangman_boards", :force => true do |t|
+    t.integer  "state"
+    t.integer  "playdate_id"
+    t.integer  "initiator_id"
+    t.integer  "playmate_id"
+    t.integer  "misses",       :default => 0
+    t.integer  "whose_turn",   :default => 0
+    t.integer  "winner"
+    t.string   "word"
+    t.string   "word_bits"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
