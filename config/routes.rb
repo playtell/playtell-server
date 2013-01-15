@@ -50,6 +50,7 @@ Semiralabs::Application.routes.draw do
     match 'playdate/check_for_playdate' => 'playdate#check_for_playdate'
     match 'playdate/channel_stats' => 'playdate#channel_stats'
     match 'playdate/generate_ot_session' => 'playdate#generate_ot_session'
+    match 'activities/list' => 'activities#list'
     match 'books/list' => 'books#list'
     match 'books/get_nux_book' => 'books#get_nux_book'
     match 'users/all_friends' => 'users#all_friends'
