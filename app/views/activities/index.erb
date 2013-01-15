@@ -1,0 +1,13 @@
+<h1>Toybox Activities</h1>
+ 
+<ul>
+<% @activities.each do |activity| %>
+  <li>
+    <%= link_to activity.title, activity %> - <%= link_to 'Edit', edit_activity_path(activity) %> *** 
+		<%= link_to 'Destroy', activity, :confirm => 'Are you sure?',
+                                     :method => :delete %>
+  </li>
+<% end %>
+</ul>
+  
+<%= link_to 'Create a new book', new_book_path %>
