@@ -6,7 +6,7 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-App.delete_all
+Activity.delete_all
 Book.delete_all
 Page.delete_all
 
@@ -294,9 +294,11 @@ Page.create({:book_id => t.id,
            })
 =end
       
-# create tic tac toe
-#Game.delete_all
-#Game.create({:title => "Tic Tac Toe"})
+# create games
+Activity.create({:title => "Tic Tac Toe"})
+Activity.create({:title => "Memory"})
+Activity.create({:title => "Matching"})
+Activity.create({:title => "Math Cents"})
            
 # create users
 if !User.find_by_username(DEFAULT_FRIEND_NAME)
