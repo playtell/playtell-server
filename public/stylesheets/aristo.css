@@ -78,8 +78,8 @@ textarea {
 
 select {
   -khtml-appearance: none;
-  background: url(../images/select-updown.png) center right no-repeat, 
-              -webkit-gradient(linear, left top, left bottom, from(#F5F5F5), to(#CCCCCC));
+  /*background: url(../images/select-updown.png) center right no-repeat, 
+              -webkit-gradient(linear, left top, left bottom, from(#F5F5F5), to(#CCCCCC)); */
   min-height: 24px;
   border: 1px solid #BDBDBD;
   border-bottom-color: #949494;

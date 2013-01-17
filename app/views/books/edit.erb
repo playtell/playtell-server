@@ -1,4 +1,4 @@
-<h1>Create a New Book</h1>
+<h1>Edit an Existing Book</h1>
 <%= form_for @book do |f| %>
 	<% if @book.errors.any? %>
 		<div class="error-messages">
@@ -19,8 +19,8 @@
 	<%= f.text_field :image_directory, :required => true %>
 	</p>	
 	<p>
-	<%= f.label 'Number of Pages' %>
-	<%= select_tag :num_pages, "<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>".html_safe, :include_blank => true, :required => true %>
+	<%= f.label 'Number of Pages' %>: <%= @book.pages.count %>
+	<%= select_tag :num_pages,  "<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>".html_safe, :include_blank => true %>
 	</p>
 	<%= submit_tag "Save Book", :class => "big-button blue" %>
 <% end %>
