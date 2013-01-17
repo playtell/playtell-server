@@ -52,4 +52,11 @@ class ActivitiesController < ApplicationController
     end
   end
   
+  def destroy
+    @activity = Activity.find(params[:id])
+    @activity.destroy
+    flash[:notice] = "Successfully deleted activity."
+    redirect_to activities_path
+  end
+  
 end

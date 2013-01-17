@@ -9,6 +9,10 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(params[:book])
     if @book.save
+      params[:num_pages].to_i.times do |page_num| 
+        @book.pages.create({:page_num => page_num+1, 
+                           :page_text => ""})
+      end
       flash[:notice] = "Successfully created book."
       redirect_to activities_path
     else
@@ -23,6 +27,13 @@ class BooksController < ApplicationController
   def update
     @book = Book.find(params[:id])
     if @book.update_attributes(params[:book])
+      if @book.pages.count != params[:num_pages].to_i
+        @book.pages.delete_all
+        params[:num_pages].to_i.times do |page_num| 
+          @book.pages.create({:page_num => page_num+1, 
+                             :page_text => ""})
+        end
+      end
       flash[:notice] = "Successfully updated book."
       redirect_to activities_path
     else
