@@ -10,7 +10,7 @@ class Activity < ActiveRecord::Base
     if is_book
       a.merge!(:book_id => self.book.id)
     else
-      a.merge!(:game_id => self.game.id)
+      a.merge!(:game_id => self.game.client_id)
     end
     return a
   end
