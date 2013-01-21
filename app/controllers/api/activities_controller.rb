@@ -34,7 +34,7 @@ class Api::ActivitiesController < ApplicationController
       }
     end
     
-    render :status=>200, :json=>{:activities => a.to_json, :books => response}
+    render :status=>200, :json=>{:activities => a, :books => response}
   end
     
 end
