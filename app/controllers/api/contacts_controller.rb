@@ -147,19 +147,25 @@ class Api::ContactsController < ApplicationController
     render :status => 200, :json => {:message => "Contacts notified successfully (#{emails_sent} of #{emails.size})."}
   end
   
-=begin
   # expected params "search_string"
   def search
     matches = []
     s = params[:search_string].split(" ")
     s.each do |str|
       if str =~ /@/i
-        matches << User.find_by_email(str)
+        u = User.find_by_email(str)
+        if !u.blank?
+          current_match = { 
+            :search_string => str,
+            :match => u
+            }
+          matches << current_match
+        end
+          
       else
         # search usernames
       end  
     end
-    render :status => 200, :json => {:search_string => s, :matches => matches}
+    render :status => 200, :json => {:matches => matches}
   end
-=end  
 end
