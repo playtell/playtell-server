@@ -300,10 +300,14 @@ Page.create({:book_id => t.id,
 =end
       
 # create games
-Activity.create({:title => "Tic Tac Toe", :toybox_order => 6})
-Activity.create({:title => "Memory", :toybox_order => 7})
-Activity.create({:title => "Matching", :toybox_order => 8})
-Activity.create({:title => "Math Cents", :toybox_order => 9})
+a = Activity.create({:title => "Tic Tac Toe", :toybox_order => 6})
+g = a.create_game({:client_id => 2})
+a = Activity.create({:title => "Memory", :toybox_order => 7})
+g = a.create_game({:client_id => 1})
+a = Activity.create({:title => "Matching", :toybox_order => 8})
+g = a.create_game({:client_id => 3})
+a = Activity.create({:title => "Math Cents", :toybox_order => 9})
+g = a.create_game({:client_id => 4})
            
 # create users
 if !User.find_by_username(DEFAULT_FRIEND_NAME)
