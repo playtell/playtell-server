@@ -8,16 +8,26 @@ class ActivitiesController < ApplicationController
   
   def new
     @activity = Activity.new
-    @book = Book.new
+    if params[:activity_type] == "book" 
+      @book = @activity.create_book
+    end
+  end
+  
+  def newbook
+    @activity = Activity.new
+    @activity.create_book
+  end
+  
+  def newgame
   end
   
   def create
-    @book = Book.new(params[:book])
-    if @book.save
-      flash[:notice] = "Successfully created book."
+    @activity = Activity.new(params[:activity])
+    if @activity.save
+      flash[:notice] = "Successfully created activity."
       redirect_to activities_path
     else
-      render :action => 'new'
+      render :action => 'newbook'
     end
   end
   

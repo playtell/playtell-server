@@ -116,8 +116,10 @@ Semiralabs::Application.routes.draw do
   end
   
   # Activities
-  resources :activities 
-  
+  resources :activities
+  get 'newbook' => 'activities#newbook'
+  get 'newgame' => 'activities#newgame'
+    
   #deprecated
   match 'update_page' => 'games#updatePage'
   match 'update_from_playdate' => 'games#updateFromPlaydate'

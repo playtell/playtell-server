@@ -2,6 +2,11 @@ class Activity < ActiveRecord::Base
   has_one :book, :dependent => :destroy
   has_one :game, :dependent => :destroy
 
+
+  def book_attributes=(book_attributes)
+    create_book(book_attributes)
+  end
+
   def as_json(options={})
     is_book = !self.book.nil?
     a = { :id => self.id,
