@@ -3,7 +3,7 @@ class ActivitiesController < ApplicationController
   layout 'application'
   
   def index 
-    @activities = Activity.all
+    @activities = Activity.order(:toybox_order).all
   end
   
   def new
