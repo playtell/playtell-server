@@ -10,7 +10,7 @@ Activity.delete_all
 Book.delete_all
 Page.delete_all
 
-a = Activity.create ( {:title => "One, Two, Buckle My Shoe", :toybox_order => 1} )
+a = Activity.create ( {:title => "One, Two, Buckle My Shoe", :toybox_order => 6} )
 b = a.create_book( {:title => "One, Two, Buckle My Shoe", :image_directory => "buckle-my-shoe", :image_only => 1} )
 Page.create({:book_id => b.id, 
             :page_num => 1, 
@@ -89,7 +89,7 @@ Page.create({:book_id => b.id,
             :page_num => 10, 
             :page_text => ""})
 
-a = Activity.create ( {:title => "Transportation Picture Book", :toybox_order => 4} )
+a = Activity.create ( {:title => "Transportation Picture Book", :toybox_order => 7} )
 b = a.create_book( {:title => "Transportation Picture Book", :image_directory => "picture-book-transportation", :image_only => 1} )
 Page.create({:book_id => b.id, 
             :page_num => 1, 
@@ -300,17 +300,17 @@ Page.create({:book_id => t.id,
 =end
       
 # create games
-a = Activity.create({:title => "Memory", :toybox_order => 7})
+a = Activity.create({:title => "Memory", :toybox_order => 4})
 g = a.create_game({:client_id => 1})
 
-a = Activity.create({:title => "Tic Tac Toe", :toybox_order => 6})
+a = Activity.create({:title => "Tic Tac Toe", :toybox_order => 1})
 g = a.create_game({:client_id => 2})
 
 a = Activity.create({:title => "Matching", :toybox_order => 8})
 g = a.create_game({:client_id => 3})
 
-a = Activity.create({:title => "Math Cents", :toybox_order => 9})
-g = a.create_game({:client_id => 4})
+#a = Activity.create({:title => "Math Cents", :toybox_order => 9})
+#g = a.create_game({:client_id => 4})
            
 # create users
 if !User.find_by_username(DEFAULT_FRIEND_NAME)
