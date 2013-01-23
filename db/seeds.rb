@@ -11,7 +11,7 @@ Book.delete_all
 Page.delete_all
 
 a = Activity.create ( {:title => "One, Two, Buckle My Shoe", :toybox_order => 6} )
-b = a.create_book( {:title => "One, Two, Buckle My Shoe", :image_directory => "buckle-my-shoe", :image_only => 1} )
+b = a.create_book( {:image_directory => "buckle-my-shoe", :image_only => 1} )
 Page.create({:book_id => b.id, 
             :page_num => 1, 
             :page_text => ""})
@@ -23,7 +23,7 @@ Page.create({:book_id => b.id,
             :page_text => ""})
 
 a = Activity.create ( {:title => "Three Little Pigs", :toybox_order => 2} )
-b = a.create_book( {:title => "Three Little Pigs", :image_directory => "three-little-pigs", :image_only => 1} )
+b = a.create_book( {:image_directory => "three-little-pigs", :image_only => 1} )
 
 Page.create({:book_id => b.id, 
              :page_num => 1, 
@@ -57,7 +57,7 @@ Page.create({:book_id => b.id,
              :page_text => ""})
              
 a = Activity.create ( {:title => "One to Ten", :toybox_order => 3} )
-b = a.create_book( {:title => "One to Ten", :image_directory => "OneToTen", :image_only => 1} )
+b = a.create_book( {:image_directory => "OneToTen", :image_only => 1} )
 Page.create({:book_id => b.id, 
             :page_num => 1, 
             :page_text => ""})
@@ -90,7 +90,7 @@ Page.create({:book_id => b.id,
             :page_text => ""})
 
 a = Activity.create ( {:title => "Transportation Picture Book", :toybox_order => 7} )
-b = a.create_book( {:title => "Transportation Picture Book", :image_directory => "picture-book-transportation", :image_only => 1} )
+b = a.create_book( {:image_directory => "picture-book-transportation", :image_only => 1} )
 Page.create({:book_id => b.id, 
             :page_num => 1, 
             :page_text => ""})
@@ -123,7 +123,7 @@ Page.create({:book_id => b.id,
             :page_text => ""})                                                    
 
 a = Activity.create ( {:title => "Little Red Riding Hood", :toybox_order => 5} )
-b = a.create_book({ :title => "Little Red Riding Hood", :image_directory => "little-red-riding-hood" })
+b = a.create_book({ :image_directory => "little-red-riding-hood" })
 Page.create({:book_id => b.id, 
                          :page_num => 1, 
                          :page_text => "Once upon a time, there was a little girl who lived in a village near the forest.  Whenever she went out, the little girl wore a red riding cloak, so everyone in the village called her Little Red Riding Hood. \nOne morning, Little Red Riding Hood asked her mother if she could go to visit her grandmother as it had been awhile since they'd seen each other. \n\"That's a good idea,\" her mother said.  So they packed a nice basket for Little Red Riding Hood to take to her grandmother."})
