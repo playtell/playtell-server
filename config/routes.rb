@@ -93,8 +93,6 @@ Semiralabs::Application.routes.draw do
     
     #resources :settings, :only => [:update]
   end
-
-  match 'activities/list' => 'application#getAllActivities'
   
   match 'pusher/auth' => 'pusher#auth'
   match '/ipad' => 'ipad#index'
