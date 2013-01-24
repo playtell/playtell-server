@@ -16,6 +16,7 @@ class ActivitiesController < ApplicationController
       render 'newbook'
     else
       @activity.create_game
+      render 'newgame'
     end   
   end
   
@@ -25,24 +26,21 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "Successfully created activity."
       redirect_to activities_path
     else
-      render :action => 'newactivity'
+      render :action => 'newactivity', :activity_type => params[:activity_type]
     end
   end
   
   def edit
     @activity = Activity.find(params[:id])
     if !@activity.book.blank?
-      redirect_to edit_book_path(@activity.book)
-      return
+      render 'editbook'
+    else
+      render 'editgame'
     end
   end
   
   def update
     @activity = Activity.find(params[:id])
-    if !@activity.book.blank?
-      redirect_to update_book_path(@activity.book)
-      return
-    end
     
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "Successfully updated activity."
@@ -52,12 +50,12 @@ class ActivitiesController < ApplicationController
     end
   end
   
-  def show
-    @activity = Activity.find(params[:id])
-    if !@activity.book.blank?
-      redirect_to book_path(@activity.book)
-      return
-    end
+  def editorder
+    @activities = Activity.order(:toybox_order).all
+  end
+  
+  def updateorder
+    
   end
   
   def destroy

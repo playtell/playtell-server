@@ -1,0 +1,28 @@
+<%= form_for @activity do |f| %>
+	<% if @activity.errors.any? %>
+		<div class="error-messages">
+			<h2>Wait! There's a problem</h2>
+			<ul>
+				<% for message in @activity.errors.full_messsages do %>
+					<li><%= message %></li>
+				<% end %>
+			</ul>	
+		</div>
+	<% end %>
+	<p>
+	<%= f.label 'Game Title' %>
+	<%= f.text_field :title, :required => true %>
+	</p>
+	
+	<%= fields_for 'activity[game_attributes]', @activity.game do |game_form| %>
+		<p>
+		<%= game_form.label 'Client ID (corresponds to game ID on iPad)' %>
+		<%= game_form.text_field :client_id %>
+		</p>	
+
+	<% end %>
+	
+	<%= hidden_field :activity_type, :value => 'game' %>
+	
+	<%= submit_tag "Save Game", :class => "big-button blue" %>	
+<% end %>

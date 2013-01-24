@@ -1,0 +1,10 @@
+<h1>Reorder Toybox Activities</h1>
+ 
+<ul>
+<% @activities.each do |activity| %>
+  <li>
+    <%= activity.toybox_order %> <%= activity.title %> 
+  </li>
+<% end %>
+</ul>
+

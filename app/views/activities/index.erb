@@ -3,7 +3,7 @@
 <ul>
 <% @activities.each do |activity| %>
   <li>
-    <%= activity.toybox_order %>. <%= link_to activity.title, activity %> - <%= link_to 'Edit', edit_activity_path(activity) %> *** 
+    <%= activity.toybox_order %>. <%= activity.title %> - <%= link_to 'Edit', edit_activity_path(activity) %> *** 
 		<%= link_to 'Destroy', activity, :confirm => 'Are you sure?',
                                      :method => :delete %>
   </li>

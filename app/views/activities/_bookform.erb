@@ -1,0 +1,36 @@
+<%= form_for @activity do |f| %>
+	<% if @activity.errors.any? %>
+		<div class="error-messages">
+			<h2>Wait! There's a problem</h2>
+			<ul>
+				<% for message in @activity.errors.full_messsages do %>
+					<li><%= message %></li>
+				<% end %>
+			</ul>	
+		</div>
+	<% end %>
+	<p>
+	<%= f.label 'Book Title' %>
+	<%= f.text_field :title, :required => true %>
+	</p>
+	
+	<%= fields_for 'activity[book_attributes]', @activity.book do |book_form| %>
+		<p>
+		<%= book_form.label 'Name of S3 image directory' %>
+		<%= book_form.text_field :image_directory, :required => true %>
+		</p>	
+		<p>
+		<%= book_form.label 'Number of Pages' %> : <%= @activity.book.pages.count %> 
+		<%= select_tag 'activity[book_attributes][num_pages]',  "<option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>".html_safe %>
+		</p>
+		<p>
+		<%= book_form.check_box :image_only, {:checked => true, :required => true} %>
+		<%= book_form.label 'Image-only? (i.e. text is baked into the images)' %>
+		</p>
+
+	<% end %>
+	
+	<%= hidden_field :activity_type, :value => 'book' %>
+	
+	<%= submit_tag "Save Book", :class => "big-button blue" %>	
+<% end %>
