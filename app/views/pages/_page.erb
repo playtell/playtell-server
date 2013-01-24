@@ -1,0 +1,6 @@
+<%= fields_for 'activity[book_attributes][page_attributes][]', page do |page_form| %>
+	<p>
+	    Page <%= page.page_num %> <br>
+		<%= page_form.text_area :page_text, :index => nil, :size => '50x10' %>
+	</p>
+<% end %>

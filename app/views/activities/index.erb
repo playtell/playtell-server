@@ -3,13 +3,14 @@
 <ul>
 <% @activities.each do |activity| %>
   <li>
-    <%= activity.toybox_order %>. <%= activity.title %> - <%= link_to 'Edit', edit_activity_path(activity) %> *** 
-		<%= link_to 'Destroy', activity, :confirm => 'Are you sure?',
-                                     :method => :delete %>
+    <%= activity.toybox_order %>. <%= activity.title %> - 
+		<%= link_to 'Edit', edit_activity_path(activity) %> *** 
+		<%= link_to 'Destroy', activity, :confirm => 'Are you sure?', :method => :delete %>
   </li>
 <% end %>
 </ul>
 
 
 <%= link_to 'Create a new book', newactivity_path(:activity_type => "book") %> *** 
-<%= link_to 'Create a new game', newactivity_path(:activity_type => "game") %>
+<%= link_to 'Create a new game', newactivity_path(:activity_type => "game") %> ***
+<%= link_to 'Reorder Toybox', updateorder_path(:activity_type => "game") %>
