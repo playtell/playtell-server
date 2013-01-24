@@ -54,7 +54,7 @@ class ActivitiesController < ApplicationController
     @activities = Activity.order(:toybox_order).all
   end
   
-  def updateorder
+  def reorder_toybox
     
   end
   

@@ -116,6 +116,7 @@ Semiralabs::Application.routes.draw do
   # Activities
   resources :activities 
   match 'newactivity/:activity_type' => 'activities#newactivity', :as => 'newactivity'
+  match 'reorder_toybox' => 'activities#reorder_toybox'
     
   #deprecated
   match 'update_page' => 'games#updatePage'
