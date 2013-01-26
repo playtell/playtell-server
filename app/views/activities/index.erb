@@ -35,11 +35,11 @@
 	    <%= activity.title %> - 
 			<%= link_to 'Edit', edit_activity_path(activity) %> *** 
 			<%= link_to 'Destroy', activity, :confirm => 'Are you sure?', :method => :delete %> **
-			<span class="handle">[reorder]</span>
+			<span class="handle">[drag to reorder]</span>
 	  </li>
 	<% end %>
 	</ul>
 </div>
 
 <%= link_to 'Create a new book', newactivity_path(:activity_type => "book") %> *** 
-<%= link_to 'Create a new game', newactivity_path(:activity_type => "game") %> ***
+<%= link_to 'Create a new game', newactivity_path(:activity_type => "game") %> 

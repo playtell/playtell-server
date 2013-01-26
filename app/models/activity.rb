@@ -3,8 +3,6 @@ class Activity < ActiveRecord::Base
   has_one :book, :dependent => :destroy
   has_one :game, :dependent => :destroy
   
-  after_create :set_toybox_order
-
   def book_attributes=(book_attributes)
     create_book(book_attributes.except(:num_pages))
     num_pages = book_attributes[:num_pages].to_i
@@ -19,11 +17,6 @@ class Activity < ActiveRecord::Base
   
   def game_attributes=(game_attributes)
     create_game(game_attributes)
-  end
-
-  def set_toybox_order
-    self.toybox_order = Activity.count+1
-    save!
   end
 
   def as_json(options={})
