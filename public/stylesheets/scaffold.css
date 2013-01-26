@@ -1230,6 +1230,21 @@ p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height
 	width: 150px;
 }
 
+.activities {
+	font-size: 14px;
+	margin: 10px;
+}
+
+.activities p, .activities a, .activities label {
+	font-size: 14px;
+}
+
+.activities li {
+	list-style: none;
+}
+
+.handle:hover{cursor: move;}
+
 /* OLD LANDING PAGE + LOGIN --------------------------------------------------------- */
 
 .landingpage {

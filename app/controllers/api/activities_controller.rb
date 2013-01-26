@@ -4,7 +4,7 @@ class Api::ActivitiesController < ApplicationController
   respond_to :json
 
   def list
-    a = Activity.order(:toybox_order).all
+    a = Activity.order(:position).all
 
     response = []
     a.each do |activity| 

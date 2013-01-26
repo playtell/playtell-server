@@ -28,6 +28,7 @@ GEM
       activemodel (= 3.0.19)
       activesupport (= 3.0.19)
     activesupport (3.0.19)
+    acts_as_list (0.1.9)
     arel (2.0.10)
     bcrypt-ruby (3.0.1)
     builder (2.1.2)
@@ -145,6 +146,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_list
   bcrypt-ruby
   carrierwave
   devise

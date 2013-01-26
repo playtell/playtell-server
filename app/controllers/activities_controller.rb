@@ -1,9 +1,9 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  layout 'application'
+  layout 'activities'
   
   def index 
-    @activities = Activity.order(:toybox_order).all
+    @activities = Activity.order(:position).all
   end
   
   def new
@@ -50,9 +50,15 @@ class ActivitiesController < ApplicationController
     end
   end
   
-  def editorder
-    @activities = Activity.order(:toybox_order).all
-  end
+  def sort
+    @activities = Activity.all
+    @activities.each do |a|
+      a.position = params['activity'].index(a.id.to_s) + 1
+      a.save
+    end
+    
+    render :nothing => true
+    end
   
   def reorder_toybox
     

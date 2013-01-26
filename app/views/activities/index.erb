@@ -1,16 +1,45 @@
-<h1>Toybox Activities</h1>
- 
-<ul>
-<% @activities.each do |activity| %>
-  <li>
-    <%= activity.toybox_order %>. <%= activity.title %> - 
-		<%= link_to 'Edit', edit_activity_path(activity) %> *** 
-		<%= link_to 'Destroy', activity, :confirm => 'Are you sure?', :method => :delete %>
-  </li>
-<% end %>
-</ul>
+<% content_for :javascript do %>
+	<%= javascript_tag do %>
+		// Sorting the list
 
+		$(document).ready(function(){
+			$('#activity-list').sortable({
+				axis: 'y',
+				dropOnEmpty: false,
+				handle: '.handle',
+				cursor: 'crosshair',
+				items: 'li',
+				opacity: 0.4,
+				scroll: true,
+				update: function(){
+					$.ajax({
+					type: 'post',
+					data: $('#activity-list').sortable('serialize'),
+					dataType: 'script',
+					complete: function(request){
+					$('#activity-list').effect('highlight');
+					},
+					url: '/activities/sort'})
+					}
+				});
+		});
+	<% end %>
+<% end %>
+
+<h1>Toybox Activities</h1>
+
+<div id='activity-list'>
+	<ul>
+	<% @activities.each do |activity| %>
+	  <li id="activity_<%= activity.id %>">
+	    <%= activity.title %> - 
+			<%= link_to 'Edit', edit_activity_path(activity) %> *** 
+			<%= link_to 'Destroy', activity, :confirm => 'Are you sure?', :method => :delete %> **
+			<span class="handle">[reorder]</span>
+	  </li>
+	<% end %>
+	</ul>
+</div>
 
 <%= link_to 'Create a new book', newactivity_path(:activity_type => "book") %> *** 
 <%= link_to 'Create a new game', newactivity_path(:activity_type => "game") %> ***
-<%= link_to 'Reorder Toybox', reorder_toybox_path %>

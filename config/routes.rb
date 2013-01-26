@@ -114,9 +114,10 @@ Semiralabs::Application.routes.draw do
   end
   
   # Activities
-  resources :activities 
+  resources :activities do
+    post :sort, :on => :collection
+  end
   match 'newactivity/:activity_type' => 'activities#newactivity', :as => 'newactivity'
-  match 'reorder_toybox' => 'activities#reorder_toybox'
     
   #deprecated
   match 'update_page' => 'games#updatePage'

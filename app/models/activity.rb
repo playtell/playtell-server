@@ -1,4 +1,5 @@
 class Activity < ActiveRecord::Base
+  acts_as_list
   has_one :book, :dependent => :destroy
   has_one :game, :dependent => :destroy
   
