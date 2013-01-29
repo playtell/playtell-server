@@ -149,6 +149,9 @@ class Api::ContactsController < ApplicationController
   
   # expected params "search_string"
   def search
+    approved_friends = current_user.allFriends.map!{|user| user.id}
+    pending_friends = current_user.allPendingFriends.map!{|user| user.id}
+    
     matches = []
     s = params[:search_string].split(" ")
     s.each do |str|
@@ -156,8 +159,12 @@ class Api::ContactsController < ApplicationController
         u = User.find_by_email(str)
         if !u.blank?
           current_match = { 
-            :search_string => str,
-            :match => u
+              :name                => u.username,
+              :email               => u.email,
+              :user_id             => u.id,
+              :is_confirmed_friend => approved_friends.include?(u.id),
+              :is_pending_friend   => pending_friends.include?(u.id),
+              :profile_photo       => u.profile_photo
             }
           matches << current_match
         end
@@ -166,6 +173,6 @@ class Api::ContactsController < ApplicationController
         # search usernames
       end  
     end
-    render :status => 200, :json => {:matches => matches}
+    render :status => 200, :json => {:matches => matches, :search_string => params[:search_string]}
   end
 end
