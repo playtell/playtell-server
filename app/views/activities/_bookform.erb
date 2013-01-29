@@ -37,6 +37,8 @@
 	<% if !@activity.book.image_only? %>
 		<h3>Page Text</h3>
 		<%= render :partial => 'pages/page', :collection => @activity.book.pages %>
+	<% else %>
+		<%= render :partial => 'pages/pageimage', :collection => @activity.book.pages, :locals => {:book => @activity.book} %>
 	<% end %>
 	
 	<%= hidden_field :activity_type, :value => 'book' %>
