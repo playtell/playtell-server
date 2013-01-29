@@ -13,11 +13,11 @@
 				scroll: true,
 				update: function(){
 					$.ajax({
-					type: 'post',
-					data: $('#activity-list').sortable('serialize'),
-					dataType: 'script',
-					complete: function(request){
-					$('#activity-list').effect('highlight');
+						type: 'post',
+						data: $('#activity-list').sortable('serialize'),
+						dataType: 'script',
+						complete: function(request){
+						$('#activity-list').effect('highlight');
 					},
 					url: '/activities/sort'})
 					}
