@@ -27,8 +27,12 @@
 		<%= book_form.label 'Image-only? (i.e. text is baked into the images)' %>
 		<%= book_form.radio_button :image_only, '1' %>Yes <%= book_form.radio_button :image_only, '0' %>No
 		</p>
-
 	<% end %>
+	
+	<p>
+	<%= f.label 'Publish to Toybox?' %>
+	<%= f.radio_button :publish, '1' %>Yes <%= f.radio_button :publish, '0' %>No
+	</p>
 	
 	<% if !@activity.book.image_only? %>
 		<h3>Page Text</h3>

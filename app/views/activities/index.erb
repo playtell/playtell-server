@@ -32,7 +32,7 @@
 	<ul>
 	<% @activities.each do |activity| %>
 	  <li id="activity_<%= activity.id %>">
-	    <%= activity.title %> - 
+	    <%= activity.title %> [<%= activity.id %>] - 
 			<%= link_to 'Edit', edit_activity_path(activity) %> *** 
 			<%= link_to 'Destroy', activity, :confirm => 'Are you sure?', :method => :delete %> **
 			<span class="handle">[drag to reorder]</span>

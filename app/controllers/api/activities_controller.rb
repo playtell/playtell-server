@@ -4,7 +4,7 @@ class Api::ActivitiesController < ApplicationController
   respond_to :json
 
   def list
-    a = Activity.order(:position).all
+    a = Activity.where("publish = 1").order(:position)
 
     response = []
     a.each do |activity| 
