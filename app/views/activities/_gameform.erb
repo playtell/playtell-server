@@ -22,6 +22,11 @@
 
 	<% end %>
 	
+	<p>
+	<%= f.label 'Publish to Toybox?' %>
+	<%= f.radio_button :publish, '1' %>Yes <%= f.radio_button :publish, '0' %>No
+	</p>
+	
 	<%= hidden_field :activity_type, :value => 'game' %>
 	
 	<%= submit_tag "Save Game", :class => "big-button blue" %>	
