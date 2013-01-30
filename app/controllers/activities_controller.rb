@@ -12,10 +12,10 @@ class ActivitiesController < ApplicationController
   def newactivity
     @activity = Activity.new
     if params[:activity_type] == "book" 
-      @activity.create_book(:image_only => 1)
+      @activity.build_book(:image_only => 1)
       render 'newbook'
     else
-      @activity.create_game
+      @activity.build_game
       render 'newgame'
     end   
   end

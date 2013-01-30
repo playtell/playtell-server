@@ -1,4 +1,4 @@
 <p>
     Page <%= pageimage.page_num %> <br>
-	<%= image_tag getPage(book.image_directory, pageimage.page_num), :alt => "Page Image" %>
+	<%= image_tag getPageImageFilePath(book.image_directory, pageimage.page_num), :alt => "Page Image" %>
 </p>
