@@ -153,11 +153,11 @@ class Api::ContactsController < ApplicationController
     pending_friends = current_user.allPendingFriends.map!{|user| user.id}
     
     matches = []
-    s = params[:search_string].split(" ")
+    s = params[:search_string].split
     s.each do |str|
       if str =~ /@/i
-        u = User.find_by_email(str)
-        if !u.blank?
+        @users = User.where("email ilike ? OR email ilike ?", str, str.split('@').first)
+        @users.each do |u|
           current_match = { 
               :name                => u.username,
               :email               => u.email,
@@ -168,11 +168,23 @@ class Api::ContactsController < ApplicationController
             }
           matches << current_match
         end
-          
+      # search usernames    
       else
-        # search usernames
+        @users = User.where("username ilike ?", str)
+        @users.each do |u|
+          current_match = { 
+              :name                => u.username,
+              :email               => u.email,
+              :user_id             => u.id,
+              :is_confirmed_friend => approved_friends.include?(u.id),
+              :is_pending_friend   => pending_friends.include?(u.id),
+              :profile_photo       => u.profile_photo
+            }
+          end
+          matches << current_match
       end  
     end
-    render :status => 200, :json => {:matches => matches, :search_string => params[:search_string]}
+    
+    render :status => 200, :json => {:matches => matches.uniq, :search_string => params[:search_string]}
   end
 end
