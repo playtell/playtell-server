@@ -9,20 +9,12 @@
 Activity.delete_all
 Book.delete_all
 Page.delete_all
+Game.delete_all
 
-a = Activity.create ( {:title => "One, Two, Buckle My Shoe"} )
-b = a.create_book( {:image_directory => "buckle-my-shoe", :image_only => 1} )
-Page.create({:book_id => b.id, 
-            :page_num => 1, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 2, 
-            :page_text => ""})
-Page.create({:book_id => b.id, 
-            :page_num => 3, 
-            :page_text => ""})
+a = Activity.create({:title => "Tic Tac Toe", :publish => 1})
+g = a.create_game({:client_id => 2})
 
-a = Activity.create ( {:title => "Three Little Pigs"} )
+a = Activity.create ( {:title => "Three Little Pigs", :publish => 1} )
 b = a.create_book( {:image_directory => "three-little-pigs", :image_only => 1} )
 
 Page.create({:book_id => b.id, 
@@ -55,8 +47,23 @@ Page.create({:book_id => b.id,
 Page.create({:book_id => b.id, 
              :page_num => 10, 
              :page_text => ""})
-             
-a = Activity.create ( {:title => "One to Ten"} )
+      
+ a = Activity.create ( {:title => "One, Two, Buckle My Shoe", :publish => 1} )
+ b = a.create_book( {:image_directory => "buckle-my-shoe", :image_only => 1} )
+ Page.create({:book_id => b.id, 
+             :page_num => 1, 
+             :page_text => ""})
+ Page.create({:book_id => b.id, 
+             :page_num => 2, 
+             :page_text => ""})
+ Page.create({:book_id => b.id, 
+             :page_num => 3, 
+             :page_text => ""})
+
+a = Activity.create({:title => "Memory", :publish => 1})
+g = a.create_game({:client_id => 1})
+                          
+a = Activity.create ( {:title => "One to Ten", :publish => 1} )
 b = a.create_book( {:image_directory => "OneToTen", :image_only => 1} )
 Page.create({:book_id => b.id, 
             :page_num => 1, 
@@ -89,7 +96,7 @@ Page.create({:book_id => b.id,
             :page_num => 10, 
             :page_text => ""})
 
-a = Activity.create ( {:title => "Transportation Picture Book"} )
+a = Activity.create ( {:title => "Transportation Picture Book", :publish => 1} )
 b = a.create_book( {:image_directory => "picture-book-transportation", :image_only => 1} )
 Page.create({:book_id => b.id, 
             :page_num => 1, 
@@ -122,7 +129,7 @@ Page.create({:book_id => b.id,
             :page_num => 10, 
             :page_text => ""})                                                    
 
-a = Activity.create ( {:title => "Little Red Riding Hood"} )
+a = Activity.create ( {:title => "Little Red Riding Hood", :publish => 1} )
 b = a.create_book({ :image_directory => "little-red-riding-hood" })
 Page.create({:book_id => b.id, 
                          :page_num => 1, 
@@ -298,18 +305,11 @@ Page.create({:book_id => t.id,
            :page_text => "And now, every time Thomas passes a signal, he checks it twice, just to be safe. Gordon likes to tease him. \"Fussy little Thomas certainly is fussy about signals.\"\n\"Peep, peep!\" says Thomas. \"Safety is our first concern.\""
            })
 =end
-      
-# create games
-a = Activity.create({:title => "Memory"})
-g = a.create_game({:client_id => 1})
 
-a = Activity.create({:title => "Tic Tac Toe"})
-g = a.create_game({:client_id => 2})
-
-a = Activity.create({:title => "Matching"})
+a = Activity.create({:title => "Matching", :publish => 1})
 g = a.create_game({:client_id => 3})
 
-a = Activity.create({:title => "Math Cents"})
+a = Activity.create({:title => "Math Cents", :publish => 1})
 g = a.create_game({:client_id => 4})
            
 # create users
