@@ -156,7 +156,7 @@ class Api::ContactsController < ApplicationController
     s = params[:search_string].split.map{ |term| "%#{term}%" }
     s.each do |str|
       if str =~ /@/i
-        @users = User.where("email LIKE ? OR email LIKE ?", str, str.split('@').first)
+        @users = User.where("email ILIKE ? OR email ILIKE ?", str, str.split('@').first)
         @users.each do |u|
           current_match = { 
               :name                => u.username,
@@ -170,7 +170,7 @@ class Api::ContactsController < ApplicationController
         end
       # search usernames    
       else
-        @users = User.where("username LIKE ?", str)
+        @users = User.where("username ILIKE ?", str)
         @users.each do |u|
           current_match = { 
               :name                => u.username,
