@@ -153,7 +153,7 @@ class Api::ContactsController < ApplicationController
     pending_friends = current_user.allPendingFriends.map!{|user| user.id}
     
     matches = []
-    s = params[:search_string].split
+    s = params[:search_string].split.map{ |term| "%#{term}%" }
     s.each do |str|
       if str =~ /@/i
         @users = User.where("email LIKE ? OR email LIKE ?", str, str.split('@').first)
