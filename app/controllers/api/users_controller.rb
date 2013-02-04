@@ -55,6 +55,20 @@ class Api::UsersController < ApplicationController
 
     render :status => 200, :json => {:message => "User created #{user.id}"}
   end
+  
+  # required params: user_id, user=>{<user params to update>}
+  def update
+    if params[:user_id].nil? or params[:user_id].empty?
+      return render :status => 400, :json => {:message => 'User id missing'} 
+    end
+    
+    user = User.find(params[:user_id])
+    if user.update_attributes(params[:user])
+      puts user.errors.inspect
+      return render :status => 200, :json => {:message => "User updated #{user.id}"}
+    end
+    return render :status => 400, :json => {:message => "User cannot be updated at this time.", :details => user.errors.inspect}
+  end
 
   # required params: user_id
   # returns user objects for all of the given user's friends
@@ -132,20 +146,4 @@ class Api::UsersController < ApplicationController
     render :status => 200, :json => {:available => user.nil?}
   end
 
-  # DEPRECIATED: Reimplemented in api/friendships_controller.rb > 'create'
-  # require params: user_id
-  # def create_friendship
-  #   # Find the user
-  #   return render :status => 150, :json => {:message => "User not found."} if params[:user_id].nil? || params[:user_id].empty?
-  #   user = User.find(params[:user_id].to_i)
-  #   return render :status => 150, :json => {:message => "User {#{id}} not found."} if user.nil?
-
-  #   # See if they're already friends
-  #   return render :status => 152, :json => {:message => "User is already a friend."} if current_user.isFriend?(user)
-
-  #   # Create friendship with current user
-  #   current_user.friendships.create!(:friend_id => user.id)
-
-  #   render :status => 200, :json => {:message => "Friendship created"}
-  # end
 end
