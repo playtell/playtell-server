@@ -18,11 +18,11 @@ $(document).ready(function() {
 			$('#block-splash img').offset( { top: 0, left: imgPos } );
 		
 			setTimeout(function() {
-				$('#slide_2').show();
+				show('slide_2');
 				$('#slide_1').hide("slide", { direction: "left" }, 'slow');
 				}, 4000);
 			setTimeout(function() {
-				$('#slide_3').show();
+				show('slide_3');
 				$('#slide_2').hide("slide", { direction: "left" }, 'slow');
 				}, 8000);
 			
