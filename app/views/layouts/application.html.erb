@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <title>PlayTell - Make memories, not small talk.</title>
@@ -6,7 +7,7 @@
   <meta name="google-site-verification" content="LHyKmZJ26JDnDB49f0uSHDsqovNADc3g_nK4is9g67I" />
 
 	<link href='http://fonts.googleapis.com/css?family=Lato:100,400|Comfortaa:400,300|Nobile:400,700' rel='stylesheet' type='text/css'>	
-  <%= stylesheet_link_tag "scaffold.css", "aristo.css", "misc.css" %>
+  <%= stylesheet_link_tag "scaffold.css", "aristo.css", "misc.css", "bootstrap.css", "bootstrap-responsive.css" %>
 
   <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" %>
@@ -20,11 +21,6 @@
 </head>
 
 <body>
-	<% if !tablet_device? %>
-		<p class="block fr"><%= render 'devise/menu/login_items' %></p>
-		<p class="notice"><%= notice %></p>
-		<p class="alert"><%= alert %></p>
-	<% end %>
 
 	<%= yield %>
 	

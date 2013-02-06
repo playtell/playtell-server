@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   before_filter :initOpenTok, :pusher, :only => [:playdate]
   before_filter :save_path_and_authenticate_user
-  layout :chooseLayout
+  layout :playdates
       
   @@opentok = nil
 
@@ -337,17 +337,4 @@ private
      puts "PUSHER: playdate_joined on presence-rendezvous-channel. playdate: " + @playdate.id.to_s + ", initiator: " + initiator.displayName + ", playmate: " + current_user.displayName
    end
   
-  # homepage -> application layout
-  # playdates & dialpad -> playdate layout
-  # card games -> games layout (not really used right now)
-  def chooseLayout 
-    case action_name
-    when 'index'
-      'application'
-    when 'memory', 'updateGame', 'updateGameFromSession'
-      'games'
-    else
-      'playdates'
-    end
-  end
 end
