@@ -5,18 +5,29 @@
 	//size the splash image to the window height
 $(document).ready(function() {
 		
-		var h = $(window).height();
+		
+		var h;
+		
+		if (screen.width > 767) {
+			h = $(window).height();
+			$('#block-splash').css({'height' : h});
+			$('#block-splash img').css({'height' : h});
+		}
+		else {
+			h = $(window).height()/2;
+			$('#block-splash').css({'min-height' : h});
+			$('#block-splash img').css({'min-height' : h});
+		}
+		
 		var winW = $(window).width();
-
-		$('#block-splash').css({'height' : h});
-		$('#block-splash img').css({'height' : h});
-
+		
 		$('img#slide_1').load(function() {
 			var imgW = $('img#slide_1').width();
 			var imgPos = (winW - imgW) / 2;
 		
 			$('#block-splash img').offset( { top: 0, left: imgPos } );
-		
+			show('slide_1');
+			
 			setTimeout(function() {
 				show('slide_2');
 				$('#slide_1').hide("slide", { direction: "left" }, 'slow');
@@ -31,16 +42,15 @@ $(document).ready(function() {
 
 </script>
 
-<% end %>
-
-<div class="splash-container">
-	<div id="block-splash" class="center">
-		<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/book.png", :class => "center hidden", :id => "slide_3" %>
-		<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/game.png", :class => "center hidden", :id => "slide_2" %>
-		<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/dialpad.png", :class => "center", :id => "slide_1" %>
-		<%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/iPad-Ribbons.png", :class => "center"), 'http://itunes.apple.com/us/app/id570304295', :target => "_blank" %>
+<% end %>	
+	<div class="splash-container">
+		<div id="block-splash" class="center">
+			<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/book.png", :class => "center hidden", :id => "slide_3" %>
+			<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/game.png", :class => "center hidden", :id => "slide_2" %>
+			<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/dialpad.png", :class => "center hidden", :id => "slide_1" %>
+			<%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/iPad-Ribbons.png", :class => "center"), 'http://itunes.apple.com/us/app/id570304295', :target => "_blank" %>
+		</div>
 	</div>
-</div>
 
 <footer class="bottom-row">
 	<ul class="nav-list">

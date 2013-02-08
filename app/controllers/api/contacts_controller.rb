@@ -172,7 +172,10 @@ class Api::ContactsController < ApplicationController
       # search usernames    
       else
         @users = User.where("username LIKE ?", str)
+        
+        # to be removed
         @emails = User.where("email LIKE ?", "%#{str.split('@').first}%")
+
         (@users | @emails).each do |u|
           next if u.id == current_user.id
           current_match = { 
