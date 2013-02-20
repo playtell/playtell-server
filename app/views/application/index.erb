@@ -4,40 +4,44 @@
 
 	//size the splash image to the window height
 $(document).ready(function() {
+//	$('img#ribbons').load(function() {
+			
+		var h, winW, imgPos;
 		
-		
-		var h;
-		
-		if (screen.width > 767) {
-			h = $(window).height();
-			$('#block-splash').css({'height' : h});
-			$('#block-splash img').css({'height' : h});
-		}
-		else {
-			h = $(window).height()/2;
+		if (screen.width < 767) {
+			w = $(document).width() * 1.8;
+			h = $(document).height() * .9;
+			
 			$('#block-splash').css({'min-height' : h});
 			$('#block-splash img').css({'min-height' : h});
+			$('#block-splash img').css({'min-width' : w});
+			winW = screen.width;
+		}
+		else if ($(document).width() > 767) {
+			h = $(document).height();
+			$('#block-splash').css({'min-height' : h});
+			$('#block-splash img').css({'min-height' : h});
+			winW = $(document).width();
 		}
 		
-		var winW = $(window).width();
+		var imgW = $('img#slide_1').width();
+		imgPos = (winW - imgW) / 3.25;
+	
+		$('#block-splash img').offset( { top: 0, left: imgPos } );
+		show('ribbons');
+		show('slide_1');
+		$('#bottom-row').removeClass("invisible");
 		
-		$('img#slide_1').load(function() {
-			var imgW = $('img#slide_1').width();
-			var imgPos = (winW - imgW) / 2;
-		
-			$('#block-splash img').offset( { top: 0, left: imgPos } );
-			show('slide_1');
+		setTimeout(function() {
+			show('slide_2');
+			$('#slide_1').hide("slide", { direction: "left" }, 'slow');
+			}, 4000);
+		setTimeout(function() {
+			show('slide_3');
+			$('#slide_2').hide("slide", { direction: "left" }, 'slow');
+			}, 8000);
 			
-			setTimeout(function() {
-				show('slide_2');
-				$('#slide_1').hide("slide", { direction: "left" }, 'slow');
-				}, 4000);
-			setTimeout(function() {
-				show('slide_3');
-				$('#slide_2').hide("slide", { direction: "left" }, 'slow');
-				}, 8000);
-			
-		});
+//	});
 });
 
 </script>
@@ -48,11 +52,11 @@ $(document).ready(function() {
 			<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/book.png", :class => "center hidden", :id => "slide_3" %>
 			<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/game.png", :class => "center hidden", :id => "slide_2" %>
 			<%= image_tag "http://playtell.s3.amazonaws.com/HomePage/dialpad.png", :class => "center hidden", :id => "slide_1" %>
-			<%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/iPad-Ribbons.png", :class => "center"), 'http://itunes.apple.com/us/app/id570304295', :target => "_blank" %>
+			<%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/iPad-Ribbons.png", :class => "center hidden", :id => "ribbons"), 'http://itunes.apple.com/us/app/id570304295', :target => "_blank" %>
 		</div>
 	</div>
 
-<footer class="bottom-row">
+<footer class="invisible" id="bottom-row">
 	<ul class="nav-list">
 		<li><%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/facebook.png", :class => "center"), 'http://www.facebook.com/playtell', :target => "_blank" %></li>
 		<li><%= link_to image_tag("http://playtell.s3.amazonaws.com/HomePage/twitter.png", :class => "center"), 'https://twitter.com/#!/GoPlayTell', :target => "_blank" %></li>

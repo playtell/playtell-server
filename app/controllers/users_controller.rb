@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   #for admin
   def remove
     @user = User.find(params[:user_id])
-    @user.delete unless @user.blank?
+    @user.destroy unless @user.blank?
     redirect_to allofplaytellsusers_users_path
   end
   
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     when 'show'
       'playdates'
     else
-      'application'
+      'admin'
     end
   end
 end
