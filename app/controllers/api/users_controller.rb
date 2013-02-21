@@ -10,7 +10,7 @@ class Api::UsersController < ApplicationController
     user.username = params[:name]
     user.email = params[:email]
     user.password = params[:password]
-    user.birthday = params[:birthday]
+    user.birthday = Date.strptime(params[:birthday], "%Y-%m-%d") 
 
     if !user.save
       puts user.errors.inspect
