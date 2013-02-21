@@ -17,10 +17,10 @@ class Api::UsersController < ApplicationController
     end
 
     # Upload profile photo
-    playdatePhoto = PlaydatePhoto.new(:user_id => user.id)
-    playdatePhoto.photo = params[:photo]
+    profilePhoto = ProfilePhoto.new(:user_id => user.id)
+    profilePhoto.photo = params[:photo]
 
-    if !playdatePhoto.save
+    if !profilePhoto.save
       return render :status => 154, :json => {:message => "User photo cannot be created at this time."}
     end
 
@@ -64,6 +64,17 @@ class Api::UsersController < ApplicationController
     end
     
     user = User.find(params[:user_id])
+    
+    # Replace profile photo
+    if !params[:user][:photo].blank?
+      profilePhoto = ProfilePhoto.new(:user_id => user.id)
+      profilePhoto.photo = params[:photo]
+
+      if !profilePhoto.save
+        return render :status => 154, :json => {:message => "User photo cannot be created at this time."}
+      end
+    end
+        
     if user.update_attributes(params[:user])
       puts user.errors.inspect
       return render :status => 200, :json => {:message => "User updated #{user.id}"}

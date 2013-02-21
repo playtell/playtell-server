@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname, :authentication_token, :status 
   
   before_create :set_defaults
-  #after_create :create_profile_photo #, :add_first_friend
+  after_create :create_profile_photo
   before_save :ensure_authentication_token!, :update_status
   
   has_one :playdate  
@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   has_many :device_tokens
   has_many :playdate_photos
+  has_many :profile_photos
   has_many :postcards, :foreign_key => "receiver_id"
   has_many :contacts
   has_many :contact_notifications
@@ -50,8 +51,8 @@ class User < ActiveRecord::Base
   
   # uses the most recently taken photo as this user's profile photo
   def profile_photo
-    photos = self.playdate_photos
-    photos.empty? ? nil : photos.first.photo.url 
+    photos = self.profile_photos
+    photos.empty? ? 'http://ragatzi.s3.amazonaws.com/uploads/profile_default_1.png' : photos.first.photo.url 
   end
 
   def fullName
