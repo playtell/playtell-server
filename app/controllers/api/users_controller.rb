@@ -10,6 +10,7 @@ class Api::UsersController < ApplicationController
     user.username = params[:name]
     user.email = params[:email]
     user.password = params[:password]
+    user.birthday = params[:birthday]
 
     if !user.save
       puts user.errors.inspect
@@ -80,6 +81,10 @@ class Api::UsersController < ApplicationController
       return render :status => 200, :json => {:message => "User updated #{user.id}"}
     end
     return render :status => 400, :json => {:message => "User cannot be updated at this time.", :details => user.errors.inspect}
+  end
+  
+  def show
+    
   end
   
   # required params: user_id, user=>{:current_password=>"", :password=>""}
