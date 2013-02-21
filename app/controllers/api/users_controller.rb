@@ -84,7 +84,12 @@ class Api::UsersController < ApplicationController
   end
   
   def show
+    if params[:user_id].nil? or params[:user_id].empty?
+      return render :status => 400, :json => {:message => 'User id missing'} 
+    end
     
+    user = User.find(params[:user_id])
+    return render :status => 200, :json => {:user => user}
   end
   
   # required params: user_id, user=>{:current_password=>"", :password=>""}

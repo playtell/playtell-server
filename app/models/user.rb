@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
            :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
            #:confirmable, :lockable, :timeoutable
   
-  attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname, :authentication_token, :status 
+  attr_accessible :username, :password, :password_confirmation, :email, :firstname, :lastname, :authentication_token, :status, :birthday
   
   before_create :set_defaults
   after_create :create_profile_photo
@@ -130,6 +130,7 @@ class User < ActiveRecord::Base
       :email => self.email,
       :displayName => self.displayName,
       :fullName => self.fullName,
+      :birthday => self.birthday,
       :profilePhoto => self.profile_photo }      
   end
 
