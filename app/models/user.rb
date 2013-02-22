@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   # uses the most recently taken photo as this user's profile photo
   def profile_photo
     photos = self.profile_photos
-    photos.empty? ? 'http://ragatzi.s3.amazonaws.com/uploads/profile_default_1.png' : photos.first.photo.url 
+    photos.empty? ? 'http://ragatzi.s3.amazonaws.com/uploads/profile_default_1.png' : photos.last.photo
   end
 
   def fullName
