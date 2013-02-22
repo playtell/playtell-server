@@ -10,8 +10,9 @@ class Api::UsersController < ApplicationController
     user.username = params[:name]
     user.email = params[:email]
     user.password = params[:password]
-    user.birthday = Date.strptime(params[:birthday], "%Y-%m-%d") 
-
+    #user.birthday = Date.strptime(params[:birthday], "%Y-%m-%d") 
+    user.birthday = params[:birthday]
+    
     if !user.save
       puts user.errors.inspect
       return render :status => 153, :json => {:message => "User cannot be created at this time."}
@@ -69,7 +70,7 @@ class Api::UsersController < ApplicationController
     # Replace profile photo
     if !params[:user][:photo].blank?
       profilePhoto = ProfilePhoto.new(:user_id => user.id)
-      profilePhoto.photo = params[:photo]
+      profilePhoto.photo = params[:user][:photo]
 
       if !profilePhoto.save
         return render :status => 154, :json => {:message => "User photo cannot be created at this time."}
