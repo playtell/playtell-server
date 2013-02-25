@@ -62,7 +62,7 @@ class Api::UsersController < ApplicationController
   # use for updating all fields except password
   def update
     if params[:user_id].nil? or params[:user_id].empty?
-      return render :status => 400, :json => {:message => 'User id missing'} 
+      return render :status => 400, :json => {:message => 'User_id is missing'} 
     end
     
     user = User.find(params[:user_id])
@@ -79,7 +79,7 @@ class Api::UsersController < ApplicationController
         
     if user.update_attributes(params[:user])
       puts user.errors.inspect
-      return render :status => 200, :json => {:message => "User updated #{user.id}"}
+      return render :status => 200, :json => {:message => "User updated #{user.id}", :profile_photo => profilePhoto.photo.url}
     end
     return render :status => 400, :json => {:message => "User cannot be updated at this time.", :details => user.errors.inspect}
   end
