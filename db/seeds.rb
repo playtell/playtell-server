@@ -311,9 +311,4 @@ g = a.create_game({:client_id => 3})
 
 a = Activity.create({:title => "Math Cents", :publish => 1})
 g = a.create_game({:client_id => 4})
-           
-# create users
-if !User.find_by_username(DEFAULT_FRIEND_NAME)
-  u = User.create(:email => "jason@playtell.com", :password => "rg", :username => DEFAULT_FRIEND_NAME)
-  u.confirmed
-end
+
