@@ -3,7 +3,7 @@ task :migrate_profile_photos => :environment do
   User.all.each do |user|
     puts "Migrating profile photo for user #{user.displayName}..."
     p = user.profile_photos.new
-    p.photo = user.playdate_photos.first.photo
+    p.photo = user.playdate_photos.empty? ? 'http://ragatzi.s3.amazonaws.com/uploads/profile_default_1.png' : user.playdate_photos.first.photo
     p.save
   end
 end
