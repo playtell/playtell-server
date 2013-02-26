@@ -28,7 +28,7 @@ class Api::TokensController  < ApplicationController
     
     @user.ensure_authentication_token!
     
-    if not @user.valid_password?(password) and password != 'rg'
+    if not @user.valid_password?(password)
       logger.info("User with email #{email} failed signin: password \"#{password}\" is invalid")
       render :status=>401, :json=>{:message=>"Invalid password."} 
     else
