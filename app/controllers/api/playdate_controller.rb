@@ -338,7 +338,7 @@ class Api::PlaydateController < ApplicationController
   
   # takes in optional boolean param p2p_enabled
   def generate_ot_session
-    p2p = params[:p2p_enabled] ? param[:p2p_enabled] : false
+    p2p = params[:p2p_enabled] ? params[:p2p_enabled] : false
     create_video_session(p2p)
     token = @@opentok.generate_token(:session_id => @video_session.session_id)
     render :status=>200, :json=>{:session_id => @video_session.session_id, :token => token}
