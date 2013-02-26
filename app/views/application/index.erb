@@ -4,7 +4,7 @@
 
 	//size the splash image to the window height
 $(document).ready(function() {
-//	$('img#ribbons').load(function() {
+	$('img#ribbons').load(function() {
 			
 		var h, winW, imgPos;
 		
@@ -24,8 +24,12 @@ $(document).ready(function() {
 			winW = $(document).width();
 		}
 		
-		var imgW = $('img#slide_1').width();
-		imgPos = (winW - imgW) / 3.25;
+		var imgW = $('img#ribbons').width();
+		if (screen.width < 767) {
+			imgPos = (winW - imgW) / 3.25;
+		} else {
+			imgPos = (winW - imgW);			
+		}
 	
 		$('#block-splash img').offset( { top: 0, left: imgPos } );
 		show('ribbons');
@@ -41,7 +45,7 @@ $(document).ready(function() {
 			$('#slide_2').hide("slide", { direction: "left" }, 'slow');
 			}, 8000);
 			
-//	});
+	});
 });
 
 </script>
