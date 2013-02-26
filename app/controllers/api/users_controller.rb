@@ -79,7 +79,7 @@ class Api::UsersController < ApplicationController
         
     if user.update_attributes(params[:user])
       puts user.errors.inspect
-      return render :status => 200, :json => {:message => "User updated #{user.id}", :profile_photo => user.profile_photo.photo.url}
+      return render :status => 200, :json => {:message => "User updated #{user.id}", :profile_photo => user.profile_photo}
     end
     return render :status => 400, :json => {:message => "User cannot be updated at this time.", :details => user.errors.inspect}
   end
