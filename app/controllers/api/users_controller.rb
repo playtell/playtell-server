@@ -119,7 +119,7 @@ class Api::UsersController < ApplicationController
     friends = []
     u.allApprovedAndPendingFriendships.each do |friendship|
       # Friendship status
-      if friendship.user_id == current_user.id
+      if friendship.user_id == u.id
         friend_id = friendship.friend_id
       else
         friend_id = friendship.user_id
