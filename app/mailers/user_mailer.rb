@@ -17,12 +17,11 @@ class UserMailer < ActionMailer::Base
       mail(:to => @invitee.email, :subject => betauser.username.capitalize + " got you early access to PlayTell :)")
   end
 
-  def contact_invitation(current_user, contact, message)
-    @contact = contact
+  def contact_invitation(current_user, email, message)
     @message = message
     @app_store_link = APP_STORE_LINK
     @current_user = current_user
-    mail(:to => contact.email, :subject => "Keeping in touch")
+    mail(:to => email, :subject => "Keeping in touch")
   end
 
   def friendship_invitation(current_user, invitee)
