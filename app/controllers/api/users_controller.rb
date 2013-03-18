@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_filter :authenticate_user!, :except => [:create, :email_check, :sign_in]
+  before_filter :authenticate_user!, :except => [:create, :email_check, :sign_in, :reset_password]
   respond_to :json
 
   # required params: name, email, password, photo, birthdate, isAccountForChild
@@ -182,6 +182,21 @@ class Api::UsersController < ApplicationController
     end
     
     render :status => 200, :json => {:available => user.nil?}
+  end
+  
+  # required params: user_id
+  def reset_password
+    if params[:email].blank? 
+      return render :status => 400, :json => {:message => 'Email is missing'} 
+    end
+    
+    u = User.find_by_email(params[:email])
+    if u.nil? 
+      return render :status => 400, :json => {:message => 'No user with that email found'} 
+    end
+    
+    u.send_reset_password_instructions
+    render :status => 200, :json => {:new_authentication_token => u.authentication_token}
   end
 
 end

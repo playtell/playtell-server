@@ -61,6 +61,7 @@ Semiralabs::Application.routes.draw do
     match 'users/show' => 'users#show'
     match 'users/change_password' => 'users#change_password'
     match 'users/email_check' => 'users#email_check'
+    match 'users/reset_password' => 'users#reset_password'
     match 'users/sign_in' => 'users#sign_in'
     match 'pusher/hook' => 'pusher#hook'
     match 'contacts/create_list' => 'contacts#create_list'
