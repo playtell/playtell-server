@@ -1252,14 +1252,16 @@ div.devise-container {
 	background-size: cover;
 	height: 600px;
 	width: 100%;
+	text-align: center;
 }
 
 div.change-password-box {
-	margin: 0px auto;
+	margin: 20px auto;
 	background-color: #e3ebee;
 	border-radius: 14px;
-	height: 340px;
-	width: 534px;
+	height: 285px;
+	width: 500px;
+	padding: 30px 0px;
 }
 
 div.change-password-box p.password-instructions, div.change-password-box p label {
@@ -1288,15 +1290,15 @@ div.change-password-box p.submit-button {
 div.change-password-box hr {
 	background:#6a919f;
 	height:1px;
-	width: 500px;
+	width: 470px;
 	margin: 10px 0px 20px 15px;
 }
 
-div.change-password-box form {
-	display: block;
+div.password-form {
 	margin: 0px auto;
+	width: 320px;
+	text-align: left;
 }
-
 
 /* LANDING PAGE --------------------------------------------------------- */
 
