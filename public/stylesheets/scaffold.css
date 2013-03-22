@@ -1250,7 +1250,7 @@ p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height
 div.devise-container {
 	background: url("http://playtell.s3.amazonaws.com/HomePage/background.png") center center no-repeat;
 	background-size: cover;
-	height: 600px;
+	height: 100%;
 	width: 100%;
 	text-align: center;
 }
