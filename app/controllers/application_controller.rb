@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   before_filter :pusher, :only => [:turnPage]
   before_filter :initialize_mixpanel
   
+  layout :specify_layout
+  
   def index 
      @earlyUser = EarlyUser.new
   end
@@ -61,6 +63,14 @@ class ApplicationController < ActionController::Base
   end
   
   def timeline
+  end
+  
+  def specify_layout
+    if devise_controller?
+      "devise"
+    else
+      "application"
+    end
   end
     
 private  

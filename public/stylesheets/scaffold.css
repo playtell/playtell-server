@@ -1245,7 +1245,60 @@ p a#next-link:active.title { background-position: 0 -1264px; width: 37px; height
 
 .handle:hover{cursor: move;}
 
-/* OLD LANDING PAGE + LOGIN --------------------------------------------------------- */
+/* CHANGE PASSWORD --------------------------------------------------------- */
+
+div.devise-container {
+	background: url("http://playtell.s3.amazonaws.com/HomePage/background.png") center center no-repeat;
+	background-size: cover;
+	height: 600px;
+	width: 100%;
+}
+
+div.change-password-box {
+	margin: 0px auto;
+	background-color: #e3ebee;
+	border-radius: 14px;
+	height: 340px;
+	width: 534px;
+}
+
+div.change-password-box p.password-instructions, div.change-password-box p label {
+	font-family: 'Arial', sans-serif;
+	font-size: 18px;
+}
+
+div.change-password-box p.password-instructions {
+	color: #6a919f;
+	text-align: center;
+	padding: 15px 0px 0px 0px;
+}
+
+div.change-password-box p {
+	margin-bottom: 5px;
+}
+
+div.change-password-box p label {
+	color: #2d4856;
+}
+
+div.change-password-box p.submit-button {
+	margin-top: 20px;
+}
+
+div.change-password-box hr {
+	background:#6a919f;
+	height:1px;
+	width: 500px;
+	margin: 10px 0px 20px 15px;
+}
+
+div.change-password-box form {
+	display: block;
+	margin: 0px auto;
+}
+
+
+/* LANDING PAGE --------------------------------------------------------- */
 
 .landingpage {
 	background: url("/images/grey.jpg") no-repeat;
