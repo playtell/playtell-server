@@ -1255,6 +1255,10 @@ div.devise-container {
 	text-align: center;
 }
 
+div.devise-container img {
+	padding: 40px 0px 20px 0px;
+}
+
 div.change-password-box {
 	margin: 20px auto;
 	background-color: #e3ebee;
