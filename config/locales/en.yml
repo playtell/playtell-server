@@ -2,4 +2,15 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+    activerecord:
+        attributes:
+            user:
+                reset_password_token: Password token
+        errors:
+            models:
+                user:
+                    attributes:
+                        reset_password_token:
+                            blank: "You can't change your password without coming from a password reset email. If you did come from a password reset email, please try the link again."
+            messages:
+                confirmation: "Your passwords do not match. Please enter them again."

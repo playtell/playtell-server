@@ -1,22 +1,18 @@
-<%= image_tag "logo.png", :alt => "PlayTell" %>
+<%= image_tag "playtell_logo.png", :alt => "PlayTell" %>
 
 <div class="block change-password-box">
-	<p class="password-instructions">Please enter a new password for your PlayTell account.</p>
+	<% if resource.errors.blank? %>
+		<p class="password-instructions">Please enter a new password for your PlayTell account.</p>
+	<% else %>
+	    <% resource.errors.each do |key, msg| %>
+	      <p class="password-instructions password-error"><%= msg %></p>
+	    <% end %>
+	<% end %>
+	
 	<hr>
 
 	<div class="block password-form">
 		<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-		
-		<%= devise_error_messages! %>
-
-		<% if resource.errors %>
-		<hr>
-		    <ul>
-		      <% resource.errors.each do |key, msg| %>
-		        <li><%= msg %></li>
-		      <% end %>
-		    </ul>
-		<% end %>		  
 	
 	   <%= f.hidden_field :reset_password_token %>
 
@@ -30,3 +26,11 @@
 		<% end %>
 	</div>
 </div>
+
+<script type="text/javascript">
+	
+	$(document).ready(function() { 			
+		
+	});
+	
+</script>
