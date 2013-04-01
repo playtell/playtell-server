@@ -1,0 +1,6 @@
+<h1>PlayTell Users - Email list (<%= @users.count %>)</h1> 
+<div class="admin-div">
+	<% for user in @users %>
+		<p><%= user.email %></p>
+	<% end %>
+</div>

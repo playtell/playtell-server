@@ -13,6 +13,9 @@ Semiralabs::Application.routes.draw do
   end
   match 'remove_user' => 'users#remove'
   match 'remove_earlyuser' => 'users#remove_earlyuser'
+  match 'users_email_list' => 'users#users_email_list'
+  match 'earlyusers_email_list' => 'users#earlyusers_email_list'
+  
   resources :friendships do
     collection do
       post 'add'

@@ -16,7 +16,9 @@
 <br>
 <div class="admin">
 	<div class="user-container inline-block admin-div">
-		<h1>PlayTell Users (<%= @peeps.count %>)</h1>
+		<h1>PlayTell Users (<%= @peeps.count %>)</h1> 
+		<h4><%= link_to "Email list >>", users_email_list_path %></h4>
+		<br>
 		<% for user in @peeps %>
 			<h3>[<%= user.id %>] <%= user.displayName %></h3> 
 			<%= link_to 'Delete User', remove_user_path(:user_id => user.id) %>
@@ -41,6 +43,8 @@
 	</div>
 	<div class="early-user-container inline-block admin-div">
 		<h1>Early User Signups (<%= @earlypeeps.count %>)</h1>
+		<h4><%= link_to "Email list >>", earlyusers_email_list_path %></h4>
+		<br>
 		<p>Key: </p>
 		<p>Owns iPad (0=no, 1=yes)</p>
 		<p>Has kidz (0=no, 1=has kidz, 2=vid chats w/ kidz)

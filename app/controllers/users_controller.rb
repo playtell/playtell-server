@@ -45,6 +45,15 @@ class UsersController < ApplicationController
     redirect_to allofplaytellsusers_users_path
   end
   
+  #for admin
+  def users_email_list
+    @users = User.order("id DESC")
+  end
+  
+  def earlyusers_email_list
+    @earlyusers = EarlyUser.order("id DESC")
+  end
+  
   def chooseLayout 
     case action_name
     when 'show'
