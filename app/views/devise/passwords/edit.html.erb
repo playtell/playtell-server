@@ -1,11 +1,14 @@
 <%= image_tag "playtell_logo.png", :alt => "PlayTell" %>
 
 <div class="block change-password-box">
+	<%= devise_error_messages! %>
+
 	<% if resource.errors.blank? %>
 		<p class="password-instructions">Please enter a new password for your PlayTell account.</p>
 	<% else %>
+  
 	    <% resource.errors.each do |key, msg| %>
-	      <p class="password-instructions password-error"><%= msg %></p>
+	      <p class="password-instructions password-error"><%= key msg %></p>
 	    <% end %>
 	<% end %>
 	

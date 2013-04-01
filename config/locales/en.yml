@@ -12,5 +12,6 @@ en:
                     attributes:
                         reset_password_token:
                             blank: "You can't change your password without coming from a password reset email. If you did come from a password reset email, please try the link again."
+                            invalid: "To protect your privacy, this link has expired or has already been used. You must go back to the app and reset your password again."
             messages:
                 confirmation: "Your passwords do not match. Please enter them again."
