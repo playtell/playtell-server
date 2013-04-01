@@ -4,7 +4,7 @@ Semiralabs::Application.routes.draw do
   match 'update_playdate' => 'games#updatePlaydate'
   match 'feedbacks' => 'feedback#create'
 
-  devise_for :users, :controllers => { :sessions => "sessions" }
+  devise_for :users, :controllers => { :sessions => "sessions", :passwords => "passwords" }
   resources :users, :only => [:show] do
     collection do
       get 'search'

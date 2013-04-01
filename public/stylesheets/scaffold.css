@@ -1267,7 +1267,7 @@ div.change-password-box {
 	padding: 30px 0px;
 }
 
-div.change-password-box p.password-instructions, div.change-password-box p label {
+div.change-password-box p.password-instructions, div.change-password-box label {
 	font-family: 'Arial', sans-serif;
 	font-size: 18px;
 }
